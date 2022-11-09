@@ -18,6 +18,11 @@ namespace RidePal.Data.Models
 
         public Artist Artist { get; set; }
 
+        [Required]
+        public int? GenreId { get; set; }
+
+        public Genre Genre { get; set; }
+
         public ICollection<Track> Tracks { get; set; }
 
         [Required]
