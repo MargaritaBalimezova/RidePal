@@ -4,7 +4,7 @@ using System.Text;
 
 namespace RidePal.Data.Models
 {
-    internal class Track
+    public class Track
     {
     }
 }
