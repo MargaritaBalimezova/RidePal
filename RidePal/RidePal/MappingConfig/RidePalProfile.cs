@@ -8,6 +8,18 @@ namespace MovieForum.Web.MappingConfig
     {
         public RidePalProfile()
         {
+            this.CreateMap<Track, TrackDTO>()
+                .ReverseMap();
+
+            this.CreateMap<Album, AlbumDTO>()
+                .ReverseMap();
+
+            this.CreateMap<Artist, ArtistDTO>()
+                .ReverseMap();
+            
+            this.CreateMap<Genre, GenreDTO>()
+                .ReverseMap();
+
             this.CreateMap<User, UserDTO>()
                 .ForMember(dest => dest.Id, act => act.MapFrom(src => src.Id))
                 .ForMember(dest => dest.Role, act => act.MapFrom(src => src.Role.Name))
