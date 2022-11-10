@@ -6,7 +6,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MovieForum.Web.MappingConfig;
 using RidePal.Data;
-using RidePal.WEB.MappingConfig;
 using System;
 using System.Collections.Generic;
 using System.Linq;
