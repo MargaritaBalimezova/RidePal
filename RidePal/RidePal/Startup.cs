@@ -13,6 +13,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using RidePal.Services.Interfaces;
 using RidePal.Services.Services;
+using System;
 
 namespace RidePal
 {
@@ -36,6 +37,11 @@ namespace RidePal
                 options.EnableSensitiveDataLogging();
             });
 
+            services.AddHttpClient<IBingMapsServices,BingMapsServices>(options =>
+            {
+                options.BaseAddress = new Uri("http://dev.virtualearth.net/REST/v1/");
+                options.DefaultRequestHeaders.Add("Accept", "application/.json");
+            });
             services.AddControllers();
             services.AddAutoMapper(cfg => cfg.AddProfile<RidePalProfile>());
 

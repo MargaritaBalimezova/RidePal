@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using RidePal.Data.Models;
 using RidePal.Models;
+using RidePal.Services.Interfaces;
+using RidePal.Services.Models;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -12,15 +15,27 @@ namespace RidePal.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IBingMapsServices _mapsService;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IBingMapsServices mapsService)
         {
             _logger = logger;
+            _mapsService = mapsService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var cred = new TripQuerryParameters
+            {
+                DepartCountry = "BG",
+                ArriveCountry = "BG",
+                DepartCity = "Plovdiv",
+                ArriveCity = "Sofia"
+            };
+
+            var res = await  _mapsService.GetTrip(cred);
+
+            return View(res);
         }
 
         public IActionResult Privacy()
