@@ -6,6 +6,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MovieForum.Web.MappingConfig;
 using RidePal.Data;
+using RidePal.WEB.MappingConfig;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using RidePal.Services.Interfaces;
 using RidePal.Services.Services;
 
@@ -24,7 +29,7 @@ namespace RidePal
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-
+            services.AddAutoMapper(cfg => cfg.AddProfile<RidePalProfile>());
             services.AddDbContext<RidePalContext>(options =>
             {
                 options.UseSqlServer(Configuration.GetConnectionString("Default"));

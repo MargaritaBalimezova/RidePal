@@ -9,7 +9,7 @@ using RidePal.Data.Models;
 
 namespace RidePal.Data
 {
-    public class RidePalContext:DbContext
+    public class RidePalContext: DbContext
     {
         public RidePalContext(DbContextOptions<RidePalContext> options) : base(options)
         {
@@ -30,6 +30,21 @@ namespace RidePal.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Album>()
+                .HasQueryFilter(album => album.IsDeleted == false);
+            modelBuilder.Entity<Artist>()
+                .HasQueryFilter(artist => artist.IsDeleted == false);
+            modelBuilder.Entity<Genre>()
+                .HasQueryFilter(genre => genre.IsDeleted == false);
+            modelBuilder.Entity<Playlist>()
+                .HasQueryFilter(playlist => playlist.IsDeleted == false);
+            modelBuilder.Entity<Track>()
+                .HasQueryFilter(track => track.IsDeleted == false);
+            modelBuilder.Entity<Trip>()
+                .HasQueryFilter(trip => trip.IsDeleted == false);
+            modelBuilder.Entity<User>()
+                .HasQueryFilter(user => user.IsDeleted == false);
+
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.ApplyConfigurationsFromAssembly(this.GetType().Assembly);

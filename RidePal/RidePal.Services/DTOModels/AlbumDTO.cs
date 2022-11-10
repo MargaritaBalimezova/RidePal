@@ -15,13 +15,13 @@ namespace RidePal.Services.DTOModels
         [Required]
         public int? ArtistId { get; set; }
 
-        public virtual ArtistDTO Artist { get; set; }
+        public ArtistDTO Artist { get; set; }
 
         [Required]
         public int? GenreId { get; set; }
 
-        public virtual GenreDTO Genre { get; set; }
+        public GenreDTO Genre { get; set; }
 
-        public virtual ICollection<TrackDTO> Tracks { get; set; }
+        public ICollection<TrackDTO> Tracks { get; set; }
     }
 }

@@ -9,6 +9,6 @@ namespace RidePal.Services.Interfaces
 {
     public interface ITrackServices : ICRUDOperations<TrackDTO>
     {
-        Task<IQueryable<TrackDTO>> GetByIdAsync();
+        TrackDTO GetByIdAsync(int id);
     }
 }

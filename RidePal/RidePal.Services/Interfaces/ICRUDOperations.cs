@@ -8,7 +8,7 @@ namespace RidePal.Services.Interfaces
 {
     public interface ICRUDOperations<T> where T : class
     {
-        Task<IQueryable<T>> GetAsync();
+        IQueryable<T> Get();
         Task<T> PostAsync(T obj);
         Task<T> UpdateAsync(int id, T obj);
         Task<T> DeleteAsync(int id);
