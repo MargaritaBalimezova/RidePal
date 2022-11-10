@@ -103,6 +103,30 @@ namespace RidePal.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "FriendRequests",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    RecipientId = table.Column<int>(type: "int", nullable: false),
+                    SenderId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_FriendRequests", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_FriendRequests_Users_RecipientId",
+                        column: x => x.RecipientId,
+                        principalTable: "Users",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_FriendRequests_Users_SenderId",
+                        column: x => x.SenderId,
+                        principalTable: "Users",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "PlayLists",
                 columns: table => new
                 {
@@ -248,6 +272,16 @@ namespace RidePal.Data.Migrations
                 column: "GenreId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_FriendRequests_RecipientId",
+                table: "FriendRequests",
+                column: "RecipientId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_FriendRequests_SenderId",
+                table: "FriendRequests",
+                column: "SenderId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Genres_PlaylistId",
                 table: "Genres",
                 column: "PlaylistId");
@@ -301,6 +335,9 @@ namespace RidePal.Data.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "FriendRequests");
+
             migrationBuilder.DropTable(
                 name: "Tracks");
 

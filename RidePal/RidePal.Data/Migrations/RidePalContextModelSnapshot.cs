@@ -90,6 +90,28 @@ namespace RidePal.Data.Migrations
                     b.ToTable("Audience");
                 });
 
+            modelBuilder.Entity("RidePal.Data.Models.FriendRequest", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("RecipientId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SenderId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RecipientId");
+
+                    b.HasIndex("SenderId");
+
+                    b.ToTable("FriendRequests");
+                });
+
             modelBuilder.Entity("RidePal.Data.Models.Genre", b =>
                 {
                     b.Property<int>("Id")
@@ -348,6 +370,25 @@ namespace RidePal.Data.Migrations
                     b.Navigation("Genre");
                 });
 
+            modelBuilder.Entity("RidePal.Data.Models.FriendRequest", b =>
+                {
+                    b.HasOne("RidePal.Data.Models.User", "Recipient")
+                        .WithMany("ReceivedFriendRequests")
+                        .HasForeignKey("RecipientId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("RidePal.Data.Models.User", "Sender")
+                        .WithMany("SentFriendRequests")
+                        .HasForeignKey("SenderId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("Recipient");
+
+                    b.Navigation("Sender");
+                });
+
             modelBuilder.Entity("RidePal.Data.Models.Genre", b =>
                 {
                     b.HasOne("RidePal.Data.Models.Playlist", null)
@@ -458,6 +499,10 @@ namespace RidePal.Data.Migrations
                     b.Navigation("Friends");
 
                     b.Navigation("Playlists");
+
+                    b.Navigation("ReceivedFriendRequests");
+
+                    b.Navigation("SentFriendRequests");
                 });
 #pragma warning restore 612, 618
         }

@@ -4,11 +4,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using MovieForum.Web.MappingConfig;
 using RidePal.Data;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using RidePal.Services.Interfaces;
+using RidePal.Services.Services;
 
 namespace RidePal
 {
@@ -31,6 +30,11 @@ namespace RidePal
                 options.UseSqlServer(Configuration.GetConnectionString("Default"));
                 options.EnableSensitiveDataLogging();
             });
+
+            services.AddControllers();
+            services.AddAutoMapper(cfg => cfg.AddProfile<RidePalProfile>());
+
+            services.AddScoped<IUserServices,UserServices>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
