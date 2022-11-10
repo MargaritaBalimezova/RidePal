@@ -1,8 +1,6 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿@model RidePal.Data.Models.Trip
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<h4>Start point:@this.Model.StartPoint </h4>
+<h4>Destionation:@this.Model.Destination </h4>
+<h4>Distance:@this.Model.Distance km.</h4>
+<h4>Duration:@this.Model.Duration min.</h4>
