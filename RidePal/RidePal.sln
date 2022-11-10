@@ -4,10 +4,16 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.3.32929.385
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RidePal.WEB", "RidePal\RidePal.WEB.csproj", "{4E684075-C1AD-4D6B-817D-3E56DC090F42}"
+	ProjectSection(ProjectDependencies) = postProject
+		{05449872-708A-43F8-9DF2-DAEC46F83E12} = {05449872-708A-43F8-9DF2-DAEC46F83E12}
+	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RidePal.Services", "RidePal.Services\RidePal.Services.csproj", "{05449872-708A-43F8-9DF2-DAEC46F83E12}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RidePal.Services", "RidePal.Services\RidePal.Services.csproj", "{05449872-708A-43F8-9DF2-DAEC46F83E12}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C62C8250-4230-4DB0-976A-6F978E2AF8EE} = {C62C8250-4230-4DB0-976A-6F978E2AF8EE}
+	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RidePal.Data", "RidePal.Data\RidePal.Data.csproj", "{C62C8250-4230-4DB0-976A-6F978E2AF8EE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RidePal.Data", "RidePal.Data\RidePal.Data.csproj", "{C62C8250-4230-4DB0-976A-6F978E2AF8EE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

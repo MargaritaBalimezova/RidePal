@@ -6,7 +6,7 @@ using System.Text;
 
 namespace RidePal.Data.Models
 {
-    class User : IHasId, IDeletable
+    public class User : IHasId, IDeletable
     {
         public int Id { get; set; }
 

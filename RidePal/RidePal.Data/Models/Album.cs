@@ -16,14 +16,14 @@ namespace RidePal.Data.Models
         [Required]
         public int? ArtistId { get; set; }
 
-        public Artist Artist { get; set; }
+        public virtual Artist Artist { get; set; }
 
         [Required]
         public int? GenreId { get; set; }
 
-        public Genre Genre { get; set; }
+        public virtual Genre Genre { get; set; }
 
-        public ICollection<Track> Tracks { get; set; }
+        public virtual ICollection<Track> Tracks { get; set; }
 
         [Required]
         public bool IsDeleted { get; set; }

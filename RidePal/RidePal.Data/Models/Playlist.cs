@@ -6,7 +6,7 @@ using System.Text;
 
 namespace RidePal.Data.Models
 {
-    class Playlist : IHasId, IDeletable
+    public class Playlist : IHasId, IDeletable
     {
         public int Id { get; set; }
 
@@ -30,22 +30,18 @@ namespace RidePal.Data.Models
 
         [Required]
         public int? TripId { get; set; }
-
         [Required]
-        //TODO Trip
-        public string Trip { get; set; }
+        public virtual Trip Trip { get; set; }       
 
         [Required]
         public int? AudienceId { get; set; }
 
         [Required]
-        public Audience Audience { get; set; }
+        public virtual Audience Audience { get; set; }
 
-        [Required]
-        public ICollection<Track> Tracks { get; set; } = new List<Track>();
-
-        [Required]
-        public ICollection<Genre> Grenres { get; set; } = new List<Genre>();
+        public virtual ICollection<Track> Tracks { get; set; } = new List<Track>();
+        
+        public virtual ICollection<Genre> Grenres { get; set; } = new List<Genre>();
 
         [Required]
         public bool IsDeleted { get; set; }

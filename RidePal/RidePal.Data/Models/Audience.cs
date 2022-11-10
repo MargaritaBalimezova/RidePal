@@ -5,7 +5,7 @@ using System.Text;
 
 namespace RidePal.Data.Models
 {
-    class Audience : IHasId
+    public class Audience : IHasId
     {
         public int Id { get; set; }
 
