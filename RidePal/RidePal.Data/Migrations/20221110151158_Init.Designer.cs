@@ -10,7 +10,7 @@ using RidePal.Data;
 namespace RidePal.Data.Migrations
 {
     [DbContext(typeof(RidePalContext))]
-    [Migration("20221110115732_Init")]
+    [Migration("20221110151158_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -90,6 +90,28 @@ namespace RidePal.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Audience");
+                });
+
+            modelBuilder.Entity("RidePal.Data.Models.FriendRequest", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("RecipientId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SenderId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RecipientId");
+
+                    b.HasIndex("SenderId");
+
+                    b.ToTable("FriendRequests");
                 });
 
             modelBuilder.Entity("RidePal.Data.Models.Genre", b =>
@@ -350,6 +372,25 @@ namespace RidePal.Data.Migrations
                     b.Navigation("Genre");
                 });
 
+            modelBuilder.Entity("RidePal.Data.Models.FriendRequest", b =>
+                {
+                    b.HasOne("RidePal.Data.Models.User", "Recipient")
+                        .WithMany("ReceivedFriendRequests")
+                        .HasForeignKey("RecipientId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("RidePal.Data.Models.User", "Sender")
+                        .WithMany("SentFriendRequests")
+                        .HasForeignKey("SenderId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("Recipient");
+
+                    b.Navigation("Sender");
+                });
+
             modelBuilder.Entity("RidePal.Data.Models.Genre", b =>
                 {
                     b.HasOne("RidePal.Data.Models.Playlist", null)
@@ -460,6 +501,10 @@ namespace RidePal.Data.Migrations
                     b.Navigation("Friends");
 
                     b.Navigation("Playlists");
+
+                    b.Navigation("ReceivedFriendRequests");
+
+                    b.Navigation("SentFriendRequests");
                 });
 #pragma warning restore 612, 618
         }

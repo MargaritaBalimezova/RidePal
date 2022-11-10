@@ -32,7 +32,6 @@ namespace RidePal.Data.Models
         [Required]
         public int RoleId { get; set; }
 
-        [Required]
         public virtual Role Role { get; set; }
 
         [Required]
@@ -44,6 +43,9 @@ namespace RidePal.Data.Models
         public virtual ICollection<Playlist> Playlists { get; set; } = new List<Playlist>();
 
         public virtual ICollection<User> Friends { get; set; } = new List<User>();
+
+        public virtual ICollection<FriendRequest> SentFriendRequests { get; set; } = new List<FriendRequest>();
+        public virtual ICollection<FriendRequest> ReceivedFriendRequests { get; set; } = new List<FriendRequest>();
 
         [Required]
         public bool IsDeleted { get; set; }
