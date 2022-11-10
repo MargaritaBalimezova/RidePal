@@ -14,7 +14,9 @@ namespace RidePal.Data.Models
         [Required]
         public string Destination { get; set; }
         [Required]
-        public int Duration { get; set; }
+        public float Distance { get; set; }
+        [Required]
+        public float Duration { get; set; }
         [Required]
         public int PlaylistId { get; set; }
         [Required]
