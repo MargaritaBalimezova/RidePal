@@ -13,6 +13,8 @@ using System.Threading.Tasks;
 using RidePal.Services.Interfaces;
 using RidePal.Services.Services;
 using System;
+using RidePal.Data.DataInitialize;
+using RidePal.Data.DataInitialize.Interfaces;
 
 namespace RidePal
 {
@@ -41,10 +43,18 @@ namespace RidePal
                 options.BaseAddress = new Uri("http://dev.virtualearth.net/REST/v1/");
                 options.DefaultRequestHeaders.Add("Accept", "application/.json");
             });
+
+            services.AddHttpClient<IFetchSongs, FetchSongs>(options =>
+            {
+                options.BaseAddress = new Uri("https://api.deezer.com/search/");
+                options.DefaultRequestHeaders.Add("Accept", "application/.json");
+            });
+
             services.AddControllers();
             services.AddAutoMapper(cfg => cfg.AddProfile<RidePalProfile>());
 
             services.AddScoped<IUserServices,UserServices>();
+            services.AddScoped<ITrackServices, TrackServices>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

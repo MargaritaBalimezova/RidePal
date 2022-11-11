@@ -10,7 +10,7 @@ using RidePal.Data;
 namespace RidePal.Data.Migrations
 {
     [DbContext(typeof(RidePalContext))]
-    [Migration("20221110151158_Init")]
+    [Migration("20221111164805_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -277,8 +277,11 @@ namespace RidePal.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Duration")
-                        .HasColumnType("int");
+                    b.Property<float>("Distance")
+                        .HasColumnType("real");
+
+                    b.Property<float>("Duration")
+                        .HasColumnType("real");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
@@ -440,7 +443,7 @@ namespace RidePal.Data.Migrations
                         .IsRequired();
 
                     b.HasOne("RidePal.Data.Models.Genre", "Genre")
-                        .WithMany()
+                        .WithMany("Tracks")
                         .HasForeignKey("GenreId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -480,6 +483,11 @@ namespace RidePal.Data.Migrations
                 {
                     b.Navigation("Albums");
 
+                    b.Navigation("Tracks");
+                });
+
+            modelBuilder.Entity("RidePal.Data.Models.Genre", b =>
+                {
                     b.Navigation("Tracks");
                 });
 

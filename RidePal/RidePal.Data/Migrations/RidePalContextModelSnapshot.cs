@@ -275,8 +275,11 @@ namespace RidePal.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Duration")
-                        .HasColumnType("int");
+                    b.Property<float>("Distance")
+                        .HasColumnType("real");
+
+                    b.Property<float>("Duration")
+                        .HasColumnType("real");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
@@ -438,7 +441,7 @@ namespace RidePal.Data.Migrations
                         .IsRequired();
 
                     b.HasOne("RidePal.Data.Models.Genre", "Genre")
-                        .WithMany()
+                        .WithMany("Tracks")
                         .HasForeignKey("GenreId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -478,6 +481,11 @@ namespace RidePal.Data.Migrations
                 {
                     b.Navigation("Albums");
 
+                    b.Navigation("Tracks");
+                });
+
+            modelBuilder.Entity("RidePal.Data.Models.Genre", b =>
+                {
                     b.Navigation("Tracks");
                 });
 

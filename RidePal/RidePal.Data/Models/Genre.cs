@@ -13,6 +13,8 @@ namespace RidePal.Data.Models
         [Required]
         public string Name { get; set; }
 
+        public virtual ICollection<Track> Tracks { get; set; }
+
         [Required]
         public bool IsDeleted { get; set; }
 
