@@ -50,6 +50,18 @@ namespace RidePal
                 options.DefaultRequestHeaders.Add("Accept", "application/.json");
             });
 
+            services.AddHttpClient<ISpotifyAccountServices, SpotifyAccountServices>(c =>
+            {
+                c.BaseAddress = new Uri("https://accounts.spotify.com/api/");
+            });
+
+            services.AddHttpClient<ISpotifyServices, SpotifyServices>(x =>
+            {
+                x.BaseAddress = new Uri(" https://api.spotify.com/v1/");
+                x.DefaultRequestHeaders.Add("Accept", "application/.json");
+            });
+
+       
             services.AddControllers();
             services.AddAutoMapper(cfg => cfg.AddProfile<RidePalProfile>());
 
