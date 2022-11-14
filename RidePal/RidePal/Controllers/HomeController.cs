@@ -16,15 +16,24 @@ namespace RidePal.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IBingMapsServices _mapsService;
+        private readonly ISpotifyAccountServices _spotifyAccount;
+        private readonly ISpotifyServices _spotify;
 
-        public HomeController(ILogger<HomeController> logger, IBingMapsServices mapsService)
+        public HomeController(ILogger<HomeController> logger, 
+            IBingMapsServices mapsService, 
+            ISpotifyAccountServices spotifyAccount, 
+            ISpotifyServices spotify)
         {
             _logger = logger;
             _mapsService = mapsService;
+            _spotifyAccount = spotifyAccount;
+            _spotify = spotify;
         }
 
         public async Task<IActionResult> Index()
         {
+
+
             var cred = new TripQuerryParameters
             {
                 DepartCountry = "BG",
@@ -32,10 +41,13 @@ namespace RidePal.Controllers
                 DepartCity = "Plovdiv",
                 ArriveCity = "Sofia"
             };
+            var token = await _spotifyAccount.GetToken("1384de232d244717acb19e6f96f43c16", "93871af5c604451f95319223c52b882c");
 
-            var res = await  _mapsService.GetTrip(cred);
+            var search = await _spotify.GetRapSongs(token);
 
-            return View(res);
+            
+
+            return View(search.OrderByDescending(x=>x.Rank));
         }
 
         public IActionResult Privacy()

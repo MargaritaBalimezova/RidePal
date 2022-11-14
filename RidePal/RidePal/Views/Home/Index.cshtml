@@ -1,6 +1,16 @@
-﻿@model RidePal.Data.Models.Trip
+﻿@model IEnumerable<RidePal.Data.Models.Track>
 
-<h4>Start point:@this.Model.StartPoint </h4>
-<h4>Destionation:@this.Model.Destination </h4>
-<h4>Distance:@this.Model.Distance km.</h4>
-<h4>Duration:@this.Model.Duration min.</h4>
+@{
+    foreach (var item in this.Model)
+    {
+        <h4>@item.Title</h4>
+        <h4>@item.GenreName</h4>
+        <h4>@item.Duration</h4>
+        <h4>@item.Rank</h4>
+        <br>
+        <br>
+        <hr>
+    }
+}
+
+<h3>@this.Model.Count()</h3>

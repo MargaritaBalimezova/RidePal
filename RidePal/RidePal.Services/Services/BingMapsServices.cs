@@ -13,6 +13,7 @@ using System.Text.Json;
 using static RidePal.Services.Models.GetLocationModel;
 using static RidePal.Services.Models.GetDistanceModel;
 using Microsoft.EntityFrameworkCore.Diagnostics;
+using RidePal.Data.DataInitialize.Interfaces;
 
 namespace RidePal.Services.Services
 {
@@ -21,9 +22,12 @@ namespace RidePal.Services.Services
         
         private readonly HttpClient _client;
 
-        public BingMapsServices(HttpClient client)
+        private readonly IFetchSongs fetchSongs;
+
+        public BingMapsServices(HttpClient client, IFetchSongs fetchSongs)
         {
             _client = client;
+            this.fetchSongs = fetchSongs;
         }
 
         public async Task<LocationPoint> GetLocation(string countryRegion, string adminDistinct, string addressLine)
@@ -85,6 +89,8 @@ namespace RidePal.Services.Services
             var responseObject = await JsonSerializer.DeserializeAsync<GetDistance>(responseStream);
 
             var res = responseObject.resourceSets[0].resources[0].results[0];
+
+            await fetchSongs.GetTracks("rap");
 
             return new Trip
             {

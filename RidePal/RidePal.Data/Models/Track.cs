@@ -6,7 +6,7 @@ using System.Text;
 
 namespace RidePal.Data.Models
 {
-    public class Track: IHasId, IDeletable
+    public class Track : IHasId, IDeletable
     {
         public int Id { get; set; }
         [Required]
@@ -15,6 +15,9 @@ namespace RidePal.Data.Models
         public int Rank { get; set; }
         [Required]
         public int Duration { get; set; }
+
+        [Required]
+        public string GenreName { get; set; }
         [Required]
         public int AlbumId { get; set; }        
         public virtual Album Album { get; set; }
