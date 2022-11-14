@@ -1,18 +1,18 @@
 ﻿using RidePal.Data.Models;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace RidePal.Services.DTOModels
 {
-    public class GenreDTO
+    public class UpdatePlaylistDTO
     {
         public int Id { get; set; }
-
-        [Required]
+        
         public string Name { get; set; }
 
-        public virtual ICollection<TrackDTO> Tracks { get; set; } = new List<TrackDTO>();
+        public virtual Audience Audience { get; set; }
+
+        public virtual ICollection<Genre> Genres { get; set; } = new List<Genre>();
     }
 }

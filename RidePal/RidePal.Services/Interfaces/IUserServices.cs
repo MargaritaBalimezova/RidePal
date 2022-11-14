@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace RidePal.Services.Interfaces
 {
-    public interface IUserServices
+    public interface IUserServices 
     {
         public Task<IEnumerable<UserDTO>> GetAsync();
         public Task<UserDTO> PostAsync(UpdateUserDTO obj);
@@ -17,8 +17,6 @@ namespace RidePal.Services.Interfaces
         public Task<bool> IsExistingUsernameAsync(string username);
 
         public Task<IEnumerable<UserDTO>> GetAllUsersAsync();
-        public Task<User> GetUserAsync(int id);
-        public Task<User> GetUserAsync(string username);
 
         public Task<UserDTO> GetUserDTOAsync(string username);
         public Task<UserDTO> GetUserDTOAsync(int id);

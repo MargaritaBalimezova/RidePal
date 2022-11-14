@@ -20,7 +20,7 @@ namespace RidePal.Data
         public DbSet<Artist> Artists { get; set; }
         public DbSet<Audience> Audience { get; set; }
         public DbSet<Genre> Genres { get; set; }
-        public DbSet<Playlist> PlayLists { get; set; }
+        public DbSet<Playlist> Playlists { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<Track> Tracks { get; set; }
         public DbSet<Trip> Trips { get; set; }

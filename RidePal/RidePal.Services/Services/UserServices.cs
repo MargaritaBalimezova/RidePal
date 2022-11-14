@@ -146,13 +146,13 @@ namespace RidePal.Services.Services
             return mapper.Map<IEnumerable<UserDTO>>(users);
         }
 
-        public async Task<User> GetUserAsync(int id)
+        private async Task<User> GetUserAsync(int id)
         {
             var user = await db.Users.FirstOrDefaultAsync(x => x.Id == id && x.IsDeleted == false);
             return user ?? throw new InvalidOperationException(USER_NOT_FOUND);
         }
 
-        public async Task<User> GetUserAsync(string username)
+        private async Task<User> GetUserAsync(string username)
         {
             var user = await db.Users.FirstOrDefaultAsync(x => x.Username == username && x.IsDeleted == false);
             return user ?? throw new InvalidOperationException(USER_NOT_FOUND);
