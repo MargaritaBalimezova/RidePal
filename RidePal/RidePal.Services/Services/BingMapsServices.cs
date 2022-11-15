@@ -90,8 +90,6 @@ namespace RidePal.Services.Services
 
             var res = responseObject.resourceSets[0].resources[0].results[0];
 
-            await fetchSongs.GetTracks("rap");
-
             return new Trip
             {
                 StartPoint = parameters.DepartCity,

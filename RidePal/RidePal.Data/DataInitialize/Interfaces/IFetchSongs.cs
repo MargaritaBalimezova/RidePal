@@ -1,4 +1,5 @@
-﻿using RidePal.Data.Models;
+﻿using RidePal.Data.DataInitialize.Models;
+using RidePal.Data.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,6 +9,7 @@ namespace RidePal.Data.DataInitialize.Interfaces
 {
     public interface IFetchSongs
     {
-        Task<IEnumerable<Track>> GetTracks(string genre);
+        Task<PlaylistsResult> GetPlaylistAsync(string url);
+        Task<ArtistTrackAlbumWrap> GetTracksAsync(string playlistsURL, Genre genre);
     }
 }

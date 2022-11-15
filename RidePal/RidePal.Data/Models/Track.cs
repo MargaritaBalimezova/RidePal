@@ -15,9 +15,6 @@ namespace RidePal.Data.Models
         public int Rank { get; set; }
         [Required]
         public int Duration { get; set; }
-
-        [Required]
-        public string GenreName { get; set; }
         [Required]
         public int AlbumId { get; set; }        
         public virtual Album Album { get; set; }
@@ -34,5 +31,22 @@ namespace RidePal.Data.Models
         [Required]
         public bool IsDeleted { get; set; }
         public DateTime? DeletedOn { get; set; }
+
+        public override bool Equals(object obj)
+        {
+            if ((obj == null) || !this.GetType().Equals(obj.GetType()))
+            {
+                return false;
+            }
+
+            var other = (Track)obj;
+
+            return this.Id == other.Id && this.Title == other.Title;
+        }
+
+        public override int GetHashCode()
+        {
+            return this.Id.GetHashCode();
+        }
     }
 }

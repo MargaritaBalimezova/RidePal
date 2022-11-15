@@ -45,7 +45,6 @@ namespace RidePal.Services.Services
                     Duration = t.duration_ms,
                     Rank = t.popularity,
                     PreviewURL = t.preview_url,
-                    GenreName = t.type
                 });
 
                 list.AddRange(res);

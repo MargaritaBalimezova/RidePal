@@ -11,14 +11,13 @@ using RidePal.Services.Interfaces;
 using RidePal.Services.Services;
 using RidePal.Data.DataInitialize;
 using RidePal.Data.DataInitialize.Interfaces;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.CookiePolicy;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Authentication.Google;
-using Microsoft.AspNetCore.Authentication;
-using System.Security.Claims;
-using System.Threading.Tasks;
 using RidePal.Web.Helpers;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication;
 
 namespace RidePal
 {
@@ -34,7 +33,6 @@ namespace RidePal
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
             services.AddControllersWithViews();
             services.AddAutoMapper(cfg => cfg.AddProfile<RidePalProfile>());
             services.AddDbContext<RidePalContext>(options =>
@@ -49,11 +47,11 @@ namespace RidePal
                  options.DefaultRequestHeaders.Add("Accept", "application/.json");
              });
 
-            services.AddHttpClient<IFetchSongs, FetchSongs>(options =>
-            {
-                options.BaseAddress = new Uri("https://api.deezer.com/search/");
-                options.DefaultRequestHeaders.Add("Accept", "application/.json");
-            });
+            /*    services.AddHttpClient<IFetchSongs, FetchSongs>(options =>
+                {
+                    //options.BaseAddress = new Uri("https://api.deezer.com/search/");
+                    options.DefaultRequestHeaders.Add("Accept", "application/.json");
+                });*/
 
             services.AddHttpClient<ISpotifyAccountServices, SpotifyAccountServices>(c =>
             {
@@ -67,30 +65,29 @@ namespace RidePal
             });
 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-
             .AddCookie(options =>
-            {
-                options.LoginPath = "/Auth/Login";
-                options.Cookie.Name = "auth_cookie";
-                options.SlidingExpiration = true;
-                options.ExpireTimeSpan = TimeSpan.FromMinutes(10);
-            }).AddGoogle(options =>
-            {
-                options.Events.OnRedirectToAuthorizationEndpoint = context =>
-                {
-                    context.Response.Redirect(context.RedirectUri + "&prompt=consent");
-                    return Task.CompletedTask;
-                };
-                options.ClientId = Configuration["Authentication:Google:ClientId"];
-                options.ClientSecret = Configuration["Authentication:Google:ClientSecret"];
-                options.ClaimActions.MapJsonKey("urn:google:picture", "picture", "url");
-                options.Events.OnTicketReceived = ctx =>
-                {
-                    var userEmail = ctx.Principal.FindFirstValue(ClaimTypes.Email);
-                    //Check the user exists in database and if not create.
-                    return Task.CompletedTask;
-                };
-            });
+                        {
+                            options.LoginPath = "/Auth/Login";
+                            options.Cookie.Name = "auth_cookie";
+                            options.SlidingExpiration = true;
+                            options.ExpireTimeSpan = TimeSpan.FromMinutes(10);
+                        }).AddGoogle(options =>
+                        {
+                            options.Events.OnRedirectToAuthorizationEndpoint = context =>
+                            {
+                                context.Response.Redirect(context.RedirectUri + "&prompt=consent");
+                                return Task.CompletedTask;
+                            };
+                            options.ClientId = Configuration["Authentication:Google:ClientId"];
+                            options.ClientSecret = Configuration["Authentication:Google:ClientSecret"];
+                            options.ClaimActions.MapJsonKey("urn:google:picture", "picture", "url");
+                            options.Events.OnTicketReceived = ctx =>
+                            {
+                                var userEmail = ctx.Principal.FindFirstValue(ClaimTypes.Email);
+                                //Check the user exists in database and if not create.
+                                return Task.CompletedTask;
+                            };
+                        });
 
             services.AddAuthorization(options =>
             {
@@ -103,6 +100,7 @@ namespace RidePal
 
             services.AddScoped<IUserServices, UserServices>();
             services.AddScoped<ITrackServices, TrackServices>();
+            services.AddScoped<IFetchSongs, FetchSongs>();
             services.AddScoped<IAuthHelper, AuthHelper>();
         }
 
@@ -112,7 +110,6 @@ namespace RidePal
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-
             }
             else
             {
@@ -124,6 +121,7 @@ namespace RidePal
             app.UseHttpsRedirection();
             app.UseAuthorization();
             app.UseAuthentication();
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapDefaultControllerRoute();
@@ -135,6 +133,8 @@ namespace RidePal
                 Secure = CookieSecurePolicy.Always,
                 MinimumSameSitePolicy = SameSiteMode.Strict
             });
+
+
         }
     }
 }
