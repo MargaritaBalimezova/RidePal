@@ -10,35 +10,27 @@ namespace RidePal.Data.Models
     {
         public int Id { get; set; }
 
-        [Required]
         public string Username { get; set; }
 
-        [Required]
         public string FirstName { get; set; }
 
-        [Required]
         public string LastName { get; set; }
 
-        [Required]
         public string Password { get; set; }
 
-        [Required]
-        [EmailAddress()]
         public string Email { get; set; }
 
-        [Required]
         public string ImagePath { get; set; }
 
-        [Required]
         public int RoleId { get; set; }
 
         public virtual Role Role { get; set; }
 
-        [Required]
         public bool IsBlocked { get; set; }
 
-        [Required]
-        public bool IsEmailConfirmed { get; set; }
+        public bool IsEmailConfirmed { get; set; } = true;
+
+        public bool IsGoogleAccount { get; set; }
 
         public virtual ICollection<Playlist> Playlists { get; set; } = new List<Playlist>();
 
@@ -47,7 +39,6 @@ namespace RidePal.Data.Models
         public virtual ICollection<FriendRequest> SentFriendRequests { get; set; } = new List<FriendRequest>();
         public virtual ICollection<FriendRequest> ReceivedFriendRequests { get; set; } = new List<FriendRequest>();
 
-        [Required]
         public bool IsDeleted { get; set; }
 
         public DateTime? DeletedOn { get; set; }

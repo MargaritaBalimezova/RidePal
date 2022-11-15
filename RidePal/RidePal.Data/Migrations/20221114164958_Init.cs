@@ -73,15 +73,16 @@ namespace RidePal.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Username = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ImagePath = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Username = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Password = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ImagePath = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     RoleId = table.Column<int>(type: "int", nullable: false),
                     IsBlocked = table.Column<bool>(type: "bit", nullable: false),
                     IsEmailConfirmed = table.Column<bool>(type: "bit", nullable: false),
+                    IsGoogleAccount = table.Column<bool>(type: "bit", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
                     DeletedOn = table.Column<DateTime>(type: "datetime2", nullable: true),
                     UserId = table.Column<int>(type: "int", nullable: true)
@@ -128,7 +129,7 @@ namespace RidePal.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "PlayLists",
+                name: "Playlists",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -145,20 +146,20 @@ namespace RidePal.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PlayLists", x => x.Id);
+                    table.PrimaryKey("PK_Playlists", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_PlayLists_Audience_AudienceId",
+                        name: "FK_Playlists_Audience_AudienceId",
                         column: x => x.AudienceId,
                         principalTable: "Audience",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_PlayLists_Trips_TripId",
+                        name: "FK_Playlists_Trips_TripId",
                         column: x => x.TripId,
                         principalTable: "Trips",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_PlayLists_Users_AuthorId",
+                        name: "FK_Playlists_Users_AuthorId",
                         column: x => x.AuthorId,
                         principalTable: "Users",
                         principalColumn: "Id",
@@ -180,9 +181,9 @@ namespace RidePal.Data.Migrations
                 {
                     table.PrimaryKey("PK_Genres", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Genres_PlayLists_PlaylistId",
+                        name: "FK_Genres_Playlists_PlaylistId",
                         column: x => x.PlaylistId,
-                        principalTable: "PlayLists",
+                        principalTable: "Playlists",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -225,6 +226,7 @@ namespace RidePal.Data.Migrations
                     Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Rank = table.Column<int>(type: "int", nullable: false),
                     Duration = table.Column<int>(type: "int", nullable: false),
+                    GenreName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     AlbumId = table.Column<int>(type: "int", nullable: false),
                     ArtistId = table.Column<int>(type: "int", nullable: false),
                     GenreId = table.Column<int>(type: "int", nullable: false),
@@ -255,12 +257,22 @@ namespace RidePal.Data.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Tracks_PlayLists_PlaylistId",
+                        name: "FK_Tracks_Playlists_PlaylistId",
                         column: x => x.PlaylistId,
-                        principalTable: "PlayLists",
+                        principalTable: "Playlists",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
+
+            migrationBuilder.InsertData(
+                table: "Roles",
+                columns: new[] { "Id", "Name" },
+                values: new object[] { 1, "Admin" });
+
+            migrationBuilder.InsertData(
+                table: "Roles",
+                columns: new[] { "Id", "Name" },
+                values: new object[] { 2, "User" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Albums_ArtistId",
@@ -288,18 +300,18 @@ namespace RidePal.Data.Migrations
                 column: "PlaylistId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PlayLists_AudienceId",
-                table: "PlayLists",
+                name: "IX_Playlists_AudienceId",
+                table: "Playlists",
                 column: "AudienceId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PlayLists_AuthorId",
-                table: "PlayLists",
+                name: "IX_Playlists_AuthorId",
+                table: "Playlists",
                 column: "AuthorId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PlayLists_TripId",
-                table: "PlayLists",
+                name: "IX_Playlists_TripId",
+                table: "Playlists",
                 column: "TripId",
                 unique: true);
 
@@ -352,7 +364,7 @@ namespace RidePal.Data.Migrations
                 name: "Genres");
 
             migrationBuilder.DropTable(
-                name: "PlayLists");
+                name: "Playlists");
 
             migrationBuilder.DropTable(
                 name: "Audience");

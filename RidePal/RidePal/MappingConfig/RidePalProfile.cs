@@ -22,10 +22,16 @@ namespace MovieForum.Web.MappingConfig
 
             this.CreateMap<User, UserDTO>()
                 .ForMember(dest => dest.Id, act => act.MapFrom(src => src.Id))
-                .ForMember(dest => dest.Role, act => act.MapFrom(src => src.Role.Name))
+                .ForMember(dest => dest.RoleId, act => act.MapFrom(src => src.Role.Id))
                 .ReverseMap();
 
             this.CreateMap<User, UpdateUserDTO>()
+                .ReverseMap();
+
+            this.CreateMap<User, LoginUserDTO>()
+                .ReverseMap();
+
+            this.CreateMap<UserDTO, LoginUserDTO>()
                 .ReverseMap();
 
             this.CreateMap<UserDTO, UpdateUserDTO>()

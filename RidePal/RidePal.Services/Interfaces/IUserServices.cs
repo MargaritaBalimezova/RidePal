@@ -19,6 +19,7 @@ namespace RidePal.Services.Interfaces
         public Task<IEnumerable<UserDTO>> GetAllUsersAsync();
 
         public Task<UserDTO> GetUserDTOAsync(string username);
+        public Task<UserDTO> GetUserDTOByEmailAsync(string email);
         public Task<UserDTO> GetUserDTOAsync(int id);
 
         public Task SendFriendRequest(string sender, string recipient);

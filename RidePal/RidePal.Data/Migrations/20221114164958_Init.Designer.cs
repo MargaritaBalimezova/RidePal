@@ -10,7 +10,7 @@ using RidePal.Data;
 namespace RidePal.Data.Migrations
 {
     [DbContext(typeof(RidePalContext))]
-    [Migration("20221111164805_Init")]
+    [Migration("20221114164958_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -189,7 +189,7 @@ namespace RidePal.Data.Migrations
                     b.HasIndex("TripId")
                         .IsUnique();
 
-                    b.ToTable("PlayLists");
+                    b.ToTable("Playlists");
                 });
 
             modelBuilder.Entity("RidePal.Data.Models.Role", b =>
@@ -205,6 +205,18 @@ namespace RidePal.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Roles");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Admin"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "User"
+                        });
                 });
 
             modelBuilder.Entity("RidePal.Data.Models.Track", b =>
@@ -228,6 +240,10 @@ namespace RidePal.Data.Migrations
 
                     b.Property<int>("GenreId")
                         .HasColumnType("int");
+
+                    b.Property<string>("GenreName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ImagePath")
                         .IsRequired()
@@ -309,15 +325,12 @@ namespace RidePal.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FirstName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ImagePath")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsBlocked")
@@ -329,12 +342,13 @@ namespace RidePal.Data.Migrations
                     b.Property<bool>("IsEmailConfirmed")
                         .HasColumnType("bit");
 
+                    b.Property<bool>("IsGoogleAccount")
+                        .HasColumnType("bit");
+
                     b.Property<string>("LastName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Password")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("RoleId")
@@ -344,7 +358,6 @@ namespace RidePal.Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Username")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");

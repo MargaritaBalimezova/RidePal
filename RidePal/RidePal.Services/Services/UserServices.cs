@@ -48,7 +48,6 @@ namespace RidePal.Services.Services
             if (obj == null ||
                 obj.FirstName.Length < 0 ||
                 obj.LastName.Length < 0 ||
-                obj.Password.Length < 8 ||
                 obj.Username.Length < 0 ||
                 !isEmailValid)
             {
@@ -57,11 +56,12 @@ namespace RidePal.Services.Services
 
             var user = mapper.Map<User>(obj);
             user.RoleId = 2;
-            user.Role = null;
 
-            var passHasher = new PasswordHasher<User>();
-            user.Password = passHasher.HashPassword(user, obj.Password);
-
+            if (!String.IsNullOrEmpty(obj.Password))
+            {
+                var passHasher = new PasswordHasher<User>();
+                user.Password = passHasher.HashPassword(user, obj.Password);
+            }
             await db.Users.AddAsync(user);
             await db.SaveChangesAsync();
 
@@ -89,19 +89,20 @@ namespace RidePal.Services.Services
             }
 
 
-            if (obj.FirstName != null && obj.FirstName.Length > 0)
+            if (obj.FirstName != obj.FirstName && !String.IsNullOrEmpty(obj.FirstName))
             {
                 userToUpdate.FirstName = obj.FirstName;
             }
 
-            if (obj.LastName != null && obj.LastName.Length > 0)
+            if (obj.LastName != obj.LastName && !String.IsNullOrEmpty(obj.LastName))
             {
                 userToUpdate.LastName = obj.LastName;
             }
 
-            if (isEmailValid)
+            if (isEmailValid && userToUpdate.Email != obj.Email)
             {
                 userToUpdate.Email = obj.Email;
+                userToUpdate.IsEmailConfirmed = false;
             }
 
             userToUpdate.ImagePath = obj.ImagePath ?? userToUpdate.ImagePath;
@@ -132,12 +133,12 @@ namespace RidePal.Services.Services
 
         public async Task<bool> IsExistingAsync(string email)
         {
-            return await db.Users.AnyAsync(x => x.Email == email && x.IsDeleted == false);
+            return await db.Users.AnyAsync(x => x.Email == email);
         }
 
         public async Task<bool> IsExistingUsernameAsync(string username)
         {
-            return await db.Users.AnyAsync(x => x.Username == username && x.IsDeleted == false);
+            return await db.Users.AnyAsync(x => x.Username == username);
         }
 
         public async Task<IEnumerable<UserDTO>> GetAllUsersAsync()
@@ -148,32 +149,39 @@ namespace RidePal.Services.Services
 
         private async Task<User> GetUserAsync(int id)
         {
-            var user = await db.Users.FirstOrDefaultAsync(x => x.Id == id && x.IsDeleted == false);
+            var user = await db.Users.FirstOrDefaultAsync(x => x.Id == id);
             return user ?? throw new InvalidOperationException(USER_NOT_FOUND);
         }
 
         private async Task<User> GetUserAsync(string username)
         {
-            var user = await db.Users.FirstOrDefaultAsync(x => x.Username == username && x.IsDeleted == false);
+            var user = await db.Users.FirstOrDefaultAsync(x => x.Username == username);
             return user ?? throw new InvalidOperationException(USER_NOT_FOUND);
         }
 
         public async Task<UserDTO> GetUserDTOAsync(string username)
         {
-            var user = await db.Users.FirstOrDefaultAsync(x => x.Username == username && x.IsDeleted == false);
+            var user = await db.Users.FirstOrDefaultAsync(x => x.Username == username);
 
             return mapper.Map<UserDTO>(user) ?? throw new Exception(USER_NOT_FOUND);
         }
 
+        public async Task<UserDTO> GetUserDTOByEmailAsync(string email)
+        {
+            var user = await db.Users.FirstOrDefaultAsync(x => x.Email == email);
+
+            return mapper.Map<UserDTO>(user) ?? throw new Exception();
+        }
+
         public async Task<UserDTO> GetUserDTOAsync(int id)
         {
-            var user = await db.Users.FirstOrDefaultAsync(x => x.Id == id && x.IsDeleted == false);
+            var user = await db.Users.FirstOrDefaultAsync(x => x.Id == id);
 
             return mapper.Map<UserDTO>(user) ?? throw new Exception(USER_NOT_FOUND);
         }
 
         public async Task SendFriendRequest(string senderUsername, string recipientUsername)
-         {
+        {
             var sender = await GetUserAsync(senderUsername);
             var recipient = await GetUserAsync(recipientUsername);
 
@@ -302,5 +310,6 @@ namespace RidePal.Services.Services
 
             return playlists ?? throw new Exception(USER_NOT_FOUND);
         }
+
     }
 }

@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
 using RidePal.Data.Models;
+using RidePal.Data.DataInitialize;
 
 namespace RidePal.Data
 {
@@ -48,10 +49,10 @@ namespace RidePal.Data
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.ApplyConfigurationsFromAssembly(this.GetType().Assembly);
-            // modelBuilder.Seed();
+            modelBuilder.Seed();
 
             // SetMinLengthConstraints(modelBuilder);
-          
+
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
