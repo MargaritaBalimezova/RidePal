@@ -28,7 +28,7 @@ namespace RidePal.Data.Models
 
         public bool IsBlocked { get; set; }
 
-        public bool IsEmailConfirmed { get; set; } = true;
+        public bool IsEmailConfirmed { get; set; }
 
         public bool IsGoogleAccount { get; set; }
 

@@ -19,7 +19,7 @@ namespace RidePal.Services.Services
         private readonly RidePalContext db;
         private readonly IMapper mapper;
 
-        public TrackServices(RidePalContext ridePalContext,IMapper mapper)
+        public TrackServices(RidePalContext ridePalContext, IMapper mapper)
         {
             this.db = ridePalContext;
             this.mapper = mapper;
@@ -48,8 +48,7 @@ namespace RidePal.Services.Services
             var genre = await this.db.Genres.FirstOrDefaultAsync(x => x.Id == obj.GenreId)
                 ?? throw new EntityNotFoundException(Constants.GENRE_NOT_FOUND);
 
-            
-            if(obj.Title == null)
+            if (obj.Title == null)
             {
                 throw new InvalidOperationException(Constants.INVALID_DATA);
             }
@@ -76,9 +75,9 @@ namespace RidePal.Services.Services
 
         public async Task<TrackDTO> UpdateAsync(int id, TrackDTO obj)
         {
-            /*var track = await this.db.Tracks.FirstOrDefaultAsync(x => x.Id == id)
+            var track = await this.db.Tracks.FirstOrDefaultAsync(x => x.Id == id)
                 ?? throw new EntityNotFoundException(Constants.TRACK_NOT_FOUND);
-
+            /*
             if(obj.Title != null && obj.Title != track.Title)
             {
                 track.Title = obj.Title;

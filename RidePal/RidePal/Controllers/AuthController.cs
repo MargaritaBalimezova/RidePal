@@ -4,8 +4,10 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using RidePal.Data.Models;
 using RidePal.Services.DTOModels;
 using RidePal.Services.Interfaces;
+using RidePal.Services.Models;
 using RidePal.Web.Helpers;
 using RidePal.Web.Models;
 using RidePal.WEB.Models;
@@ -29,6 +31,8 @@ namespace MovieForum.Web.Controllers
             this.userService = userService;
             this.mapper = mapper;
         }
+
+        #region Login Google
 
         [AllowAnonymous]
         public IActionResult LoginWithGoogle()
@@ -83,12 +87,15 @@ namespace MovieForum.Web.Controllers
                      new ClaimsPrincipal(claimsIdentity)
                 );
 
-
                 return RedirectToAction("Index", "Home");
             }
             await this.GoogleRegister();
             return RedirectToAction("Index", "Home");
         }
+
+        #endregion Login Google
+
+        #region Register Google
 
         [HttpPost]
         public async Task GoogleRegister()
@@ -122,14 +129,17 @@ namespace MovieForum.Web.Controllers
                 Username = username[0],
                 FirstName = firstName,
                 LastName = lastName,
-                Email = email,       
+                Email = email,
                 IsEmailConfirmed = true,
                 IsGoogleAccount = true
             };
-                        
-            await userService.PostAsync(userDTO);           
+
+            await userService.PostAsync(userDTO);
         }
 
+        #endregion Register Google
+
+        #region Register App
 
         [HttpGet]
         public IActionResult Register()
@@ -148,10 +158,12 @@ namespace MovieForum.Web.Controllers
             if (await userService.IsExistingAsync(model.Email))
             {
                 this.ModelState.AddModelError("Email", "User with this email address already exists.");
+                return this.View(model);
             }
             if (await userService.IsExistingUsernameAsync(model.Username))
             {
                 this.ModelState.AddModelError("Username", "User with this username already exists.");
+                return this.View(model);
             }
             try
             {
@@ -162,22 +174,30 @@ namespace MovieForum.Web.Controllers
                     FirstName = model.FirstName,
                     LastName = model.LastName,
                     Email = model.Email,
-                    //TODO Remove below line after implementing Email Confirmation
-                    IsEmailConfirmed  = true,
                     IsGoogleAccount = false,
                     ImagePath = "defaultphoto.jpg"
                 };
 
                 var newUser = await userService.PostAsync(userDTO);
 
+                var user = new User
+                {
+                    Username = newUser.Username,
+                };
+
+                await userService.GenerateEmailConfirmationTokenAsync(user);
             }
             catch (Exception)
             {
                 this.ModelState.AddModelError("Password", "Incorrect password.");
                 return this.View(model);
             }
-            return RedirectToAction("Login", "Auth");
+            return View("ConfirmEmail", new EmailConfirmModel());
         }
+
+        #endregion Register App
+
+        #region Login App
 
         [HttpGet]
         public IActionResult Login()
@@ -236,7 +256,6 @@ namespace MovieForum.Web.Controllers
                     ExpiresUtc = DateTime.UtcNow.AddDays(14)
                 };
 
-
                 if (model.RememberMe == true)
                 {
                     AuthProperties.IsPersistent = true;
@@ -257,6 +276,8 @@ namespace MovieForum.Web.Controllers
             return this.RedirectToAction("Index", "Home");
         }
 
+        #endregion Login App
+
         public async Task<IActionResult> Logout()
         {
             // Clear the existing external cookie
@@ -268,6 +289,113 @@ namespace MovieForum.Web.Controllers
             return this.RedirectToAction("Index", "Home");
         }
 
+        #region Email actions
 
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult ForgotPassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<IActionResult> ForgotPassword(ForgotPasswordViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                // code here
+                try
+                {
+                    var user = await userService.GetUserDTOByEmailAsync(model.Email);
+                    await userService.GenerateForgotPasswordTokenAsync(mapper.Map<User>(user));
+
+                    ModelState.Clear();
+                    model.EmailSent = true;
+                }
+                catch (Exception)
+                {
+                    model.EmailSent = false;
+                    return View();
+                }
+            }
+            return View(model);
+        }
+
+        [HttpGet("confirm-email")]
+        public async Task<IActionResult> ConfirmEmail(string uid, string token)
+        {
+            EmailConfirmModel model = new EmailConfirmModel();
+
+            if (!string.IsNullOrEmpty(uid) && !string.IsNullOrEmpty(token))
+            {
+                token = token.Replace(' ', '+');
+                if (await userService.ConfirmEmailAsync(uid, token))
+                {
+                    model.EmailVerified = true;
+                }
+            }
+
+            return View(model);
+        }
+
+        [HttpPost("confirm-email")]
+        public async Task<IActionResult> ConfirmEmail(EmailConfirmModel model)
+        {
+            var user = await userService.GetUserDTOByEmailAsync(model.Email);
+
+            if (user != null)
+            {
+                user.IsEmailConfirmed = model.IsConfirmed;
+
+                if (user.IsEmailConfirmed)
+                {
+                    model.EmailVerified = true;
+                    return View(model);
+                }
+
+                await userService.GenerateEmailConfirmationTokenAsync(mapper.Map<User>(user));
+                model.EmailSent = true;
+                ModelState.Clear();
+            }
+            else
+            {
+                ModelState.AddModelError("", "Something went wrong.");
+            }
+            return View(model);
+        }
+
+        [HttpGet("reset-password")]
+        [AllowAnonymous]
+        public IActionResult ResetPassword(string uid, string token)
+        {
+            ResetPasswordModel resetPasswordModel = new ResetPasswordModel
+            {
+                Token = token,
+                UserId = uid
+            };
+            return View(resetPasswordModel);
+        }
+
+        [HttpPost("reset-password")]
+        [AllowAnonymous]
+        public async Task<IActionResult> ResetPassword(ResetPasswordModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                model.Token = model.Token.Replace(' ', '+');
+                var result = await userService.ResetPasswordAsync(model);
+                if (result)
+                {
+                    ModelState.Clear();
+                    model.IsSuccess = true;
+                    return View(model);
+                }
+                ModelState.AddModelError("", "Can't channge password");
+            }
+            return View(model);
+        }
+
+        #endregion Email actions
     }
 }

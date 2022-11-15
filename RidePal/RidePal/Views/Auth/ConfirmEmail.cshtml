@@ -1,0 +1,52 @@
+﻿
+@using RidePal.Services.Models;
+@model EmailConfirmModel
+@{
+    ViewData["Title"] = "Confirm email";
+}
+<html>
+<head>
+    <link rel="stylesheet" href="~/css/elegant-icons.css">
+     <title>MovieForum | ConfirmEmail</title>
+</head>
+<body>
+    <center>
+        <div class="container centered" style="padding-top: 100px">
+            <div class="row text-center">
+                <div class="col-md-4">
+                </div>
+                <div class="col-md-4">
+                    @if (Model.EmailVerified == true)
+                    {
+                        <div class="alert alert-success" role="alert" style="background-color:#e53637; border: none">
+                            <p style="color:black; padding-top: 10px; font-size: 20px;">Your email has been verified successfully.</p>
+                        </div>
+                    }
+                    else
+                    {
+                        if (Model.EmailSent)
+                        {
+                            <p style="color:black; padding-top: 10px; font-size: 20px;">Email sent on your registered email address.</p>
+                        }
+
+                        else
+                        {
+                            <p style="color:black; padding-top: 10px; font-size: 20px;">We have sent an email on your email address.</p>
+                        }
+
+                        <form asp-action="ConfirmEmail">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <input type="text" asp-for="Email" />
+
+                            <p style="color:black; padding-top: 10px; font-size: 20px;">Did not get any email of deleted by mistake?</p>
+                            <div class="form-group">
+                                <input type="submit" value="Resend confirmation email" class="btn btn-primary" asp-action="ConfirmEmail" style="background-color:#e53637; border:none" />
+                            </div>
+                        </form>
+                    }
+                </div>
+            </div>
+        </div>
+    </center>
+</body>
+</html>

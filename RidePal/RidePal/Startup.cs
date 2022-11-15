@@ -18,6 +18,7 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
+using RidePal.Services.Models;
 
 namespace RidePal
 {
@@ -99,9 +100,12 @@ namespace RidePal
             services.AddAutoMapper(cfg => cfg.AddProfile<RidePalProfile>());
 
             services.AddScoped<IUserServices, UserServices>();
+            services.AddScoped<IEmailService, EmailServices>();
             services.AddScoped<ITrackServices, TrackServices>();
             services.AddScoped<IFetchSongs, FetchSongs>();
             services.AddScoped<IAuthHelper, AuthHelper>();
+
+            services.Configure<SMTPConfigModel>(Configuration.GetSection("SMTPConfig"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -133,8 +137,6 @@ namespace RidePal
                 Secure = CookieSecurePolicy.Always,
                 MinimumSameSitePolicy = SameSiteMode.Strict
             });
-
-
         }
     }
 }

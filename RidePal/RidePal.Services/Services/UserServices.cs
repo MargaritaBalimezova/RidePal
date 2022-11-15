@@ -1,10 +1,12 @@
 ﻿using AutoMapper;
+using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using RidePal.Data;
 using RidePal.Data.Models;
 using RidePal.Services.DTOModels;
 using RidePal.Services.Interfaces;
+using RidePal.Services.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,14 +19,21 @@ namespace RidePal.Services.Services
     {
         private const string USER_NOT_FOUND = "User not found!";
         private const string INVALID_DATA = "Invalid Data!";
+
         private readonly RidePalContext db;
         private readonly IMapper mapper;
+        private readonly IEmailService emailService;
+        private readonly IConfiguration configuration;
 
-        public UserServices(RidePalContext context, IMapper mapper)
+        public UserServices(IEmailService emailService, IConfiguration configuration, RidePalContext context, IMapper mapper)
         {
+            this.emailService = emailService;
+            this.configuration = configuration;
             this.db = context;
             this.mapper = mapper;
         }
+
+        #region CRUD operations
 
         public async Task<IEnumerable<UserDTO>> GetAsync()
         {
@@ -88,7 +97,6 @@ namespace RidePal.Services.Services
                 userToUpdate.Password = passHasher.HashPassword(userToUpdate, obj.Password);
             }
 
-
             if (obj.FirstName != obj.FirstName && !String.IsNullOrEmpty(obj.FirstName))
             {
                 userToUpdate.FirstName = obj.FirstName;
@@ -107,7 +115,6 @@ namespace RidePal.Services.Services
 
             userToUpdate.ImagePath = obj.ImagePath ?? userToUpdate.ImagePath;
 
-
             await db.SaveChangesAsync();
 
             return mapper.Map<UserDTO>(userToUpdate);
@@ -125,6 +132,8 @@ namespace RidePal.Services.Services
             return mapper.Map<UserDTO>(userToDelete);
         }
 
+        #endregion CRUD operations
+
         public async Task<int> UserCount()
         {
             var numOfUsers = await GetAllUsersAsync();
@@ -140,6 +149,8 @@ namespace RidePal.Services.Services
         {
             return await db.Users.AnyAsync(x => x.Username == username);
         }
+
+        #region GetUser methods
 
         public async Task<IEnumerable<UserDTO>> GetAllUsersAsync()
         {
@@ -179,6 +190,10 @@ namespace RidePal.Services.Services
 
             return mapper.Map<UserDTO>(user) ?? throw new Exception(USER_NOT_FOUND);
         }
+
+        #endregion GetUser methods
+
+        #region Friends methods
 
         public async Task SendFriendRequest(string senderUsername, string recipientUsername)
         {
@@ -239,6 +254,8 @@ namespace RidePal.Services.Services
             await db.SaveChangesAsync();
         }
 
+        #endregion Friends methods
+
         public async Task BlockUser(int username)
         {
             var user = await GetUserAsync(username);
@@ -282,10 +299,12 @@ namespace RidePal.Services.Services
                     userQuery = await db.Users.Where(x => (x.Username.Contains(userSearch) && x.IsDeleted == false))
                         .Select(x => mapper.Map<UserDTO>(x)).ToListAsync();
                     break;
+
                 case 2:
                     userQuery = await db.Users.Where(x => (x.Email.Contains(userSearch) && x.IsDeleted == false))
                         .Select(x => mapper.Map<UserDTO>(x)).ToListAsync();
                     break;
+
                 case 3:
                     userQuery = await db.Users.Where(x => (x.FirstName.Contains(userSearch) && x.IsDeleted == false))
                         .Select(x => mapper.Map<UserDTO>(x)).ToListAsync();
@@ -302,7 +321,6 @@ namespace RidePal.Services.Services
             return friends ?? throw new Exception(USER_NOT_FOUND);
         }
 
-
         public async Task<IEnumerable<Playlist>> GetAllPlaylistsAsync(string username)
         {
             var user = await GetUserAsync(username);
@@ -311,5 +329,96 @@ namespace RidePal.Services.Services
             return playlists ?? throw new Exception(USER_NOT_FOUND);
         }
 
+        #region Email methods
+
+        public async Task GenerateForgotPasswordTokenAsync(User user)
+        {
+            var token = Guid.NewGuid().ToString("d").Substring(1, 8);
+
+            if (!string.IsNullOrEmpty(token))
+            {
+                await SendForgotPasswordEmail(user, token);
+            }
+        }
+
+        private async Task SendForgotPasswordEmail(User user, string token)
+        {
+            string appDomain = configuration.GetSection("Application:AppDomain").Value;
+            string confirmationLink = configuration.GetSection("Application:ForgotPassword").Value;
+
+            UserEmailOptions options = new UserEmailOptions
+
+            {
+                ToEmails = new List<string>() { user.Email },
+                PlaceHolders = new List<KeyValuePair<string, string>>()
+                {
+                    new KeyValuePair<string, string>("{{UserName}}", user.FirstName),
+                    new KeyValuePair<string, string>("{{Link}}",
+                        string.Format(appDomain + confirmationLink, user.Id, token))
+                }
+            };
+
+            await emailService.SendEmailForForgotPassword(options);
+        }
+
+        public async Task<bool> ResetPasswordAsync(ResetPasswordModel model)
+        {
+            var user = await GetUserAsync(int.Parse(model.UserId));
+            if (user != null)
+            {
+                var passHasher = new PasswordHasher<User>();
+                user.Password = passHasher.HashPassword(user, model.NewPassword);
+                await db.SaveChangesAsync();
+                return true;
+            }
+            return false;
+        }
+
+        public async Task GenerateEmailConfirmationTokenAsync(User user)
+        {
+            if (user.Id == 0)
+            {
+                user = await GetUserAsync(user.Username);
+            }
+            var token = Guid.NewGuid().ToString("d").Substring(1, 8);
+
+            if (!string.IsNullOrEmpty(token))
+            {
+                await SendEmailConfirmationEmail(user, token);
+            }
+        }
+
+        private async Task SendEmailConfirmationEmail(User user, string token)
+        {
+            string appDomain = configuration.GetSection("Application:AppDomain").Value;
+            string confirmationLink = configuration.GetSection("Application:EmailConfirmation").Value;
+
+            UserEmailOptions options = new UserEmailOptions
+            {
+                ToEmails = new List<string>() { user.Email },
+                PlaceHolders = new List<KeyValuePair<string, string>>()
+                {
+                    new KeyValuePair<string, string>("{{UserName}}", user.FirstName),
+                    new KeyValuePair<string, string>("{{Link}}",
+                        string.Format(appDomain + confirmationLink, user.Id, token))
+                }
+            };
+
+            await emailService.SendEmailForEmailConfirmation(options);
+        }
+
+        public async Task<bool> ConfirmEmailAsync(string uid, string token)
+        {
+            var user = await GetUserAsync(int.Parse(uid));
+            if (user != null)
+            {
+                user.IsEmailConfirmed = true;
+                await db.SaveChangesAsync();
+                return true;
+            }
+            return false;
+        }
+
+        #endregion Email methods
     }
 }
