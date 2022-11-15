@@ -31,7 +31,7 @@ namespace RidePal.Data.Models
 
             var other = (Artist)obj;
 
-            return this.Id == other.Id && this.Name == other.Name;
+            return this.Id == other.Id;
         }
 
         public override int GetHashCode()

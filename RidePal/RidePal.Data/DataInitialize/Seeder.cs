@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace RidePal.Data.DataInitialize
@@ -14,13 +15,104 @@ namespace RidePal.Data.DataInitialize
         public async static Task Seed(this ModelBuilder db)
         {
             //TODO: remove it
-            /*         if (System.Diagnostics.Debugger.IsAttached == false)
-                     {
-                         System.Diagnostics.Debugger.Launch();
-                     }*/
-            var fetchSongs = new FetchSongs();
+            if (System.Diagnostics.Debugger.IsAttached == false)
+            {
+                System.Diagnostics.Debugger.Launch();
+            }
+            List<Genre> genres = new List<Genre>
+            {
+                new Genre
+                {
+                    Id = 1,
+                    Name = "Rap",
+                    IsDeleted = false
+                },
+                new Genre
+                {
+                    Id = 2,
+                    Name = "Rock",
+                    IsDeleted = false
+                },
+                new Genre
+                {
+                    Id = 3,
+                    Name = "Pop",
+                    IsDeleted = false
+                },
+                new Genre
+                {
+                    Id = 4,
+                    Name = "Dance & EDM",
+                    IsDeleted = false
+                },
+                new Genre
+                {
+                    Id = 5,
+                    Name = "Latin",
+                    IsDeleted = false
+                },
+                new Genre
+                {
+                    Id = 6,
+                    Name = "Classical",
+                    IsDeleted = false
+                }
+            };
 
-            var result = await fetchSongs.GetTracksAsync("https://api.deezer.com/user/917475151/playlists", new Data.Models.Genre { Id = 1, Name = "Rap", IsDeleted = false });
+            db.Entity<Genre>().HasData(genres);
+
+            List<Album> albums = new List<Album>();
+            List<Artist> artists = new List<Artist>();
+            List<Track> tracks = new List<Track>();
+
+            var fetchSongs = new FetchSongs();
+            
+            //fecth Rap songs
+            var result = await fetchSongs.GetTracksAsync("https://api.deezer.com/user/917475151/playlists", genres[0]);
+
+            albums.AddRange(result.albums);
+            artists.AddRange(result.artists);
+            tracks.AddRange(result.tracks);
+
+            //fecth Rock songs
+            await Task.Delay(5000);
+            result = await fetchSongs.GetTracksAsync("https://api.deezer.com/user/753566875/playlists", genres[1]);
+
+            albums.AddRange(result.albums);
+            artists.AddRange(result.artists);
+            tracks.AddRange(result.tracks);
+
+            //fecth Pop songs
+            await Task.Delay(5000);
+            result = await fetchSongs.GetTracksAsync("https://api.deezer.com/user/5179240022/playlists", genres[2]);
+
+            albums.AddRange(result.albums);
+            artists.AddRange(result.artists);
+            tracks.AddRange(result.tracks);
+
+            //fecth Dance & EDM songs
+            await Task.Delay(5000);
+            result = await fetchSongs.GetTracksAsync("https://api.deezer.com/user/2834392844/playlists", genres[3]);
+
+            albums.AddRange(result.albums);
+            artists.AddRange(result.artists);
+            tracks.AddRange(result.tracks);
+
+            //fecth Latin songs
+            await Task.Delay(5000);
+            result = await fetchSongs.GetTracksAsync("https://api.deezer.com/user/3115986664/playlists", genres[4]);
+
+            albums.AddRange(result.albums);
+            artists.AddRange(result.artists);
+            tracks.AddRange(result.tracks);
+
+            //fecth Classical songs
+            await Task.Delay(5000);
+            result = await fetchSongs.GetTracksAsync("https://api.deezer.com/user/353978015/playlists", genres[5]);
+
+            albums.AddRange(result.albums);
+            artists.AddRange(result.artists);
+            tracks.AddRange(result.tracks);
 
             db.Entity<Genre>().HasData(new Data.Models.Genre { Id = 1, Name = "Rap", IsDeleted = false });
             db.Entity<Album>().HasData(result.albums);
