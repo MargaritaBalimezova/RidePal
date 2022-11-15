@@ -19,6 +19,23 @@ namespace RidePal.Data.DataInitialize
             {
                 System.Diagnostics.Debugger.Launch();
             }
+
+            var roles = new List<Role>()
+            {
+                new Role
+                {
+                    Id = 1,
+                    Name = "Admin"
+                },
+                new Role
+                {
+                    Id = 2,
+                    Name = "User"
+                }
+            };
+
+            db.Entity<Role>().HasData(roles);
+
             List<Genre> genres = new List<Genre>
             {
                 new Genre
@@ -114,27 +131,9 @@ namespace RidePal.Data.DataInitialize
             artists.AddRange(result.artists);
             tracks.AddRange(result.tracks);
 
-            db.Entity<Genre>().HasData(new Data.Models.Genre { Id = 1, Name = "Rap", IsDeleted = false });
             db.Entity<Album>().HasData(result.albums);
             db.Entity<Artist>().HasData(result.artists);
             db.Entity<Track>().HasData(result.tracks);
-
-            var roles = new List<Role>()
-            {
-                new Role
-                {
-                    Id = 1,
-                    Name = "Admin"
-                },
-                new Role
-                {
-                    Id = 2,
-                    Name = "User"
-                }
-            };
-
-            db.Entity<Role>().HasData(roles);
-
         }
     }
 }
