@@ -6,6 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
 using RidePal.Data.Models;
+using RidePal.Data.DataInitialize;
+using RidePal.Data.DataInitialize.Interfaces;
 
 namespace RidePal.Data
 {
@@ -13,7 +15,6 @@ namespace RidePal.Data
     {
         public RidePalContext(DbContextOptions<RidePalContext> options) : base(options)
         {
-
         }
 
         public DbSet<Album> Albums { get; set; }
@@ -48,10 +49,15 @@ namespace RidePal.Data
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.ApplyConfigurationsFromAssembly(this.GetType().Assembly);
-            // modelBuilder.Seed();
+            modelBuilder.Seed().Wait();
 
+/*            FetchSongs fetchSongs = new FetchSongs();
+            var result = await fetchSongs.GetTracks("https://api.deezer.com/user/917475151/playlists", new Data.Models.Genre { Id = 1, Name = "Rap", IsDeleted = false });
+
+            modelBuilder.Entity<Track>().HasData(result.tracks);
+            modelBuilder.Entity<Album>().HasData(result.albums);
+            modelBuilder.Entity<Artist>().HasData(result.artists);*/
             // SetMinLengthConstraints(modelBuilder);
-          
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

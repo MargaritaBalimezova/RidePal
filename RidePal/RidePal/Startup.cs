@@ -45,11 +45,11 @@ namespace RidePal
                 options.DefaultRequestHeaders.Add("Accept", "application/.json");
             });
 
-            services.AddHttpClient<IFetchSongs, FetchSongs>(options =>
+        /*    services.AddHttpClient<IFetchSongs, FetchSongs>(options =>
             {
-                options.BaseAddress = new Uri("https://api.deezer.com/search/");
+                //options.BaseAddress = new Uri("https://api.deezer.com/search/");
                 options.DefaultRequestHeaders.Add("Accept", "application/.json");
-            });
+            });*/
 
             services.AddHttpClient<ISpotifyAccountServices, SpotifyAccountServices>(c =>
             {
@@ -68,6 +68,7 @@ namespace RidePal
 
             services.AddScoped<IUserServices,UserServices>();
             services.AddScoped<ITrackServices, TrackServices>();
+            services.AddScoped<IFetchSongs, FetchSongs>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

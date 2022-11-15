@@ -23,10 +23,27 @@ namespace RidePal.Data.Models
 
         public virtual Genre Genre { get; set; }
 
-        public virtual ICollection<Track> Tracks { get; set; }
+        public virtual ICollection<Track> Tracks { get; set; } = new List<Track>();
 
         [Required]
         public bool IsDeleted { get; set; }
         public DateTime? DeletedOn { get; set; }
+
+        public override bool Equals(object obj)
+        {
+            if ((obj == null) || !this.GetType().Equals(obj.GetType()))
+            {
+                return false;
+            }
+            
+            var other = (Album)obj;
+
+            return this.Id == other.Id && this.Name == other.Name;
+        }
+
+        public override int GetHashCode()
+        {
+            return this.Id.GetHashCode();
+        }
     }
 }
