@@ -97,12 +97,12 @@ namespace RidePal.Services.Services
                 userToUpdate.Password = passHasher.HashPassword(userToUpdate, obj.Password);
             }
 
-            if (obj.FirstName != obj.FirstName && !String.IsNullOrEmpty(obj.FirstName))
+            if (obj.FirstName != userToUpdate.FirstName && !String.IsNullOrEmpty(obj.FirstName))
             {
                 userToUpdate.FirstName = obj.FirstName;
             }
 
-            if (obj.LastName != obj.LastName && !String.IsNullOrEmpty(obj.LastName))
+            if (obj.LastName != userToUpdate.LastName && !String.IsNullOrEmpty(obj.LastName))
             {
                 userToUpdate.LastName = obj.LastName;
             }

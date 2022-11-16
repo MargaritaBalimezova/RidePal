@@ -19,7 +19,7 @@ namespace RidePal.Services.DTOModels
         public string Email { get; set; }
 
         public string ImagePath { get; set; }
-                
+
         public string Password { get; set; }
 
         [Phone]
@@ -29,6 +29,8 @@ namespace RidePal.Services.DTOModels
 
         public bool IsGoogleAccount { get; set; }
         public bool IsEmailConfirmed { get; set; }
+        public bool IsBlocked { get; set; }
+        public bool IsDeleted { get; set; }
 
         public ICollection<Playlist> Playlists { get; set; }
         public ICollection<UserDTO> Friends { get; set; }

@@ -1,0 +1,58 @@
+﻿@model IEnumerable<RidePal.Services.DTOModels.UserDTO>
+
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+<link href="~/css//all-users.css" rel="stylesheet">
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="main-box clearfix">
+                <div class="table-responsive">
+                    <table class="table user-list">
+                        <thead>
+                            <tr>
+                                <th><span>User</span></th>
+                                <th><span>Email</span></th>
+                                <th><span>Status</span></th>
+                                <th>&nbsp;</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var user in this.Model)
+                            {
+                                <tr>
+                                    <td>
+                                        <img src="~/Images/@user.ImagePath" alt="profile image">
+                                        <a asp-controller="User" asp-action="Index" asp-route-email="@user.Email" class="user-link">@user.Username</a>
+                                        <span class="user-subhead">@user.RoleId.ToString()</span>
+                                    </td>
+                                    <td>
+                                        <a asp-controller="User" asp-action="Index" asp-route-email="@user.Email">@user.Email</a>
+                                    </td>
+                                    <td class="text-center">
+                                        @if (user.IsBlocked)
+                                        {
+                                            <span class="label label-default">Blocked</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="label label-default">Unblocked</span>
+                                        }
+                                    </td>    
+                                    </tr>
+                                    }
+                        </tbody>
+                    </table>
+                </div>
+                <ul class="pagination pull-right">
+                    <li><a href="#"><i class="fa fa-chevron-left"></i></a></li>
+                    <li><a href="#">1</a></li>
+                    <li><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                    <li><a href="#">4</a></li>
+                    <li><a href="#">5</a></li>
+                    <li><a href="#"><i class="fa fa-chevron-right"></i></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

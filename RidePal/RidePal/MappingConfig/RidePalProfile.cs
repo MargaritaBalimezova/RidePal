@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using RidePal.Data.Models;
 using RidePal.Services.DTOModels;
+using RidePal.WEB.Models;
 
 namespace MovieForum.Web.MappingConfig
 {
@@ -16,7 +17,7 @@ namespace MovieForum.Web.MappingConfig
 
             this.CreateMap<Artist, ArtistDTO>()
                 .ReverseMap();
-            
+
             this.CreateMap<Genre, GenreDTO>()
                 .ReverseMap();
 
@@ -34,6 +35,9 @@ namespace MovieForum.Web.MappingConfig
             this.CreateMap<UserDTO, LoginUserDTO>()
                 .ReverseMap();
 
+            this.CreateMap<UserDTO, UserViewModel>()
+               .ReverseMap();
+
             this.CreateMap<UserDTO, UpdateUserDTO>()
                 .ReverseMap();
 
@@ -42,7 +46,7 @@ namespace MovieForum.Web.MappingConfig
 
             //this.CreateMap<MovieTags, MovieTagsDTO>()
             //    .ForMember(dest => dest.TagName, act => act.MapFrom(src => src.Tag.TagName))
-            //    .ReverseMap();          
+            //    .ReverseMap();
         }
     }
 }
