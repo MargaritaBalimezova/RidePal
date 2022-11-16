@@ -13089,7 +13089,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "d39a09048f61ac3d3f2a7bf13ffbd2fd",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-d.dzcdn.net/stream/c-d258991ec0e5fdb5ca2d3dc40a7eb0ac-3.mp3",
-                            Rank = 640138,
+                            Rank = 633867,
                             Title = "Roadtrip"
                         },
                         new
@@ -13141,7 +13141,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "4d17b88a17a22d05e52920b35b836f36",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-1.dzcdn.net/stream/c-11eb89b28a9ec5121c459126b3dd615f-3.mp3",
-                            Rank = 437388,
+                            Rank = 436449,
                             Title = "Colorful Dreams"
                         },
                         new
@@ -13271,7 +13271,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "e25a7d7ff7eb1054d870081da42bfa12",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-b.dzcdn.net/stream/c-b303723f834d1c98d0db888d97cf2a88-3.mp3",
-                            Rank = 395540,
+                            Rank = 359906,
                             Title = "Black Horizons"
                         },
                         new
@@ -13297,7 +13297,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "17fc3e57f80161adffab957064620e55",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-2.dzcdn.net/stream/c-21937e96089d7ab82c1127d4068bdcc2-3.mp3",
-                            Rank = 481705,
+                            Rank = 445969,
                             Title = "Do the Right Thing"
                         },
                         new
@@ -13310,7 +13310,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "ee80e02dd01382ef2a813170ad3f631a",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-2.dzcdn.net/stream/c-2e401d78df0168fa0e4d784cff36f674-3.mp3",
-                            Rank = 356774,
+                            Rank = 395406,
                             Title = "Uncertainty"
                         },
                         new
@@ -13388,7 +13388,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "d539ac7de9ce5fb5260ee05a6e2b4ffa",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-1.dzcdn.net/stream/c-119d113a541d4445e7b6f7d5128ca9c6-3.mp3",
-                            Rank = 392635,
+                            Rank = 388485,
                             Title = "Late Night Chill"
                         },
                         new
@@ -13505,7 +13505,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "e82094e0418bcb2f7429fc705decec7b",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-b.dzcdn.net/stream/c-b4909dc59b11e8c6add229e9e67e6b48-3.mp3",
-                            Rank = 343694,
+                            Rank = 339587,
                             Title = "Eclipse"
                         },
                         new
@@ -13583,7 +13583,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "17fc3e57f80161adffab957064620e55",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-d.dzcdn.net/stream/c-d1396f73f7e98b518a41baa65f06c4a7-3.mp3",
-                            Rank = 327530,
+                            Rank = 357899,
                             Title = "Absence"
                         },
                         new
@@ -13609,7 +13609,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "17fc3e57f80161adffab957064620e55",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-7.dzcdn.net/stream/c-769b00f1f891d40aed72021e829a1fa7-3.mp3",
-                            Rank = 316448,
+                            Rank = 347809,
                             Title = "City Lounge"
                         },
                         new
@@ -13752,7 +13752,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "c4a9107c9b325a688effd56bcbdfb000",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-d.dzcdn.net/stream/c-de7d7e718ad66edec4c89e602ecf08d5-4.mp3",
-                            Rank = 290086,
+                            Rank = 322954,
                             Title = "Electric Impression"
                         },
                         new
@@ -13817,7 +13817,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "31ccd651fa648ac29173b3d06527670f",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-7.dzcdn.net/stream/c-70c55d77fd7ad93430338bf55882ea20-3.mp3",
-                            Rank = 323239,
+                            Rank = 313959,
                             Title = "Messin' Around"
                         },
                         new
@@ -13895,7 +13895,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "3d3f0a00e80bab9dff0783fe56111a0b",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-5.dzcdn.net/stream/c-5d5525e82f0a800668f27876a6e539e2-4.mp3",
-                            Rank = 291243,
+                            Rank = 322277,
                             Title = "Feel The Void"
                         },
                         new
@@ -13921,7 +13921,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "29e14b868902ed56ebfc3e0591b02077",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-0.dzcdn.net/stream/c-06064759275b416392f6e3e9e85f6791-3.mp3",
-                            Rank = 272234,
+                            Rank = 316705,
                             Title = "Optimos For Dilla (Interlude)"
                         },
                         new
@@ -13947,7 +13947,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "275b6b76355b494d2faa52a75a1174ab",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-c.dzcdn.net/stream/c-cafe9f888ffc8f55a2a26ddfc6d10e91-6.mp3",
-                            Rank = 463052,
+                            Rank = 420236,
                             Title = "The Real"
                         },
                         new
@@ -14116,7 +14116,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "4d17b88a17a22d05e52920b35b836f36",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-9.dzcdn.net/stream/c-90ffeceebee156c1e01e610d04c243ce-3.mp3",
-                            Rank = 311850,
+                            Rank = 305120,
                             Title = "Back Home"
                         },
                         new
@@ -14272,7 +14272,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "d5f472d30801973949bc8286f6f4ee68",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-d.dzcdn.net/stream/c-df754ff0087f347b368f03fa3a16e7fd-3.mp3",
-                            Rank = 317647,
+                            Rank = 348897,
                             Title = "illusions"
                         },
                         new
@@ -14467,7 +14467,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "304868507796a90d6321fcdfbe3aa8b4",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-c.dzcdn.net/stream/c-cf0fb8a918f66b09ed742dd5881d06b1-5.mp3",
-                            Rank = 466705,
+                            Rank = 430992,
                             Title = "Puff Lah"
                         },
                         new
@@ -14480,7 +14480,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "b00eedca8e23bab2f4cc83780a4a9d76",
                             IsDeleted = false,
                             PreviewURL = "",
-                            Rank = 113459,
+                            Rank = 76350,
                             Title = "controlla"
                         },
                         new
@@ -14506,7 +14506,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "704680f7593e5680fcdfd70e6a892eff",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-b.dzcdn.net/stream/c-b21c8fcca78e54d7620e84380b06216e-5.mp3",
-                            Rank = 327854,
+                            Rank = 289184,
                             Title = "Q Dawg Ali"
                         },
                         new
@@ -14649,7 +14649,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "70f07a50a6c77ad10562d39b2be1f53e",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-6.dzcdn.net/stream/c-6222fe366cedf9865945430eac7b5d25-6.mp3",
-                            Rank = 710233,
+                            Rank = 709520,
                             Title = "CODE"
                         },
                         new
@@ -14688,7 +14688,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "0b26e40653e97c640740ece8e32fc2af",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-c.dzcdn.net/stream/c-cd14f6fadfa1e68b30a08b849b23c6c7-6.mp3",
-                            Rank = 795830,
+                            Rank = 760864,
                             Title = "Sticky"
                         },
                         new
@@ -14870,7 +14870,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "cd910b6273a9f524593ed5b0163cbd37",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-7.dzcdn.net/stream/c-78f4e6acfc768413b0f65caf237926c7-12.mp3",
-                            Rank = 731601,
+                            Rank = 692780,
                             Title = "Straightenin"
                         },
                         new
@@ -14922,7 +14922,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "4599d79a2bea5890737328996e2e7077",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-5.dzcdn.net/stream/c-5c298662236c279dfe186c573b87b75b-4.mp3",
-                            Rank = 940395,
+                            Rank = 910262,
                             Title = "Circo Loco"
                         },
                         new
@@ -14935,7 +14935,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "7c0998f3e99c300f40a69a874ad4891b",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-d.dzcdn.net/stream/c-df035342b2e20801bf7e9de9ba82c06b-6.mp3",
-                            Rank = 711288,
+                            Rank = 670887,
                             Title = "Us vs. Them"
                         },
                         new
@@ -14961,7 +14961,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "0460ad68bd4e93cce5b0bdbb1539eda4",
                             IsDeleted = false,
                             PreviewURL = "",
-                            Rank = 83272,
+                            Rank = 50753,
                             Title = "HOME"
                         },
                         new
@@ -15013,7 +15013,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "9797dfc8af8f1c08653f348b27202d93",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-d.dzcdn.net/stream/c-d6fe35b670621cc25c89bc91551648ec-4.mp3",
-                            Rank = 842462,
+                            Rank = 811752,
                             Title = "Laugh Now Cry Later"
                         },
                         new
@@ -15052,7 +15052,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "bc64e73f4f8984f5a32edef379f93d5d",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-b.dzcdn.net/stream/c-b2ab55c869bbbcbcad5a406875689a8c-7.mp3",
-                            Rank = 669142,
+                            Rank = 630018,
                             Title = "Scrape It Off"
                         },
                         new
@@ -15078,7 +15078,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "3110469e59dc05ecc0e2b173f82f77c2",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-0.dzcdn.net/stream/c-0fe4f615b823878ce4b1bef8e2ae6859-3.mp3",
-                            Rank = 699222,
+                            Rank = 655476,
                             Title = "Solid (feat. Drake)"
                         },
                         new
@@ -15104,7 +15104,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "27879cd9a6b60db01c41ba94b5d4b07f",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-9.dzcdn.net/stream/c-9ce6e1190ed7510dc83d5c316ca15e31-6.mp3",
-                            Rank = 635226,
+                            Rank = 634688,
                             Title = "Faster"
                         },
                         new
@@ -15130,7 +15130,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "b60d6651879de5f9fccbd84ecbad83f1",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-0.dzcdn.net/stream/c-069589f5d199243ee600336624670b76-3.mp3",
-                            Rank = 686799,
+                            Rank = 689219,
                             Title = "Super Gremlin"
                         },
                         new
@@ -15182,7 +15182,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "b964b7c15278fd6356892c52e9758284",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-a.dzcdn.net/stream/c-a99ae7a32df2ae327da05a96889afca4-3.mp3",
-                            Rank = 657828,
+                            Rank = 608181,
                             Title = "Hot Shit (feat. Kanye West & Lil Durk)"
                         },
                         new
@@ -15195,7 +15195,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "f389b125b231d5c84e9c0f575b50b1ec",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-a.dzcdn.net/stream/c-a7aec2fae175bf19f9b54754360ce534-3.mp3",
-                            Rank = 569185,
+                            Rank = 574132,
                             Title = "Can't Stop Won't Stop"
                         },
                         new
@@ -15390,7 +15390,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "6904c54378de84870175ce78856df196",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-c.dzcdn.net/stream/c-c33923128ccf1bf969864bd4ba1d4a6d-3.mp3",
-                            Rank = 588079,
+                            Rank = 622565,
                             Title = "Ghetto Superstar (feat. G Herbo & Doe Boy)"
                         },
                         new
@@ -15416,7 +15416,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "d1bd3da6698dd5eafc5b4514317039c4",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-8.dzcdn.net/stream/c-89b44b9a9fb55c5c2bb74bb20125d413-3.mp3",
-                            Rank = 439827,
+                            Rank = 471301,
                             Title = "CHICKENS (feat. EST Gee)"
                         },
                         new
@@ -15429,7 +15429,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "b0e2d9afbd22471d6b88fe15d7bf0d71",
                             IsDeleted = false,
                             PreviewURL = "",
-                            Rank = 155444,
+                            Rank = 119213,
                             Title = "HOME"
                         },
                         new
@@ -15559,7 +15559,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "aea877b6a238ac5838eb76b2bcfaf0b4",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-c.dzcdn.net/stream/c-c8f0d0b20eb063133af46ae09feb4d9b-3.mp3",
-                            Rank = 608814,
+                            Rank = 572278,
                             Title = "Who Want Smoke?? (feat. G Herbo, Lil Durk & 21 Savage)"
                         },
                         new
@@ -15572,7 +15572,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "22670c9b454393b34d7784444c170a8d",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-7.dzcdn.net/stream/c-76d49097f5b13fc06562d123614f1845-5.mp3",
-                            Rank = 708307,
+                            Rank = 672600,
                             Title = "Hot (Remix) [feat. Gunna and Travis Scott]"
                         },
                         new
@@ -15702,7 +15702,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "27f856b5aeb6934dd79b2b35a6a0922a",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-c.dzcdn.net/stream/c-c8a7b72f5904267795535f96bd6a5abf-5.mp3",
-                            Rank = 395736,
+                            Rank = 346898,
                             Title = "Hit Maker"
                         },
                         new
@@ -15767,7 +15767,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "22624363f765d6ba92c54df531715ddd",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-0.dzcdn.net/stream/c-0b3c0394c32a804dc52000c727d44945-3.mp3",
-                            Rank = 430831,
+                            Rank = 469852,
                             Title = "Something Bout Me"
                         },
                         new
@@ -15793,7 +15793,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "506c8510b1c42f9643ac727949fb216a",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-d.dzcdn.net/stream/c-d169ea2b84884bb5673eca72325d4433-3.mp3",
-                            Rank = 531836,
+                            Rank = 562466,
                             Title = "Jumpin (feat. Polo G)"
                         },
                         new
@@ -15897,7 +15897,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "f3c8eb131b218c5d7876e51a633a5fa3",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-3.dzcdn.net/stream/c-3a6cebc9615c2b95239beec2075c3cd6-3.mp3",
-                            Rank = 427334,
+                            Rank = 452823,
                             Title = "Riot"
                         },
                         new
@@ -16183,7 +16183,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "a91ee0f0bf443234f141ff9c9ae148dd",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-9.dzcdn.net/stream/c-9f3594f046d3f0f36198a363059ae22a-8.mp3",
-                            Rank = 676234,
+                            Rank = 628227,
                             Title = "Hard Knock Life (Ghetto Anthem)"
                         },
                         new
@@ -16196,7 +16196,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "cfe53f78b50a1f472ecc76a8d6d557a2",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-b.dzcdn.net/stream/c-b0df831d40f9830763c94e4ea4953e69-3.mp3",
-                            Rank = 664367,
+                            Rank = 617929,
                             Title = "If I Ruled the World (Imagine That) (feat. Lauryn Hill)"
                         },
                         new
@@ -16261,7 +16261,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "f3ad5b7eafec51e9f67638b7084d2a19",
                             IsDeleted = false,
                             PreviewURL = "",
-                            Rank = 274372,
+                            Rank = 225076,
                             Title = "Gangsta's Paradise"
                         },
                         new
@@ -16300,7 +16300,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "0a349e3a00eb843fa5bda7970bb40a61",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-7.dzcdn.net/stream/c-7f64040bb7e51f6b00cc9d77e14d832e-4.mp3",
-                            Rank = 662850,
+                            Rank = 625044,
                             Title = "Big Pimpin'"
                         },
                         new
@@ -16365,7 +16365,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "e21fd3908bf0265eab0a162702483ed2",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-c.dzcdn.net/stream/c-ca0a4f7606a0696deb4a0dbf6a6bae16-2.mp3",
-                            Rank = 733565,
+                            Rank = 702699,
                             Title = "Regulate (Album Version Explicit)"
                         },
                         new
@@ -16378,7 +16378,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "dde3e2c95bbdd6d2919fafa87e01e62b",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-c.dzcdn.net/stream/c-cf8e6e80a3a6a4565e6e41f4608562fb-7.mp3",
-                            Rank = 698168,
+                            Rank = 661667,
                             Title = "Bad Boy for Life"
                         },
                         new
@@ -16456,7 +16456,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "755dc7da07ba60a8c879963858150f84",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-7.dzcdn.net/stream/c-753290081fd9a89d108c173f8c363fde-3.mp3",
-                            Rank = 611156,
+                            Rank = 570257,
                             Title = "Big Poppa (2005 Remaster)"
                         },
                         new
@@ -16495,7 +16495,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "04a5526b7b94c6e2d617ade762ddf5dc",
                             IsDeleted = false,
                             PreviewURL = "",
-                            Rank = 117080,
+                            Rank = 86989,
                             Title = "Killing Me Softly With His Song"
                         },
                         new
@@ -16521,7 +16521,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "88c9788f57310f977edd649a17114cf8",
                             IsDeleted = false,
                             PreviewURL = "",
-                            Rank = 139609,
+                            Rank = 108309,
                             Title = "Gin N Juice (feat. Dat Nigga Daz)"
                         },
                         new
@@ -16560,7 +16560,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "3bd5682b0a7920494c162e8f3c6354da",
                             IsDeleted = false,
                             PreviewURL = "",
-                            Rank = 62109,
+                            Rank = 136194,
                             Title = "Crossroads"
                         },
                         new
@@ -16599,7 +16599,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "0b486d74d59bab41735ac80afb834dce",
                             IsDeleted = false,
                             PreviewURL = "",
-                            Rank = 79779,
+                            Rank = 145777,
                             Title = "Jump Around"
                         },
                         new
@@ -16625,7 +16625,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "54aa8bcfc7937c7dd961fd6f1f813809",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-3.dzcdn.net/stream/c-319d0a0d2c5cddb8eaaba31ca16fade4-9.mp3",
-                            Rank = 626509,
+                            Rank = 596280,
                             Title = "Da Joint"
                         },
                         new
@@ -16638,7 +16638,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "8941d432d755560152022bdf50948e10",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-a.dzcdn.net/stream/c-a205a72499aa372b4f30c6b95e02a9e8-10.mp3",
-                            Rank = 637861,
+                            Rank = 600321,
                             Title = "Got Your Money (feat. Kelis)"
                         },
                         new
@@ -16664,7 +16664,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "78af18fc11e9d880befd78777baffd9e",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-a.dzcdn.net/stream/c-a1599d022d5b10a091b5a9e0a70f0957-10.mp3",
-                            Rank = 653972,
+                            Rank = 606244,
                             Title = "Get Money (feat. Junior M.A.F.I.A.) (2007 Remaster)"
                         },
                         new
@@ -16716,7 +16716,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "130562b75c00d48aa2c909b828657c35",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-3.dzcdn.net/stream/c-3e4905160b9c296a95245dadb15d39ed-7.mp3",
-                            Rank = 602193,
+                            Rank = 563988,
                             Title = "Guess Who's Back"
                         },
                         new
@@ -16755,7 +16755,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "40b756b1fd43977237c5e5f9cbab964e",
                             IsDeleted = false,
                             PreviewURL = "",
-                            Rank = 128354,
+                            Rank = 95366,
                             Title = "Hip Hop Hooray"
                         },
                         new
@@ -16794,7 +16794,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "ec7c6ce398c8d4f10f75a7c756c3379a",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-b.dzcdn.net/stream/c-b52ad2f079861193e8bbd738e1d1a19d-3.mp3",
-                            Rank = 528139,
+                            Rank = 559439,
                             Title = "Player's Ball"
                         },
                         new
@@ -17184,7 +17184,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "68c233b145009973c3f472b331c32421",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-e.dzcdn.net/stream/c-e97ad2457803398b4cf9565f5f7dd31e-4.mp3",
-                            Rank = 379762,
+                            Rank = 334103,
                             Title = "Flava in Ya Ear (Club Mix)"
                         },
                         new
@@ -17210,7 +17210,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "93cd81ab9e24303e07abbc2bc76a5191",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-1.dzcdn.net/stream/c-1a668499d42e097e77b4cc2dbd2fb5df-7.mp3",
-                            Rank = 610488,
+                            Rank = 579164,
                             Title = "Put It On Me"
                         },
                         new
@@ -17262,7 +17262,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "c2d4ac80b17079fd6a7952af32abae8e",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-d.dzcdn.net/stream/c-d967ad5cdb24d90a3c479775bc9e3fe7-4.mp3",
-                            Rank = 490266,
+                            Rank = 459767,
                             Title = "Real Hip-Hop"
                         },
                         new
@@ -17301,7 +17301,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "9fa69c13e0c3e5e0ea0506ae87e3df18",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-7.dzcdn.net/stream/c-7115e4172bb6299a051513c82120f7c7-7.mp3",
-                            Rank = 365972,
+                            Rank = 380615,
                             Title = "Player's anthem"
                         },
                         new
@@ -17535,7 +17535,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "2ec2bbcd6805da50f0ace4ce8cb55c9a",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-5.dzcdn.net/stream/c-528a2611d079ae024a1a9fe4dd92131b-6.mp3",
-                            Rank = 587177,
+                            Rank = 586046,
                             Title = "Rocky Road"
                         },
                         new
@@ -17548,7 +17548,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "c151835596ea5edbbff15881df323f5b",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-d.dzcdn.net/stream/c-d8c7ff6e2cf4913a0b3db78c38e8ebc7-5.mp3",
-                            Rank = 666060,
+                            Rank = 656646,
                             Title = "B.R.O. (Better Ride Out) [feat. Roddy Ricch]"
                         },
                         new
@@ -17561,7 +17561,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "8103a79fb1e41226b4815b2e3eb912c4",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-9.dzcdn.net/stream/c-90eb2590a8001b4b38aac13d8b64339d-4.mp3",
-                            Rank = 593081,
+                            Rank = 601689,
                             Title = "Falsetto"
                         },
                         new
@@ -17717,7 +17717,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "d1bd3da6698dd5eafc5b4514317039c4",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-b.dzcdn.net/stream/c-b80736a2deb3316f398c3bc9e7442469-3.mp3",
-                            Rank = 520983,
+                            Rank = 558387,
                             Title = "712PM"
                         },
                         new
@@ -17756,7 +17756,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "a169cecd826ef3d4ffdb438f9990f781",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-8.dzcdn.net/stream/c-871b4f345a513a150db67fb40b0754e2-7.mp3",
-                            Rank = 568236,
+                            Rank = 512746,
                             Title = "Yes I Do"
                         },
                         new
@@ -17860,7 +17860,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "12988cb0d9168125a5587d098f3cf69a",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-3.dzcdn.net/stream/c-379cfe6c913cdc6f789d8ca7533cbd36-3.mp3",
-                            Rank = 653004,
+                            Rank = 616970,
                             Title = "PARTY (feat. Quavo & Takeoff)"
                         },
                         new
@@ -17873,7 +17873,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "0dd4a97fe3d2c2dba2db06637db75815",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-2.dzcdn.net/stream/c-21c4d50de3923ca4259c099e78c733fa-6.mp3",
-                            Rank = 324771,
+                            Rank = 355368,
                             Title = "2 Step (From the new “House Party” Original Motion Picture Soundtrack)"
                         },
                         new
@@ -17951,7 +17951,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "5a11126554e96efdde354595d4abb692",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-b.dzcdn.net/stream/c-b43411704931d8740c1412747bd9a0c4-3.mp3",
-                            Rank = 376732,
+                            Rank = 417270,
                             Title = "Repeat (feat. Fivio Foreign)"
                         },
                         new
@@ -18094,7 +18094,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "e00f7d49080158b2c2ebfe060114c250",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-c.dzcdn.net/stream/c-c0ed28c4ad3885e4a63588da7c32403a-6.mp3",
-                            Rank = 485782,
+                            Rank = 471927,
                             Title = "In My Face"
                         },
                         new
@@ -18120,7 +18120,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "d1bd3da6698dd5eafc5b4514317039c4",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-c.dzcdn.net/stream/c-c367756c5ebe122e86c539377181ce99-3.mp3",
-                            Rank = 667004,
+                            Rank = 701070,
                             Title = "PUFFIN ON ZOOTIEZ"
                         },
                         new
@@ -18172,7 +18172,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "acb117b0e7dfd35161b07714f513fc39",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-e.dzcdn.net/stream/c-e6953bad13df92561914482f1a920e40-3.mp3",
-                            Rank = 390111,
+                            Rank = 358778,
                             Title = "SPACE CADET"
                         },
                         new
@@ -18185,7 +18185,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "6f918077b8cd271216d16656d69327ec",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-8.dzcdn.net/stream/c-88dc9522cf6441c842233e51b73493e5-3.mp3",
-                            Rank = 327384,
+                            Rank = 289804,
                             Title = "Aye Bitch"
                         },
                         new
@@ -18354,7 +18354,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "283ac18314a76a02a2b83e4ca1fcc001",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-a.dzcdn.net/stream/c-a283d6868e1882e182427e7820b4255f-3.mp3",
-                            Rank = 181142,
+                            Rank = 148596,
                             Title = "Litmas"
                         },
                         new
@@ -18536,7 +18536,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "0e4e083b95fcf9f55c62ee0ecb5e8bfe",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-b.dzcdn.net/stream/c-b26aa5156c7301f69e3ceede429a922d-2.mp3",
-                            Rank = 76563,
+                            Rank = 42263,
                             Title = "Let the Jingle Bells Rock"
                         },
                         new
@@ -18653,7 +18653,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "90607bee83245f9972b393eefd9bb972",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-5.dzcdn.net/stream/c-53f2a946d4ea8abdf52abf594da96711-3.mp3",
-                            Rank = 524640,
+                            Rank = 574214,
                             Title = "Do Better"
                         },
                         new
@@ -18783,7 +18783,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "b2f290a05f83e6e3f3ba35dd4d36a188",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-d.dzcdn.net/stream/c-dd6aa36c4fcf1be9470c41de67dbb82f-4.mp3",
-                            Rank = 482753,
+                            Rank = 513074,
                             Title = "Nothin New"
                         },
                         new
@@ -18978,7 +18978,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "cac4144e48310a981585c49fe390c060",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-d.dzcdn.net/stream/c-dbfd5596de4d9cf3513656e36a70cec3-4.mp3",
-                            Rank = 436242,
+                            Rank = 435909,
                             Title = "Sacrifices (feat. Fridayy)"
                         },
                         new
@@ -19641,7 +19641,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "7df7ac6028591a5622f24cf32a555510",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-4.dzcdn.net/stream/c-4fd34b18474d180c697bfa416a14b449-5.mp3",
-                            Rank = 607313,
+                            Rank = 569089,
                             Title = "R.I.P. SCREW"
                         },
                         new
@@ -19667,7 +19667,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "1367ce7747d230251ba89d5b8d12ebe1",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-5.dzcdn.net/stream/c-5e028271cfc3c769c00212cf10e3bec6-3.mp3",
-                            Rank = 787872,
+                            Rank = 736397,
                             Title = "Michael & Quincy"
                         },
                         new
@@ -19706,7 +19706,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "a6102587be2b1c4f3f6e406b3f39512f",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-5.dzcdn.net/stream/c-5a949545a4c0512ab25b63239c5afce7-3.mp3",
-                            Rank = 427826,
+                            Rank = 414516,
                             Title = "Dissin the Dead"
                         },
                         new
@@ -19836,7 +19836,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "c151d2337f7af8d5e64bf6dcaa74c743",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-0.dzcdn.net/stream/c-08093a742d9ac8bcd4ff3ddbc0e36747-2.mp3",
-                            Rank = 379889,
+                            Rank = 397804,
                             Title = "Gold Rings (feat. Pusha T)"
                         },
                         new
@@ -19849,7 +19849,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "8f168d74dbcdb973378e79205f2d1a50",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-a.dzcdn.net/stream/c-a58952d3305617f66f0a084e689d73f0-6.mp3",
-                            Rank = 377645,
+                            Rank = 324197,
                             Title = "Memory Lane"
                         },
                         new
@@ -19901,7 +19901,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "2eee85cec40734b2ea8c709a1c23d1bb",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-1.dzcdn.net/stream/c-173964b55bb559c983ced8056087bf5f-2.mp3",
-                            Rank = 235599,
+                            Rank = 201364,
                             Title = "Deja Vu"
                         },
                         new
@@ -19953,7 +19953,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "0dacb84818e8d83b7f21485e98f32d7c",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-6.dzcdn.net/stream/c-604a35a2606eefab37acb2e1dba9a700-2.mp3",
-                            Rank = 378408,
+                            Rank = 342719,
                             Title = "Quantum Leap"
                         },
                         new
@@ -19992,7 +19992,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "c328b66580b3f9150eb21ead8887ea45",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-5.dzcdn.net/stream/c-5039a2b6a7bd621cafb046268e4a120e-4.mp3",
-                            Rank = 289992,
+                            Rank = 320543,
                             Title = "Zatoichi"
                         },
                         new
@@ -20044,7 +20044,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "b861d1e94f5d4b4bf2f75b52724f1e93",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-7.dzcdn.net/stream/c-79d6d732915ba25e7417e22250273a11-5.mp3",
-                            Rank = 504539,
+                            Rank = 460596,
                             Title = "Johnny P's Caddy"
                         },
                         new
@@ -20265,7 +20265,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "ed465e605800003826d77c02047d418a",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-a.dzcdn.net/stream/c-a7ea916847c26b62254100580218d508-2.mp3",
-                            Rank = 235385,
+                            Rank = 193103,
                             Title = "GREEDY (feat. Chuck Strangers)"
                         },
                         new
@@ -20278,7 +20278,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "1956b602e48e7d0cc9898a0288446234",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-c.dzcdn.net/stream/c-c6ca6db8a98633a996bed765bfb27af1-4.mp3",
-                            Rank = 547066,
+                            Rank = 578462,
                             Title = "a m a r i"
                         },
                         new
@@ -20434,7 +20434,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "2f1ec14d68a7a719526969cf8388e9c5",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-4.dzcdn.net/stream/c-43ded1e588e8e2f0f6dc3efb05e732ab-3.mp3",
-                            Rank = 629746,
+                            Rank = 596663,
                             Title = "Straight Outta Compton"
                         },
                         new
@@ -20525,7 +20525,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "77812f497bc35690f4dab2269cd76424",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-a.dzcdn.net/stream/c-afb3074d4e9cf4ced1aa503be2bd9eec-16.mp3",
-                            Rank = 500747,
+                            Rank = 500029,
                             Title = "Where I'm From"
                         },
                         new
@@ -20694,7 +20694,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "73061cdea3122a782388baab24d05c50",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-7.dzcdn.net/stream/c-72bf2a6b261a4229edb8726209f3b56e-4.mp3",
-                            Rank = 498194,
+                            Rank = 457408,
                             Title = "Nobody Does It Better"
                         },
                         new
@@ -20720,7 +20720,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "00dd0da365a94b1829302d6b7fec70e6",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-9.dzcdn.net/stream/c-97b63cbddd9a977acf85fe0daf4a7be2-6.mp3",
-                            Rank = 695281,
+                            Rank = 663351,
                             Title = "King Kunta"
                         },
                         new
@@ -20759,7 +20759,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "5ef1d7d69f41a334e17e48451d8f5a00",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-9.dzcdn.net/stream/c-92e2a9c694a824db328d80aa8d511a12-6.mp3",
-                            Rank = 541588,
+                            Rank = 543135,
                             Title = "No Vaseline"
                         },
                         new
@@ -20811,7 +20811,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "ee7dc2feefad59b9c551f814df638ab4",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-4.dzcdn.net/stream/c-4433b23048f15d6437f8895942ec07f8-7.mp3",
-                            Rank = 425652,
+                            Rank = 390232,
                             Title = "Guerrilla Funk"
                         },
                         new
@@ -20889,7 +20889,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "4ccc20e3f04aa642ea55a323204e1294",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-d.dzcdn.net/stream/c-d21c23c924e8ab3089fbcf79fd9d089b-3.mp3",
-                            Rank = 530076,
+                            Rank = 498828,
                             Title = "Rare"
                         },
                         new
@@ -20915,7 +20915,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "f3d9509692b2792ea75bca0eb7814771",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-8.dzcdn.net/stream/c-806cacbe05420940d14dbfe1ff1179c0-3.mp3",
-                            Rank = 441848,
+                            Rank = 403763,
                             Title = "paloma's dream (intro)"
                         },
                         new
@@ -20941,7 +20941,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "1367a57336b1da366c5495851d67d025",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-0.dzcdn.net/stream/c-0f81067d7261e5ada7c01ae7750dad93-3.mp3",
-                            Rank = 442803,
+                            Rank = 400215,
                             Title = "Green Out"
                         },
                         new
@@ -20953,8 +20953,8 @@ namespace RidePal.Data.Migrations
                             GenreId = 1,
                             ImagePath = "816d2f32d49a780ec34d1b4e89945f65",
                             IsDeleted = false,
-                            PreviewURL = "https://cdns-preview-e.dzcdn.net/stream/c-e9d18464377ac34e046f86b96868b559-8.mp3",
-                            Rank = 709070,
+                            PreviewURL = "",
+                            Rank = 673800,
                             Title = "It Runs Through Me"
                         },
                         new
@@ -20967,7 +20967,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "75b9df4301a16c4bfa994df4dceb525e",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-6.dzcdn.net/stream/c-61b6ef0746c4c92f56bcf73d8c5df359-4.mp3",
-                            Rank = 414324,
+                            Rank = 377931,
                             Title = "Victories & Losses"
                         },
                         new
@@ -21006,7 +21006,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "1ff36789cb9ae8564d8a88d102204c19",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-a.dzcdn.net/stream/c-adaea28f36876058b94733a14c36b63f-3.mp3",
-                            Rank = 455733,
+                            Rank = 412638,
                             Title = "Off The Drugs"
                         },
                         new
@@ -21071,7 +21071,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "94d688df55e4c1001ad6df12546ecbb8",
                             IsDeleted = false,
                             PreviewURL = "",
-                            Rank = 79829,
+                            Rank = 48655,
                             Title = "Oatmeal"
                         },
                         new
@@ -21149,7 +21149,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "e26af341234ba59eb9e99285ddbd06d9",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-3.dzcdn.net/stream/c-3601f1e59f06f30598c22fc94deb45b2-3.mp3",
-                            Rank = 415070,
+                            Rank = 359607,
                             Title = "Wabi Sabi"
                         },
                         new
@@ -21159,10 +21159,10 @@ namespace RidePal.Data.Migrations
                             ArtistId = 243,
                             Duration = 171,
                             GenreId = 1,
-                            ImagePath = "a7485c28eb08d8be4025093a3786f9e1",
+                            ImagePath = "e9d73512886fd01a0d7b3a48c327f705",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-7.dzcdn.net/stream/c-70d34e5d001f51a9f3108c77942e23d3-3.mp3",
-                            Rank = 402086,
+                            Rank = 369639,
                             Title = "No More Magical"
                         },
                         new
@@ -21227,7 +21227,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "26de5947b1222f7de7ac14f9b00fbb42",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-9.dzcdn.net/stream/c-9edb6a96667191e531cbb51bf6dc979a-3.mp3",
-                            Rank = 379430,
+                            Rank = 337298,
                             Title = "Runnin Away (feat. Malaya)"
                         },
                         new
@@ -21240,7 +21240,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "49236a9b2b9f078dc2fe472b628dbcb9",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-e.dzcdn.net/stream/c-e4e80b1014666f7cae6376ea2238a1f6-3.mp3",
-                            Rank = 392524,
+                            Rank = 345106,
                             Title = "Loose Change"
                         },
                         new
@@ -21253,7 +21253,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "007631825db54da10ec22539b330712c",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-c.dzcdn.net/stream/c-ce59ae2844d68edd12a244cb94eab29d-6.mp3",
-                            Rank = 484829,
+                            Rank = 453091,
                             Title = "The Next Movement"
                         },
                         new
@@ -21266,7 +21266,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "2517c237682b3f43d70da81dc5dab0fb",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-b.dzcdn.net/stream/c-b2b0c8943611746d4b767bac4a8f65e3-3.mp3",
-                            Rank = 388480,
+                            Rank = 333703,
                             Title = "Be Still"
                         },
                         new
@@ -21292,7 +21292,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "aee737969d6221e73a79acdb9aeafffb",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-c.dzcdn.net/stream/c-cefdc91d1abc89818046ed149a0afbb0-3.mp3",
-                            Rank = 410990,
+                            Rank = 375051,
                             Title = "More Than A Hustler"
                         },
                         new
@@ -21383,7 +21383,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "970914c7b4938ee5565888039018272a",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-6.dzcdn.net/stream/c-6cf1a241f93a89d821e7d38842363950-3.mp3",
-                            Rank = 411637,
+                            Rank = 379699,
                             Title = "Colors and Shapes"
                         },
                         new
@@ -21396,7 +21396,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "8b37d85dbad71f873b1f572269698992",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-8.dzcdn.net/stream/c-844a89385912fda7adf3dff999c156b4-3.mp3",
-                            Rank = 383394,
+                            Rank = 318514,
                             Title = "Louverture"
                         },
                         new
@@ -21435,7 +21435,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "cd2406c7a4dcfee6576aff6686ad42fd",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-b.dzcdn.net/stream/c-bd8d985151bc9d32049aa630ae2e7e48-3.mp3",
-                            Rank = 366520,
+                            Rank = 317232,
                             Title = "Calling"
                         },
                         new
@@ -21526,7 +21526,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "ed85707198b1e8f087189ee3224b2c5c",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-7.dzcdn.net/stream/c-7404843a5e197eac4225b8e8a3157d77-4.mp3",
-                            Rank = 438786,
+                            Rank = 406391,
                             Title = "Invocation (Album Version)"
                         },
                         new
@@ -21604,7 +21604,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "031cb8f307152f9362e3ca7c9ace204a",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-4.dzcdn.net/stream/c-473a754ff9cae77d8a521f85484592e6-5.mp3",
-                            Rank = 443762,
+                            Rank = 398841,
                             Title = "Bittersweet Baby"
                         },
                         new
@@ -21617,7 +21617,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "48e3a9190cf1204a8cfcb2dc7d1f5928",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-7.dzcdn.net/stream/c-7137706b978f037ceefa82d628adb19e-3.mp3",
-                            Rank = 395726,
+                            Rank = 336011,
                             Title = "Children Of The Internet"
                         },
                         new
@@ -21682,7 +21682,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "c8b7fafdfb06dea6142b1b49858f44bc",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-5.dzcdn.net/stream/c-5521d862a3b3966f9714e3919220e3e6-4.mp3",
-                            Rank = 339301,
+                            Rank = 297845,
                             Title = "Tweakin"
                         },
                         new
@@ -21864,7 +21864,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "09db055be46b8b7159401af2019b2d46",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-a.dzcdn.net/stream/c-ad92e86ede2c45c707ffae28f7e7b308-3.mp3",
-                            Rank = 440556,
+                            Rank = 470769,
                             Title = "Gotta Move On (Queens Remix)"
                         },
                         new
@@ -21877,7 +21877,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "52c49df999ccf2844238672acccf2b7b",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-e.dzcdn.net/stream/c-efbf6a1b35dca58b42aec9d0a6f267f3-7.mp3",
-                            Rank = 460783,
+                            Rank = 494482,
                             Title = "Crack Sandwich"
                         },
                         new
@@ -21942,7 +21942,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "776e99de196196d287026e6abb3294ab",
                             IsDeleted = false,
                             PreviewURL = "",
-                            Rank = 141627,
+                            Rank = 105226,
                             Title = "She Loves Me"
                         },
                         new
@@ -22059,7 +22059,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "a4bdfb1cb9d2043470cacb6657024ae0",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-7.dzcdn.net/stream/c-70bd198c79d2ad0437f0922f5544ed83-4.mp3",
-                            Rank = 314129,
+                            Rank = 281912,
                             Title = "Dora"
                         },
                         new
@@ -22072,7 +22072,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "1a7e406fab82bdd6615b137f9da56b37",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-9.dzcdn.net/stream/c-9d4ac197cc8e0777ab9fcc07768d77a2-4.mp3",
-                            Rank = 287895,
+                            Rank = 278214,
                             Title = "Dangerous (feat. Kingsley Ibeneche)"
                         },
                         new
@@ -22137,7 +22137,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "6f025fe60479db38c5187378a5d3aa03",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-8.dzcdn.net/stream/c-86473482be54317f879e4b676fd89cf8-4.mp3",
-                            Rank = 438679,
+                            Rank = 421462,
                             Title = "Mental"
                         },
                         new
@@ -22241,7 +22241,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "84cc556cd12c0245f1038c8c2808d069",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-2.dzcdn.net/stream/c-2f0b25ad06bdd9ff92c56c3747194b34-4.mp3",
-                            Rank = 306373,
+                            Rank = 273808,
                             Title = "Somethin Wrong In Heaven"
                         },
                         new
@@ -22267,7 +22267,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "72911e022a77f6cf4fcf4631871e3e03",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-f.dzcdn.net/stream/c-f016694315b6de5d7f22e23b44b766e1-3.mp3",
-                            Rank = 311287,
+                            Rank = 322981,
                             Title = "SIERRA NIGHTS (feat. Ryan Beatty)"
                         },
                         new
@@ -22293,7 +22293,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "0e5e729fb9e97b935a235f3066a1ef15",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-c.dzcdn.net/stream/c-ce5a5d1ae741c39d317e0f19ab257273-3.mp3",
-                            Rank = 326064,
+                            Rank = 287219,
                             Title = "A Bar About a Bar"
                         },
                         new
@@ -22345,7 +22345,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "384535adbb0fb20b7e6fd083bfcbfc4f",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-1.dzcdn.net/stream/c-1880815dce6b9ea4047685c7627c461f-4.mp3",
-                            Rank = 285600,
+                            Rank = 247048,
                             Title = "Rich Bitch Juice"
                         },
                         new
@@ -22410,7 +22410,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "fe8a08d901829e18b9ffe5d12d5ee2aa",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-d.dzcdn.net/stream/c-d36dba1ba08411b4fc2faeda58279dde-7.mp3",
-                            Rank = 469273,
+                            Rank = 419229,
                             Title = "Still Tippin' (feat. Slim Thug and Paul Wall)"
                         },
                         new
@@ -22488,7 +22488,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "b82b63776ba6220b355bda5777f7e3bf",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-b.dzcdn.net/stream/c-bd379b755ad44ba110314f99d45b8801-3.mp3",
-                            Rank = 352429,
+                            Rank = 321734,
                             Title = "Vica Versa"
                         },
                         new
@@ -22566,7 +22566,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "fddb7efd60bbf01db94b3e8389291c61",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-8.dzcdn.net/stream/c-8c9079666a5d402d55de8fdc424990fc-12.mp3",
-                            Rank = 683193,
+                            Rank = 682090,
                             Title = "Hustlin'"
                         },
                         new
@@ -22748,7 +22748,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "565548645cb6386ec486e7c1abf8620a",
                             IsDeleted = false,
                             PreviewURL = "",
-                            Rank = 106039,
+                            Rank = 71358,
                             Title = "Soul Survivor"
                         },
                         new
@@ -22865,7 +22865,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "a48ca66d77ae9981d60981532963fa95",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-1.dzcdn.net/stream/c-17bfc8302d5a1a22af04a1d5939f6b44-4.mp3",
-                            Rank = 308256,
+                            Rank = 343013,
                             Title = "Buy Back the Block (feat. 2 Chainz & Gucci Mane)"
                         },
                         new
@@ -22956,7 +22956,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "c8a6a86e579cee755720d8e742f32982",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-7.dzcdn.net/stream/c-7477a9f6ba80c007eff07df3f8f499d9-1.mp3",
-                            Rank = 184216,
+                            Rank = 198666,
                             Title = "Ridin Wit Some Killas"
                         },
                         new
@@ -23073,7 +23073,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "3f45340bea1d6a56a81292a56ebfaa09",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-4.dzcdn.net/stream/c-45ea305f22f7ebf831cde234a16fe4ea-3.mp3",
-                            Rank = 294446,
+                            Rank = 401256,
                             Title = "Lost in Orion"
                         },
                         new
@@ -23086,7 +23086,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "e7451da324071061b14553b02eee157e",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-3.dzcdn.net/stream/c-322093ae024aa5db3748527dfdd3a062-4.mp3",
-                            Rank = 377089,
+                            Rank = 431381,
                             Title = "Designer Boi"
                         },
                         new
@@ -23138,7 +23138,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "a01998ba953ba2dc779bfed7228388df",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-8.dzcdn.net/stream/c-8c38137d6dbc795593d6c72aa0fb2c8b-3.mp3",
-                            Rank = 412554,
+                            Rank = 442203,
                             Title = "Cactus"
                         },
                         new
@@ -23151,7 +23151,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "dabb32f262f2df1eec3f90ab88c5a835",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-6.dzcdn.net/stream/c-65b892a8b5c0a73d4733650f7d074bed-3.mp3",
-                            Rank = 322880,
+                            Rank = 371047,
                             Title = "Over Again (feat. AKTHESAVIOR)"
                         },
                         new
@@ -23190,7 +23190,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "35c08dcc0ec7871b020b0591291eb9ef",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-1.dzcdn.net/stream/c-133ee51bcc744a9704bf4057176e823d-6.mp3",
-                            Rank = 725079,
+                            Rank = 691954,
                             Title = "The London (feat. J. Cole & Travis Scott)"
                         },
                         new
@@ -23203,7 +23203,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "2aeced9c160c1b342c81394bc4c2ed5c",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-d.dzcdn.net/stream/c-d52680d3e990d72ea646dc2fb2a5cb98-4.mp3",
-                            Rank = 376022,
+                            Rank = 416511,
                             Title = "Lemonade"
                         },
                         new
@@ -23268,7 +23268,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "8fda9d2b24302ade937686441e786530",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-e.dzcdn.net/stream/c-e3ac0400c1c7c84c0158e0b60caa8c13-5.mp3",
-                            Rank = 451130,
+                            Rank = 505239,
                             Title = "Die For It"
                         },
                         new
@@ -23294,7 +23294,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "a4016bcbf60002c875683de1a9bf78c9",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-6.dzcdn.net/stream/c-6516e2ddadee8f232e5036a80ea4f844-3.mp3",
-                            Rank = 308753,
+                            Rank = 343433,
                             Title = "Juice"
                         },
                         new
@@ -23333,7 +23333,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "13662f6ec3a2625cbdcbfb5f8a6e3f5b",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-a.dzcdn.net/stream/c-acb61b915d9d0a10d07fb4cebccedfc2-3.mp3",
-                            Rank = 335226,
+                            Rank = 354621,
                             Title = "BASS"
                         },
                         new
@@ -23359,7 +23359,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "501f8d0ab3c7877a38a630bc1801b1a3",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-3.dzcdn.net/stream/c-3c4e22706bb3a55bdb9233fa86a46c7d-2.mp3",
-                            Rank = 267470,
+                            Rank = 336510,
                             Title = "Iron Sight"
                         },
                         new
@@ -23398,7 +23398,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "698680d5615893fb5e805d3d11e3a6eb",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-9.dzcdn.net/stream/c-939b52dc192ddcb09107073d71050b5e-5.mp3",
-                            Rank = 305002,
+                            Rank = 337724,
                             Title = "LAND OF THE FREE"
                         },
                         new
@@ -23476,7 +23476,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "3b2bfb1e50c0f46868e1aa6c4c1dd072",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-1.dzcdn.net/stream/c-10c3531443ea492385257ce97b9321a2-6.mp3",
-                            Rank = 610762,
+                            Rank = 580374,
                             Title = "Stay"
                         },
                         new
@@ -23697,7 +23697,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "e77b162b10e0d0c07e2810269750ecdf",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-b.dzcdn.net/stream/c-b67e0208a05a80fe1a4458f2fe9dee3d-3.mp3",
-                            Rank = 671872,
+                            Rank = 636765,
                             Title = "Her"
                         },
                         new
@@ -23775,7 +23775,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "eef135f446129b3452b7ab16d4078ed2",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-f.dzcdn.net/stream/c-f0ea51f61d658b870ffb2904a78d8252-3.mp3",
-                            Rank = 562051,
+                            Rank = 529574,
                             Title = "Plan B"
                         },
                         new
@@ -23944,7 +23944,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "f9293620dcbb898e40149b4081c5f06e",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-1.dzcdn.net/stream/c-1d4674e70e5f48959ef237c23908de94-8.mp3",
-                            Rank = 579460,
+                            Rank = 544092,
                             Title = "Do It"
                         },
                         new
@@ -23957,7 +23957,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "89396a49607a1d136e4e27658b045a7f",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-3.dzcdn.net/stream/c-394a045508902a29eaa7ffe17a699f37-3.mp3",
-                            Rank = 703794,
+                            Rank = 737858,
                             Title = "Up"
                         },
                         new
@@ -24048,7 +24048,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "c1d8712f2fd8c15cda496945b15ced21",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-1.dzcdn.net/stream/c-1449fa6816d6a42852f262c41259550a-3.mp3",
-                            Rank = 399504,
+                            Rank = 386581,
                             Title = "It's Not My Fault"
                         },
                         new
@@ -24074,7 +24074,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "f470f813c2c5b88904b8bbddf19aa9d0",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-a.dzcdn.net/stream/c-ace9426111890d4a33ed80a684ed72af-3.mp3",
-                            Rank = 387098,
+                            Rank = 331031,
                             Title = "Get It Girl"
                         },
                         new
@@ -24100,7 +24100,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "311cffdfca541302913e871e4cc4481d",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-2.dzcdn.net/stream/c-258042cf0def53eeac980ced2e9e5798-3.mp3",
-                            Rank = 477741,
+                            Rank = 440952,
                             Title = "Sip It"
                         },
                         new
@@ -24191,7 +24191,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "b841e462506583020e445e795ba99ef3",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-a.dzcdn.net/stream/c-a6f208b817fa8e5b0c3c7e254fc8ab7a-3.mp3",
-                            Rank = 251734,
+                            Rank = 215730,
                             Title = "My Type"
                         },
                         new
@@ -24217,7 +24217,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "9479516deb8ebebd472ffa0a9e66c178",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-3.dzcdn.net/stream/c-332ae36a8f9a217efa9a247982c15e5d-5.mp3",
-                            Rank = 436549,
+                            Rank = 399973,
                             Title = "We Not Humping (Remix)"
                         },
                         new
@@ -24230,7 +24230,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "1425e339df897b3b8b974f166e82360b",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-9.dzcdn.net/stream/c-9a0237a09121bafeff9b0d9f3e36d69b-3.mp3",
-                            Rank = 313643,
+                            Rank = 276304,
                             Title = "Chaa Chaa Chaa (feat. HoodCelebrityy)"
                         },
                         new
@@ -24256,7 +24256,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "225a7cc0aa417a2d97d5b37d1906bc92",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-0.dzcdn.net/stream/c-07118b5b974868f01da99296f4335361-3.mp3",
-                            Rank = 389803,
+                            Rank = 357910,
                             Title = "Say It Again"
                         },
                         new
@@ -24282,7 +24282,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "eb62230ad2702e7f00b2cf4bc0cad053",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-3.dzcdn.net/stream/c-3f1be5c3b4e7db59c94d09bf07f39498-2.mp3",
-                            Rank = 337633,
+                            Rank = 370487,
                             Title = "Skating in Central Park"
                         },
                         new
@@ -24360,7 +24360,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "700136ff0b61ca66e4d6c8fa19887e79",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-e.dzcdn.net/stream/c-ec408efbb841e13c8fff87a8a088b54b-2.mp3",
-                            Rank = 309374,
+                            Rank = 358260,
                             Title = "555"
                         },
                         new
@@ -24373,7 +24373,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "bf2b7713e36ad337089c37481ee92c7a",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-2.dzcdn.net/stream/c-28f9c23ca31096fdf4f2a8fc3cef94c4-2.mp3",
-                            Rank = 333739,
+                            Rank = 373141,
                             Title = "summer in paris"
                         },
                         new
@@ -24477,7 +24477,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "54733c006b839f826527b6a73f5affc5",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-4.dzcdn.net/stream/c-47a097c19a898e9b16a6809e175e9263-3.mp3",
-                            Rank = 285004,
+                            Rank = 319430,
                             Title = "Butterfly"
                         },
                         new
@@ -24529,7 +24529,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "d3ff89ff4db528dd7bb2039803f6f946",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-c.dzcdn.net/stream/c-c99c8164e148d889976f00c965598aab-7.mp3",
-                            Rank = 337577,
+                            Rank = 305751,
                             Title = "wings (one for jun)"
                         },
                         new
@@ -24633,7 +24633,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "8884cb21de6a42126fee2a8f44d1d3a2",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-9.dzcdn.net/stream/c-9be4cfd56ea977626d965b48987b33e7-4.mp3",
-                            Rank = 302625,
+                            Rank = 270787,
                             Title = "Base for Your Face"
                         },
                         new
@@ -24724,7 +24724,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "954a8c0724ecbf876b09f2706438e08e",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-0.dzcdn.net/stream/c-019647229e71c94b4ee9152f1f1e4d50-4.mp3",
-                            Rank = 382667,
+                            Rank = 349635,
                             Title = "A Little Soul"
                         },
                         new
@@ -24737,7 +24737,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "55cd5e8b6bd328634137d941540a13d1",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-8.dzcdn.net/stream/c-8dd84c52cecb80501f527d1cc360d9fe-2.mp3",
-                            Rank = 332986,
+                            Rank = 299645,
                             Title = "Free Things in Life"
                         },
                         new
@@ -24867,7 +24867,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "d539ac7de9ce5fb5260ee05a6e2b4ffa",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-0.dzcdn.net/stream/c-01cdb8eda04db62c467d61e08651c53d-3.mp3",
-                            Rank = 271253,
+                            Rank = 240494,
                             Title = "Smooth Beats Chill"
                         },
                         new
@@ -24906,7 +24906,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "9d41571bcff54129ed353afb86e9b707",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-f.dzcdn.net/stream/c-f9321f8501f8f2a5ae5bddf96e0cd687-3.mp3",
-                            Rank = 343205,
+                            Rank = 394474,
                             Title = "Beat laments the world"
                         },
                         new
@@ -24984,7 +24984,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "1bade3419dbbec65bb7a6871c2a6ed56",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-a.dzcdn.net/stream/c-a864a391cc24d4c8a806ab281b251fb9-3.mp3",
-                            Rank = 341212,
+                            Rank = 299799,
                             Title = "Chicago"
                         },
                         new
@@ -25023,7 +25023,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "14ac7b9b49ec94e9e8dfe09f31e30b29",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-8.dzcdn.net/stream/c-8b13eaee4dcc4a6374342b740a7030f8-4.mp3",
-                            Rank = 316449,
+                            Rank = 317362,
                             Title = "Bad Name (Instrumental)"
                         },
                         new
@@ -25244,7 +25244,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "77812f497bc35690f4dab2269cd76424",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-b.dzcdn.net/stream/c-b5f6469d0e7b67675587b8a21b9e2f00-12.mp3",
-                            Rank = 904560,
+                            Rank = 867352,
                             Title = "Hate It Or Love It"
                         },
                         new
@@ -25257,7 +25257,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "a6e30c41520cf1ed097344d1af767e82",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-4.dzcdn.net/stream/c-48646443b494cac7de3fdf40deb3469d-10.mp3",
-                            Rank = 673746,
+                            Rank = 704204,
                             Title = "Party Up"
                         },
                         new
@@ -25478,7 +25478,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "544d5fca43249ab6ddb352199452f9c1",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-a.dzcdn.net/stream/c-a5b4af9720d8bb45d07ff249083e39b1-3.mp3",
-                            Rank = 517716,
+                            Rank = 475762,
                             Title = "Blow the Whistle"
                         },
                         new
@@ -25608,7 +25608,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "36aa72383f44185ca3ddb7e1a3970815",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-f.dzcdn.net/stream/c-f781f795a590eef98151207d54230013-7.mp3",
-                            Rank = 698721,
+                            Rank = 741387,
                             Title = "Down On Me"
                         },
                         new
@@ -25647,7 +25647,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "6c37cfa6626bca91023979c7b5cc0023",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-2.dzcdn.net/stream/c-212d8b245e0c653bd5783f4e59e431ac-4.mp3",
-                            Rank = 226824,
+                            Rank = 261077,
                             Title = "Miracle Baby"
                         },
                         new
@@ -25712,7 +25712,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "1956b602e48e7d0cc9898a0288446234",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-8.dzcdn.net/stream/c-8c72754a5db1c02bf7c662619ada2fff-4.mp3",
-                            Rank = 682535,
+                            Rank = 648664,
                             Title = "p r i d e . i s . t h e . d e v i l"
                         },
                         new
@@ -25972,7 +25972,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "14fddd3675b7aeeab18d58b1d46acf92",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-0.dzcdn.net/stream/c-07e586baf969135fc6a1ed8cb772c33c-4.mp3",
-                            Rank = 698232,
+                            Rank = 646390,
                             Title = "Wants and Needs"
                         },
                         new
@@ -26011,7 +26011,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "cd1cd67069ac9c1e0eb72309636b5563",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-6.dzcdn.net/stream/c-6a2cb5aec19644143ad38e98a67a94b3-3.mp3",
-                            Rank = 335241,
+                            Rank = 340867,
                             Title = "Lay Wit Ya (feat. Duke Deuce)"
                         },
                         new
@@ -26037,7 +26037,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "2868f109d1dd268995b82c5d6c1bc47e",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-0.dzcdn.net/stream/c-0a9e227fc5ef9d5d32d7d7936c09cb48-7.mp3",
-                            Rank = 477090,
+                            Rank = 444630,
                             Title = "Paid In Full"
                         },
                         new
@@ -26063,7 +26063,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "f92e3a2afe8734b3241467c6cb98c17e",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-9.dzcdn.net/stream/c-95a6aa0a1a03e2a3df550dfbf2737eca-8.mp3",
-                            Rank = 303259,
+                            Rank = 344579,
                             Title = "The Bridge Is Over (Street X-Rated Version)"
                         },
                         new
@@ -26076,7 +26076,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "989f1691ebac2995d00a94ff51be6423",
                             IsDeleted = false,
                             PreviewURL = "",
-                            Rank = 34882,
+                            Rank = 4810,
                             Title = "Boyz-N-The-Hood"
                         },
                         new
@@ -26154,7 +26154,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "8bc1a1d7e0e5aa39acf4dbf0a293a899",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-3.dzcdn.net/stream/c-33c9b068675dd55dbbd7ef54070fa807-7.mp3",
-                            Rank = 415037,
+                            Rank = 367159,
                             Title = "It's Funky Enough (Remastered Single)"
                         },
                         new
@@ -26388,7 +26388,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "e4a15335d89861aae3343250f74745c0",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-8.dzcdn.net/stream/c-8812b5b39364ee34f9b2b6443d9444c9-4.mp3",
-                            Rank = 289738,
+                            Rank = 237681,
                             Title = "I Know You Got Soul"
                         },
                         new
@@ -26401,7 +26401,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "cdd8196f49efd9f34db0c9b2580ad34d",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-7.dzcdn.net/stream/c-76e73da43bdd92a74e3d4eb398a1e084-7.mp3",
-                            Rank = 396587,
+                            Rank = 356150,
                             Title = "Jam On It"
                         },
                         new
@@ -26518,7 +26518,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "4ae3582d658f93228eb5a42cba04ee64",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-6.dzcdn.net/stream/c-6710759da8e7277c8e2edf9f6233c88e-7.mp3",
-                            Rank = 396707,
+                            Rank = 356958,
                             Title = "Egg Man"
                         },
                         new
@@ -26570,7 +26570,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "c09fa4c941be727ab7228ecb3edd2782",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-a.dzcdn.net/stream/c-a4a971a32040b5e92be05976c4703cf9-3.mp3",
-                            Rank = 297384,
+                            Rank = 247832,
                             Title = "I Got It Made"
                         },
                         new
@@ -26609,7 +26609,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "cf1629b63ea5bf04b47ab07573a883d3",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-a.dzcdn.net/stream/c-adf6d6955b065a01280b4bb2377f48bd-2.mp3",
-                            Rank = 303667,
+                            Rank = 291462,
                             Title = "So Wat Cha Sayin'"
                         },
                         new
@@ -26882,7 +26882,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "a64e574a3e0f95ec4bec4778fce958c1",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-7.dzcdn.net/stream/c-7c490215a32b2db490fd703c8a50dbac-3.mp3",
-                            Rank = 318080,
+                            Rank = 260931,
                             Title = "Cindy's Daughter (feat. Bibi Bourelly)"
                         },
                         new
@@ -27103,7 +27103,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "62ef0be42820932f254933b35b05fb6b",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-b.dzcdn.net/stream/c-b01ff76f64ccb4cdc8b67d647ac07976-3.mp3",
-                            Rank = 389135,
+                            Rank = 424874,
                             Title = "Last Night (feat. Tion Wayne)"
                         },
                         new
@@ -27142,7 +27142,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "bc4f6233f6b84dc386bfa34ae7225fd7",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-0.dzcdn.net/stream/c-072bef50ba804b671eeaa2ee3ec6a23b-3.mp3",
-                            Rank = 559744,
+                            Rank = 550095,
                             Title = "Sunshine (The Light)"
                         },
                         new
@@ -27168,7 +27168,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "bc4e00eed7ac7dbc9e9a048f33ec6191",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-6.dzcdn.net/stream/c-6c5323d0ca0036054a402a219a047fdb-3.mp3",
-                            Rank = 340882,
+                            Rank = 298816,
                             Title = "Wait On Me"
                         },
                         new
@@ -27181,7 +27181,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "11f00344b1b905a7f1d438ea69d94161",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-6.dzcdn.net/stream/c-660130211d4166394b675d3f6fe95405-5.mp3",
-                            Rank = 792723,
+                            Rank = 757325,
                             Title = "ZEZE (feat. Travis Scott & Offset)"
                         },
                         new
@@ -27207,7 +27207,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "7645976dd9f38bd2dfadb290b0c52307",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-5.dzcdn.net/stream/c-5c01e9ffc77a0914ac1892b54664162b-3.mp3",
-                            Rank = 321179,
+                            Rank = 313825,
                             Title = "Crossfaded"
                         },
                         new
@@ -27298,7 +27298,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "62ca61b9b1aaca0aabb10e2d9cf561f1",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-b.dzcdn.net/stream/c-b7e63b8009348c0b6a0c7dd1c8248e87-3.mp3",
-                            Rank = 317672,
+                            Rank = 295725,
                             Title = "She Like (feat. Blanco)"
                         },
                         new
@@ -27336,7 +27336,7 @@ namespace RidePal.Data.Migrations
                             GenreId = 1,
                             ImagePath = "bb091c9354a50a335f56ea2936cbf481",
                             IsDeleted = false,
-                            PreviewURL = "https://cdns-preview-4.dzcdn.net/stream/c-49c4449e723c95d9b15193e7b06fe09b-10.mp3",
+                            PreviewURL = "https://cdns-preview-4.dzcdn.net/stream/c-49c4449e723c95d9b15193e7b06fe09b-11.mp3",
                             Rank = 541472,
                             Title = "TookOff"
                         },
@@ -27414,7 +27414,7 @@ namespace RidePal.Data.Migrations
                             GenreId = 1,
                             ImagePath = "50f29c0fce4756bb725fe176a3d66e3c",
                             IsDeleted = false,
-                            PreviewURL = "https://cdns-preview-8.dzcdn.net/stream/c-86349b17c3cbec964c1dd00759c39939-5.mp3",
+                            PreviewURL = "https://cdns-preview-8.dzcdn.net/stream/c-86349b17c3cbec964c1dd00759c39939-6.mp3",
                             Rank = 581348,
                             Title = "Break My Heart"
                         },
@@ -27454,7 +27454,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "0b7586a485ea563a02fbf8a559190864",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-9.dzcdn.net/stream/c-98a798ae100480892ecb35f7e6b8e448-3.mp3",
-                            Rank = 429525,
+                            Rank = 396433,
                             Title = "Yea Yea Yea"
                         },
                         new
@@ -27532,7 +27532,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "892a20ba2712b5c4585f9e49346483f4",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-b.dzcdn.net/stream/c-b63fe844147cb0b7b97d4fdc0b780c89-3.mp3",
-                            Rank = 460610,
+                            Rank = 416507,
                             Title = "Bad Day (feat. Millyz)"
                         },
                         new
@@ -27545,7 +27545,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "a9cd38acb12228d5902ffea1160e572e",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-d.dzcdn.net/stream/c-d8d18a9eb66d2146121b95bdec9c6699-6.mp3",
-                            Rank = 454502,
+                            Rank = 388424,
                             Title = "OK"
                         },
                         new
@@ -27779,7 +27779,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "2cd62674ccdf63050ad385f53a1461f3",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-0.dzcdn.net/stream/c-0a452cb7404c08ab6db450f5ae2e8596-3.mp3",
-                            Rank = 370178,
+                            Rank = 402140,
                             Title = "Summo"
                         },
                         new
@@ -27870,7 +27870,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "a432a365f0679de1a414163bdcec63f5",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-f.dzcdn.net/stream/c-f78fbfcec1b05357ec5b2027e65419a4-3.mp3",
-                            Rank = 445616,
+                            Rank = 441781,
                             Title = "COUNTING SHEEP (feat. 21 Savage)"
                         },
                         new
@@ -27896,7 +27896,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "819b2303aed3c627f91553d06741d6a2",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-1.dzcdn.net/stream/c-1093e145501cb4dcff04c23008d61119-2.mp3",
-                            Rank = 240536,
+                            Rank = 274947,
                             Title = "Koho"
                         },
                         new
@@ -28000,7 +28000,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "71a91352065b8c929271e9a4eb689ed5",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-0.dzcdn.net/stream/c-099c23c782a9a1abcadde2ae03967dbe-3.mp3",
-                            Rank = 322243,
+                            Rank = 332047,
                             Title = "I Ain’t Scared (feat. Foogiano)"
                         },
                         new
@@ -28065,7 +28065,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "c65f65328bfcc3231b60d0e2db2d6388",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-3.dzcdn.net/stream/c-374ea7bfd9c9c105a0b482c215f4244f-4.mp3",
-                            Rank = 291667,
+                            Rank = 239264,
                             Title = "Slide"
                         },
                         new
@@ -28143,7 +28143,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "5b37ed0aacfb1244963d4d705dd7fc9d",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-4.dzcdn.net/stream/c-4abf81eb047bcc65c1624fbcc164a15f-6.mp3",
-                            Rank = 273244,
+                            Rank = 234551,
                             Title = "Dirty Money"
                         },
                         new
@@ -28234,7 +28234,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "296c43f0cae6c283ec03c34f594b09d3",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-1.dzcdn.net/stream/c-1e5aea86251bdeed80f60be3723a8ffb-3.mp3",
-                            Rank = 244366,
+                            Rank = 200462,
                             Title = "Rerock"
                         },
                         new
@@ -28286,7 +28286,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "39fb3e9a2f16ea628b14c15fb5a19109",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-3.dzcdn.net/stream/c-3940cd3201da52f2df62dffb3312b5a0-5.mp3",
-                            Rank = 249339,
+                            Rank = 204541,
                             Title = "On My Mama"
                         },
                         new
@@ -28338,7 +28338,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "a2a472f52d15d367c90f0f38967d5df2",
                             IsDeleted = false,
                             PreviewURL = "",
-                            Rank = 7840,
+                            Rank = 50877,
                             Title = "Jump (Radio Edit)"
                         },
                         new
@@ -28546,7 +28546,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "4d99ed71d4020effadd12d9ae1e61933",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-1.dzcdn.net/stream/c-105d7f89aba9d3e8fdd8053361bb72fc-8.mp3",
-                            Rank = 707596,
+                            Rank = 667645,
                             Title = "Good Feeling"
                         },
                         new
@@ -29066,7 +29066,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "f9454fedea983a965c2531e823ae6f5a",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-b.dzcdn.net/stream/c-b1d3172e8cdf7bd3dc6529cb78baced7-5.mp3",
-                            Rank = 698080,
+                            Rank = 661496,
                             Title = "No Type"
                         },
                         new
@@ -29170,7 +29170,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "64ec37a4cf512c7810c40ba0d318ff1e",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-f.dzcdn.net/stream/c-f3fc2f71a80d587ca38b5273860bc1f7-7.mp3",
-                            Rank = 699458,
+                            Rank = 660408,
                             Title = "Started From the Bottom (Explicit Version)"
                         },
                         new
@@ -29315,6 +29315,68 @@ namespace RidePal.Data.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Users");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Email = "fakeemail@gmail.com",
+                            FirstName = "Angel",
+                            ImagePath = "default.jpg",
+                            IsBlocked = false,
+                            IsDeleted = false,
+                            IsEmailConfirmed = true,
+                            IsGoogleAccount = false,
+                            LastName = "Marinski",
+                            Password = "AQAAAAEAACcQAAAAENK2W207D4cNUuhkKszUPNZZgPe1vCcHehcLaBmPWMY0EwU3pBxEoNkL7lUuE+suCw==",
+                            RoleId = 2,
+                            Username = "AngelMarinski"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Email = "adminsemail@gmail.com",
+                            FirstName = "Maggie",
+                            ImagePath = "default.jpg",
+                            IsBlocked = false,
+                            IsDeleted = false,
+                            IsEmailConfirmed = true,
+                            IsGoogleAccount = false,
+                            LastName = "TheBoss",
+                            Password = "AQAAAAEAACcQAAAAEKl4RXNk+GOyg+wQWqg60T0IX8KjjiMtgz+IWSRVaCZ37TQ4YsbvX8YaF7rgEr6lzw==",
+                            RoleId = 1,
+                            Username = "Maggie"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Email = "morefakeemails@gmail.com",
+                            FirstName = "Radoslav",
+                            ImagePath = "default.jpg",
+                            IsBlocked = false,
+                            IsDeleted = false,
+                            IsEmailConfirmed = true,
+                            IsGoogleAccount = false,
+                            LastName = "Berov",
+                            Password = "AQAAAAEAACcQAAAAEFmYcjiJfxG92Rlf1VSpULc9efaG64T3IKrnRISGEsLNN0OAnnVoAb1IKbdxR+uGsA==",
+                            RoleId = 2,
+                            Username = "Rado561"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Email = "agent007@gmail.com",
+                            FirstName = "James",
+                            ImagePath = "default.jpg",
+                            IsBlocked = false,
+                            IsDeleted = false,
+                            IsEmailConfirmed = true,
+                            IsGoogleAccount = false,
+                            LastName = "Bond",
+                            Password = "AQAAAAEAACcQAAAAEFV38B6IGU1pjdRe60/7Y+dn0tLpL7PulAA7MTzV0DnObAiOCS54PgqbCjHNwa8u0A==",
+                            RoleId = 2,
+                            Username = "James96"
+                        });
                 });
 
             modelBuilder.Entity("RidePal.Data.Models.Album", b =>

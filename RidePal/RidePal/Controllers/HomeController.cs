@@ -22,9 +22,9 @@ namespace RidePal.Controllers
         private readonly ISpotifyServices _spotify;
         private readonly FetchSongs fetchSongs = new FetchSongs();
 
-        public HomeController(ILogger<HomeController> logger, 
-            IBingMapsServices mapsService, 
-            ISpotifyAccountServices spotifyAccount, 
+        public HomeController(ILogger<HomeController> logger,
+            IBingMapsServices mapsService,
+            ISpotifyAccountServices spotifyAccount,
             ISpotifyServices spotify
            )
         {
@@ -50,7 +50,7 @@ namespace RidePal.Controllers
                         var search = await _spotify.GetRapSongs(token);
             */
             //var res = await fetchSongs.GetTracksAsync("https://api.deezer.com/user/5179240022/playlists", new Genre { Id = 1, Name = "Rap" });
-            var res = await fetchSongs.GetTracksAsync("https://api.deezer.com/user/917475151/playlists", new Genre { Id = 1, Name = "Rap" });
+            //var res = await fetchSongs.GetTracksAsync("https://api.deezer.com/user/917475151/playlists", new Genre { Id = 1, Name = "Rap" });
 
             return View();
         }

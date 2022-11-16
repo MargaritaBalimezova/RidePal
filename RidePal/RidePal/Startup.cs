@@ -119,12 +119,13 @@ namespace RidePal
             {
                 app.UseExceptionHandler("/Home/Error");
             }
+            app.UseRouting();
             app.UseStaticFiles();
 
-            app.UseRouting();
-            app.UseHttpsRedirection();
-            app.UseAuthorization();
             app.UseAuthentication();
+            app.UseAuthorization();
+
+            app.UseHttpsRedirection();
 
             app.UseEndpoints(endpoints =>
             {

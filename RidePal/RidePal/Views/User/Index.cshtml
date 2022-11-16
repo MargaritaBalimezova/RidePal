@@ -1,0 +1,59 @@
+﻿@using RidePal.WEB.Models;
+
+@model UserViewModel
+<head>
+    <title>Profile: @User.Identity.Name</title>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/css/profilepage.css" rel="stylesheet">
+</head>
+
+<body>
+    <section class="anime-details spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div id="content" class="content content-full-width">
+                        <!-- begin profile -->
+                        <div class="profile">
+                            <div class="profile-header">
+                                <!-- BEGIN profile-header-cover -->
+                                <div class="profile-header-cover"></div>
+                                <!-- END profile-header-cover -->
+                                <!-- BEGIN profile-header-content -->
+                                <div class="profile-header-content">
+                                    <!-- BEGIN profile-header-img -->
+                                    <div class="profile-header-img">
+                                        <img src="~/Images/@Model.ImagePath" class="avatar img-circle img-thumbnail" alt="avatar">
+                                    </div>
+                                    <!-- END profile-header-img -->
+                                    <!-- BEGIN profile-header-info -->
+                                    <div class="profile-header-info">
+                                        <h4 class="m-t-10 m-b-5">@Model.FirstName @Model.LastName</h4>
+                                        @if (this.User.HasClaim(x => x.Value == "Admin") && this.User.Identity.Name != @Model.Email)
+                                        {
+                                            @if (@Model.IsBlocked)
+                                            {
+                                                <a asp-action="Unblock" asp-route-id=@Model.Id class="button-1">Unblock</a>
+                                            }
+                                            else
+                                            {
+                                                <a asp-action="Block" asp-route-id=@Model.Id class="button-1">Block</a>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <a asp-action="Update" class="button-1">Edit Profile</a>
+                                        }
+                                    </div>
+                                    <!-- END profile-header-info -->
+                                </div>
+                                <!-- END profile-header-content -->
+                            </div>
+                        </div>
+                        <!-- end profile -->                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
