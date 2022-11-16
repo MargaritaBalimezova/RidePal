@@ -6,15 +6,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
 using RidePal.Data.Models;
-using RidePal.Data.DataInitialize;
-using RidePal.Data.DataInitialize.Interfaces;
 
 namespace RidePal.Data
 {
-    public class RidePalContext : DbContext
+    public class RidePalContext: DbContext
     {
         public RidePalContext(DbContextOptions<RidePalContext> options) : base(options)
         {
+
         }
 
         public DbSet<Album> Albums { get; set; }
@@ -27,6 +26,7 @@ namespace RidePal.Data
         public DbSet<Trip> Trips { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<FriendRequest> FriendRequests { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -48,22 +48,16 @@ namespace RidePal.Data
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.ApplyConfigurationsFromAssembly(this.GetType().Assembly);
-            modelBuilder.Seed().Wait();
+            // modelBuilder.Seed();
 
-            /*            FetchSongs fetchSongs = new FetchSongs();
-                        var result = await fetchSongs.GetTracks("https://api.deezer.com/user/917475151/playlists", new Data.Models.Genre { Id = 1, Name = "Rap", IsDeleted = false });
-
-                        modelBuilder.Entity<Track>().HasData(result.tracks);
-                        modelBuilder.Entity<Album>().HasData(result.albums);
-                        modelBuilder.Entity<Artist>().HasData(result.artists);*/
             // SetMinLengthConstraints(modelBuilder);
+          
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseLazyLoadingProxies();
         }
-
         public override int SaveChanges()
         {
             UpdateSoftDeleteStatuses();
@@ -85,7 +79,6 @@ namespace RidePal.Data
                     case EntityState.Added:
                         entry.CurrentValues["IsDeleted"] = false;
                         break;
-
                     case EntityState.Deleted:
                         entry.State = EntityState.Modified;
                         entry.CurrentValues["IsDeleted"] = true;

@@ -15,10 +15,10 @@ namespace RidePal.Data.DataInitialize
         public async static Task Seed(this ModelBuilder db)
         {
             //TODO: remove it
-            if (System.Diagnostics.Debugger.IsAttached == false)
+/*            if (System.Diagnostics.Debugger.IsAttached == false)
             {
                 System.Diagnostics.Debugger.Launch();
-            }
+            }*/
 
             var roles = new List<Role>()
             {
@@ -73,6 +73,12 @@ namespace RidePal.Data.DataInitialize
                     Id = 6,
                     Name = "Classical",
                     IsDeleted = false
+                },
+                new Genre
+                {
+                    Id = 7,
+                    Name = "Pop-Folk",
+                    IsDeleted = false
                 }
             };
 
@@ -126,6 +132,14 @@ namespace RidePal.Data.DataInitialize
             //fecth Classical songs
             await Task.Delay(5000);
             result = await fetchSongs.GetTracksAsync("https://api.deezer.com/user/353978015/playlists", genres[5]);
+
+            albums.AddRange(result.albums);
+            artists.AddRange(result.artists);
+            tracks.AddRange(result.tracks);
+
+            //fecth CHALGA songs
+            await Task.Delay(5000);
+            result = await fetchSongs.GetTracksAsync("https://api.deezer.com/user/5174896922/playlists", genres[6]);
 
             albums.AddRange(result.albums);
             artists.AddRange(result.artists);

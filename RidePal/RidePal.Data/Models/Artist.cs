@@ -38,5 +38,6 @@ namespace RidePal.Data.Models
         {
             return this.Id.GetHashCode();
         }
+
     }
 }
