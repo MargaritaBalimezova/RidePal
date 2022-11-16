@@ -14350,7 +14350,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "1fcc8a7a8ef57a885760840285f55134",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-6.dzcdn.net/stream/c-6881afa32a8c93c83cf57af84caa2bcf-3.mp3",
-                            Rank = 272355,
+                            Rank = 313582,
                             Title = "Open (Space)"
                         },
                         new
@@ -18341,7 +18341,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "a7975477a235713b960242e1fa707546",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-0.dzcdn.net/stream/c-01585e29db47daa37f17e2d316bb6153-5.mp3",
-                            Rank = 219627,
+                            Rank = 258002,
                             Title = "Sleigh Ride"
                         },
                         new
@@ -18614,7 +18614,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "a7975477a235713b960242e1fa707546",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-1.dzcdn.net/stream/c-143776525a50e1250f420d537c7b7b92-3.mp3",
-                            Rank = 151772,
+                            Rank = 112765,
                             Title = "All I Want For Christmas"
                         },
                         new
@@ -20187,7 +20187,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "4ccc20e3f04aa642ea55a323204e1294",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-3.dzcdn.net/stream/c-3f500d0c92a3e2d35c232e0fbd74549b-3.mp3",
-                            Rank = 354435,
+                            Rank = 353746,
                             Title = "Count Me In"
                         },
                         new
@@ -21799,7 +21799,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "cf71068a5f9130ba5e52f52a3d656c6d",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-5.dzcdn.net/stream/c-5a614ccb0b22d068875f352084f5b46b-5.mp3",
-                            Rank = 305798,
+                            Rank = 339257,
                             Title = "purist*"
                         },
                         new
@@ -22501,7 +22501,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "6fc0aea17be89b40ccc55929d336bc72",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-3.dzcdn.net/stream/c-30fb61fa4dff8dc904bce7a5e0aec125-6.mp3",
-                            Rank = 379414,
+                            Rank = 388050,
                             Title = "Damn! (feat. Lil' Jon) (Club Mix)"
                         },
                         new
@@ -22709,7 +22709,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "b11bad22f5a6d99701f5b3096ebdc130",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-b.dzcdn.net/stream/c-b6eb7306f821af22b2080ff75dcfeadf-4.mp3",
-                            Rank = 342662,
+                            Rank = 287668,
                             Title = "Be Easy"
                         },
                         new
@@ -23515,7 +23515,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "384ec456e2c85b7c8e34a6f11b1c6f8c",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-0.dzcdn.net/stream/c-01f4bdf147444060abb0d071088a0e16-3.mp3",
-                            Rank = 243183,
+                            Rank = 336850,
                             Title = "Glitch (feat. Tinashe)"
                         },
                         new
@@ -23866,7 +23866,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "182c53f14ed3d9c270120a165cea0d4c",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-a.dzcdn.net/stream/c-a326f695a604febcf64c628ef10da7d4-4.mp3",
-                            Rank = 563326,
+                            Rank = 532180,
                             Title = "Do We Have A Problem?"
                         },
                         new
@@ -25426,7 +25426,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "069a5dba671436da9301aad36fc9a983",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-1.dzcdn.net/stream/c-1e002bda55ff23429c1d80c33ee67df4-6.mp3",
-                            Rank = 611201,
+                            Rank = 580909,
                             Title = "Slow Jamz"
                         },
                         new
@@ -25686,7 +25686,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "fbf2218aa7d8262098c19097bd10cb21",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-2.dzcdn.net/stream/c-25abcf20140ee477ad9cfbb72bdb92d2-4.mp3",
-                            Rank = 731328,
+                            Rank = 700754,
                             Title = "Clash"
                         },
                         new
@@ -25738,7 +25738,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "85e180cefb3d1b024300519250fb5ff9",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-9.dzcdn.net/stream/c-95187b34edc9156b41af7ed2b8d73aa4-3.mp3",
-                            Rank = 339550,
+                            Rank = 347146,
                             Title = "Long Night in Knightsbridge"
                         },
                         new
@@ -26947,7 +26947,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "dfafce5ddb16691681f7ad6bcb665cd7",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-c.dzcdn.net/stream/c-cac7a066dde9d39f2c8ab29f7344ee1d-8.mp3",
-                            Rank = 560399,
+                            Rank = 529053,
                             Title = "Motivation"
                         },
                         new
@@ -28221,7 +28221,7 @@ namespace RidePal.Data.Migrations
                             ImagePath = "57ab55c783d21ff39a82068df4114974",
                             IsDeleted = false,
                             PreviewURL = "https://cdns-preview-3.dzcdn.net/stream/c-3f7292b7abecde3ffb77ee207aadd1dc-2.mp3",
-                            Rank = 242524,
+                            Rank = 249733,
                             Title = "Showtime"
                         },
                         new
@@ -29328,7 +29328,7 @@ namespace RidePal.Data.Migrations
                             IsEmailConfirmed = true,
                             IsGoogleAccount = false,
                             LastName = "Marinski",
-                            Password = "AQAAAAEAACcQAAAAENK2W207D4cNUuhkKszUPNZZgPe1vCcHehcLaBmPWMY0EwU3pBxEoNkL7lUuE+suCw==",
+                            Password = "AQAAAAEAACcQAAAAEPQuQbiLkEsNEflDpVZb9Y/AEMDUxLgoKVT9414uEOjHB28sZrmQB/9JCebrbplJzA==",
                             RoleId = 2,
                             Username = "AngelMarinski"
                         },
@@ -29343,7 +29343,7 @@ namespace RidePal.Data.Migrations
                             IsEmailConfirmed = true,
                             IsGoogleAccount = false,
                             LastName = "TheBoss",
-                            Password = "AQAAAAEAACcQAAAAEKl4RXNk+GOyg+wQWqg60T0IX8KjjiMtgz+IWSRVaCZ37TQ4YsbvX8YaF7rgEr6lzw==",
+                            Password = "AQAAAAEAACcQAAAAEJoiCGKnUESyAb91nPCVMQ+J7nejCkcQXJ6H7S6PC/0js5zj3Q6WaoTuA9WiDK5I6g==",
                             RoleId = 1,
                             Username = "Maggie"
                         },
@@ -29358,7 +29358,7 @@ namespace RidePal.Data.Migrations
                             IsEmailConfirmed = true,
                             IsGoogleAccount = false,
                             LastName = "Berov",
-                            Password = "AQAAAAEAACcQAAAAEFmYcjiJfxG92Rlf1VSpULc9efaG64T3IKrnRISGEsLNN0OAnnVoAb1IKbdxR+uGsA==",
+                            Password = "AQAAAAEAACcQAAAAEBuf73JOhKggMWG8nezX7FnOXYZ/61ayIPZ/f8aD7jIVS+oi/4GTHr7yhNlmIbd0NQ==",
                             RoleId = 2,
                             Username = "Rado561"
                         },
@@ -29373,7 +29373,7 @@ namespace RidePal.Data.Migrations
                             IsEmailConfirmed = true,
                             IsGoogleAccount = false,
                             LastName = "Bond",
-                            Password = "AQAAAAEAACcQAAAAEFV38B6IGU1pjdRe60/7Y+dn0tLpL7PulAA7MTzV0DnObAiOCS54PgqbCjHNwa8u0A==",
+                            Password = "AQAAAAEAACcQAAAAEIU8A2x2Zg9ORPjAMlFROtT+W+ufaUiY9Llt8VLll/FXvIsMARiWdVHb0InEGd0QAQ==",
                             RoleId = 2,
                             Username = "James96"
                         });
