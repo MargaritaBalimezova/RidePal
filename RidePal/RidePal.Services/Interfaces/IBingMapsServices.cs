@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using RidePal.Data.Models;
+using RidePal.Services.DTOModels;
 using RidePal.Services.Models;
 
 namespace RidePal.Services.Interfaces
@@ -11,6 +12,6 @@ namespace RidePal.Services.Interfaces
     {
         Task<LocationPoint> GetLocation(string countryRegion, string adminDistinct, string addressLine);
 
-        Task<Trip> GetTrip(TripQuerryParameters parameters);
+        Task<TripDTO> GetTrip(TripQuerryParameters parameters);
     }
 }

@@ -47,6 +47,8 @@ namespace MovieForum.Web.MappingConfig
             //this.CreateMap<MovieTags, MovieTagsDTO>()
             //    .ForMember(dest => dest.TagName, act => act.MapFrom(src => src.Tag.TagName))
             //    .ReverseMap();
+            this.CreateMap<Trip, TripDTO>()
+                .ReverseMap();
         }
     }
 }

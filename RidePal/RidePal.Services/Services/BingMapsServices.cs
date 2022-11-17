@@ -14,6 +14,8 @@ using static RidePal.Services.Models.GetLocationModel;
 using static RidePal.Services.Models.GetDistanceModel;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using RidePal.Data.DataInitialize.Interfaces;
+using RidePal.Data;
+using RidePal.Services.DTOModels;
 
 namespace RidePal.Services.Services
 {
@@ -22,12 +24,9 @@ namespace RidePal.Services.Services
         
         private readonly HttpClient _client;
 
-        private readonly IFetchSongs fetchSongs;
-
-        public BingMapsServices(HttpClient client, IFetchSongs fetchSongs)
+        public BingMapsServices(HttpClient client)
         {
             _client = client;
-            this.fetchSongs = fetchSongs;
         }
 
         public async Task<LocationPoint> GetLocation(string countryRegion, string adminDistinct, string addressLine)
@@ -71,7 +70,7 @@ namespace RidePal.Services.Services
 
         }
 
-        public async Task<Trip> GetTrip(TripQuerryParameters parameters)
+        public async Task<TripDTO> GetTrip(TripQuerryParameters parameters)
         {
             var departPoint = await GetLocation(parameters.DepartCountry, parameters.DepartCity, parameters.DepartAddress);
 
@@ -90,13 +89,14 @@ namespace RidePal.Services.Services
 
             var res = responseObject.resourceSets[0].resources[0].results[0];
 
-            return new Trip
+            return  new TripDTO
             {
                 StartPoint = parameters.DepartCity,
                 Destination = parameters.ArriveCity,
-                Duration = res.travelDuration,
-                Distance = res.travelDistance
+                Duration = Math.Round(res.travelDuration,2),
+                Distance = Math.Round(res.travelDistance,2)
             };
+
         }
     }
 }

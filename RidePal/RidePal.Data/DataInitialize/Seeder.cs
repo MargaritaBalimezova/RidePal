@@ -206,12 +206,12 @@ namespace RidePal.Data.DataInitialize
             tracks.AddRange(result.tracks);
 
             //fecth CHALGA songs
-            await Task.Delay(5000);
-            result = await fetchSongs.GetTracksAsync("https://api.deezer.com/user/5174896922/playlists", genres[6]);
+            //await Task.Delay(5000);
+            //result = await fetchSongs.GetTracksAsync("https://api.deezer.com/user/5174896922/playlists", genres[6]);
 
-            albums.AddRange(result.albums);
-            artists.AddRange(result.artists);
-            tracks.AddRange(result.tracks);
+            //albums.AddRange(result.albums);
+            //artists.AddRange(result.artists);
+            //tracks.AddRange(result.tracks);
 
             db.Entity<Album>().HasData(result.albums);
             db.Entity<Artist>().HasData(result.artists);

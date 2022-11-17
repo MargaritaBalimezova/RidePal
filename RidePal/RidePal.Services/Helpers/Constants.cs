@@ -19,6 +19,7 @@ namespace RidePal.Services.Helpers
         public const string ARTIST_NOT_FOUND = "Artist not found!";
         public const string GENRE_NOT_FOUND = "Unexisting genre passed!";
         public const string ALBUM_NOT_FOUND = "Album {0} not found!";
+        public const string TRIP_NOT_FOUND = "Trip not found!";
         public const string INVALID_DATA = "Invalid data passed!";
     }
 }

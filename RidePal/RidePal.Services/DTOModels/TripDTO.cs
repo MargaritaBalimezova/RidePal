@@ -1,12 +1,12 @@
-﻿using MovieForum.Data.Models.Interfaces;
+﻿using RidePal.Data.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace RidePal.Data.Models
+namespace RidePal.Services.DTOModels
 {
-    public class Trip : IHasId, IDeletable
+    public class TripDTO
     {
         public int Id { get; set; }
         [Required]
@@ -17,12 +17,8 @@ namespace RidePal.Data.Models
         public double Distance { get; set; }
         [Required]
         public double Duration { get; set; }
-        [Required]
+
         public int PlaylistId { get; set; }
 
-        public virtual Playlist Playlist { get; set; }
-        [Required]
-        public bool IsDeleted { get; set; }
-        public DateTime? DeletedOn { get; set; }
     }
 }

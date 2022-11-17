@@ -18,41 +18,44 @@ namespace RidePal.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IBingMapsServices _mapsService;
-        private readonly ISpotifyAccountServices _spotifyAccount;
-        private readonly ISpotifyServices _spotify;
         private readonly FetchSongs fetchSongs = new FetchSongs();
 
         public HomeController(ILogger<HomeController> logger, 
-            IBingMapsServices mapsService, 
-            ISpotifyAccountServices spotifyAccount, 
-            ISpotifyServices spotify
+            IBingMapsServices mapsService 
            )
         {
             _logger = logger;
             _mapsService = mapsService;
-            _spotifyAccount = spotifyAccount;
-            _spotify = spotify;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(TripQuerryParameters trip)
         {
-            /*
+            if (!this.ModelState.IsValid)
+            {
+                return this.View();
+            }
+            
+                var cred = new TripQuerryParameters
+                {
+                    DepartCountry = trip.DepartCountry,
+                    ArriveCountry = trip.ArriveCountry,
+                    DepartCity = trip.DepartCity,
+                    ArriveCity = trip.ArriveCity,
+                    DepartAddress = trip.DepartAddress,
+                    ArriveAddress = trip.ArriveAddress
+                    
+                };
 
-                        var cred = new TripQuerryParameters
-                        {
-                            DepartCountry = "BG",
-                            ArriveCountry = "BG",
-                            DepartCity = "Plovdiv",
-                            ArriveCity = "Sofia"
-                        };
-                        var token = await _spotifyAccount.GetToken("1384de232d244717acb19e6f96f43c16", "93871af5c604451f95319223c52b882c");
+            this.ViewData["DepartCountry"] = trip.DepartCountry;
+            this.ViewData["ArriveCountry"] = trip.ArriveCountry;
+            this.ViewData["DepartCity"] = trip.DepartCity;
+            this.ViewData["ArriveCity"] = trip.ArriveCity;
+            this.ViewData["DepartAddress"] = trip.DepartAddress;
+            this.ViewData["ArriveAddress"] = trip.ArriveAddress;
 
-                        var search = await _spotify.GetRapSongs(token);
-            */
-            var res = await fetchSongs.GetTracksAsync("https://api.deezer.com/user/5179240022/playlists", new Genre { Id = 1, Name = "Rap" });
-            //var res = await fetchSongs.GetTracksAsync("https://api.deezer.com/user/917475151/playlists", new Genre { Id = 1, Name = "Rap" });
 
-            return View();
+            var res = await _mapsService.GetTrip(cred);
+                return this.View(res);     
         }
 
         public IActionResult Privacy()
