@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using RidePal.Data.DataInitialize;
 using RidePal.Data.DataInitialize.Interfaces;

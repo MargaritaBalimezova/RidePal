@@ -25,9 +25,9 @@ namespace RidePal.Services.Services
             this.mapper = mapper;
         }
 
-        public IQueryable<TrackDTO> Get()
+        private IQueryable<Track> Get()
         {
-            var tracks = this.db.Tracks.Select(x => this.mapper.Map<TrackDTO>(x)).AsQueryable();
+            var tracks = this.db.Tracks.AsQueryable();
 
             return tracks;
         }
@@ -39,68 +39,40 @@ namespace RidePal.Services.Services
 
             return this.mapper.Map<TrackDTO>(track);
         }
-
-        public async Task<TrackDTO> PostAsync(TrackDTO obj)
+        
+        //takes tracks from db shuffles it with orderby and leaves only the distinct artists
+        public IEnumerable<Track> GetTracksWithDistinctArtists(Genre genre, int duration)
         {
-            var artist = await this.db.Artists.FirstOrDefaultAsync(x => x.Id == obj.ArtistId)
-                ?? throw new EntityNotFoundException(Constants.ARTIST_NOT_FOUND);
+            var tracks = this.Get().Where(x => x.GenreId == genre.Id)
+                .OrderBy(x => Guid.NewGuid())
+                .ToList()
+                .GroupBy(x => x.ArtistId)
+                .Select(x => x.First())
+                .TakeWhile(x => !IsDurationSatisfied(ref duration, x.Duration));
 
-            var genre = await this.db.Genres.FirstOrDefaultAsync(x => x.Id == obj.GenreId)
-                ?? throw new EntityNotFoundException(Constants.GENRE_NOT_FOUND);
-
-            if (obj.Title == null)
-            {
-                throw new InvalidOperationException(Constants.INVALID_DATA);
-            }
-
-            var track = new Track
-            {
-                Title = obj.Title,
-                Rank = (int)obj.Rank,
-                Duration = obj.Duration,
-                //need to check it
-                //Album = mapper.Map<Album>(obj.Album),
-                AlbumId = obj.AlbumId,
-                Genre = genre,
-                Artist = artist,
-                PreviewURL = obj.PreviewURL,
-                ImagePath = obj.ImagePath
-            };
-
-            await db.Tracks.AddAsync(track);
-            await db.SaveChangesAsync();
-
-            return this.mapper.Map<TrackDTO>(track);
+            return tracks;
         }
 
-        public async Task<TrackDTO> UpdateAsync(int id, TrackDTO obj)
+        public IEnumerable<Track> GetTracks(Genre genre, int duration)
         {
-            var track = await this.db.Tracks.FirstOrDefaultAsync(x => x.Id == id)
-                ?? throw new EntityNotFoundException(Constants.TRACK_NOT_FOUND);
-            /*
-            if(obj.Title != null && obj.Title != track.Title)
-            {
-                track.Title = obj.Title;
-            }
-            if(obj.Rank != null && track.Rank != (int)obj.Rank)
-            {
-                track.Rank = (int)obj.Rank;
-            }
-            if(obj.Duration != track.Duration)
-            {
-                track.Duration = obj.Duration;
-            }
-            if(obj.Album != null)
-            {
-                track.Album = this.mapper.Map<Album>(obj.Album);
-            }
-            if()*/
-            throw new NotImplementedException();
+            var tracks = this.Get().Where(x => x.GenreId == genre.Id)
+            .OrderBy(x => Guid.NewGuid())
+            .ToList()
+            .TakeWhile(x => !IsDurationSatisfied(ref duration, x.Duration));
+
+            return tracks;
         }
 
-        public Task<TrackDTO> DeleteAsync(int id)
+        private bool IsDurationSatisfied(ref int duration, int songDuration)
         {
-            throw new NotImplementedException();
+            duration -= songDuration;
+
+            return -100 >= duration && duration >= -500;
         }
+
+      /*  public IQueryable<TrackDTO> GetRandTracksByGenreAndDuration(Genre genre, int duration)
+        {
+
+        }*/
     }
 }

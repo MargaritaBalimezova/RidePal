@@ -54,12 +54,42 @@
         <button type="submit" class="btn btn-primary">Generate trip</button>
     </form>
 
+@*@{ 
+    var playlistDuration = 0;
+}
+
+@{
+    foreach (var item in this.Model)
+    {
+        <h4>@item.Id</h4>
+        <h4>@item.Title</h4>
+        <h4>@item.Artist.Name</h4>
+        <h4>@item.Duration</h4>
+        <h4>@item.Genre.Name</h4>
+        <h4>@item.Rank</h4>
+        <br>
+        <br>
+        <hr>
+        {
+            playlistDuration = playlistDuration + item.Duration;
+        }
+    }
+}
+
+@{
+    var minutes = playlistDuration / 60;
+    var hours = minutes / 60;
+
+}
+
+<h1>Playlist Duration: @hours h  @(minutes%60)minutes @(playlistDuration%60)seconds</h1>
+<h3>@this.Model.Count()</h3>
     @{
         if (this.Model != null)
         {
             <h4>Your trip distance is: @this.Model.Distance km.</h4>
             <h4>Your trip duration is: @this.Model.Duration min.</h4>
         }
-    }
+    }*@
 </body>
 </html>
