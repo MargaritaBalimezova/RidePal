@@ -1,20 +1,22 @@
 ﻿using MovieForum.Data.Models.Interfaces;
-using System.ComponentModel.DataAnnotations;
+using System;
 
 namespace RidePal.Data.Models
 {
-    public class FriendRequest : IHasId
+    public class FriendRequest : IHasId, IDeletable
     {
         public int Id { get; set; }
 
-        [Required]
-        public int RecipientId { get; set; }
+        public int? RecipientId { get; set; }
 
         public virtual User Recipient { get; set; }
 
-        [Required]
-        public int SenderId { get; set; }
+        public int? SenderId { get; set; }
 
         public virtual User Sender { get; set; }
+
+        public bool IsDeleted { get; set; }
+
+        public DateTime? DeletedOn { get; set; }
     }
 }

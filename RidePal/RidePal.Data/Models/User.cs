@@ -28,6 +28,10 @@ namespace RidePal.Data.Models
 
         public bool IsBlocked { get; set; }
 
+        public int NumOfBlocks { get; set; }
+
+        public DateTime LastBlockTime { get; set; }
+
         public bool IsEmailConfirmed { get; set; }
 
         public bool IsGoogleAccount { get; set; }

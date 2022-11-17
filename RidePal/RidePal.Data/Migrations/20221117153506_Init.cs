@@ -81,6 +81,8 @@ namespace RidePal.Data.Migrations
                     ImagePath = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     RoleId = table.Column<int>(type: "int", nullable: false),
                     IsBlocked = table.Column<bool>(type: "bit", nullable: false),
+                    NumOfBlocks = table.Column<int>(type: "int", nullable: false),
+                    LastBlockTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     IsEmailConfirmed = table.Column<bool>(type: "bit", nullable: false),
                     IsGoogleAccount = table.Column<bool>(type: "bit", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
@@ -110,8 +112,10 @@ namespace RidePal.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    RecipientId = table.Column<int>(type: "int", nullable: false),
-                    SenderId = table.Column<int>(type: "int", nullable: false)
+                    RecipientId = table.Column<int>(type: "int", nullable: true),
+                    SenderId = table.Column<int>(type: "int", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
+                    DeletedOn = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -221,7 +225,7 @@ namespace RidePal.Data.Migrations
                 name: "Tracks",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Rank = table.Column<int>(type: "int", nullable: false),
@@ -261,6 +265,40 @@ namespace RidePal.Data.Migrations
                         principalTable: "Playlists",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.InsertData(
+                table: "Genres",
+                columns: new[] { "Id", "DeletedOn", "IsDeleted", "Name", "PlaylistId" },
+                values: new object[,]
+                {
+                    { 1, null, false, "Rap", null },
+                    { 2, null, false, "Rock", null },
+                    { 3, null, false, "Pop", null },
+                    { 4, null, false, "Dance & EDM", null },
+                    { 5, null, false, "Latin", null },
+                    { 6, null, false, "Classical", null },
+                    { 7, null, false, "Pop-Folk", null }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Roles",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { 1, "Admin" },
+                    { 2, "User" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Users",
+                columns: new[] { "Id", "DeletedOn", "Email", "FirstName", "ImagePath", "IsBlocked", "IsDeleted", "IsEmailConfirmed", "IsGoogleAccount", "LastBlockTime", "LastName", "NumOfBlocks", "Password", "RoleId", "UserId", "Username" },
+                values: new object[,]
+                {
+                    { 2, null, "adminsemail@gmail.com", "Maggie", "default.jpg", false, false, true, false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "TheBoss", 0, "AQAAAAEAACcQAAAAEKbUdnybGOXlgHc2z5qZ3xfP6XInefOR9hV37u95mDYFCEtUDEafpWuBZOfE/xZTpw==", 1, null, "Maggie" },
+                    { 3, null, "morefakeemails@gmail.com", "Radoslav", "default.jpg", false, false, true, false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Berov", 0, "AQAAAAEAACcQAAAAEDzJ3wSmA276D/cZJxKD2U2vymgKqkQH9gIHnm9ioZtpSCv8biEkiWCCkYshmE4NAQ==", 1, null, "Rado561" },
+                    { 4, null, "agent007@gmail.com", "James", "default.jpg", false, false, true, false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Bond", 0, "AQAAAAEAACcQAAAAEBe95Vf5AYN47Oknq4lTPWBDerbM6bw/DkSgR4JjuwatQC8YjyXNKYHU1eh2YOz8jA==", 1, null, "James96" },
+                    { 1, null, "fakeemail@gmail.com", "Angel", "default.jpg", false, false, true, false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Marinski", 0, "AQAAAAEAACcQAAAAELW7/hewoOsxiyQja80RVGsx93bW62pgMtZXoHOrmhYJHrf8LnfNdrlFuGuRnTl5mQ==", 2, null, "AngelMarinski" }
                 });
 
             migrationBuilder.CreateIndex(

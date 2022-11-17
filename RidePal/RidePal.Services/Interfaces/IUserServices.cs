@@ -22,35 +22,35 @@ namespace RidePal.Services.Interfaces
 
         public Task<bool> IsExistingUsernameAsync(string username);
 
-        public Task<IEnumerable<UserDTO>> GetAllUsersAsync();
-
         public Task<UserDTO> GetUserDTOAsync(string username);
 
         public Task<UserDTO> GetUserDTOByEmailAsync(string email);
 
         public Task<UserDTO> GetUserDTOAsync(int id);
 
-        public Task SendFriendRequest(string sender, string recipient);
+        public Task SendFriendRequestAsync(string senderEmail, string recipientEmail);
 
-        public Task AcceptFriendRequest(string sender, string recipient);
+        public Task AcceptFriendRequestAsync(string senderEmail, string recipientEmail);
 
-        public Task DeclineFriendRequest(string sender, string recipient);
+        public Task DeclineFriendRequestAsync(string senderEmail, string recipientEmail);
 
-        public Task RemoveFriend(string username, string friendUsername);
+        public Task RemoveFriendAsync(string email, string friendEmail);
 
-        public Task BlockUser(int id);
+        public Task BlockUserAsync(int id);
 
-        public Task UnblockUser(int id);
+        public Task UnblockUserAsync(int id);
 
-        public Task<IEnumerable<UserDTO>> Search(string userSearch, int type);
+        public Task<IEnumerable<UserDTO>> SearchAsync(string userSearch, int type);
 
-        public Task<IEnumerable<UserDTO>> GetAllCommentsAsync(string username);
+        public Task<IEnumerable<UserDTO>> GetAllFriendsAsync(string email);
 
-        public Task<IEnumerable<Playlist>> GetAllPlaylistsAsync(string username);
+        public Task<IEnumerable<FriendRequest>> GetAllFriendRequestsAsync(string email);
+
+        public Task<IEnumerable<PlaylistDTO>> GetAllPlaylistsAsync(string email);
 
         public Task GenerateForgotPasswordTokenAsync(User user);
 
-        public Task<bool> ResetPasswordAsync(ResetPasswordModel model);
+        public Task<bool> ResetPasswordAsyncAsync(ResetPasswordModel model);
 
         public Task GenerateEmailConfirmationTokenAsync(User user);
 

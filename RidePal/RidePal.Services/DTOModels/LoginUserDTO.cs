@@ -24,7 +24,10 @@ namespace RidePal.Services.DTOModels
         public string ImagePath { get; set; }
 
         public bool IsEmailConfirmed { get; set; }
-
         public bool IsGoogleAccount { get; set; }
+
+        public bool IsBlocked { get; set; }
+        public int NumOfBlocks { get; set; }
+        public DateTime LastBlockTime { get; set; }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using RidePal.Data.Models;
 using RidePal.Services.DTOModels;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -31,6 +32,8 @@ namespace RidePal.Services.DTOModels
         public bool IsEmailConfirmed { get; set; }
         public bool IsBlocked { get; set; }
         public bool IsDeleted { get; set; }
+        public int NumOfBlocks { get; set; }
+        public DateTime LastBlockTime { get; set; }
 
         public ICollection<Playlist> Playlists { get; set; }
         public ICollection<UserDTO> Friends { get; set; }

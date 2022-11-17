@@ -1,19 +1,15 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Data.Common;
-using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
 using RidePal.Data.Models;
+using RidePal.Data.DataInitialize;
 
 namespace RidePal.Data
 {
-    public class RidePalContext: DbContext
+    public class RidePalContext : DbContext
     {
         public RidePalContext(DbContextOptions<RidePalContext> options) : base(options)
         {
-
         }
 
         public DbSet<Album> Albums { get; set; }
@@ -26,7 +22,6 @@ namespace RidePal.Data
         public DbSet<Trip> Trips { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<FriendRequest> FriendRequests { get; set; }
-
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -42,22 +37,21 @@ namespace RidePal.Data
                 .HasQueryFilter(track => track.IsDeleted == false);
             modelBuilder.Entity<Trip>()
                 .HasQueryFilter(trip => trip.IsDeleted == false);
-            modelBuilder.Entity<User>()
-                .HasQueryFilter(user => user.IsDeleted == false);
 
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.ApplyConfigurationsFromAssembly(this.GetType().Assembly);
-            // modelBuilder.Seed();
+
+            modelBuilder.Seed().Wait();
 
             // SetMinLengthConstraints(modelBuilder);
-          
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseLazyLoadingProxies();
         }
+
         public override int SaveChanges()
         {
             UpdateSoftDeleteStatuses();
@@ -79,6 +73,7 @@ namespace RidePal.Data
                     case EntityState.Added:
                         entry.CurrentValues["IsDeleted"] = false;
                         break;
+
                     case EntityState.Deleted:
                         entry.State = EntityState.Modified;
                         entry.CurrentValues["IsDeleted"] = true;
