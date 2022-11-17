@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <None Remove="Controllers\UserController.cs~RF63dcb56.TMP" />
+    <None Remove="Controllers\UserController.cs~RF9bd7745.TMP" />
   </ItemGroup>
 
   <ItemGroup>

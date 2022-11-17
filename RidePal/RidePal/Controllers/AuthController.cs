@@ -62,6 +62,15 @@ namespace MovieForum.Web.Controllers
             {
                 var user = await userService.GetUserDTOByEmailAsync(email);
 
+                if (user.IsBlocked && DateTime.Compare(DateTime.Now, user.LastBlockTime.AddDays(7)) < 0)
+                {
+                    DateTime unblock = user.LastBlockTime.AddDays(7);
+                    TimeSpan span = (unblock - DateTime.Now);
+
+                    this.ModelState.AddModelError("IsBlocked", $"You were blocked on {user.LastBlockTime.ToString("dd/MM/yyyy hh:mm")}. Try again in {span.Days} days, {span.Hours} hours and {span.Minutes} minutes.");
+                    return RedirectToAction("Login");
+                }
+
                 var cookieClaims = new List<Claim>
                 {
                     new Claim(ClaimTypes.Name,user.Email),
@@ -175,7 +184,7 @@ namespace MovieForum.Web.Controllers
                     LastName = model.LastName,
                     Email = model.Email,
                     IsGoogleAccount = false,
-                    ImagePath = "defaultphoto.jpg"
+                    ImagePath = "default.jpg"
                 };
 
                 var newUser = await userService.PostAsync(userDTO);
@@ -187,9 +196,16 @@ namespace MovieForum.Web.Controllers
 
                 await userService.GenerateEmailConfirmationTokenAsync(user);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                this.ModelState.AddModelError("Password", "Incorrect password.");
+                if (ex.Message.Contains("Email"))
+                {
+                    this.ModelState.AddModelError("Email", ex.Message);
+                }
+                else
+                {
+                    this.ModelState.AddModelError("Username", ex.Message);
+                }
                 return this.View(model);
             }
             return View("ConfirmEmail", new EmailConfirmModel());
@@ -214,7 +230,6 @@ namespace MovieForum.Web.Controllers
                 this.ModelState.AddModelError("Credential", "Incorrect combination of email/username and password.");
                 return this.View(model);
             }
-
             if (!this.ModelState.IsValid)
             {
                 return this.View(model);
@@ -227,6 +242,15 @@ namespace MovieForum.Web.Controllers
                 if (user == null)
                 {
                     this.ModelState.AddModelError("IsEmailConfirmed", "You have to confirm your email.");
+                    return this.View(model);
+                }
+
+                if (user.IsBlocked && DateTime.Compare(DateTime.Now, user.LastBlockTime.AddDays(7)) < 0)
+                {
+                    DateTime unblock = user.LastBlockTime.AddDays(7);
+                    TimeSpan span = (unblock - DateTime.Now);
+
+                    this.ModelState.AddModelError("IsBlocked", $"You were blocked on {user.LastBlockTime.ToString("dd/MM/yyyy hh:mm")}. Try again in {span.Days} days, {span.Hours} hours and {span.Minutes} minutes.");
                     return this.View(model);
                 }
 
@@ -269,7 +293,7 @@ namespace MovieForum.Web.Controllers
             }
             catch (Exception)
             {
-                this.ModelState.AddModelError("Password", "Incorrect combination of email and password.");
+                this.ModelState.AddModelError("Password", "Incorrect combination of email/username and password.");
                 return this.View(model);
             }
 
@@ -384,7 +408,7 @@ namespace MovieForum.Web.Controllers
             if (ModelState.IsValid)
             {
                 model.Token = model.Token.Replace(' ', '+');
-                var result = await userService.ResetPasswordAsync(model);
+                var result = await userService.ResetPasswordAsyncAsync(model);
                 if (result)
                 {
                     ModelState.Clear();

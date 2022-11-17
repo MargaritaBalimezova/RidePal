@@ -31,7 +31,6 @@
         color: #fff;
         padding-top: 5px;
         padding-bottom: 20px;
-
     }
 
 .profile-header-img {
@@ -52,9 +51,8 @@
 
 .profile-header-info h4 {
     font-weight: 500;
-    color: #fff;
+    color: black;
     margin: 5px 24px;
-
 }
 
 .profile-header-img + .profile-header-info {
@@ -418,7 +416,6 @@ select.form-control:not([size]):not([multiple]) {
     padding: 0 7px;
 }
 
-
 .timeline {
     list-style-type: none;
     margin: 0;
@@ -455,7 +452,7 @@ select.form-control:not([size]):not([multiple]) {
         .timeline .timeline-time .time {
             display: block;
             font-weight: 600;
-            color:white
+            color: white
         }
 
         .timeline .timeline-time .date {
@@ -609,10 +606,10 @@ select.form-control:not([size]):not([multiple]) {
     touch-action: manipulation;
 }
 
-.button-1:hover,
-.button-1:focus {
-    background-color: #F082AC;
-}
+    .button-1:hover,
+    .button-1:focus {
+        background-color: #F082AC;
+    }
 
 .timeline-likes {
     color: #6d767f;

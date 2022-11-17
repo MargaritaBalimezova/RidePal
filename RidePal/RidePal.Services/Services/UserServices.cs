@@ -12,6 +12,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Runtime.CompilerServices;
+using Microsoft.EntityFrameworkCore.Scaffolding.Metadata;
 
 namespace RidePal.Services.Services
 {
@@ -37,19 +39,19 @@ namespace RidePal.Services.Services
 
         public async Task<IEnumerable<UserDTO>> GetAsync()
         {
-            return await db.Users.Select(x => mapper.Map<UserDTO>(x)).ToListAsync();
+            return await db.Users.Where(x => x.IsDeleted == false).Select(x => mapper.Map<UserDTO>(x)).ToListAsync();
         }
 
         public async Task<UserDTO> PostAsync(UpdateUserDTO obj)
         {
             var isEmailValid = Regex.IsMatch(obj.Email, @"[^@\t\r\n]+@[^@\t\r\n]+\.[^@\t\r\n]+");
 
-            if (await IsExistingAsync(obj.Email))
+            if (await IsExistingForRegistrationAsync(obj.Email))
             {
                 throw new Exception("Email already taken");
             }
 
-            if (await IsExistingUsernameAsync(obj.Username))
+            if (await IsExistingUsernameForRegistrationAsync(obj.Username))
             {
                 throw new Exception("Username already taken");
             }
@@ -85,7 +87,7 @@ namespace RidePal.Services.Services
 
             if (obj.Email != userToUpdate.Email)
             {
-                if (await IsExistingAsync(obj.Email))
+                if (await IsExistingForRegistrationAsync(obj.Email))
                 {
                     throw new Exception("Email already taken");
                 }
@@ -136,57 +138,67 @@ namespace RidePal.Services.Services
 
         public async Task<int> UserCount()
         {
-            var numOfUsers = await GetAllUsersAsync();
+            var numOfUsers = await GetAsync();
             return numOfUsers.Count();
         }
 
         public async Task<bool> IsExistingAsync(string email)
         {
-            return await db.Users.AnyAsync(x => x.Email == email);
+            return await db.Users.AnyAsync(x => x.Email == email && x.IsDeleted == false);
         }
 
         public async Task<bool> IsExistingUsernameAsync(string username)
+        {
+            return await db.Users.AnyAsync(x => x.Username == username && x.IsDeleted == false);
+        }
+
+        private async Task<bool> IsExistingForRegistrationAsync(string email)
+        {
+            return await db.Users.AnyAsync(x => x.Email == email);
+        }
+
+        private async Task<bool> IsExistingUsernameForRegistrationAsync(string username)
         {
             return await db.Users.AnyAsync(x => x.Username == username);
         }
 
         #region GetUser methods
 
-        public async Task<IEnumerable<UserDTO>> GetAllUsersAsync()
-        {
-            var users = await db.Users.Where(x => x.IsDeleted == false).ToListAsync();
-            return mapper.Map<IEnumerable<UserDTO>>(users);
-        }
-
         private async Task<User> GetUserAsync(int id)
         {
-            var user = await db.Users.FirstOrDefaultAsync(x => x.Id == id);
+            var user = await db.Users.FirstOrDefaultAsync(x => x.Id == id && x.IsDeleted == false);
             return user ?? throw new InvalidOperationException(USER_NOT_FOUND);
         }
 
         private async Task<User> GetUserAsync(string username)
         {
-            var user = await db.Users.FirstOrDefaultAsync(x => x.Username == username);
+            var user = await db.Users.FirstOrDefaultAsync(x => x.Username == username && x.IsDeleted == false);
+            return user ?? throw new InvalidOperationException(USER_NOT_FOUND);
+        }
+
+        private async Task<User> GetUserByEmailAsync(string email)
+        {
+            var user = await db.Users.FirstOrDefaultAsync(x => x.Email == email && x.IsDeleted == false);
             return user ?? throw new InvalidOperationException(USER_NOT_FOUND);
         }
 
         public async Task<UserDTO> GetUserDTOAsync(string username)
         {
-            var user = await db.Users.FirstOrDefaultAsync(x => x.Username == username);
+            var user = await db.Users.FirstOrDefaultAsync(x => x.Username == username && x.IsDeleted == false);
 
             return mapper.Map<UserDTO>(user) ?? throw new Exception(USER_NOT_FOUND);
         }
 
         public async Task<UserDTO> GetUserDTOByEmailAsync(string email)
         {
-            var user = await db.Users.FirstOrDefaultAsync(x => x.Email == email);
+            var user = await db.Users.FirstOrDefaultAsync(x => x.Email == email && x.IsDeleted == false);
 
             return mapper.Map<UserDTO>(user) ?? throw new Exception();
         }
 
         public async Task<UserDTO> GetUserDTOAsync(int id)
         {
-            var user = await db.Users.FirstOrDefaultAsync(x => x.Id == id);
+            var user = await db.Users.FirstOrDefaultAsync(x => x.Id == id && x.IsDeleted == false);
 
             return mapper.Map<UserDTO>(user) ?? throw new Exception(USER_NOT_FOUND);
         }
@@ -195,44 +207,51 @@ namespace RidePal.Services.Services
 
         #region Friends methods
 
-        public async Task SendFriendRequest(string senderUsername, string recipientUsername)
+        public async Task SendFriendRequestAsync(string senderUsername, string recipientUsername)
         {
-            var sender = await GetUserAsync(senderUsername);
-            var recipient = await GetUserAsync(recipientUsername);
+            if (senderUsername != recipientUsername)
+            {
+                var sender = await GetUserByEmailAsync(senderUsername);
+                var recipient = await GetUserByEmailAsync(recipientUsername);
 
-            var friendRequest = new FriendRequest { SenderId = sender.Id, RecipientId = recipient.Id };
+                var friendRequest = new FriendRequest { SenderId = sender.Id, RecipientId = recipient.Id };
 
-            await db.FriendRequests.AddAsync(friendRequest);
+                if (!db.FriendRequests.Any(x => x.Recipient.Email == recipient.Email && x.Sender.Email == sender.Email && x.IsDeleted == false))
+                {
+                    sender.SentFriendRequests.Add(friendRequest);
+                    recipient.ReceivedFriendRequests.Add(friendRequest);
 
-            sender.SentFriendRequests.Add(friendRequest);
-            recipient.ReceivedFriendRequests.Add(friendRequest);
+                    await db.FriendRequests.AddAsync(friendRequest);
 
-            await db.SaveChangesAsync();
+                    await db.SaveChangesAsync();
+                }
+            }
         }
 
-        public async Task DeclineFriendRequest(string senderUsername, string recipientUsername)
+        public async Task DeclineFriendRequestAsync(string senderEmail, string recipientEmail)
         {
-            var sender = await GetUserAsync(senderUsername);
-            var recipient = await GetUserAsync(recipientUsername);
+            var sender = await GetUserByEmailAsync(senderEmail);
+            var recipient = await GetUserByEmailAsync(recipientEmail);
 
-            var friendRequest = new FriendRequest { SenderId = sender.Id, RecipientId = recipient.Id };
-
-            db.FriendRequests.Remove(friendRequest);
+            var friendRequest = await db.FriendRequests.FirstOrDefaultAsync(x => x.Sender.Email == senderEmail && x.Recipient.Email == recipientEmail);
 
             sender.SentFriendRequests.Remove(friendRequest);
             recipient.ReceivedFriendRequests.Remove(friendRequest);
 
+            friendRequest.IsDeleted = true;
+            friendRequest.DeletedOn = DateTime.Now;
+            //////TODO Resolve -cascade delete?
+            //db.FriendRequests.Remove(friendRequest);
+
             await db.SaveChangesAsync();
         }
 
-        public async Task AcceptFriendRequest(string senderUsername, string recipientUsername)
+        public async Task AcceptFriendRequestAsync(string senderEmail, string recipientEmail)
         {
-            var sender = await GetUserAsync(senderUsername);
-            var recipient = await GetUserAsync(recipientUsername);
+            var sender = await GetUserByEmailAsync(senderEmail);
+            var recipient = await GetUserByEmailAsync(recipientEmail);
 
-            var friendRequest = new FriendRequest { SenderId = sender.Id, RecipientId = recipient.Id };
-
-            db.FriendRequests.Remove(friendRequest);
+            var friendRequest = await db.FriendRequests.FirstOrDefaultAsync(x => x.Sender.Email == senderEmail && x.Recipient.Email == recipientEmail);
 
             sender.SentFriendRequests.Remove(friendRequest);
             recipient.ReceivedFriendRequests.Remove(friendRequest);
@@ -240,13 +259,18 @@ namespace RidePal.Services.Services
             sender.Friends.Add(recipient);
             recipient.Friends.Add(sender);
 
+            friendRequest.IsDeleted = true;
+            friendRequest.DeletedOn = DateTime.Now;
+            ////TODO Resolve -cascade delete?
+            //db.FriendRequests.Remove(friendRequest);
+
             await db.SaveChangesAsync();
         }
 
-        public async Task RemoveFriend(string username, string friendUsername)
+        public async Task RemoveFriendAsync(string email, string friendEmail)
         {
-            var user = await GetUserAsync(username);
-            var friend = await GetUserAsync(friendUsername);
+            var user = await GetUserByEmailAsync(email);
+            var friend = await GetUserByEmailAsync(friendEmail);
 
             user.Friends.Remove(friend);
             friend.Friends.Remove(user);
@@ -254,23 +278,47 @@ namespace RidePal.Services.Services
             await db.SaveChangesAsync();
         }
 
+        public async Task<IEnumerable<UserDTO>> GetAllFriendsAsync(string email)
+        {
+            var user = await GetUserByEmailAsync(email);
+            var friends = user.Friends.Where(x => x.IsDeleted == false).Select(x => mapper.Map<UserDTO>(x)).ToList();
+
+            return friends ?? throw new Exception("No friends found!");
+        }
+
+        public async Task<IEnumerable<FriendRequest>> GetAllFriendRequestsAsync(string email)
+        {
+            var user = await GetUserByEmailAsync(email);
+            var friends = user.ReceivedFriendRequests.ToList();
+
+            return friends ?? throw new Exception("Fr requests not found!");
+        }
+
         #endregion Friends methods
 
-        public async Task BlockUser(int username)
+        public async Task BlockUserAsync(int username)
         {
             var user = await GetUserAsync(username);
 
-            if (user.IsBlocked == true)
+            if (user.NumOfBlocks >= 3)
             {
-                throw new Exception("User is already blocked");
+                user.IsDeleted = true;
+                user.DeletedOn = DateTime.Now;
             }
-
-            user.IsBlocked = true;
-
+            else
+            {
+                if (user.IsBlocked == true)
+                {
+                    throw new Exception("User is already blocked");
+                }
+                user.IsBlocked = true;
+                user.NumOfBlocks++;
+                user.LastBlockTime = DateTime.Now;
+            }
             await db.SaveChangesAsync();
         }
 
-        public async Task UnblockUser(int username)
+        public async Task UnblockUserAsync(int username)
         {
             var user = await GetUserAsync(username);
 
@@ -284,7 +332,7 @@ namespace RidePal.Services.Services
             await db.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<UserDTO>> Search(string userSearch, int type)
+        public async Task<IEnumerable<UserDTO>> SearchAsync(string userSearch, int type)
         {
             IEnumerable<UserDTO> userQuery = null;
 
@@ -313,18 +361,10 @@ namespace RidePal.Services.Services
             return userQuery;
         }
 
-        public async Task<IEnumerable<UserDTO>> GetAllCommentsAsync(string username)
+        public async Task<IEnumerable<PlaylistDTO>> GetAllPlaylistsAsync(string email)
         {
-            var user = await GetUserAsync(username);
-            var friends = user.Friends.Select(x => mapper.Map<UserDTO>(x)).ToList();
-
-            return friends ?? throw new Exception(USER_NOT_FOUND);
-        }
-
-        public async Task<IEnumerable<Playlist>> GetAllPlaylistsAsync(string username)
-        {
-            var user = await GetUserAsync(username);
-            var playlists = user.Playlists.Select(x => mapper.Map<Playlist>(x)).ToList();
+            var user = await GetUserByEmailAsync(email);
+            var playlists = user.Playlists.Select(x => mapper.Map<PlaylistDTO>(x)).ToList();
 
             return playlists ?? throw new Exception(USER_NOT_FOUND);
         }
@@ -337,11 +377,11 @@ namespace RidePal.Services.Services
 
             if (!string.IsNullOrEmpty(token))
             {
-                await SendForgotPasswordEmail(user, token);
+                await SendForgotPasswordEmailAsync(user, token);
             }
         }
 
-        private async Task SendForgotPasswordEmail(User user, string token)
+        private async Task SendForgotPasswordEmailAsync(User user, string token)
         {
             string appDomain = configuration.GetSection("Application:AppDomain").Value;
             string confirmationLink = configuration.GetSection("Application:ForgotPassword").Value;
@@ -361,7 +401,7 @@ namespace RidePal.Services.Services
             await emailService.SendEmailForForgotPassword(options);
         }
 
-        public async Task<bool> ResetPasswordAsync(ResetPasswordModel model)
+        public async Task<bool> ResetPasswordAsyncAsync(ResetPasswordModel model)
         {
             var user = await GetUserAsync(int.Parse(model.UserId));
             if (user != null)
@@ -384,11 +424,11 @@ namespace RidePal.Services.Services
 
             if (!string.IsNullOrEmpty(token))
             {
-                await SendEmailConfirmationEmail(user, token);
+                await SendEmailConfirmationEmailAsync(user, token);
             }
         }
 
-        private async Task SendEmailConfirmationEmail(User user, string token)
+        private async Task SendEmailConfirmationEmailAsync(User user, string token)
         {
             string appDomain = configuration.GetSection("Application:AppDomain").Value;
             string confirmationLink = configuration.GetSection("Application:EmailConfirmation").Value;

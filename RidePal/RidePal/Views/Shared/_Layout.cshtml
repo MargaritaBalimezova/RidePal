@@ -23,13 +23,7 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                        @if (this.User.HasClaim(x => x.Value == "Admin"))
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="User" asp-action="AllUsers">Users</a>
-                            </li>
-                        }
+                        </li>                       
                         @if (!this.User.Identity.IsAuthenticated)
                         {
                             <li class="nav-item">
@@ -42,13 +36,22 @@
                         else
                         {
                             <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="User" asp-action="AllUsers">Users</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-route-email="@User.Identity.Name" asp-controller="User" asp-action="AllFriends">Friends</a>
+                            </li>  
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-route-email="@User.Identity.Name" asp-controller="User" asp-action="FriendRequests">Friend Requests</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-route-email="@User.Identity.Name" asp-controller="User" asp-action="Index">Profile</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Update">Settings</a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Auth" asp-action="Logout">Sign Out</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-route-email="@User.Identity.Name" asp-controller="User" asp-action="Update">Profile</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Index">Settings</a>
                             </li>
                         }
                     </ul>

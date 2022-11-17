@@ -10,7 +10,7 @@ using RidePal.Data;
 namespace RidePal.Data.Migrations
 {
     [DbContext(typeof(RidePalContext))]
-    [Migration("20221116181225_Init")]
+    [Migration("20221117153506_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -99,10 +99,16 @@ namespace RidePal.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("RecipientId")
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<int?>("RecipientId")
                         .HasColumnType("int");
 
-                    b.Property<int>("SenderId")
+                    b.Property<int?>("SenderId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -139,6 +145,50 @@ namespace RidePal.Data.Migrations
                     b.HasIndex("PlaylistId");
 
                     b.ToTable("Genres");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            IsDeleted = false,
+                            Name = "Rap"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            IsDeleted = false,
+                            Name = "Rock"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            IsDeleted = false,
+                            Name = "Pop"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            IsDeleted = false,
+                            Name = "Dance & EDM"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            IsDeleted = false,
+                            Name = "Latin"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            IsDeleted = false,
+                            Name = "Classical"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            IsDeleted = false,
+                            Name = "Pop-Folk"
+                        });
                 });
 
             modelBuilder.Entity("RidePal.Data.Models.Playlist", b =>
@@ -205,13 +255,25 @@ namespace RidePal.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Roles");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Admin"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "User"
+                        });
                 });
 
             modelBuilder.Entity("RidePal.Data.Models.Track", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
+                        .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("AlbumId")
@@ -329,8 +391,14 @@ namespace RidePal.Data.Migrations
                     b.Property<bool>("IsGoogleAccount")
                         .HasColumnType("bit");
 
+                    b.Property<DateTime>("LastBlockTime")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("LastName")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("NumOfBlocks")
+                        .HasColumnType("int");
 
                     b.Property<string>("Password")
                         .HasColumnType("nvarchar(max)");
@@ -351,6 +419,76 @@ namespace RidePal.Data.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Users");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Email = "fakeemail@gmail.com",
+                            FirstName = "Angel",
+                            ImagePath = "default.jpg",
+                            IsBlocked = false,
+                            IsDeleted = false,
+                            IsEmailConfirmed = true,
+                            IsGoogleAccount = false,
+                            LastBlockTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastName = "Marinski",
+                            NumOfBlocks = 0,
+                            Password = "AQAAAAEAACcQAAAAELW7/hewoOsxiyQja80RVGsx93bW62pgMtZXoHOrmhYJHrf8LnfNdrlFuGuRnTl5mQ==",
+                            RoleId = 2,
+                            Username = "AngelMarinski"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Email = "adminsemail@gmail.com",
+                            FirstName = "Maggie",
+                            ImagePath = "default.jpg",
+                            IsBlocked = false,
+                            IsDeleted = false,
+                            IsEmailConfirmed = true,
+                            IsGoogleAccount = false,
+                            LastBlockTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastName = "TheBoss",
+                            NumOfBlocks = 0,
+                            Password = "AQAAAAEAACcQAAAAEKbUdnybGOXlgHc2z5qZ3xfP6XInefOR9hV37u95mDYFCEtUDEafpWuBZOfE/xZTpw==",
+                            RoleId = 1,
+                            Username = "Maggie"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Email = "morefakeemails@gmail.com",
+                            FirstName = "Radoslav",
+                            ImagePath = "default.jpg",
+                            IsBlocked = false,
+                            IsDeleted = false,
+                            IsEmailConfirmed = true,
+                            IsGoogleAccount = false,
+                            LastBlockTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastName = "Berov",
+                            NumOfBlocks = 0,
+                            Password = "AQAAAAEAACcQAAAAEDzJ3wSmA276D/cZJxKD2U2vymgKqkQH9gIHnm9ioZtpSCv8biEkiWCCkYshmE4NAQ==",
+                            RoleId = 1,
+                            Username = "Rado561"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Email = "agent007@gmail.com",
+                            FirstName = "James",
+                            ImagePath = "default.jpg",
+                            IsBlocked = false,
+                            IsDeleted = false,
+                            IsEmailConfirmed = true,
+                            IsGoogleAccount = false,
+                            LastBlockTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastName = "Bond",
+                            NumOfBlocks = 0,
+                            Password = "AQAAAAEAACcQAAAAEBe95Vf5AYN47Oknq4lTPWBDerbM6bw/DkSgR4JjuwatQC8YjyXNKYHU1eh2YOz8jA==",
+                            RoleId = 1,
+                            Username = "James96"
+                        });
                 });
 
             modelBuilder.Entity("RidePal.Data.Models.Album", b =>
@@ -377,14 +515,12 @@ namespace RidePal.Data.Migrations
                     b.HasOne("RidePal.Data.Models.User", "Recipient")
                         .WithMany("ReceivedFriendRequests")
                         .HasForeignKey("RecipientId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.HasOne("RidePal.Data.Models.User", "Sender")
                         .WithMany("SentFriendRequests")
                         .HasForeignKey("SenderId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.Navigation("Recipient");
 

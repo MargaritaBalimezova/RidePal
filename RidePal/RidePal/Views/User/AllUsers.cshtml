@@ -28,31 +28,82 @@
                                     <td>
                                         <a asp-controller="User" asp-action="Index" asp-route-email="@user.Email">@user.Email</a>
                                     </td>
-                                    <td class="text-center">
-                                        @if (user.IsBlocked)
+                                    @if (this.User.HasClaim(x => x.Value == "Admin"))
+                                    {
+                                        <td class="text-center">
+                                            @if (user.IsBlocked)
+                                            {
+                                                <span class="label label-default">Blocked</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="label label-default">Unblocked</span>
+                                            }
+                                        </td>
+                                    }
+
+                                    <td style="width: 20%;">
+                                        @if (!user.Friends.Any(x => x.Email == this.User.Identity.Name) && !user.ReceivedFriendRequests.Any(x => x.Sender.Email == this.User.Identity.Name) && !user.SentFriendRequests.Any(x => x.Recipient.Email == this.User.Identity.Name))
                                         {
-                                            <span class="label label-default">Blocked</span>
+                                            <a asp-action="SendFriendRequest" asp-route-senderEmail="@User.Identity.Name" asp-route-recipientEmail="@user.Email" asp-route-currentView="allUsers" class="button-1">Add Friend</a>
+                                        }
+                                        else if (user.Friends.Any(x => x.Email == this.User.Identity.Name))
+                                        {
+                                            <a asp-action="RemoveFriend" asp-route-email="@User.Identity.Name" asp-route-friendEmail="@user.Email" asp-route-currentView="allUsers" class="button-1">Unfriend</a>
+                                        }
+                                        else if (user.ReceivedFriendRequests.Any(x => x.Sender.Email == this.User.Identity.Name))
+                                        {
+                                            <a asp-action="DeclineFriendRequest" asp-route-senderEmail="@User.Identity.Name" asp-route-recipientEmail="@user.Email" asp-route-currentView="allUsers" class="button-1">Cancel Request</a>
                                         }
                                         else
                                         {
-                                            <span class="label label-default">Unblocked</span>
+                                            <a asp-action="AcceptFriendRequest" asp-route-recipientEmail="@User.Identity.Name" asp-route-senderEmail="@user.Email" asp-route-currentView="allUsers" class="button-1">Confirm Request</a>
+                                            <a asp-action="DeclineFriendRequest" asp-route-recipientEmail="@User.Identity.Name" asp-route-senderEmail="@user.Email" asp-route-currentView="allUsers" class="button-1">Remove Request</a>
                                         }
-                                    </td>    
-                                    </tr>
-                                    }
+                                    </td>
+                                </tr>
+                            }
                         </tbody>
                     </table>
                 </div>
-                <ul class="pagination pull-right">
-                    <li><a href="#"><i class="fa fa-chevron-left"></i></a></li>
-                    <li><a href="#">1</a></li>
-                    <li><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li><a href="#">4</a></li>
-                    <li><a href="#">5</a></li>
-                    <li><a href="#"><i class="fa fa-chevron-right"></i></a></li>
-                </ul>
             </div>
         </div>
     </div>
 </div>
+
+<script type="text/javascript">
+    //function myFunction() {
+        
+    //    var element = document.getElementById("friend-btn");
+    //    if(element.textContent==="Send"){
+    //        element.textContent = "Remove";
+    //        element.setAttribute("asp-action","RemoveFriendRequest");
+    //    }else{
+
+    //        element.textContent = "Send";
+    //        element.setAttribute("asp-action", "SendFriendRequest");
+    //    }
+    //}
+    //$("friend-btn").click(function () {
+    //    $.post("demo_test_post.asp",
+    //        {
+    //            name: "Donald Duck",
+    //            city: "Duckburg"
+    //        },
+    //        function (data, status) {
+    //            alert("Data: " + data + "\nStatus: " + status);
+    //        });
+    //});
+
+    //document.getElementById("friend-btn").addEventListener("click", myFunction);
+
+    //function myFunction() {
+    //    var element = document.getElementById("friend-btn");
+    //    if (element.innerHTML==="Send") {
+    //        element.innerHTML = "Remove";
+    //    }else{
+    //        element.innerHTML = "Send";
+    //    }
+    //}
+
+</script>

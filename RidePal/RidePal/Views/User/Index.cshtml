@@ -4,7 +4,7 @@
 <head>
     <title>Profile: @User.Identity.Name</title>
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
-    <link href="/css/profilepage.css" rel="stylesheet">
+    <link href="/css/profile-page.css" rel="stylesheet">
 </head>
 
 <body>
@@ -28,10 +28,10 @@
                                     <!-- END profile-header-img -->
                                     <!-- BEGIN profile-header-info -->
                                     <div class="profile-header-info">
-                                        <h4 class="m-t-10 m-b-5">@Model.FirstName @Model.LastName</h4>
+                                        <h4 style="color:black" class="m-t-10 m-b-5">@Model.FirstName @Model.LastName</h4>
                                         @if (this.User.HasClaim(x => x.Value == "Admin") && this.User.Identity.Name != @Model.Email)
                                         {
-                                            @if (@Model.IsBlocked)
+                                            @if (Model.IsBlocked)
                                             {
                                                 <a asp-action="Unblock" asp-route-id=@Model.Id class="button-1">Unblock</a>
                                             }
@@ -39,10 +39,29 @@
                                             {
                                                 <a asp-action="Block" asp-route-id=@Model.Id class="button-1">Block</a>
                                             }
+                                            <a asp-action="Delete" asp-route-id=@Model.Id class="button-1">Delete</a>
                                         }
-                                        else
+                                        @if (this.User.Identity.Name == Model.Email)
                                         {
                                             <a asp-action="Update" class="button-1">Edit Profile</a>
+                                        }else{
+                                            @if (!Model.Friends.Any(x => x.Email == this.User.Identity.Name) && !Model.ReceivedFriendRequests.Any(x => x.Sender.Email == this.User.Identity.Name) && !Model.SentFriendRequests.Any(x => x.Recipient.Email == this.User.Identity.Name))
+                                            {
+                                                <a asp-action="SendFriendRequest" asp-route-senderEmail="@User.Identity.Name" asp-route-recipientEmail="@Model.Email" asp-route-currentView="index" class="button-1">Add Friend</a>
+                                            }
+                                            else if (Model.Friends.Any(x => x.Email == this.User.Identity.Name))
+                                            {
+                                                <a asp-action="RemoveFriend" asp-route-email="@User.Identity.Name" asp-route-friendEmail="@Model.Email" asp-route-currentView="index"  class="button-1">Unfriend</a>
+                                            }
+                                            else if (Model.ReceivedFriendRequests.Any(x => x.Sender.Email == this.User.Identity.Name))
+                                            {
+                                                <a asp-action="DeclineFriendRequest" asp-route-senderEmail="@User.Identity.Name" asp-route-recipientEmail="@Model.Email" asp-route-currentView="index" class="button-1">Cancel Request</a>
+                                            }
+                                            else
+                                            {
+                                                <a asp-action="AcceptFriendRequest" asp-route-recipientEmail="@User.Identity.Name" asp-route-senderEmail="@Model.Email" asp-route-currentView="index" class="button-1">Confirm Request</a>
+                                                <a asp-action="DeclineFriendRequest" asp-route-recipientEmail="@User.Identity.Name" asp-route-senderEmail="@Model.Email" asp-route-currentView="indexRemove" class="button-1">Remove Request</a>
+                                            }
                                         }
                                     </div>
                                     <!-- END profile-header-info -->
@@ -50,7 +69,7 @@
                                 <!-- END profile-header-content -->
                             </div>
                         </div>
-                        <!-- end profile -->                        
+                        <!-- end profile -->
                     </div>
                 </div>
             </div>
