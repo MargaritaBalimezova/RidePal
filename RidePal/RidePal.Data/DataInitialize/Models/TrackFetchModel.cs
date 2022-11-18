@@ -13,7 +13,7 @@ namespace RidePal.Data.Models
 
     public class Datum
     {
-        public int id { get; set; }
+        public long id { get; set; }
         public bool readable { get; set; }
         public string title { get; set; }
         public string title_short { get; set; }
@@ -33,7 +33,7 @@ namespace RidePal.Data.Models
 
     public class ArtistFetch
     {
-        public int id { get; set; }
+        public long id { get; set; }
         public string name { get; set; }
         public string link { get; set; }
         public string picture { get; set; }
@@ -47,7 +47,7 @@ namespace RidePal.Data.Models
 
     public class AlbumFetch
     {
-        public int id { get; set; }
+        public long id { get; set; }
         public string title { get; set; }
         public string cover { get; set; }
         public string cover_small { get; set; }

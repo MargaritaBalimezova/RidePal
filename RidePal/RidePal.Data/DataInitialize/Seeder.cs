@@ -15,10 +15,10 @@ namespace RidePal.Data.DataInitialize
         public static async Task Seed(this ModelBuilder db)
         {
             //TODO: remove it
-            /*            if (System.Diagnostics.Debugger.IsAttached == false)
-                        {
-                            System.Diagnostics.Debugger.Launch();
-                        }*/
+/*            if (System.Diagnostics.Debugger.IsAttached == false)
+            {
+                System.Diagnostics.Debugger.Launch();
+            }*/
 
             var roles = new List<Role>()
             {
@@ -206,16 +206,16 @@ namespace RidePal.Data.DataInitialize
             tracks.AddRange(result.tracks);
 
             //fecth CHALGA songs
-            //await Task.Delay(5000);
-            //result = await fetchSongs.GetTracksAsync("https://api.deezer.com/user/5174896922/playlists", genres[6]);
+            await Task.Delay(5000);
+            result = await fetchSongs.GetTracksAsync("https://api.deezer.com/user/5174896922/playlists", genres[6]);
 
-            //albums.AddRange(result.albums);
-            //artists.AddRange(result.artists);
-            //tracks.AddRange(result.tracks);
+            albums.AddRange(result.albums);
+            artists.AddRange(result.artists);
+            tracks.AddRange(result.tracks);
 
-            db.Entity<Album>().HasData(result.albums);
-            db.Entity<Artist>().HasData(result.artists);
-            db.Entity<Track>().HasData(result.tracks);
+            db.Entity<Artist>().HasData(artists);
+            db.Entity<Album>().HasData(albums);
+            db.Entity<Track>().HasData(tracks);
         }
     }
 }

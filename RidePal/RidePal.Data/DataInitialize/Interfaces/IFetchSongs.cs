@@ -10,6 +10,6 @@ namespace RidePal.Data.DataInitialize.Interfaces
     public interface IFetchSongs
     {
         Task<PlaylistsResult> GetPlaylistAsync(string url);
-        Task<ArtistTrackAlbumWrap> GetTracksAsync(string playlistsURL, Genre genre);
+        Task<ArtistTrackAlbumWrap> GetTracksAsync(string playlistsURL, Genre genre, int playlistToFetch = int.MaxValue);
     }
 }

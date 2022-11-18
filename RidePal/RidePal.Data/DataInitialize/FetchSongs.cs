@@ -18,6 +18,8 @@ namespace RidePal.Data.DataInitialize
         public static HashSet<Track> tracks = new HashSet<Track>();
         public static HashSet<Album> albums = new HashSet<Album>();
 
+        static int id = 1;
+
     /*    public FetchSongs(HttpClient client)
         {
             this.client = client;
@@ -36,7 +38,7 @@ namespace RidePal.Data.DataInitialize
             return responseDesirialized;
         }
 
-        public async Task<ArtistTrackAlbumWrap> GetTracksAsync(string playlistsUrl, Genre genre)
+        public async Task<ArtistTrackAlbumWrap> GetTracksAsync(string playlistsUrl, Genre genre, int playlistToFetch = int.MaxValue)
         {
             HttpClient client = new HttpClient();
             var playlists = await this.GetPlaylistAsync(playlistsUrl);
@@ -48,6 +50,11 @@ namespace RidePal.Data.DataInitialize
 
             for (int i = 0; i < playlists.data.Length; i++)
             {
+                if(i == playlistToFetch)
+                {
+                    break;
+                }
+
                 string tracklistUrl = playlists.data[i].tracklist;
 
                 do
@@ -73,7 +80,8 @@ namespace RidePal.Data.DataInitialize
                             IsDeleted = false
                         };
 
-                        if (tracks.Contains(track))
+                        if (tracks.Contains(track) || trackListDesirialized.data[j].album == null || trackListDesirialized.data[j].album.id == 0
+                            || trackListDesirialized.data[j].artist == null || trackListDesirialized.data[j].artist.id == 0 || trackListDesirialized.data[j].album.title == null)
                         {
                             continue;
                         }

@@ -1,4 +1,5 @@
 ﻿using MovieForum.Data.Models.Interfaces;
+using RidePal.Data.Models.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -6,15 +7,15 @@ using System.Text;
 
 namespace RidePal.Data.Models
 {
-    public class Album : IHasId, IDeletable
+    public class Album : IDeletable, IHasLongId
     {
-        public int Id { get; set; }
+        public long Id { get; set; }
         
         [Required]
         public string Name { get; set; }
 
         [Required]
-        public int? ArtistId { get; set; }
+        public long ArtistId { get; set; }
 
         public virtual Artist Artist { get; set; }
 
@@ -38,7 +39,7 @@ namespace RidePal.Data.Models
             
             var other = (Album)obj;
 
-            return this.Id == other.Id && this.Name == other.Name;
+            return this.Id == other.Id;
         }
 
         public override int GetHashCode()

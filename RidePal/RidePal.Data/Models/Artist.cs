@@ -1,4 +1,5 @@
 ﻿using MovieForum.Data.Models.Interfaces;
+using RidePal.Data.Models.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -6,9 +7,9 @@ using System.Text;
 
 namespace RidePal.Data.Models
 {
-    public class Artist : IHasId, IDeletable
+    public class Artist : IDeletable, IHasLongId
     {
-        public int Id { get; set; }
+        public long Id { get; set; }
 
         [Required]
         public string Name { get; set; }

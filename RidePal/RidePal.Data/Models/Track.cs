@@ -1,4 +1,5 @@
 ﻿using MovieForum.Data.Models.Interfaces;
+using RidePal.Data.Models.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -6,9 +7,9 @@ using System.Text;
 
 namespace RidePal.Data.Models
 {
-    public class Track : IHasId, IDeletable
+    public class Track : IDeletable, IHasLongId
     {
-        public int Id { get; set; }
+        public long Id { get; set; }
         [Required]
         public string Title { get; set; }
         [Required]
@@ -16,10 +17,10 @@ namespace RidePal.Data.Models
         [Required]
         public int Duration { get; set; }
         [Required]
-        public int AlbumId { get; set; }        
+        public long? AlbumId { get; set; }        
         public virtual Album Album { get; set; }
         [Required]
-        public int ArtistId { get; set; }        
+        public long ArtistId { get; set; }        
         public virtual Artist Artist { get; set; }
         [Required]
         public int GenreId { get; set; }
