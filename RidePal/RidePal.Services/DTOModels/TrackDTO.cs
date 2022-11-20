@@ -7,7 +7,7 @@ namespace RidePal.Services.DTOModels
 {
     public class TrackDTO
     {
-        public int Id { get; set; }
+        public long Id { get; set; }
         [Required]
         public string Title { get; set; }
         [Required]
@@ -15,10 +15,10 @@ namespace RidePal.Services.DTOModels
         [Required]
         public int Duration { get; set; }
         [Required]
-        public int AlbumId { get; set; }
+        public long? AlbumId { get; set; }
         public AlbumDTO Album { get; set; }
         [Required]
-        public int ArtistId { get; set; }
+        public long ArtistId { get; set; }
         public ArtistDTO Artist { get; set; }
         [Required]
         public int GenreId { get; set; }

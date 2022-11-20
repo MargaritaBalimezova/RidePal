@@ -95,6 +95,8 @@ namespace RidePal
             services.AddScoped<ITrackServices, TrackServices>();
             services.AddScoped<IFetchSongs, FetchSongs>();
             services.AddScoped<IAuthHelper, AuthHelper>();
+            services.AddScoped<IAlbumService, AlbumServices>();
+            services.AddScoped<IArtistService, ArtistServices>();
 
             services.Configure<SMTPConfigModel>(Configuration.GetSection("SMTPConfig"));
         }

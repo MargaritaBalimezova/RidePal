@@ -25,7 +25,7 @@ namespace RidePal.Services.Services
             this.mapper = mapper;
         }
 
-        private IQueryable<Track> Get()
+        public IQueryable<Track> Get()
         {
             var tracks = this.db.Tracks.AsQueryable();
 
@@ -63,6 +63,41 @@ namespace RidePal.Services.Services
             return tracks;
         }
 
+        public async Task<IEnumerable<Track>> GetTracksByGenre(Genre genre)
+        {
+            var tracks = await this.Get()
+                                .Where(x => x.GenreId == genre.Id)
+                                .ToListAsync();
+
+            if(tracks.Count == 0)
+            {
+                throw new InvalidOperationException(Constants.GENRE_NOT_FOUND);
+            }
+
+            return tracks;
+        }
+
+        public async Task<IEnumerable<Track>> GetTracksByGenreName(Genre genre)
+        {
+            var tracks = await this.Get()
+                                .Where(x => x.Genre.Name == genre.Name)
+                                .ToListAsync();
+
+            if (tracks.Count == 0)
+            {
+                throw new InvalidOperationException(Constants.GENRE_NOT_FOUND);
+            }
+
+            return tracks;
+        }
+        public IEnumerable<Track> GetTracksSortedByRankDesc()
+        {
+            var tracks = this.Get()
+                .Take(100).OrderByDescending(x => x.Rank);
+
+            return tracks.ToList();
+        }
+
         private bool IsDurationSatisfied(ref int duration, int songDuration)
         {
             duration -= songDuration;
@@ -70,9 +105,6 @@ namespace RidePal.Services.Services
             return -100 >= duration && duration >= -500;
         }
 
-      /*  public IQueryable<TrackDTO> GetRandTracksByGenreAndDuration(Genre genre, int duration)
-        {
 
-        }*/
     }
 }

@@ -14,16 +14,9 @@ namespace RidePal.Data.DataInitialize
     public class FetchSongs : IFetchSongs
     {
        //private readonly HttpClient client;
-        public static HashSet<Artist> artists = new HashSet<Artist>();
-        public static HashSet<Track> tracks = new HashSet<Track>();
-        public static HashSet<Album> albums = new HashSet<Album>();
-
-        static int id = 1;
-
-    /*    public FetchSongs(HttpClient client)
-        {
-            this.client = client;
-        }*/
+        private static HashSet<Artist> artists = new HashSet<Artist>();
+        private static HashSet<Track> tracks = new HashSet<Track>();
+        private static HashSet<Album> albums = new HashSet<Album>();
 
         public async Task<PlaylistsResult> GetPlaylistAsync(string url)
         {

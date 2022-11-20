@@ -7,13 +7,13 @@ namespace RidePal.Services.DTOModels
 {
     public class AlbumDTO
     {
-        public int Id { get; set; }
+        public long Id { get; set; }
 
         [Required]
         public string Name { get; set; }
 
         [Required]
-        public int? ArtistId { get; set; }
+        public long ArtistId { get; set; }
 
         public ArtistDTO Artist { get; set; }
 
@@ -22,6 +22,6 @@ namespace RidePal.Services.DTOModels
 
         public GenreDTO Genre { get; set; }
 
-        public ICollection<TrackDTO> Tracks { get; set; }
+        public ICollection<TrackDTO> Tracks { get; set; } = new List<TrackDTO>();
     }
 }
