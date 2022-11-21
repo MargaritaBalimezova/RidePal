@@ -87,6 +87,11 @@ namespace RidePal
                 options.AddPolicy("User", policy => policy.RequireClaim(ClaimTypes.Role, "User"));
             });
 
+            services.AddControllers().AddNewtonsoftJson(options =>
+            {
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+            });
+
             services.AddControllers();
             services.AddAutoMapper(cfg => cfg.AddProfile<RidePalProfile>());
             services.AddSwaggerGen();

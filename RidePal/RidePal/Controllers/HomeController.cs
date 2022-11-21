@@ -19,14 +19,15 @@ namespace RidePal.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IBingMapsServices _mapsService;
-        private readonly FetchSongs fetchSongs = new FetchSongs();
+        private readonly ITrackServices trackServices;
 
         public HomeController(ILogger<HomeController> logger, 
-            IBingMapsServices mapsService 
+            IBingMapsServices mapsService, ITrackServices trackServices 
            )
         {
             _logger = logger;
             _mapsService = mapsService;
+            this.trackServices = trackServices;
         }
 
         public async Task<IActionResult> Index(TripQuerryParameters trip)
@@ -57,6 +58,17 @@ namespace RidePal.Controllers
 
             var res = await _mapsService.GetTrip(cred);
                 return this.View(res);     
+        }
+
+        public IActionResult Tracks()
+        {
+            int hour = 1;
+            int minutes = 34;
+            int duration = hour * 3600 + minutes * 60 + 14;
+
+            var res = this.trackServices.GetTracksWithDistinctArtists(new Genre { Id = 1, Name = "Rap" }, duration);
+
+            return this.View(res);
         }
 
         public IActionResult Privacy()

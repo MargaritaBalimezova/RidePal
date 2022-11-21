@@ -31,7 +31,6 @@ namespace RidePal.Services.Services
 
             return tracks;
         }
-
         public TrackDTO GetByIdAsync(int id)
         {
             var track = this.Get().FirstOrDefault(x => x.Id == id)
@@ -43,12 +42,13 @@ namespace RidePal.Services.Services
         //takes tracks from db shuffles it with orderby and leaves only the distinct artists
         public IEnumerable<Track> GetTracksWithDistinctArtists(Genre genre, int duration)
         {
-            var tracks = this.Get().Where(x => x.GenreId == genre.Id)
-                .OrderBy(x => Guid.NewGuid())
-                .ToList()
-                .GroupBy(x => x.ArtistId)
-                .Select(x => x.First())
-                .TakeWhile(x => !IsDurationSatisfied(ref duration, x.Duration));
+            var tracks = this.Get()
+                            .Where(x => x.GenreId == genre.Id)
+                            .OrderBy(x => Guid.NewGuid())
+                            .ToList()
+                            .GroupBy(x => x.ArtistId)
+                            .Select(x => x.First())
+                            .TakeWhile(x => !IsDurationSatisfied(ref duration, x.Duration));
 
             return tracks;
         }

@@ -12,7 +12,5 @@ namespace RidePal.Services.DTOModels
 
         [Required]
         public string Name { get; set; }
-
-        public virtual ICollection<TrackDTO> Tracks { get; set; } = new List<TrackDTO>();
     }
 }

@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Threading;
 using RidePal.Data.Models;
 using RidePal.Data.DataInitialize;
+using System.Linq;
 
 namespace RidePal.Data
 {
@@ -49,7 +50,9 @@ namespace RidePal.Data
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.ApplyConfigurationsFromAssembly(this.GetType().Assembly);
-            modelBuilder.Seed().Wait();
+
+            //TODO: Uncomment next line in case you have no seeded data
+            //modelBuilder.Seed().Wait();
 
             // SetMinLengthConstraints(modelBuilder);
           

@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using RidePal.Data.Models;
 using RidePal.Services.Interfaces;
+using RidePal.WEB.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -46,6 +47,21 @@ namespace RidePal.WEB.Controllers.API_Controllers
             catch(Exception ex)
             {
                 return this.NotFound(ex.Message);
+            }
+        }
+
+        [HttpGet("/playlist")]
+        public IActionResult GetTracks([FromQuery] GetTracksByGenreDurationModelWrapper param)
+        {
+            try
+            {
+                var tracks = this.trackServices.GetTracks(param.Genre, param.Duration);
+
+                return this.Ok(tracks);
+            }
+            catch(Exception ex)
+            {
+                return this.BadRequest(ex.Message);
             }
         }
     }
