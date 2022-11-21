@@ -89,7 +89,7 @@ namespace RidePal
 
             services.AddControllers();
             services.AddAutoMapper(cfg => cfg.AddProfile<RidePalProfile>());
-
+            services.AddSwaggerGen();
             services.AddScoped<IUserServices, UserServices>();
             services.AddScoped<IEmailService, EmailServices>();
             services.AddScoped<ITrackServices, TrackServices>();
@@ -112,6 +112,14 @@ namespace RidePal
             {
                 app.UseExceptionHandler("/Home/Error");
             }
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "RidePal V1");
+            });
+
+
             app.UseRouting();
             app.UseStaticFiles();
 
