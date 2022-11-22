@@ -98,6 +98,7 @@ namespace RidePal
             services.AddScoped<IUserServices, UserServices>();
             services.AddScoped<IEmailService, EmailServices>();
             services.AddScoped<ITrackServices, TrackServices>();
+            services.AddScoped<ITripServices, TripServices>();
             services.AddScoped<IFetchSongs, FetchSongs>();
             services.AddScoped<IAuthHelper, AuthHelper>();
             services.AddScoped<IAlbumService, AlbumServices>();
