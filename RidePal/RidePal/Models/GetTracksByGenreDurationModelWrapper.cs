@@ -8,7 +8,7 @@ namespace RidePal.WEB.Models
 {
     public class GetTracksByGenreDurationModelWrapper
     {
-        public Genre Genre { get; set; }
-        public int Duration { get; set; }
+        public string Genre { get; set; }
+        public int DurationInMinutes { get; set; }
     }
 }

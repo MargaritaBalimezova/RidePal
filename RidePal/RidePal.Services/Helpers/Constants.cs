@@ -22,6 +22,7 @@ namespace RidePal.Services.Helpers
         public const string TRIP_NOT_FOUND = "Trip not found!";
         public const string NO_TRIPS_FOUND = "No trips found!";
         public const string INVALID_DATA = "Invalid data passed!";
+        public const string PLAYLIST_NOT_FOUND = "Playlist not found!";
         public const string NOT_ENOUGH_PARAMETERS_PASSED = "Not enough parameters passed to execute an operation!";
     }
 }

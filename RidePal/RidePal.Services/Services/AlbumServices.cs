@@ -24,14 +24,6 @@ namespace RidePal.Services.Services
             this.mapper = mapper;
         }
 
-        public async Task<IEnumerable<AlbumDTO>> GetAlbumByArtistAsync(ArtistDTO artist)
-        {
-            var albums = await db.Albums
-                                 .Where(album => album.ArtistId == artist.Id)
-                                 .ToListAsync();
-
-            return this.mapper.Map<List<AlbumDTO>>(albums);
-        }
 
         public async Task<IEnumerable<AlbumDTO>> GetAlbumByGenreAsync(GenreDTO genre)
         {

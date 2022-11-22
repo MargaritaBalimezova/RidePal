@@ -103,6 +103,7 @@ namespace RidePal
             services.AddScoped<IAuthHelper, AuthHelper>();
             services.AddScoped<IAlbumService, AlbumServices>();
             services.AddScoped<IArtistService, ArtistServices>();
+            services.AddScoped<IGenreService, GenreServices>();
 
             services.Configure<SMTPConfigModel>(Configuration.GetSection("SMTPConfig"));
         }

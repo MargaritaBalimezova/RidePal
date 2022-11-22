@@ -10,11 +10,11 @@ namespace RidePal.Services.Interfaces
 {
     public interface ITrackServices 
     {
-        TrackDTO GetByIdAsync(int id);
-        IEnumerable<Track> GetTracksWithDistinctArtists(Genre genre, int duration);
-        IEnumerable<Track> GetTracks(Genre genre, int duration);
-        Task<IEnumerable<Track>> GetTracksByGenre(Genre genre);
-        Task<IEnumerable<Track>> GetTracksByGenreName(Genre genre);
-        IEnumerable<Track> GetTracksSortedByRankDesc();
+        Task<TrackDTO> GetByIdAsync(int id);
+        IEnumerable<TrackDTO> GetTracksWithDistinctArtists(Genre genre, int duration);
+        IEnumerable<TrackDTO> GetTracks(Genre genre, int duration);
+        Task<IEnumerable<TrackDTO>> GetTracksByGenreAsync(Genre genre);
+        Task<IEnumerable<TrackDTO>> GetAllTracksAsync();
+        Task<IEnumerable<TrackDTO>> GetTopXTracksAsync(int x, Genre genre = null);
     }
 }

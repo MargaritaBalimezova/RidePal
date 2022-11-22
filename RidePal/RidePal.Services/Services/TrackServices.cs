@@ -31,16 +31,16 @@ namespace RidePal.Services.Services
 
             return tracks;
         }
-        public TrackDTO GetByIdAsync(int id)
+        public async Task<TrackDTO> GetByIdAsync(int id)
         {
-            var track = this.Get().FirstOrDefault(x => x.Id == id)
+            var track = await this.Get().FirstOrDefaultAsync(x => x.Id == id)
                 ?? throw new EntityNotFoundException(string.Format(Constants.TRACK_NOT_FOUND, id));
 
             return this.mapper.Map<TrackDTO>(track);
         }
         
         //takes tracks from db shuffles it with orderby and leaves only the distinct artists
-        public IEnumerable<Track> GetTracksWithDistinctArtists(Genre genre, int duration)
+        public IEnumerable<TrackDTO> GetTracksWithDistinctArtists(Genre genre, int duration)
         {
             var tracks = this.Get()
                             .Where(x => x.GenreId == genre.Id)
@@ -50,20 +50,20 @@ namespace RidePal.Services.Services
                             .Select(x => x.First())
                             .TakeWhile(x => !IsDurationSatisfied(ref duration, x.Duration));
 
-            return tracks;
+            return this.mapper.Map<IEnumerable<TrackDTO>>(tracks);
         }
 
-        public IEnumerable<Track> GetTracks(Genre genre, int duration)
+        public IEnumerable<TrackDTO> GetTracks(Genre genre, int duration)
         {
             var tracks = this.Get().Where(x => x.GenreId == genre.Id)
             .OrderBy(x => Guid.NewGuid())
             .ToList()
             .TakeWhile(x => !IsDurationSatisfied(ref duration, x.Duration));
 
-            return tracks;
+            return this.mapper.Map<IEnumerable<TrackDTO>>(tracks);
         }
 
-        public async Task<IEnumerable<Track>> GetTracksByGenre(Genre genre)
+        public async Task<IEnumerable<TrackDTO>> GetTracksByGenreAsync(Genre genre)
         {
             var tracks = await this.Get()
                                 .Where(x => x.GenreId == genre.Id)
@@ -74,28 +74,36 @@ namespace RidePal.Services.Services
                 throw new InvalidOperationException(Constants.GENRE_NOT_FOUND);
             }
 
-            return tracks;
+            return this.mapper.Map<IEnumerable<TrackDTO>>(tracks);
         }
 
-        public async Task<IEnumerable<Track>> GetTracksByGenreName(Genre genre)
+        public async Task<IEnumerable<TrackDTO>> GetAllTracksAsync()
         {
             var tracks = await this.Get()
-                                .Where(x => x.Genre.Name == genre.Name)
-                                .ToListAsync();
+                .ToListAsync();
 
-            if (tracks.Count == 0)
+            return this.mapper.Map<IEnumerable<TrackDTO>>(tracks);
+        }
+
+        public async Task<IEnumerable<TrackDTO>> GetTopXTracksAsync(int x, Genre genre = null)
+        {
+            if (genre == null)
             {
-                throw new InvalidOperationException(Constants.GENRE_NOT_FOUND);
+                var tracks = await this.Get()
+                .OrderBy(x => x.Rank)
+                .Take(x)
+                .ToListAsync();
+
+                return this.mapper.Map<IEnumerable<TrackDTO>>(tracks);
             }
 
-            return tracks;
-        }
-        public IEnumerable<Track> GetTracksSortedByRankDesc()
-        {
-            var tracks = this.Get()
-                .Take(100).OrderByDescending(x => x.Rank);
+            var tracksByGenre = await this.Get()
+                .Where(x => x.Genre.Id == genre.Id)
+                .OrderBy(x => x.Rank)
+                .Take(x)
+                .ToListAsync();
 
-            return tracks.ToList();
+            return this.mapper.Map<IEnumerable<TrackDTO>>(tracksByGenre);
         }
 
         private bool IsDurationSatisfied(ref int duration, int songDuration)

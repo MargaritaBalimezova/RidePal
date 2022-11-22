@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using RidePal.Data;
 using RidePal.Data.Models;
 using RidePal.Services.DTOModels;
+using RidePal.Services.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,9 +14,6 @@ namespace RidePal.Services.Services
 {
     public class PlaylistServices
     {
-        private const string PLAYLIST_NOT_FOUND = "Playlist not found!";
-        private const string GENRE_NOT_FOUND = "Genre not found!";
-        private const string INVALID_DATA = "Invalid Data!";
 
         private readonly RidePalContext db;
         private readonly IMapper mapper;
@@ -41,7 +39,7 @@ namespace RidePal.Services.Services
 
             if (String.IsNullOrEmpty(obj.Name))
             {
-                throw new Exception(INVALID_DATA);
+                throw new Exception(Constants.INVALID_DATA);
             }
 
             int numOfGenres = obj.GenresWithPercentages.Count();
@@ -104,7 +102,7 @@ namespace RidePal.Services.Services
             foreach (var genre in obj.Genres)
             {
                 Genre genre1 = await db.Genres.FirstOrDefaultAsync(x => x.Id == genre.Id)
-                     ?? throw new InvalidOperationException(GENRE_NOT_FOUND);
+                     ?? throw new InvalidOperationException(Constants.GENRE_NOT_FOUND);
                 //playlistToUpdate.Genres.Add(genre1);
             }
 
@@ -139,27 +137,27 @@ namespace RidePal.Services.Services
         private async Task<Playlist> GetPlaylistAsync(int id)
         {
             var playlist = await db.Playlists.FirstOrDefaultAsync(x => x.Id == id);
-            return playlist ?? throw new InvalidOperationException(PLAYLIST_NOT_FOUND);
+            return playlist ?? throw new InvalidOperationException(Constants.PLAYLIST_NOT_FOUND);
         }
 
         private async Task<Playlist> GetPlaylistAsync(string title)
         {
             var playlist = await db.Playlists.FirstOrDefaultAsync(x => x.Name == title);
-            return playlist ?? throw new InvalidOperationException(PLAYLIST_NOT_FOUND);
+            return playlist ?? throw new InvalidOperationException(Constants.PLAYLIST_NOT_FOUND);
         }
 
         public async Task<PlaylistDTO> GetPlaylistDTOAsync(string title)
         {
             var playlist = await db.Playlists.FirstOrDefaultAsync(x => x.Name == title);
 
-            return mapper.Map<PlaylistDTO>(playlist) ?? throw new Exception(PLAYLIST_NOT_FOUND);
+            return mapper.Map<PlaylistDTO>(playlist) ?? throw new Exception(Constants.PLAYLIST_NOT_FOUND);
         }
 
         public async Task<PlaylistDTO> GetPlaylistDTOAsync(int id)
         {
             var playlist = await db.Playlists.FirstOrDefaultAsync(x => x.Id == id);
 
-            return mapper.Map<PlaylistDTO>(playlist) ?? throw new Exception(PLAYLIST_NOT_FOUND);
+            return mapper.Map<PlaylistDTO>(playlist) ?? throw new Exception(Constants.PLAYLIST_NOT_FOUND);
         }
     }
 }
