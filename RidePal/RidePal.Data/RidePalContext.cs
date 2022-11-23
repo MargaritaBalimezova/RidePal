@@ -17,8 +17,6 @@ namespace RidePal.Data
         {
         }
 
-
-
         public DbSet<Album> Albums { get; set; }
         public DbSet<Artist> Artists { get; set; }
         public DbSet<Audience> Audience { get; set; }
@@ -32,7 +30,6 @@ namespace RidePal.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-           
             modelBuilder.Entity<Album>()
                 .HasQueryFilter(album => album.IsDeleted == false);
             modelBuilder.Entity<Artist>()
@@ -53,7 +50,7 @@ namespace RidePal.Data
             modelBuilder.ApplyConfigurationsFromAssembly(this.GetType().Assembly);
 
             //TODO: Uncomment next line in case you have no seeded data
-            modelBuilder.Seed().Wait();
+            //modelBuilder.Seed().Wait();
 
             // SetMinLengthConstraints(modelBuilder);
         }
