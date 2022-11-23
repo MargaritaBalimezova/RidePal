@@ -1,85 +1,240 @@
-﻿<!DOCTYPE html>
+﻿
+<!DOCTYPE html>
+<!--
+Template Name: Miraculous - Online Music Store Html Template
+Version: 1.0.0
+Author: Kamleshyadav
+Website:
+Purchase:
+-->
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
 <html lang="en">
+<!--<![endif]-->
+<!-- Begin Head -->
+
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - RidePal</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" />
+    <title>Miraculous - Online Music Store Html Template</title>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta name="description" content="Music">
+    <meta name="keywords" content="">
+    <meta name="author" content="kamleshyadav">
+    <meta name="MobileOptimized" content="320">
+    <!--Start Style -->
+    <link rel="stylesheet" type="text/css" href="~/css/fonts.css">
+    <link rel="stylesheet" type="text/css" href="~/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="~/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="~/js/plugins/swiper/css/swiper.min.css">
+    <link rel="stylesheet" type="text/css" href="~/js/plugins/nice_select/nice-select.css">
+    <link rel="stylesheet" type="text/css" href="~/js/plugins/player/volume.css">
+    <link rel="stylesheet" type="text/css" href="~/js/plugins/scroll/jquery.mCustomScrollbar.css">
+    <link rel="stylesheet" type="text/css" href="~/css/style.css">
+    <!-- Favicon Link -->
+    <link rel="shortcut icon" type="image/png" href="~/images/favicon.png">
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">RidePal</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+    <!----Loader Start---->
+    <div class="ms_loader">
+        <div class="wrap">
+            <img src="images/loader.gif" alt="">
+        </div>
+    </div>
+    <!----Main Wrapper Start---->
+    <div class="ms_main_wrapper">
+        <!---Side Menu Start--->
+        <div class="ms_sidemenu_wrapper">
+            <div class="ms_nav_close">
+                <i class="fa fa-angle-right" aria-hidden="true"></i>
+            </div>
+            <div class="ms_sidemenu_inner">
+                <div class="ms_logo_inner">
+                    <div class="ms_logo">
+                        <a href="index.html"><img src="https://dummyimage.com/78x78" alt="" class="img-fluid" /></a>
+                    </div>
+                    <div class="ms_logo_open">
+                        <a href="index.html"><img src="https://dummyimage.com/126x97" alt="" class="img-fluid" /></a>
+                    </div>
+                </div>
+                <div class="ms_nav_wrapper">
+                    <ul>
+                        <li>
+                            <a href="index.html" class="active" title="Discover">
+                                <span class="nav_icon">
+                                    <span class="icon icon_discover"></span>
+                                </span>
+                                <span class="nav_text">
+                                    discover
+                                </span>
+                            </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                        <li>
+                            <a href="album.html" title="Albums">
+                                <span class="nav_icon">
+                                    <span class="icon icon_albums"></span>
+                                </span>
+                                <span class="nav_text">
+                                    albums
+                                </span>
+                            </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Tracks">Tracks</a>
+                        <li>
+                            <a href="artist.html" title="Artists">
+                                <span class="nav_icon">
+                                    <span class="icon icon_artists"></span>
+                                </span>
+                                <span class="nav_text">
+                                    artists
+                                </span>
+                            </a>
                         </li>
-                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Playlist" asp-action="CreatePlaylist">Create Playlist</a>
+                        <li>
+                            <a href="genres.html" title="Genres">
+                                <span class="nav_icon">
+                                    <span class="icon icon_genres"></span>
+                                </span>
+                                <span class="nav_text">
+                                    genres
+                                </span>
+                            </a>
                         </li>
-                        @if (!this.User.Identity.IsAuthenticated)
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Auth" asp-action="Login">Sign In</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Auth" asp-action="Register">Sign Up</a>
-                            </li>
-                        }
-                        else
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="User" asp-action="AllUsers">Users</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-route-email="@User.Identity.Name" asp-controller="User" asp-action="AllFriends">Friends</a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-route-email="@User.Identity.Name" asp-controller="User" asp-action="FriendRequests">Friend Requests</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-route-email="@User.Identity.Name" asp-controller="User" asp-action="Index">Profile</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Update">Settings</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Auth" asp-action="Logout">Sign Out</a>
-                            </li>
-                        }
+                        <li>
+                            <a href="top_track.html" title="Top Tracks">
+                                <span class="nav_icon">
+                                    <span class="icon icon_tracks"></span>
+                                </span>
+                                <span class="nav_text">
+                                    top tracks
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="free_music.html" title="Free Music">
+                                <span class="nav_icon">
+                                    <span class="icon icon_music"></span>
+                                </span>
+                                <span class="nav_text">
+                                    free music
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="stations.html" title="Stations">
+                                <span class="nav_icon">
+                                    <span class="icon icon_station"></span>
+                                </span>
+                                <span class="nav_text">
+                                    stations
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav_downloads">
+                        <li>
+                            <a href="download.html" title="Downloads">
+                                <span class="nav_icon">
+                                    <span class="icon icon_download"></span>
+                                </span>
+                                <span class="nav_text">
+                                    downloads
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="purchase.html" title="Purchased">
+                                <span class="nav_icon">
+                                    <span class="icon icon_purchased"></span>
+                                </span>
+                                <span class="nav_text">
+                                    purchased
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="favourite.html" title="Favourites">
+                                <span class="nav_icon">
+                                    <span class="icon icon_favourite"></span>
+                                </span>
+                                <span class="nav_text">
+                                    favourites
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="history.html" title="History">
+                                <span class="nav_icon">
+                                    <span class="icon icon_history"></span>
+                                </span>
+                                <span class="nav_text">
+                                    history
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav_playlist">
+                        <li>
+                            <a href="feature_playlist.html" title="Featured Playlist">
+                                <span class="nav_icon">
+                                    <span class="icon icon_fe_playlist"></span>
+                                </span>
+                                <span class="nav_text">
+                                    featured playlist
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="add_playlist.html" title="Create Playlist">
+                                <span class="nav_icon">
+                                    <span class="icon icon_c_playlist"></span>
+                                </span>
+                                <span class="nav_text">
+                                    create playlist
+                                </span>
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
-
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2022 - RidePal - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
-    </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    @RenderSection("Scripts", required: false)
+    </div>
+    <!---Main Content Start--->
+    <div class="ms_content_wrapper padder_top80">
+        <!---Header--->
+        <div class="ms_header">
+            <div class="ms_top_left">
+                <div class="ms_top_search">
+                    <input type="text" class="form-control" placeholder="Search Music Here..">
+                    <span class="search_icon">
+                        <img src="images/svg/search.svg" alt="">
+                    </span>
+                </div>
+                <div class="ms_top_trend">
+                    <span><a href="#" class="ms_color">Trending Songs :</a></span> <span class="top_marquee"><a href="#">Dream your moments, Until I Met You, Gimme Some Courage, Dark Alley (+8 More)</a></span>
+                </div>
+            </div>
+            <div class="ms_top_right">
+                <div class="ms_top_lang">
+                    <span data-bs-toggle="modal" data-target="#lang_modal">languages <img src="images/svg/lang.svg" alt=""></span>
+                </div>
+                <div class="ms_top_btn">
+                    <a href="javascript:;" class="ms_btn reg_btn" data-bs-toggle="modal" data-bs-target="#myModal"><span>register</span></a>
+                    <a href="javascript:;" class="ms_btn login_btn" data-bs-toggle="modal" data-bs-target="#myModal1"><span>login</span></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    @RenderBody()
+    <!--Main js file Style-->
+    <script type="text/javascript" src="~/js/jquery.min.js"></script>
+    <script type="text/javascript" src="~/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="~/js/plugins/swiper/js/swiper.min.js"></script>
+    <script type="text/javascript" src="~/js/plugins/player/jplayer.playlist.min.js"></script>
+    <script type="text/javascript" src="~/js/plugins/player/jquery.jplayer.min.js"></script>
+    <script type="text/javascript" src="~/js/plugins/player/audio-player.js"></script>
+    <script type="text/javascript" src="~/js/plugins/player/volume.js"></script>
+    <script type="text/javascript" src="~/js/plugins/nice_select/jquery.nice-select.min.js"></script>
+    <script type="text/javascript" src="~/js/plugins/scroll/jquery.mCustomScrollbar.js"></script>
+    <script type="text/javascript" src="~/js/custom.js"></script>
 </body>
 </html>
