@@ -22,7 +22,6 @@ namespace RidePal.WEB.Controllers.API_Controllers
             this.mapsServices = mapsServices;
         }
 
-
         [HttpGet("")]
         public IActionResult GetTrips()
         {
@@ -33,11 +32,9 @@ namespace RidePal.WEB.Controllers.API_Controllers
             }
             catch (EntityNotFoundException ex)
             {
-
                 return NotFound(ex.Message);
             }
         }
-
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetTripById(int id)
@@ -49,11 +46,9 @@ namespace RidePal.WEB.Controllers.API_Controllers
             }
             catch (EntityNotFoundException ex)
             {
-
                 return NotFound(ex.Message);
             }
         }
-
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteTripAsync(int id)
@@ -69,11 +64,9 @@ namespace RidePal.WEB.Controllers.API_Controllers
             }
         }
 
-
         [HttpPost("/trips")]
         public async Task<IActionResult> PostTripAsync(TripQuerryParameters tripParameters)
         {
-
             try
             {
                 var tripDTO = await this.mapsServices.GetTrip(tripParameters);
@@ -86,12 +79,9 @@ namespace RidePal.WEB.Controllers.API_Controllers
             }
         }
 
-
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateTripAsync(int id,TripQuerryParameters tripParameters)
+        public async Task<IActionResult> UpdateTripAsync(int id, TripQuerryParameters tripParameters)
         {
-            
-
             try
             {
                 var trip = await this.mapsServices.GetTrip(tripParameters);
