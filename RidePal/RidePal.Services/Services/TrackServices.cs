@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static RidePal.Services.Models.SpotifyResultModel;
 
 namespace RidePal.Services.Services
 {
@@ -31,6 +32,7 @@ namespace RidePal.Services.Services
 
             return tracks;
         }
+
         public TrackDTO GetByIdAsync(int id)
         {
             var track = this.Get().FirstOrDefault(x => x.Id == id)
@@ -38,7 +40,72 @@ namespace RidePal.Services.Services
 
             return this.mapper.Map<TrackDTO>(track);
         }
-        
+
+        #region Maggie
+
+        public IEnumerable<Track> GetTracksWithDistinctArtistsForPlaylist(Genre genre, double duration)
+        {
+            var tracksReady = this.Get()
+                            .Where(x => x.GenreId == genre.Id)
+                            .OrderBy(x => Guid.NewGuid())
+                            .ToList()
+                            .GroupBy(x => x.ArtistId)
+                            .Select(x => x.First());
+
+            var finalTracksReady = new List<Track>();
+
+            var currentDuration = 0;
+
+            foreach (var track in tracksReady)
+            {
+                if (!(duration - 60 <= currentDuration && currentDuration <= duration + 60))
+                {
+                    if (track.Duration <= duration - currentDuration + 60)
+                    {
+                        currentDuration += track.Duration;
+                        finalTracksReady.Add(track);
+                    }
+                }
+                else
+                {
+                    break;
+                }
+            }
+
+            return finalTracksReady;
+        }
+
+        public IEnumerable<Track> GetTracksForPlaylist(Genre genre, double duration)
+        {
+            var tracksReady = this.Get().Where(x => x.GenreId == genre.Id)
+                           .OrderBy(x => Guid.NewGuid())
+                           .ToList();
+
+            var finalTracksReady = new List<Track>();
+
+            var currentDuration = 0;
+
+            foreach (var track in tracksReady)
+            {
+                if (!(duration - 60 <= currentDuration && currentDuration <= duration + 60))
+                {
+                    if (track.Duration <= duration - currentDuration + 60)
+                    {
+                        currentDuration += track.Duration;
+                        finalTracksReady.Add(track);
+                    }
+                }
+                else
+                {
+                    break;
+                }
+            }
+
+            return finalTracksReady;
+        }
+
+        #endregion Maggie
+
         //takes tracks from db shuffles it with orderby and leaves only the distinct artists
         public IEnumerable<Track> GetTracksWithDistinctArtists(Genre genre, int duration)
         {
@@ -69,7 +136,7 @@ namespace RidePal.Services.Services
                                 .Where(x => x.GenreId == genre.Id)
                                 .ToListAsync();
 
-            if(tracks.Count == 0)
+            if (tracks.Count == 0)
             {
                 throw new InvalidOperationException(Constants.GENRE_NOT_FOUND);
             }
@@ -90,6 +157,7 @@ namespace RidePal.Services.Services
 
             return tracks;
         }
+
         public IEnumerable<Track> GetTracksSortedByRankDesc()
         {
             var tracks = this.Get()
@@ -104,7 +172,5 @@ namespace RidePal.Services.Services
 
             return -100 >= duration && duration >= -500;
         }
-
-
     }
 }

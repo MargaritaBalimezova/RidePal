@@ -21,8 +21,8 @@ namespace RidePal.Controllers
         private readonly IBingMapsServices _mapsService;
         private readonly ITrackServices trackServices;
 
-        public HomeController(ILogger<HomeController> logger, 
-            IBingMapsServices mapsService, ITrackServices trackServices 
+        public HomeController(ILogger<HomeController> logger,
+            IBingMapsServices mapsService, ITrackServices trackServices
            )
         {
             _logger = logger;
@@ -36,17 +36,16 @@ namespace RidePal.Controllers
             {
                 return this.View();
             }
-            
-                var cred = new TripQuerryParameters
-                {
-                    DepartCountry = trip.DepartCountry,
-                    ArriveCountry = trip.ArriveCountry,
-                    DepartCity = trip.DepartCity,
-                    ArriveCity = trip.ArriveCity,
-                    DepartAddress = trip.DepartAddress,
-                    ArriveAddress = trip.ArriveAddress
-                    
-                };
+
+            var cred = new TripQuerryParameters
+            {
+                DepartCountry = trip.DepartCountry,
+                ArriveCountry = trip.ArriveCountry,
+                DepartCity = trip.DepartCity,
+                ArriveCity = trip.ArriveCity,
+                DepartAddress = trip.DepartAddress,
+                ArriveAddress = trip.ArriveAddress
+            };
 
             this.ViewData["DepartCountry"] = trip.DepartCountry;
             this.ViewData["ArriveCountry"] = trip.ArriveCountry;
@@ -55,9 +54,8 @@ namespace RidePal.Controllers
             this.ViewData["DepartAddress"] = trip.DepartAddress;
             this.ViewData["ArriveAddress"] = trip.ArriveAddress;
 
-
             var res = await _mapsService.GetTrip(cred);
-                return this.View(res);     
+            return this.View(res);
         }
 
         public IActionResult Tracks()

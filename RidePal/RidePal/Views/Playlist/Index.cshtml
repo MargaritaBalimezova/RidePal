@@ -1,0 +1,42 @@
+﻿@using RidePal.WEB.Models;
+
+@model CreatePlaylistViewModel
+
+<head>
+   
+</head>
+<body>
+    <p>
+       @Model.Audience
+    </p>
+    <p>
+        @Model.Author
+    </p>
+    <p>
+        @Model.AvgRank
+    </p>
+    <p>
+        @Model.Duration
+    </p>
+    <p>
+        @Model.Genres
+    </p>
+    @foreach (var track in Model.Tracks)
+    {
+        <p>
+            @track.Title
+        </p>
+        <p>
+            @track.Album
+        </p>
+        <p>
+            @track.Rank
+        </p>
+        <p>
+            @track.Artist
+        </p>
+        <p>
+            @track.Duration
+        </p>
+    }
+</body>

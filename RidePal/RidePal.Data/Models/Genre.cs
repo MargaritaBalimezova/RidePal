@@ -9,11 +9,11 @@ namespace RidePal.Data.Models
     public class Genre : IHasId, IDeletable
     {
         public int Id { get; set; }
-        
+
         [Required]
         public string Name { get; set; }
 
-       // public virtual ICollection<Track> Tracks { get; set; } = new List<Track>();
+        public virtual ICollection<PlaylistGenre> Playlists { get; set; } = new List<PlaylistGenre>();
 
         [Required]
         public bool IsDeleted { get; set; }

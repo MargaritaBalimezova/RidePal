@@ -11,11 +11,10 @@ using System.Linq;
 
 namespace RidePal.Data
 {
-    public class RidePalContext: DbContext
+    public class RidePalContext : DbContext
     {
         public RidePalContext(DbContextOptions<RidePalContext> options) : base(options)
         {
-
         }
 
         public DbSet<Album> Albums { get; set; }
@@ -28,7 +27,6 @@ namespace RidePal.Data
         public DbSet<Trip> Trips { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<FriendRequest> FriendRequests { get; set; }
-
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -52,16 +50,16 @@ namespace RidePal.Data
             modelBuilder.ApplyConfigurationsFromAssembly(this.GetType().Assembly);
 
             //TODO: Uncomment next line in case you have no seeded data
-            //modelBuilder.Seed().Wait();
+            modelBuilder.Seed().Wait();
 
             // SetMinLengthConstraints(modelBuilder);
-          
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseLazyLoadingProxies();
         }
+
         public override int SaveChanges()
         {
             UpdateSoftDeleteStatuses();
@@ -83,6 +81,7 @@ namespace RidePal.Data
                     case EntityState.Added:
                         entry.CurrentValues["IsDeleted"] = false;
                         break;
+
                     case EntityState.Deleted:
                         entry.State = EntityState.Modified;
                         entry.CurrentValues["IsDeleted"] = true;

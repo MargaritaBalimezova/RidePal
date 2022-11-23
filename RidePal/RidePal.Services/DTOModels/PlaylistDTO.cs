@@ -1,8 +1,7 @@
 ﻿using RidePal.Data.Models;
+using RidePal.Services.Models;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Text;
 
 namespace RidePal.Services.DTOModels
 {
@@ -10,33 +9,27 @@ namespace RidePal.Services.DTOModels
     {
         public int Id { get; set; }
 
-        [Required]
         public string Name { get; set; }
 
-        [Required]
         public string ImagePath { get; set; }
 
-        [Required]
         public int Duration { get; set; }
 
-        [Required]
-        public int AvgRank { get; set; }
+        public double AvgRank { get; set; }
 
-        [Required]
-        public virtual User Author { get; set; }
+        public virtual UserDTO Author { get; set; }
 
-        [Required]
-        public virtual Trip Trip { get; set; }
+        public virtual TripDTO Trip { get; set; }
 
-        [Required]
         public virtual Audience Audience { get; set; }
 
         public bool RepeatArtists { get; set; }
+        public bool TopSongs { get; set; }
 
-        public virtual ICollection<Track> Tracks { get; set; } = new List<Track>();
+        public virtual ICollection<TrackDTO> Tracks { get; set; } = new List<TrackDTO>();
 
-        public virtual IDictionary<Genre, int> GenresWithPercentages { get; set; } = new Dictionary<Genre, int>();
+        public virtual List<GenreWithPercentage> GenresWithPercentages { get; set; } = new List<GenreWithPercentage>();
 
-        public virtual ICollection<Genre> Genres { get; set; } = new List<Genre>();
+        public virtual ICollection<PlaylistGenreDTO> Genres { get; set; } = new List<PlaylistGenreDTO>();
     }
 }

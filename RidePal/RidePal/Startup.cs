@@ -44,7 +44,7 @@ namespace RidePal
 
             services.AddHttpClient<IBingMapsServices, BingMapsServices>(options =>
              {
-                 options.BaseAddress = new Uri("http://dev.virtualearth.net/REST/v1/");
+                 options.BaseAddress = new Uri("https://dev.virtualearth.net/REST/v1/");
                  options.DefaultRequestHeaders.Add("Accept", "application/.json");
              });
 
@@ -53,8 +53,6 @@ namespace RidePal
                     //options.BaseAddress = new Uri("https://api.deezer.com/search/");
                     options.DefaultRequestHeaders.Add("Accept", "application/.json");
                 });*/
-
-           
 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
             .AddCookie(options =>
@@ -102,6 +100,9 @@ namespace RidePal
             services.AddScoped<IAuthHelper, AuthHelper>();
             services.AddScoped<IAlbumService, AlbumServices>();
             services.AddScoped<IArtistService, ArtistServices>();
+            services.AddScoped<IPlaylistServices, PlaylistServices>();
+            services.AddScoped<IGenreService, GenreService>();
+            services.AddScoped<ITripServices, TripServices>();
 
             services.Configure<SMTPConfigModel>(Configuration.GetSection("SMTPConfig"));
         }
@@ -123,7 +124,6 @@ namespace RidePal
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "RidePal V1");
             });
-
 
             app.UseRouting();
             app.UseStaticFiles();

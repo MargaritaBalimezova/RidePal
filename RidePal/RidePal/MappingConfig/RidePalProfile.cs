@@ -44,9 +44,23 @@ namespace MovieForum.Web.MappingConfig
             this.CreateMap<FriendRequest, FriendRequestDTO>()
                 .ReverseMap();
 
-            //this.CreateMap<MovieTags, MovieTagsDTO>()
-            //    .ForMember(dest => dest.TagName, act => act.MapFrom(src => src.Tag.TagName))
-            //    .ReverseMap();
+            this.CreateMap<Playlist, PlaylistDTO>()
+               .ReverseMap();
+
+            this.CreateMap<PlaylistDTO, CreatePlaylistViewModel>()
+               .ReverseMap();
+
+            this.CreateMap<UpdatePlaylistDTO, UpdatePlaylistViewModel>()
+               .ReverseMap();
+
+            this.CreateMap<PlaylistGenre, PlaylistGenreDTO>()
+                .ForMember(dest => dest.Name, act => act.MapFrom(src => src.Genre.Name))
+                .ReverseMap();
+
+            this.CreateMap<Genre, PlaylistGenreDTO>()
+                .ForMember(dest => dest.Name, act => act.MapFrom(src => src.Name))
+                .ReverseMap();
+
             this.CreateMap<Trip, TripDTO>()
                 .ReverseMap();
         }

@@ -55,7 +55,7 @@ namespace RidePal.Services.Services
                 IsDeleted = false
             };
 
-            context.Trips.Add(trip);
+            await context.Trips.AddAsync(trip);
 
             await context.SaveChangesAsync();
 

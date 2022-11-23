@@ -35,7 +35,7 @@ namespace RidePal.Services.DTOModels
         public int NumOfBlocks { get; set; }
         public DateTime LastBlockTime { get; set; }
 
-        public ICollection<Playlist> Playlists { get; set; }
+        public ICollection<PlaylistDTO> Playlists { get; set; }
         public ICollection<UserDTO> Friends { get; set; }
         public ICollection<FriendRequestDTO> SentFriendRequests { get; set; }
         public ICollection<FriendRequestDTO> ReceivedFriendRequests { get; set; }

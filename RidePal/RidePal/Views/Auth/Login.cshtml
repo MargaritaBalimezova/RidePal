@@ -39,7 +39,7 @@
                                     </div>
 
                                     <input asp-for="RememberMe" type="checkbox" value="lsRememberMe" id="rememberMe"> 
-                                    <label for="rememberMe">Remember me</label>
+                                    <label asp-for="RememberMe">Remember me</label>
 
                                     <span asp-validation-for="IsEmailConfirmed"></span>
                                     <span asp-validation-for="IsBlocked"></span>

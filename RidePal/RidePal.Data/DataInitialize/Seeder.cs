@@ -15,11 +15,10 @@ namespace RidePal.Data.DataInitialize
         public static async Task Seed(this ModelBuilder db)
         {
             //TODO: remove it
-/*            if (System.Diagnostics.Debugger.IsAttached == false)
-            {
-                System.Diagnostics.Debugger.Launch();
-            }*/
-
+            /*            if (System.Diagnostics.Debugger.IsAttached == false)
+                        {
+                            System.Diagnostics.Debugger.Launch();
+                        }*/
             var roles = new List<Role>()
             {
                 new Role
@@ -35,6 +34,27 @@ namespace RidePal.Data.DataInitialize
             };
 
             db.Entity<Role>().HasData(roles);
+
+            var audiences = new List<Audience>()
+            {
+                new Audience
+                {
+                    Id = 1,
+                    Name = "Public"
+                },
+                new Audience
+                {
+                    Id = 2,
+                    Name = "Friends"
+                }
+                ,new Audience
+                {
+                    Id = 3,
+                    Name = "Private"
+                }
+            };
+
+            db.Entity<Audience>().HasData(audiences);
 
             var users = new List<User>()
             {
