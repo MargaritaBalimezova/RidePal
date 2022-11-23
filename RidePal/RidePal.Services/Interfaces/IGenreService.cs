@@ -1,4 +1,4 @@
-﻿using RidePal.Data.Models;
+﻿using RidePal.Services.DTOModels;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,6 +8,7 @@ namespace RidePal.Services.Interfaces
 {
     public interface IGenreService
     {
-        Task<Genre> GetGenre(string name);
+        Task<GenreDTO> GetGenreByName(string GenreName);
+        Task<GenreDTO> GetGenreById(int id);
     }
 }

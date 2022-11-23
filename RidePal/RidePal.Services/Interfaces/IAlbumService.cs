@@ -11,7 +11,6 @@ namespace RidePal.Services.Interfaces
     {
         IQueryable<AlbumDTO> GetAlbums();
         Task<AlbumDTO> GetAlbumByIdAsync(int id);
-        Task<IEnumerable<AlbumDTO>> GetAlbumByArtistAsync(ArtistDTO artist);
         Task<IEnumerable<AlbumDTO>> GetAlbumByGenreAsync(GenreDTO genre);
     }
 }

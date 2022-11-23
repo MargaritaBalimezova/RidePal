@@ -44,7 +44,7 @@ namespace RidePal
 
             services.AddHttpClient<IBingMapsServices, BingMapsServices>(options =>
              {
-                 options.BaseAddress = new Uri("https://dev.virtualearth.net/REST/v1/");
+                 options.BaseAddress = new Uri("http://dev.virtualearth.net/REST/v1/");
                  options.DefaultRequestHeaders.Add("Accept", "application/.json");
              });
 
@@ -96,12 +96,13 @@ namespace RidePal
             services.AddScoped<IUserServices, UserServices>();
             services.AddScoped<IEmailService, EmailServices>();
             services.AddScoped<ITrackServices, TrackServices>();
+            services.AddScoped<ITripServices, TripServices>();
             services.AddScoped<IFetchSongs, FetchSongs>();
             services.AddScoped<IAuthHelper, AuthHelper>();
             services.AddScoped<IAlbumService, AlbumServices>();
             services.AddScoped<IArtistService, ArtistServices>();
+            services.AddScoped<IGenreService, GenreServices>();
             services.AddScoped<IPlaylistServices, PlaylistServices>();
-            services.AddScoped<IGenreService, GenreService>();
             services.AddScoped<ITripServices, TripServices>();
 
             services.Configure<SMTPConfigModel>(Configuration.GetSection("SMTPConfig"));

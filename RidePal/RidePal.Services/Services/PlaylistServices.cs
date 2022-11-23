@@ -49,7 +49,7 @@ namespace RidePal.Services.Services
             }
 
             int currentDuration = 0;
-            double tripDurationInSec = obj.Trip.Duration * 60;
+            int tripDurationInSec = (int)obj.Trip.Duration * 60;
 
             //TODO optimize
             obj.GenresWithPercentages = obj.GenresWithPercentages.Where(x => x.Percentage > 0).ToList();
@@ -58,10 +58,10 @@ namespace RidePal.Services.Services
             {
                 while (!(tripDurationInSec - 300 <= currentDuration && currentDuration <= tripDurationInSec + 300))
                 {
-                    var currentGenre = await genreService.GetGenre(obj.GenresWithPercentages.First().GenreName);
-                    double genreSeconds = tripDurationInSec * obj.GenresWithPercentages.First().Percentage / 100;
+                    var currentGenre = await genreService.GetGenreByName(obj.GenresWithPercentages.First().GenreName);
+                    var genreSeconds = tripDurationInSec * obj.GenresWithPercentages.First().Percentage / 100;
 
-                    var tracksReady = trackServices.GetTracksForPlaylist(currentGenre, genreSeconds);
+                    var tracksReady = trackServices.GetTracks(mapper.Map<Genre>(currentGenre), genreSeconds);
 
                     foreach (var track in tracksReady)
                     {
@@ -69,7 +69,7 @@ namespace RidePal.Services.Services
                         currentDuration += track.Duration;
                     }
 
-                    obj.Genres.Add(mapper.Map<PlaylistGenreDTO>(await genreService.GetGenre(obj.GenresWithPercentages.First().GenreName)));
+                    obj.Genres.Add(mapper.Map<PlaylistGenreDTO>(await genreService.GetGenreByName(obj.GenresWithPercentages.First().GenreName)));
                     obj.GenresWithPercentages.Remove(obj.GenresWithPercentages.First());
                 }
             }
@@ -77,10 +77,10 @@ namespace RidePal.Services.Services
             {
                 while (!(tripDurationInSec - 300 <= currentDuration && currentDuration <= tripDurationInSec + 300))
                 {
-                    var currentGenre = await genreService.GetGenre(obj.GenresWithPercentages.First().GenreName);
-                    double genreSeconds = tripDurationInSec * obj.GenresWithPercentages.First().Percentage / 100;
+                    var currentGenre = await genreService.GetGenreByName(obj.GenresWithPercentages.First().GenreName);
+                    var genreSeconds = tripDurationInSec * obj.GenresWithPercentages.First().Percentage / 100;
 
-                    var tracksReady = trackServices.GetTracksWithDistinctArtistsForPlaylist(currentGenre, genreSeconds);
+                    var tracksReady = trackServices.GetTracksWithDistinctArtists(mapper.Map<Genre>(currentGenre), genreSeconds);
 
                     foreach (var track in tracksReady)
                     {
@@ -88,7 +88,7 @@ namespace RidePal.Services.Services
                         currentDuration += track.Duration;
                     }
 
-                    obj.Genres.Add(mapper.Map<PlaylistGenreDTO>(await genreService.GetGenre(obj.GenresWithPercentages.First().GenreName)));
+                    obj.Genres.Add(mapper.Map<PlaylistGenreDTO>(await genreService.GetGenreByName(obj.GenresWithPercentages.First().GenreName)));
                     obj.GenresWithPercentages.Remove(obj.GenresWithPercentages.First());
                 }
             }

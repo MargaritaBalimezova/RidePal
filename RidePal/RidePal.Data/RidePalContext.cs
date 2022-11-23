@@ -17,6 +17,8 @@ namespace RidePal.Data
         {
         }
 
+
+
         public DbSet<Album> Albums { get; set; }
         public DbSet<Artist> Artists { get; set; }
         public DbSet<Audience> Audience { get; set; }
@@ -30,6 +32,7 @@ namespace RidePal.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+           
             modelBuilder.Entity<Album>()
                 .HasQueryFilter(album => album.IsDeleted == false);
             modelBuilder.Entity<Artist>()
