@@ -48,18 +48,22 @@ namespace RidePal.Services.Services
                             .ToList()
                             .GroupBy(x => x.ArtistId)
                             .Select(x => x.First())
-                            .TakeWhile(x => !IsDurationSatisfied(ref duration, x.Duration));
+                            .ToList();
+
+            tracks = GetFinalTracksForDurationX(tracks, duration);
 
             return this.mapper.Map<IEnumerable<TrackDTO>>(tracks);
         }
 
         public IEnumerable<TrackDTO> GetTracks(Genre genre, int duration)
         {
-            var tracks = this.Get().Where(x => x.GenreId == genre.Id)
-            .OrderBy(x => Guid.NewGuid())
-            .ToList()
-            .TakeWhile(x => !IsDurationSatisfied(ref duration, x.Duration));
+            var tracks = this.Get()
+                            .Where(x => x.GenreId == genre.Id)
+                            .OrderBy(x => Guid.NewGuid())
+                            .ToList();
 
+            tracks = GetFinalTracksForDurationX(tracks, duration);
+            
             return this.mapper.Map<IEnumerable<TrackDTO>>(tracks);
         }
 
@@ -106,13 +110,29 @@ namespace RidePal.Services.Services
             return this.mapper.Map<IEnumerable<TrackDTO>>(tracksByGenre);
         }
 
-        private bool IsDurationSatisfied(ref int duration, int songDuration)
+        private List<Track> GetFinalTracksForDurationX(List<Track> tracks, int duration)
         {
-            duration -= songDuration;
+            var finalTracksReady = new List<Track>();
 
-            return -100 >= duration && duration >= -500;
+            var currentDuration = 0;
+
+            foreach (var track in tracks)
+            {
+                if (!(duration - 60 <= currentDuration && currentDuration <= duration + 60))
+                {
+                    if (track.Duration <= duration - currentDuration + 60)
+                    {
+                        currentDuration += track.Duration;
+                        finalTracksReady.Add(track);
+                    }
+                }
+                else
+                {
+                    break;
+                }
+            }
+
+            return finalTracksReady;
         }
-
-
     }
 }
