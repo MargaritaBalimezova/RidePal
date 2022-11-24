@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace RidePal.Services.Models
+﻿namespace RidePal.Services.Models
 {
     public class SpotifyAuthResponseModel
     {
@@ -11,5 +7,3 @@ namespace RidePal.Services.Models
         public int expires_in { get; set; }
     }
 }
-
-

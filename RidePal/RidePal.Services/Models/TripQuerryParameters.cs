@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Text;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace RidePal.Services.Models
 {
@@ -9,10 +6,13 @@ namespace RidePal.Services.Models
     {
         [Required]
         public string DepartCountry { get; set; }
+
         [Required]
         public string ArriveCountry { get; set; }
+
         [Required]
         public string DepartCity { get; set; }
+
         [Required]
         public string ArriveCity { get; set; }
 

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Identity.UI.V3.Pages.Internal.Account.Manage;
 using Microsoft.EntityFrameworkCore;
 using RidePal.Data;
 using RidePal.Data.Models;
@@ -9,7 +10,6 @@ using RidePal.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace RidePal.Services.Services
@@ -31,6 +31,7 @@ namespace RidePal.Services.Services
 
             return tracks;
         }
+
         public async Task<TrackDTO> GetByIdAsync(int id)
         {
             var track = await this.Get().FirstOrDefaultAsync(x => x.Id == id)
@@ -38,7 +39,7 @@ namespace RidePal.Services.Services
 
             return this.mapper.Map<TrackDTO>(track);
         }
-        
+
         //takes tracks from db shuffles it with orderby and leaves only the distinct artists
         public IEnumerable<TrackDTO> GetTracksWithDistinctArtists(Genre genre, int duration)
         {
@@ -48,19 +49,27 @@ namespace RidePal.Services.Services
                             .ToList()
                             .GroupBy(x => x.ArtistId)
                             .Select(x => x.First())
-                            .TakeWhile(x => !IsDurationSatisfied(ref duration, x.Duration));
+                            .ToList();
 
-            return this.mapper.Map<IEnumerable<TrackDTO>>(tracks);
+            tracks = GetFinalTracksForDurationX(tracks, duration);
+
+            var tracksDTO = tracks.Select(x => this.mapper.Map<TrackDTO>(x)).ToList();
+
+            return tracksDTO;
         }
 
         public IEnumerable<TrackDTO> GetTracks(Genre genre, int duration)
         {
-            var tracks = this.Get().Where(x => x.GenreId == genre.Id)
-            .OrderBy(x => Guid.NewGuid())
-            .ToList()
-            .TakeWhile(x => !IsDurationSatisfied(ref duration, x.Duration));
+            var tracks = this.Get()
+                            .Where(x => x.GenreId == genre.Id)
+                            .OrderBy(x => Guid.NewGuid())
+                            .ToList();
 
-            return this.mapper.Map<IEnumerable<TrackDTO>>(tracks);
+            tracks = GetFinalTracksForDurationX(tracks, duration);
+
+            var tracksDTO = tracks.Select(x => this.mapper.Map<TrackDTO>(x)).ToList();
+
+            return tracksDTO;
         }
 
         public async Task<IEnumerable<TrackDTO>> GetTracksByGenreAsync(Genre genre)
@@ -69,7 +78,7 @@ namespace RidePal.Services.Services
                                 .Where(x => x.GenreId == genre.Id)
                                 .ToListAsync();
 
-            if(tracks.Count == 0)
+            if (tracks.Count == 0)
             {
                 throw new InvalidOperationException(Constants.GENRE_NOT_FOUND);
             }
@@ -94,7 +103,9 @@ namespace RidePal.Services.Services
                 .Take(x)
                 .ToListAsync();
 
-                return this.mapper.Map<IEnumerable<TrackDTO>>(tracks);
+                var tracksDTO = tracks.Select(x => this.mapper.Map<TrackDTO>(x)).ToList();
+
+                return tracksDTO;
             }
 
             var tracksByGenre = await this.Get()
@@ -103,16 +114,98 @@ namespace RidePal.Services.Services
                 .Take(x)
                 .ToListAsync();
 
-            return this.mapper.Map<IEnumerable<TrackDTO>>(tracksByGenre);
+            var tracksDTOByGenre = tracksByGenre.Select(x => this.mapper.Map<TrackDTO>(x)).ToList();
+
+            return tracksDTOByGenre;
         }
 
-        private bool IsDurationSatisfied(ref int duration, int songDuration)
+        #region Playlist Maggie
+
+        public IEnumerable<TrackDTO> GetTopXTracksWithDistinctArtist(int duration, Genre genre = null)
         {
-            duration -= songDuration;
+            if (genre == null)
+            {
+                var tracks = this.Get()
+                .OrderBy(x => x.Rank)
+                .ToList()
+                .GroupBy(x => x.ArtistId)
+                .Select(x => x.First())
+                .ToList();
 
-            return -100 >= duration && duration >= -500;
+                tracks = GetFinalTracksForDurationX(tracks, duration);
+
+                var tracksDTO = tracks.Select(x => this.mapper.Map<TrackDTO>(x)).ToList();
+
+                return tracksDTO;
+            }
+
+            var tracksByGenre = this.Get()
+                            .Where(x => x.GenreId == genre.Id)
+                            .OrderBy(x => x.Rank)
+                            .ToList()
+                            .GroupBy(x => x.ArtistId)
+                            .Select(x => x.First())
+                            .ToList();
+
+            tracksByGenre = GetFinalTracksForDurationX(tracksByGenre, duration);
+
+            var tracksDTOByGenre = tracksByGenre.Select(x => this.mapper.Map<TrackDTO>(x)).ToList();
+
+            return tracksDTOByGenre;
         }
 
+        public IEnumerable<TrackDTO> GetTopXTracks(int duration, Genre genre = null)
+        {
+            if (genre == null)
+            {
+                var tracks = this.Get()
+                .OrderBy(x => x.Rank)
+                .ToList();
 
+                tracks = GetFinalTracksForDurationX(tracks, duration);
+
+                var tracksDTO = tracks.Select(x => this.mapper.Map<TrackDTO>(x)).ToList();
+
+                return tracksDTO;
+            }
+
+            var tracksByGenre = this.Get()
+                            .Where(x => x.GenreId == genre.Id)
+                            .OrderBy(x => x.Rank)
+                            .ToList();
+
+            tracksByGenre = GetFinalTracksForDurationX(tracksByGenre, duration);
+
+            var tracksDTOByGenre = tracksByGenre.Select(x => this.mapper.Map<TrackDTO>(x)).ToList();
+
+            return tracksDTOByGenre;
+        }
+
+        #endregion Playlist Maggie
+
+        private List<Track> GetFinalTracksForDurationX(List<Track> tracks, int duration)
+        {
+            var finalTracksReady = new List<Track>();
+
+            var currentDuration = 0;
+
+            foreach (var track in tracks)
+            {
+                if (!(duration - 60 <= currentDuration && currentDuration <= duration + 60))
+                {
+                    if (track.Duration <= duration - currentDuration + 60)
+                    {
+                        currentDuration += track.Duration;
+                        finalTracksReady.Add(track);
+                    }
+                }
+                else
+                {
+                    break;
+                }
+            }
+
+            return finalTracksReady;
+        }
     }
 }

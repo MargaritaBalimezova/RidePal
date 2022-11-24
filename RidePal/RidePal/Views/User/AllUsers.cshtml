@@ -21,9 +21,9 @@
                             {
                                 <tr>
                                     <td>
-                                        <img src="~/Images/@user.ImagePath" alt="profile image">
+                                        <img src="https://ridepalbucket.s3.amazonaws.com/@user.ImagePath" alt="profile image">
                                         <a asp-controller="User" asp-action="Index" asp-route-email="@user.Email" class="user-link">@user.Username</a>
-                                        <span class="user-subhead">@user.RoleId.ToString()</span>
+                                        <span class="user-subhead">@user.RoleName</span>
                                     </td>
                                     <td>
                                         <a asp-controller="User" asp-action="Index" asp-route-email="@user.Email">@user.Email</a>

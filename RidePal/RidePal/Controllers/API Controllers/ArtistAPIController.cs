@@ -1,9 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using RidePal.Services.Interfaces;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace RidePal.WEB.Controllers.API_Controllers
@@ -71,7 +68,7 @@ namespace RidePal.WEB.Controllers.API_Controllers
             {
                 return this.Ok(await this.artistService.GetArtistsAsync());
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return this.BadRequest(ex.Message);
             }

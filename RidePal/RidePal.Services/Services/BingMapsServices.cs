@@ -1,27 +1,20 @@
-﻿using RidePal.Data.Models;
+﻿using RidePal.Services.DTOModels;
+using RidePal.Services.Helpers;
 using RidePal.Services.Interfaces;
 using RidePal.Services.Models;
 using System;
-using System.Collections.Generic;
 using System.Net.Http;
-using System.Text;
+using System.Text.Json;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web;
-using RidePal.Services.Helpers;
-using System.Text.Json;
-using static RidePal.Services.Models.GetLocationModel;
 using static RidePal.Services.Models.GetDistanceModel;
-using Microsoft.EntityFrameworkCore.Diagnostics;
-using RidePal.Data.DataInitialize.Interfaces;
-using RidePal.Data;
-using RidePal.Services.DTOModels;
+using static RidePal.Services.Models.GetLocationModel;
 
 namespace RidePal.Services.Services
 {
     public class BingMapsServices : IBingMapsServices
     {
-        
         private readonly HttpClient _client;
 
         public BingMapsServices(HttpClient client)
@@ -31,7 +24,6 @@ namespace RidePal.Services.Services
 
         public async Task<LocationPoint> GetLocation(string countryRegion, string adminDistinct, string addressLine)
         {
-
             adminDistinct = adminDistinct.Trim();
             adminDistinct = Regex.Replace(adminDistinct, @"\s+", " ");
             countryRegion = countryRegion.Trim();
@@ -41,7 +33,7 @@ namespace RidePal.Services.Services
             {
                 addressLine = addressLine.Trim();
                 addressLine = Regex.Replace(addressLine, @"\s+", " ");
-                locationUrl = string.Format(Constants.LocationUrlWithAddress, countryRegion,adminDistinct, addressLine);
+                locationUrl = string.Format(Constants.LocationUrlWithAddress, countryRegion, adminDistinct, addressLine);
             }
             else
             {
@@ -58,16 +50,12 @@ namespace RidePal.Services.Services
             var responseObject = await JsonSerializer.DeserializeAsync<GetLocation>(responseStream);
 
             var res = responseObject.resourceSets[0].resources[0].point.coordinates;
-            
 
             return new LocationPoint
             {
                 longtitude = res[0],
                 latitude = res[1]
             };
-
-
-
         }
 
         public async Task<TripDTO> GetTrip(TripQuerryParameters parameters)
@@ -89,11 +77,11 @@ namespace RidePal.Services.Services
 
             var res = responseObject.resourceSets[0].resources[0].results[0];
 
-            if(res.travelDuration == -1 || res.travelDuration == -1)
+            if (res.travelDuration == -1 || res.travelDuration == -1)
             {
                 throw new InvalidOperationException(Constants.INVALID_DATA);
             }
-            if (parameters.DepartAddress==null && parameters.ArriveAddress==null)
+            if (parameters.DepartAddress == null && parameters.ArriveAddress == null)
             {
                 return new TripDTO
                 {
@@ -111,7 +99,6 @@ namespace RidePal.Services.Services
                 Duration = Math.Round(res.travelDuration, 2),
                 Distance = Math.Round(res.travelDistance, 2)
             };
-
         }
     }
 }

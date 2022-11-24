@@ -1,42 +1,51 @@
 ﻿@using RidePal.WEB.Models;
 
-@model CreatePlaylistViewModel
+@model PlaylistViewModel
 
 <head>
-   
+
 </head>
 <body>
     <p>
-       @Model.Audience
+        @Model.Audience.Name
     </p>
     <p>
-        @Model.Author
+        @Model.Author.Email
     </p>
     <p>
-        @Model.AvgRank
+        @String.Format("{0:0.##}", Model.AvgRank);
     </p>
     <p>
-        @Model.Duration
+        @TimeSpan.FromSeconds(Model.Duration).ToString(@"hh\:mm\:ss")
     </p>
-    <p>
-        @Model.Genres
-    </p>
-    @foreach (var track in Model.Tracks)
+    @foreach (var item in @Model.Genres)
     {
         <p>
-            @track.Title
-        </p>
-        <p>
-            @track.Album
-        </p>
-        <p>
-            @track.Rank
-        </p>
-        <p>
-            @track.Artist
-        </p>
-        <p>
-            @track.Duration
+            @item.Name
         </p>
     }
+    <table>
+        <tr>
+            <th>Title</th>
+            <th>Album</th>
+            <th>Rank</th>
+            <th>Artist</th>
+            <th>Duration</th>
+        </tr>
+
+        @foreach (var track in Model.Tracks)
+        {
+            <tr>
+                <td> @track.Track.Title</td>
+                <td> @track.Track.Album.Name</td>
+                <td> @track.Track.Rank</td>
+                <td> @track.Track.Genre.Name</td>
+                <td> @track.Track.Artist.Name</td>
+                <td> @TimeSpan.FromSeconds(track.Track.Duration).ToString(@"mm\:ss") </td>
+            </tr>
+
+        }
+    </table>
+    <a asp-action="Delete" asp-route-title=@Model.Name class="button-1">Delete</a>
+    <a asp-action="EditPlaylist" asp-route-title=@Model.Name class="button-1">Edit</a>
 </body>

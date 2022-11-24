@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace RidePal.Data.DataInitialize.Models
+﻿namespace RidePal.Data.DataInitialize.Models
 {
     public class PlaylistsResult
     {
@@ -36,5 +32,4 @@ namespace RidePal.Data.DataInitialize.Models
         public int time_mod { get; set; }
         public string type { get; set; }
     }
-
 }

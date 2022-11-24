@@ -1,13 +1,12 @@
 ﻿using Microsoft.Extensions.Options;
 using RidePal.Services.Interfaces;
 using RidePal.Services.Models;
-using System;
 using System.Collections.Generic;
-using System.Net.Mail;
+using System.IO;
 using System.Net;
+using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
-using System.IO;
 
 namespace RidePal.Services.Services
 {

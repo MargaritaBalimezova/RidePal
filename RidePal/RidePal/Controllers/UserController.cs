@@ -1,31 +1,31 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RidePal.Models;
 using RidePal.Services.DTOModels;
 using RidePal.Services.Interfaces;
-using System.IO;
-using System.Threading.Tasks;
-using System;
 using RidePal.Web.Models;
 using RidePal.WEB.Models;
-using AutoMapper;
-using RidePal.Data.Models;
+using System;
+using System.IO;
+using System.Threading.Tasks;
 
 namespace RidePal.WEB.Controllers
 {
+    [Authorize]
     public class UserController : Controller
     {
         private readonly IUserServices userService;
         private readonly IMapper mapper;
-        public IWebHostEnvironment hostingEnvironment;
+        public IAWSCloudStorageService storageService;
 
-        public UserController(IUserServices userService, IWebHostEnvironment hostingEnvironment, IMapper mapper)
+        public UserController(IUserServices userService, IMapper mapper, IAWSCloudStorageService storageService)
         {
             this.userService = userService;
-            this.hostingEnvironment = hostingEnvironment;
             this.mapper = mapper;
+            this.storageService = storageService;
         }
 
         #region CRUD
@@ -58,9 +58,10 @@ namespace RidePal.WEB.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Update()
+        [Authorize]
+        public async Task<IActionResult> Update(string email)
         {
-            var user = await userService.GetUserDTOByEmailAsync(this.User.Identity.Name);
+            var user = await userService.GetUserDTOByEmailAsync(email);
 
             var update = new UpdateUserViewModel
             {
@@ -74,6 +75,7 @@ namespace RidePal.WEB.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> Update(UpdateUserViewModel model)
         {
             if (!this.ModelState.IsValid)
@@ -83,7 +85,7 @@ namespace RidePal.WEB.Controllers
 
             try
             {
-                var user = await userService.GetUserDTOByEmailAsync(this.User.Identity.Name);
+                var user = await userService.GetUserDTOByEmailAsync(model.Email);
 
                 if (await userService.IsExistingAsync(model.Email) && model.Email != user.Email)
                 {
@@ -108,7 +110,7 @@ namespace RidePal.WEB.Controllers
                 return this.View(model);
             }
 
-            return this.RedirectToAction("Update", "User");
+            return this.RedirectToAction("Update", "User", new { model.Email });
         }
 
         [HttpGet]
@@ -117,6 +119,10 @@ namespace RidePal.WEB.Controllers
             try
             {
                 await userService.DeleteAsync(email);
+                if (this.User.Identity.Name == email)
+                {
+                    return RedirectToAction("Logout", "Auth");
+                }
                 return RedirectToAction("Index", "Home");
             }
             catch (Exception ex)
@@ -302,19 +308,18 @@ namespace RidePal.WEB.Controllers
             {
                 return null;
             }
-            FileInfo fi = new FileInfo(file.FileName);
-            var newFileName = "Image_" + DateTime.Now.TimeOfDay.Milliseconds + fi.Extension;
-            if (!Directory.Exists(hostingEnvironment.WebRootPath + "\\Images\\"))
+            try
             {
-                Directory.CreateDirectory(hostingEnvironment.WebRootPath + "\\Images\\");
+                FileInfo fi = new FileInfo(file.FileName);
+                var newFileName = "Image_" + DateTime.Now.TimeOfDay.Milliseconds + fi.Extension;
+                this.storageService.Upload(file);
+                ViewBag.Success = "File Uploaded on S3";
+                return newFileName;
             }
-            var path = Path.Combine("", hostingEnvironment.WebRootPath + "\\Images\\" + newFileName);
-            using (FileStream stream = System.IO.File.Create(path))
+            catch (Exception ex)
             {
-                file.CopyTo(stream);
-                stream.Flush();
+                return ex.Message;
             }
-            return newFileName;
         }
     }
 }

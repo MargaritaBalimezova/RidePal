@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace MovieForum.Data.Models.Interfaces
+﻿namespace MovieForum.Data.Models.Interfaces
 {
     public interface IHasId
     {

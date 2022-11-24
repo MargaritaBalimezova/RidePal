@@ -28,7 +28,7 @@
                                 {
                                     <tr>
                                         <td>
-                                            <img src="~/Images/@request.Sender.ImagePath" alt="profile image">
+                                            <img src="https://ridepalbucket.s3.amazonaws.com/@request.Sender.ImagePath" alt="profile image">
                                             <a asp-controller="User" asp-action="Index" asp-route-email="@request.Sender.Email" class="user-link">@request.Sender.Username</a>
                                             <span class="user-subhead">@request.Sender.RoleId.ToString()</span>
                                         </td>

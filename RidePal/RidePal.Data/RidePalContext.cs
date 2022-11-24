@@ -1,13 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Data.Common;
-using System.Text;
-using System.Threading.Tasks;
-using System.Threading;
-using RidePal.Data.Models;
 using RidePal.Data.DataInitialize;
-using System.Linq;
+using RidePal.Data.Models;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace RidePal.Data
 {
@@ -27,6 +22,7 @@ namespace RidePal.Data
         public DbSet<Trip> Trips { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<FriendRequest> FriendRequests { get; set; }
+        public DbSet<PlaylistTracks> PlaylistTracks { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -44,7 +40,10 @@ namespace RidePal.Data
                 .HasQueryFilter(trip => trip.IsDeleted == false);
             modelBuilder.Entity<User>()
                 .HasQueryFilter(user => user.IsDeleted == false);
-
+            modelBuilder.Entity<FriendRequest>()
+                .HasQueryFilter(friendRequest => friendRequest.IsDeleted == false);
+            modelBuilder.Entity<PlaylistTracks>()
+                .HasQueryFilter(playlistTracks => playlistTracks.IsDeleted == false);
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.ApplyConfigurationsFromAssembly(this.GetType().Assembly);

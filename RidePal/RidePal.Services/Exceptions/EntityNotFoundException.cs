@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace RidePal.Services.Exceptions
 {
@@ -9,7 +7,6 @@ namespace RidePal.Services.Exceptions
         public EntityNotFoundException(string msg)
         : base(msg)
         {
-
         }
     }
 }

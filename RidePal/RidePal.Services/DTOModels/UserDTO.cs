@@ -1,6 +1,4 @@
-﻿using RidePal.Data.Models;
-using RidePal.Services.DTOModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -27,6 +25,8 @@ namespace RidePal.Services.DTOModels
         public string PhoneNumber { get; set; }
 
         public int RoleId { get; set; }
+
+        public string RoleName { get; set; }
 
         public bool IsGoogleAccount { get; set; }
         public bool IsEmailConfirmed { get; set; }

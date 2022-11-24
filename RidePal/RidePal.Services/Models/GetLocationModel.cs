@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace RidePal.Services.Models
+﻿namespace RidePal.Services.Models
 {
     public class GetLocationModel
     {
-
         public class GetLocation
         {
             public string authenticationResultCode { get; set; }
@@ -60,6 +55,5 @@ namespace RidePal.Services.Models
             public string calculationMethod { get; set; }
             public string[] usageTypes { get; set; }
         }
-
     }
 }

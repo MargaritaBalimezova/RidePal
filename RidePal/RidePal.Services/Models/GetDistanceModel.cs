@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace RidePal.Services.Models
+﻿namespace RidePal.Services.Models
 {
     public class GetDistanceModel
     {
@@ -51,6 +47,5 @@ namespace RidePal.Services.Models
             public float travelDistance { get; set; }
             public float travelDuration { get; set; }
         }
-
     }
 }

@@ -1,5 +1,3 @@
-using System;
-
 namespace RidePal.Models
 {
     public class ErrorViewModel

@@ -1,10 +1,6 @@
-﻿using AutoMapper;
-using RidePal.Data.Models;
-using RidePal.Data;
+﻿using RidePal.Data.Models;
 using RidePal.Services.DTOModels;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace RidePal.Services.Interfaces
@@ -27,6 +23,6 @@ namespace RidePal.Services.Interfaces
 
         Task<PlaylistDTO> GetPlaylistDTOAsync(int id);
 
-        Task<IEnumerable<Genre>> GetGenres();
+        Task<Audience> GetAudienceAsync(int id);
     }
 }

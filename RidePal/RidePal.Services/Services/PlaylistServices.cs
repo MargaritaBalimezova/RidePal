@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using RidePal.Data;
 using RidePal.Data.Models;
 using RidePal.Services.DTOModels;
+using RidePal.Services.Helpers;
 using RidePal.Services.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -13,21 +15,19 @@ namespace RidePal.Services.Services
 {
     public class PlaylistServices : IPlaylistServices
     {
-        private const string PLAYLIST_NOT_FOUND = "Playlist not found!";
-        private const string GENRE_NOT_FOUND = "Genre not found!";
-        private const string INVALID_DATA = "Invalid Data!";
-
         private readonly RidePalContext db;
         private readonly IMapper mapper;
         private readonly IGenreService genreService;
         private readonly ITrackServices trackServices;
+        private readonly IPixabayServices pixabayServices;
 
-        public PlaylistServices(RidePalContext context, IMapper mapper, IGenreService genreService, ITrackServices trackServices)
+        public PlaylistServices(RidePalContext context, IMapper mapper, IGenreService genreService, ITrackServices trackServices, IPixabayServices pixabayServices)
         {
             this.db = context;
             this.mapper = mapper;
             this.genreService = genreService;
             this.trackServices = trackServices;
+            this.pixabayServices = pixabayServices;
         }
 
         public async Task<IEnumerable<PlaylistDTO>> GetAsync()
@@ -37,24 +37,22 @@ namespace RidePal.Services.Services
 
         public async Task<PlaylistDTO> PostAsync(PlaylistDTO obj)
         {
-            //https://pixabay.com/api/?key=31208625-54e60a24a8bb2ce33717762bd&q=yellow+flowers&image_type=photo
-
-            if (String.IsNullOrEmpty(obj.Name))
+            if (obj.Name.Length < Constants.PLAYLIST_TITLE_MIN_LENGTH)
             {
-                throw new Exception(INVALID_DATA);
+                throw new Exception(Constants.INVALID_DATA);
             }
             if (await IsExistingAsync(obj.Name))
             {
-                throw new Exception("Title already taken");
+                throw new Exception(string.Format(Constants.ALREADY_TAKEN, "Title"));
             }
 
             int currentDuration = 0;
             int tripDurationInSec = (int)obj.Trip.Duration * 60;
 
-            //TODO optimize
             obj.GenresWithPercentages = obj.GenresWithPercentages.Where(x => x.Percentage > 0).ToList();
 
-            if (obj.RepeatArtists)
+            //Repeat rtist and Don't use top songs
+            if (obj.RepeatArtists && !obj.TopSongs)
             {
                 while (!(tripDurationInSec - 300 <= currentDuration && currentDuration <= tripDurationInSec + 300))
                 {
@@ -65,7 +63,13 @@ namespace RidePal.Services.Services
 
                     foreach (var track in tracksReady)
                     {
-                        obj.Tracks.Add(mapper.Map<TrackDTO>(track));
+                        var sth = new PlaylistTracksDTO
+                        {
+                            TrackId = track.Id,
+                            Track = track
+                        };
+
+                        obj.Tracks.Add(sth);
                         currentDuration += track.Duration;
                     }
 
@@ -73,7 +77,8 @@ namespace RidePal.Services.Services
                     obj.GenresWithPercentages.Remove(obj.GenresWithPercentages.First());
                 }
             }
-            else
+            //Don't repeat rtist and don't use top songs
+            else if (!obj.RepeatArtists && !obj.TopSongs)
             {
                 while (!(tripDurationInSec - 300 <= currentDuration && currentDuration <= tripDurationInSec + 300))
                 {
@@ -84,25 +89,112 @@ namespace RidePal.Services.Services
 
                     foreach (var track in tracksReady)
                     {
-                        obj.Tracks.Add(mapper.Map<TrackDTO>(track));
+                        var sth = new PlaylistTracksDTO
+                        {
+                            TrackId = track.Id,
+                            Track = track
+                        };
+
+                        obj.Tracks.Add(sth);
                         currentDuration += track.Duration;
                     }
 
-                    obj.Genres.Add(mapper.Map<PlaylistGenreDTO>(await genreService.GetGenreByName(obj.GenresWithPercentages.First().GenreName)));
+                    var playlistGenreDTO = new PlaylistGenreDTO
+                    {
+                        GenreId = currentGenre.Id,
+                        Name = currentGenre.Name
+                    };
+
+                    obj.Genres.Add(playlistGenreDTO);
                     obj.GenresWithPercentages.Remove(obj.GenresWithPercentages.First());
                 }
             }
-            //TODO top songs
+            //repeat rtist and use top songs
+            else if (obj.RepeatArtists && obj.TopSongs)
+            {
+                while (!(tripDurationInSec - 300 <= currentDuration && currentDuration <= tripDurationInSec + 300))
+                {
+                    var currentGenre = await genreService.GetGenreByName(obj.GenresWithPercentages.First().GenreName);
+                    var genreSeconds = tripDurationInSec * obj.GenresWithPercentages.First().Percentage / 100;
 
-            obj.AvgRank = obj.Tracks.Average(x => x.Rank.Value);
+                    var tracksReady = trackServices.GetTopXTracks(genreSeconds, mapper.Map<Genre>(currentGenre));
+
+                    foreach (var track in tracksReady)
+                    {
+                        var sth = new PlaylistTracksDTO
+                        {
+                            TrackId = track.Id,
+                            Track = track
+                        };
+
+                        obj.Tracks.Add(sth);
+
+                        currentDuration += track.Duration;
+                    }
+
+                    var playlistGenreDTO = new PlaylistGenreDTO
+                    {
+                        GenreId = currentGenre.Id,
+                        Name = currentGenre.Name
+                    };
+
+                    obj.Genres.Add(playlistGenreDTO);
+                    obj.GenresWithPercentages.Remove(obj.GenresWithPercentages.First());
+                }
+            }
+            //Don't repeat rtist and use top songs
+            else
+            {
+                while (!(tripDurationInSec - 300 <= currentDuration && currentDuration <= tripDurationInSec + 300))
+                {
+                    var currentGenre = await genreService.GetGenreByName(obj.GenresWithPercentages.First().GenreName);
+                    var genreSeconds = tripDurationInSec * obj.GenresWithPercentages.First().Percentage / 100;
+
+                    var tracksReady = trackServices.GetTopXTracksWithDistinctArtist(genreSeconds, mapper.Map<Genre>(currentGenre));
+
+                    foreach (var track in tracksReady)
+                    {
+                        var sth = new PlaylistTracksDTO
+                        {
+                            TrackId = track.Id,
+                            Track = track
+                        };
+
+                        obj.Tracks.Add(sth);
+                        currentDuration += track.Duration;
+                    }
+
+                    var playlistGenreDTO = new PlaylistGenreDTO
+                    {
+                        GenreId = currentGenre.Id,
+                        Name = currentGenre.Name
+                    };
+
+                    obj.Genres.Add(playlistGenreDTO);
+                    obj.GenresWithPercentages.Remove(obj.GenresWithPercentages.First());
+                }
+            }
+
+            obj.AvgRank = obj.Tracks.Average(x => x.Track.Rank.Value);
+
+            foreach (var item in obj.Tracks)
+            {
+                item.Track = null;
+            }
+
             obj.Duration = currentDuration;
-
+            obj.ImagePath = await pixabayServices.GetImageURL();
             var playlist = mapper.Map<Playlist>(obj);
+            playlist.CreatedOn = DateTime.Now;
 
+            playlist.TripId = obj.Trip.Id;
+            playlist.AudienceId = obj.Audience.Id;
+            playlist.Author = null;
             playlist.Trip = null;
-            playlist.TripId = null;
+            playlist.Audience = null;
 
             await db.Playlists.AddAsync(playlist);
+
             await db.SaveChangesAsync();
 
             return mapper.Map<PlaylistDTO>(obj);
@@ -112,17 +204,18 @@ namespace RidePal.Services.Services
         {
             var playlistToUpdate = await GetPlaylistAsync(id);
 
-            if (!String.IsNullOrEmpty(obj.Name))
+            if (String.IsNullOrEmpty(obj.Name))
             {
-                throw new Exception(INVALID_DATA);
+                throw new Exception(Constants.INVALID_DATA);
             }
 
-            if (obj.Name != playlistToUpdate.Name)
+            if (obj.Name != playlistToUpdate.Name && obj.Name.Length >= Constants.PLAYLIST_TITLE_MIN_LENGTH)
             {
                 if (await IsExistingAsync(obj.Name))
                 {
-                    throw new Exception("Title already taken");
+                    throw new Exception(string.Format(Constants.ALREADY_TAKEN, "Title"));
                 }
+                playlistToUpdate.Name = obj.Name;
             }
 
             if (obj.Audience.Id != playlistToUpdate.Audience.Id && (obj.Audience.Id >= 1 && obj.Audience.Id <= 3))
@@ -161,33 +254,34 @@ namespace RidePal.Services.Services
         private async Task<Playlist> GetPlaylistAsync(int id)
         {
             var playlist = await db.Playlists.FirstOrDefaultAsync(x => x.Id == id);
-            return playlist ?? throw new InvalidOperationException(PLAYLIST_NOT_FOUND);
+            return playlist ?? throw new InvalidOperationException(Constants.PLAYLIST_NOT_FOUND);
         }
 
         private async Task<Playlist> GetPlaylistAsync(string title)
         {
             var playlist = await db.Playlists.FirstOrDefaultAsync(x => x.Name == title);
-            return playlist ?? throw new InvalidOperationException(PLAYLIST_NOT_FOUND);
+            return playlist ?? throw new InvalidOperationException(Constants.PLAYLIST_NOT_FOUND);
         }
 
         public async Task<PlaylistDTO> GetPlaylistDTOAsync(string title)
         {
             var playlist = await db.Playlists.FirstOrDefaultAsync(x => x.Name == title);
 
-            return mapper.Map<PlaylistDTO>(playlist) ?? throw new Exception(PLAYLIST_NOT_FOUND);
+            return mapper.Map<PlaylistDTO>(playlist) ?? throw new Exception(Constants.PLAYLIST_NOT_FOUND);
         }
 
         public async Task<PlaylistDTO> GetPlaylistDTOAsync(int id)
         {
             var playlist = await db.Playlists.FirstOrDefaultAsync(x => x.Id == id);
 
-            return mapper.Map<PlaylistDTO>(playlist) ?? throw new Exception(PLAYLIST_NOT_FOUND);
+            return mapper.Map<PlaylistDTO>(playlist) ?? throw new Exception(Constants.PLAYLIST_NOT_FOUND);
         }
 
-        public async Task<IEnumerable<Genre>> GetGenres()
+        public async Task<Audience> GetAudienceAsync(int id)
         {
-            var genres = await db.Genres.ToListAsync();
-            return genres;
+            var audience = await db.Audience.FirstOrDefaultAsync(x => x.Id == id);
+
+            return audience ?? throw new Exception(Constants.AUDIENCE_NOT_FOUND);
         }
     }
 }

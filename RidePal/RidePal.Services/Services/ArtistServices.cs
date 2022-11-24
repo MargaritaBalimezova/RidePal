@@ -5,9 +5,7 @@ using RidePal.Services.DTOModels;
 using RidePal.Services.Exceptions;
 using RidePal.Services.Helpers;
 using RidePal.Services.Interfaces;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace RidePal.Services.Services

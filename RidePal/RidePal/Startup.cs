@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -15,9 +17,7 @@ using Microsoft.AspNetCore.CookiePolicy;
 using Microsoft.AspNetCore.Http;
 using RidePal.Web.Helpers;
 using System.Security.Claims;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authentication;
 using RidePal.Services.Models;
 
 namespace RidePal
@@ -48,11 +48,7 @@ namespace RidePal
                  options.DefaultRequestHeaders.Add("Accept", "application/.json");
              });
 
-            /*    services.AddHttpClient<IFetchSongs, FetchSongs>(options =>
-                {
-                    //options.BaseAddress = new Uri("https://api.deezer.com/search/");
-                    options.DefaultRequestHeaders.Add("Accept", "application/.json");
-                });*/
+            services.AddHttpClient<IPixabayServices, PixabayServices>();
 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
             .AddCookie(options =>
@@ -60,7 +56,7 @@ namespace RidePal
                             options.LoginPath = "/Auth/Login";
                             options.Cookie.Name = "auth_cookie";
                             options.SlidingExpiration = true;
-                            options.ExpireTimeSpan = TimeSpan.FromMinutes(10);
+                            options.ExpireTimeSpan = TimeSpan.FromDays(7);
                         }).AddGoogle(options =>
                         {
                             options.Events.OnRedirectToAuthorizationEndpoint = context =>
@@ -104,6 +100,7 @@ namespace RidePal
             services.AddScoped<IGenreService, GenreServices>();
             services.AddScoped<IPlaylistServices, PlaylistServices>();
             services.AddScoped<ITripServices, TripServices>();
+            services.AddScoped<IAWSCloudStorageService, AWSCloudStorageServices>();
 
             services.Configure<SMTPConfigModel>(Configuration.GetSection("SMTPConfig"));
         }

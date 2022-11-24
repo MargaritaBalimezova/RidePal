@@ -1,13 +1,10 @@
-﻿using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using RidePal.Data.Models;
 using RidePal.Services.DTOModels;
 using RidePal.Services.Exceptions;
 using RidePal.Services.Interfaces;
 using RidePal.WEB.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace RidePal.WEB.Controllers.API_Controllers
@@ -34,7 +31,7 @@ namespace RidePal.WEB.Controllers.API_Controllers
 
                 return this.Ok(tracks);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return this.BadRequest(ex.Message);
             }
@@ -49,12 +46,11 @@ namespace RidePal.WEB.Controllers.API_Controllers
 
                 return this.Ok(track);
             }
-            catch(EntityNotFoundException ex)
+            catch (EntityNotFoundException ex)
             {
                 return this.NotFound(ex.Message);
             }
         }
-
 
         [HttpGet("/genres/{genre}")]
         public async Task<IActionResult> GetTracksByGenre(string genre)
@@ -62,15 +58,15 @@ namespace RidePal.WEB.Controllers.API_Controllers
             try
             {
                 var gen = await this.genreService.GetGenreByName(genre);
-                var tracks = await this.trackServices.GetTracksByGenreAsync(new Genre {Id = gen.Id ,Name = gen.Name, IsDeleted = false });
+                var tracks = await this.trackServices.GetTracksByGenreAsync(new Genre { Id = gen.Id, Name = gen.Name, IsDeleted = false });
 
                 return this.Ok(tracks);
             }
-            catch(EntityNotFoundException ex)
+            catch (EntityNotFoundException ex)
             {
                 return this.NotFound(ex.Message);
             }
-            catch(InvalidOperationException ex)
+            catch (InvalidOperationException ex)
             {
                 return this.NotFound(ex.Message);
             }
@@ -82,18 +78,18 @@ namespace RidePal.WEB.Controllers.API_Controllers
             try
             {
                 var genre = await this.genreService.GetGenreByName(param.Genre);
-                var tracks = this.trackServices.GetTracksWithDistinctArtists(new Genre { Id = genre.Id, Name = genre.Name, IsDeleted = false}
+                var tracks = this.trackServices.GetTracksWithDistinctArtists(new Genre { Id = genre.Id, Name = genre.Name, IsDeleted = false }
                                                             , param.DurationInMinutes * 60);
 
                 return this.Ok(tracks);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return this.BadRequest(ex.Message);
             }
         }
 
-        [HttpGet("/playlist")]
+        [HttpGet("/playlist/tracks")]
         public async Task<IActionResult> GetTracksForPlaylist([FromQuery] GetTracksByGenreDurationModelWrapper param)
         {
             try
@@ -111,12 +107,12 @@ namespace RidePal.WEB.Controllers.API_Controllers
         }
 
         [HttpGet("/top/{x}")]
-        public async Task<IActionResult> GetTopXTracksAsync(int x, [FromQuery]string genre)
+        public async Task<IActionResult> GetTopXTracksAsync(int x, [FromQuery] string genre)
         {
             try
             {
                 GenreDTO genreDTO = null;
-                if(genre != null)
+                if (genre != null)
                 {
                     genreDTO = await this.genreService.GetGenreByName(genre);
                 }
@@ -126,7 +122,7 @@ namespace RidePal.WEB.Controllers.API_Controllers
 
                 return this.Ok(topTracks);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return this.BadRequest(ex.Message);
             }

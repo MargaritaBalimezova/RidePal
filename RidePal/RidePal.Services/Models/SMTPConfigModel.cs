@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace RidePal.Services.Models
+﻿namespace RidePal.Services.Models
 {
     public class SMTPConfigModel
     {

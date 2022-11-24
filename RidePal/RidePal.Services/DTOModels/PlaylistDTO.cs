@@ -23,10 +23,11 @@ namespace RidePal.Services.DTOModels
 
         public virtual Audience Audience { get; set; }
 
+        public DateTime? CreatedOn { get; set; }
         public bool RepeatArtists { get; set; }
         public bool TopSongs { get; set; }
 
-        public virtual ICollection<TrackDTO> Tracks { get; set; } = new List<TrackDTO>();
+        public virtual ICollection<PlaylistTracksDTO> Tracks { get; set; } = new List<PlaylistTracksDTO>();
 
         public virtual List<GenreWithPercentage> GenresWithPercentages { get; set; } = new List<GenreWithPercentage>();
 

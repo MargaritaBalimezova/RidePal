@@ -23,7 +23,7 @@
                                 <div class="profile-header-content">
                                     <!-- BEGIN profile-header-img -->
                                     <div class="profile-header-img">
-                                        <img src="~/Images/@Model.ImagePath" class="avatar img-circle img-thumbnail" alt="avatar">
+                                        <img src="https://ridepalbucket.s3.amazonaws.com/@Model.ImagePath" class="avatar img-circle img-thumbnail" alt="avatar">
                                     </div>
                                     <!-- END profile-header-img -->
                                     <!-- BEGIN profile-header-info -->
@@ -39,11 +39,11 @@
                                             {
                                                 <a asp-action="Block" asp-route-id=@Model.Id class="button-1">Block</a>
                                             }
-                                            <a asp-action="Delete" asp-route-id=@Model.Id class="button-1">Delete</a>
+                                            <a asp-action="Delete" asp-route-email=@Model.Email class="button-1">Delete</a>
                                         }
-                                        @if (this.User.Identity.Name == Model.Email)
+                                        @if (this.User.Identity.Name == Model.Email || this.User.HasClaim(x => x.Value == "Admin"))
                                         {
-                                            <a asp-action="Update" class="button-1">Edit Profile</a>
+                                            <a asp-action="Update" class="button-1" asp-route-email="@Model.Email">Edit Profile</a>
                                         }else{
                                             @if (!Model.Friends.Any(x => x.Email == this.User.Identity.Name) && !Model.ReceivedFriendRequests.Any(x => x.Sender.Email == this.User.Identity.Name) && !Model.SentFriendRequests.Any(x => x.Recipient.Email == this.User.Identity.Name))
                                             {

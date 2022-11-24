@@ -24,6 +24,7 @@ namespace MovieForum.Web.MappingConfig
             this.CreateMap<User, UserDTO>()
                 .ForMember(dest => dest.Id, act => act.MapFrom(src => src.Id))
                 .ForMember(dest => dest.RoleId, act => act.MapFrom(src => src.Role.Id))
+                .ForMember(dest => dest.RoleName, act => act.MapFrom(src => src.Role.Name))
                 .ReverseMap();
 
             this.CreateMap<User, UpdateUserDTO>()
@@ -48,17 +49,29 @@ namespace MovieForum.Web.MappingConfig
                .ReverseMap();
 
             this.CreateMap<PlaylistDTO, CreatePlaylistViewModel>()
+               .ForMember(dest => dest.AudienceId, act => act.MapFrom(src => src.Audience.Id))
+               .ReverseMap();
+
+            this.CreateMap<PlaylistDTO, PlaylistViewModel>()
                .ReverseMap();
 
             this.CreateMap<UpdatePlaylistDTO, UpdatePlaylistViewModel>()
+               .ForMember(dest => dest.AudienceId, act => act.MapFrom(src => src.Audience.Id))
+               .ReverseMap();
+
+            this.CreateMap<Track, TrackDTO>()
                .ReverseMap();
 
             this.CreateMap<PlaylistGenre, PlaylistGenreDTO>()
                 .ForMember(dest => dest.Name, act => act.MapFrom(src => src.Genre.Name))
                 .ReverseMap();
 
-            this.CreateMap<Genre, PlaylistGenreDTO>()
-                .ForMember(dest => dest.Name, act => act.MapFrom(src => src.Name))
+            this.CreateMap<PlaylistTracks, PlaylistTracksDTO>()
+                .ReverseMap();
+
+            this.CreateMap<TrackDTO, PlaylistTracksDTO>()
+                .ForMember(dest => dest.Title, act => act.MapFrom(src => src.Title))
+                .ForMember(dest => dest.TrackId, act => act.MapFrom(src => src.Id))
                 .ReverseMap();
 
             this.CreateMap<Trip, TripDTO>()

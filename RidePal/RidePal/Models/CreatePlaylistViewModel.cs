@@ -1,34 +1,27 @@
 ﻿using RidePal.Data.Models;
+using RidePal.Services.DTOModels;
+using RidePal.Services.Helpers;
 using RidePal.Services.Models;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace RidePal.WEB.Models
 {
     public class CreatePlaylistViewModel
     {
-        public int Id { get; set; }
-
+        [Required]
+        [MinLength(Constants.PLAYLIST_TITLE_MIN_LENGTH, ErrorMessage = "Title length should be more than 4 characters!")]
         public string Name { get; set; }
 
-        public string ImagePath { get; set; }
+        public virtual TripDTO Trip { get; set; } = new TripDTO();
 
-        public int Duration { get; set; }
-
-        public double AvgRank { get; set; }
-
-        public virtual User Author { get; set; }
-
-        public virtual Trip Trip { get; set; }
-
-        public virtual Audience Audience { get; set; }
+        [Required]
+        public int AudienceId { get; set; }
 
         public bool RepeatArtists { get; set; }
         public bool TopSongs { get; set; }
-
-        public virtual ICollection<Track> Tracks { get; set; } = new List<Track>();
-
         public virtual List<GenreWithPercentage> GenresWithPercentages { get; set; } = new List<GenreWithPercentage>();
-
-        public virtual ICollection<Genre> Genres { get; set; } = new List<Genre>();
+        public DateTime? CreatedOn { get; set; }
     }
 }

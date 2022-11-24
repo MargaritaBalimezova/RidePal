@@ -1,8 +1,6 @@
 ﻿using MovieForum.Data.Models.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Text;
 
 namespace RidePal.Data.Models
 {
@@ -33,12 +31,13 @@ namespace RidePal.Data.Models
         public bool RepeatArtists { get; set; }
         public bool TopSongs { get; set; }
 
-        public virtual ICollection<Track> Tracks { get; set; } = new List<Track>();
+        public virtual ICollection<PlaylistTracks> Tracks { get; set; } = new List<PlaylistTracks>();
 
         public virtual ICollection<PlaylistGenre> Genres { get; set; } = new List<PlaylistGenre>();
 
         public bool IsDeleted { get; set; }
 
         public DateTime? DeletedOn { get; set; }
+        public DateTime? CreatedOn { get; set; }
     }
 }

@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace RidePal.Services.Models
+﻿namespace RidePal.Services.Models
 {
     public class SpotifyResultModel
     {
-
         public class SpotifyResultObject
         {
             public Tracks tracks { get; set; }
@@ -111,6 +106,5 @@ namespace RidePal.Services.Models
         {
             public string spotify { get; set; }
         }
-
     }
 }

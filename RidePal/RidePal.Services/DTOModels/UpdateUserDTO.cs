@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace RidePal.Services.DTOModels
+﻿namespace RidePal.Services.DTOModels
 {
     public class UpdateUserDTO
     {
@@ -20,6 +18,5 @@ namespace RidePal.Services.DTOModels
 
         public bool IsGoogleAccount { get; set; }
         public bool IsEmailConfirmed { get; set; }
-
     }
 }

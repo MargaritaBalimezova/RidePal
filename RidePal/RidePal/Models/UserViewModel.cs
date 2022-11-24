@@ -1,6 +1,5 @@
-﻿using RidePal.Data.Models;
+﻿using RidePal.Services.DTOModels;
 using System.Collections.Generic;
-using System;
 
 namespace RidePal.WEB.Models
 {
@@ -22,12 +21,12 @@ namespace RidePal.WEB.Models
 
         public bool IsBlocked { get; set; }
 
-        public virtual ICollection<Playlist> Playlists { get; set; } = new List<Playlist>();
+        public virtual ICollection<PlaylistDTO> Playlists { get; set; } = new List<PlaylistDTO>();
 
-        public virtual ICollection<User> Friends { get; set; } = new List<User>();
+        public virtual ICollection<UserDTO> Friends { get; set; } = new List<UserDTO>();
 
-        public virtual ICollection<FriendRequest> SentFriendRequests { get; set; } = new List<FriendRequest>();
-        public virtual ICollection<FriendRequest> ReceivedFriendRequests { get; set; } = new List<FriendRequest>();
+        public virtual ICollection<FriendRequestDTO> SentFriendRequests { get; set; } = new List<FriendRequestDTO>();
+        public virtual ICollection<FriendRequestDTO> ReceivedFriendRequests { get; set; } = new List<FriendRequestDTO>();
 
         public bool IsDeleted { get; set; }
     }

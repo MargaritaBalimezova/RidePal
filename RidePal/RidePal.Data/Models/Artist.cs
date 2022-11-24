@@ -3,7 +3,6 @@ using RidePal.Data.Models.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
 
 namespace RidePal.Data.Models
 {
@@ -20,7 +19,7 @@ namespace RidePal.Data.Models
 
         [Required]
         public bool IsDeleted { get; set; }
-        
+
         public DateTime? DeletedOn { get; set; }
 
         public override bool Equals(object obj)
@@ -39,6 +38,5 @@ namespace RidePal.Data.Models
         {
             return this.Id.GetHashCode();
         }
-
     }
 }

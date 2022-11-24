@@ -1,10 +1,11 @@
 ﻿using AutoMapper;
-using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using RidePal.Data;
 using RidePal.Data.Models;
 using RidePal.Services.DTOModels;
+using RidePal.Services.Helpers;
 using RidePal.Services.Interfaces;
 using RidePal.Services.Models;
 using System;
@@ -17,9 +18,6 @@ namespace RidePal.Services.Services
 {
     public class UserServices : IUserServices
     {
-        private const string USER_NOT_FOUND = "User not found!";
-        private const string INVALID_DATA = "Invalid Data!";
-
         private readonly RidePalContext db;
         private readonly IMapper mapper;
         private readonly IEmailService emailService;
@@ -46,21 +44,21 @@ namespace RidePal.Services.Services
 
             if (await IsExistingForRegistrationAsync(obj.Email))
             {
-                throw new Exception("Email already taken");
+                throw new Exception(string.Format(Constants.ALREADY_TAKEN, "Email"));
             }
 
             if (await IsExistingUsernameForRegistrationAsync(obj.Username))
             {
-                throw new Exception("Username already taken");
+                throw new Exception(string.Format(Constants.ALREADY_TAKEN, "Username"));
             }
 
             if (obj == null ||
-                obj.FirstName.Length < 0 ||
-                obj.LastName.Length < 0 ||
-                obj.Username.Length < 0 ||
+                obj.FirstName.Length < Constants.USER_FIRSTNAME_MIN_LENGTH ||
+                obj.LastName.Length < Constants.USER_LASTNAME_MIN_LENGTH ||
+                obj.Username.Length < Constants.USER_USERNAME_MIN_LENGTH ||
                 !isEmailValid)
             {
-                throw new Exception(INVALID_DATA);
+                throw new Exception(Constants.INVALID_DATA);
             }
 
             var user = mapper.Map<User>(obj);
@@ -87,44 +85,49 @@ namespace RidePal.Services.Services
             {
                 if (await IsExistingForRegistrationAsync(obj.Email))
                 {
-                    throw new Exception("Email already taken");
+                    throw new Exception(string.Format(Constants.ALREADY_TAKEN, "Email"));
                 }
             }
 
-            if (obj.Password != userToUpdate.Password && obj.Password.Length < 8)
+            if (obj.Password != userToUpdate.Password && obj.Password.Length >= Constants.USER_PASSWORD_MIN_LENGTH)
             {
                 var passHasher = new PasswordHasher<User>();
                 userToUpdate.Password = passHasher.HashPassword(userToUpdate, obj.Password);
             }
 
-            if (obj.FirstName != userToUpdate.FirstName && !String.IsNullOrEmpty(obj.FirstName))
+            if (obj.FirstName != userToUpdate.FirstName && obj.FirstName.Length >= Constants.USER_FIRSTNAME_MIN_LENGTH)
             {
                 userToUpdate.FirstName = obj.FirstName;
             }
 
-            if (obj.LastName != userToUpdate.LastName && !String.IsNullOrEmpty(obj.LastName))
+            if (obj.LastName != userToUpdate.LastName && obj.LastName.Length >= Constants.USER_LASTNAME_MIN_LENGTH)
             {
                 userToUpdate.LastName = obj.LastName;
             }
+
+            userToUpdate.ImagePath = obj.ImagePath ?? userToUpdate.ImagePath;
 
             if (isEmailValid && userToUpdate.Email != obj.Email)
             {
                 userToUpdate.Email = obj.Email;
                 userToUpdate.IsEmailConfirmed = false;
+                await GenerateEmailConfirmationTokenAsync(userToUpdate);
             }
-
-            userToUpdate.ImagePath = obj.ImagePath ?? userToUpdate.ImagePath;
 
             await db.SaveChangesAsync();
 
             return mapper.Map<UserDTO>(userToUpdate);
         }
 
-        public async Task<UserDTO> DeleteAsync(string username)
+        public async Task<UserDTO> DeleteAsync(string email)
         {
-            var userToDelete = await GetUserAsync(username);
+            var userToDelete = await GetUserByEmailAsync(email);
 
             userToDelete.DeletedOn = DateTime.Now;
+
+            await db.FriendRequests.Where(x => x.SenderId == userToDelete.Id).ForEachAsync(x => x.IsDeleted = true);
+
+            await db.Users.ForEachAsync(x => x.ReceivedFriendRequests.Where(x => x.SenderId == userToDelete.Id).ToList().ForEach(x => x.IsDeleted = true));
 
             db.Users.Remove(userToDelete);
             await db.SaveChangesAsync();
@@ -165,26 +168,26 @@ namespace RidePal.Services.Services
         private async Task<User> GetUserAsync(int id)
         {
             var user = await db.Users.FirstOrDefaultAsync(x => x.Id == id && x.IsDeleted == false);
-            return user ?? throw new InvalidOperationException(USER_NOT_FOUND);
+            return user ?? throw new InvalidOperationException(Constants.USER_NOT_FOUND);
         }
 
         private async Task<User> GetUserAsync(string username)
         {
             var user = await db.Users.FirstOrDefaultAsync(x => x.Username == username && x.IsDeleted == false);
-            return user ?? throw new InvalidOperationException(USER_NOT_FOUND);
+            return user ?? throw new InvalidOperationException(Constants.USER_NOT_FOUND);
         }
 
         private async Task<User> GetUserByEmailAsync(string email)
         {
             var user = await db.Users.FirstOrDefaultAsync(x => x.Email == email && x.IsDeleted == false);
-            return user ?? throw new InvalidOperationException(USER_NOT_FOUND);
+            return user ?? throw new InvalidOperationException(Constants.USER_NOT_FOUND);
         }
 
         public async Task<UserDTO> GetUserDTOAsync(string username)
         {
             var user = await db.Users.FirstOrDefaultAsync(x => x.Username == username && x.IsDeleted == false);
 
-            return mapper.Map<UserDTO>(user) ?? throw new Exception(USER_NOT_FOUND);
+            return mapper.Map<UserDTO>(user) ?? throw new Exception(Constants.USER_NOT_FOUND);
         }
 
         public async Task<UserDTO> GetUserDTOByEmailAsync(string email)
@@ -198,7 +201,7 @@ namespace RidePal.Services.Services
         {
             var user = await db.Users.FirstOrDefaultAsync(x => x.Id == id && x.IsDeleted == false);
 
-            return mapper.Map<UserDTO>(user) ?? throw new Exception(USER_NOT_FOUND);
+            return mapper.Map<UserDTO>(user) ?? throw new Exception(Constants.USER_NOT_FOUND);
         }
 
         #endregion GetUser methods
@@ -287,16 +290,17 @@ namespace RidePal.Services.Services
         public async Task<IEnumerable<FriendRequest>> GetAllFriendRequestsAsync(string email)
         {
             var user = await GetUserByEmailAsync(email);
-            var friends = user.ReceivedFriendRequests.ToList();
+
+            var friends = user.ReceivedFriendRequests.Where(x => x.IsDeleted == false).ToList();
 
             return friends ?? throw new Exception("Fr requests not found!");
         }
 
         #endregion Friends methods
 
-        public async Task BlockUserAsync(int username)
+        public async Task BlockUserAsync(int id)
         {
-            var user = await GetUserAsync(username);
+            var user = await GetUserAsync(id);
 
             if (user.NumOfBlocks >= 3)
             {
@@ -316,13 +320,13 @@ namespace RidePal.Services.Services
             await db.SaveChangesAsync();
         }
 
-        public async Task UnblockUserAsync(int username)
+        public async Task UnblockUserAsync(int id)
         {
-            var user = await GetUserAsync(username);
+            var user = await GetUserAsync(id);
 
             if (user.IsBlocked == false)
             {
-                throw new Exception("User is not blocked");
+                throw new Exception("User is unblocked");
             }
 
             user.IsBlocked = false;
@@ -364,7 +368,7 @@ namespace RidePal.Services.Services
             var user = await GetUserByEmailAsync(email);
             var playlists = user.Playlists.Select(x => mapper.Map<PlaylistDTO>(x)).ToList();
 
-            return playlists ?? throw new Exception(USER_NOT_FOUND);
+            return playlists ?? throw new Exception(Constants.USER_NOT_FOUND);
         }
 
         #region Email methods

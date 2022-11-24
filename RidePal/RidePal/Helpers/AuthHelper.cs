@@ -26,11 +26,11 @@ namespace RidePal.Web.Helpers
             try
             {
                 var user = new LoginUserDTO();
-                 
+
                 if (credential.Contains('@'))
                 {
                     var userDTO = await userServices.GetUserDTOByEmailAsync(credential);
-                     user = mapper.Map<LoginUserDTO>(userDTO);
+                    user = mapper.Map<LoginUserDTO>(userDTO);
                 }
                 else
                 {
@@ -40,7 +40,6 @@ namespace RidePal.Web.Helpers
 
                 if (user.IsEmailConfirmed)
                 {
-
                     var passHasher = new PasswordHasher<User>();
                     var result = passHasher.VerifyHashedPassword(mapper.Map<User>(user), user.Password, password);
 

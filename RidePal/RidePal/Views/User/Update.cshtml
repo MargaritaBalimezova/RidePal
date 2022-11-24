@@ -14,7 +14,7 @@
                 <!-- left column -->
                 <div class="col-md-3">
                     <div class="text-center">
-                        <img src="~/Images/@Model.ImagePath" class="avatar img-circle img-thumbnail" alt="avatar">
+                        <img src="https://ridepalbucket.s3.amazonaws.com/@Model.ImagePath" class="avatar img-circle img-thumbnail" alt="avatar">
                     </div>
                     <div class="text-center">
                         <a asp-route-email="@Model.Email" asp-action="Delete" asp-controller="User" class="btn btn-primary" type="submit" style="background-color: #e53637; border: none; margin-top: 25px;">Delete Profile</a>
@@ -24,12 +24,20 @@
                 <!-- edit form column -->
                 <div class="col-md-9 personal-info">
 
-                    <form asp-action="Update" asp-controller="User" class="form-horizontal" enctype="multipart/form-data">
+                    <form asp-action="Update" asp-controller="User" class="form-horizontal" enctype="multipart/form-data" enctype="multipart/form-data" method="post">
                         <div class="form-group">
-                            <label asp-for=ImagePath class="col-lg-3 control-label">Profile Picture:</label>
+                            @*<label asp-for=ImagePath class="col-lg-3 control-label">Profile Picture:</label>
                             <div class="col-lg-8">
-                                <input asp-for=File type="file" class="form-control">
-                            </div>
+                            <input asp-for=File type="file" class="form-control">
+                            </div>*@
+                            <dl>
+                                <dt>
+                                    <label asp-for=ImagePath class="col-lg-3 control-label">Upload File to S3</label>
+                                </dt>
+                                <dd>
+                                    <input type="file" name="file" id="file" class="form-control">
+                                </dd>
+                            </dl>
                         </div>
                         <div class="form-group">
                             <label asp-for=FirstName class="col-lg-3 control-label">First name:</label>
@@ -53,20 +61,23 @@
                                 <span asp-validation-for=Email class="form-erorr"></span>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label asp-for=Password class="col-lg-3 control-label">Password:</label>
-                            <div class="col-lg-8">
-                                <input asp-for=Password class="form-control" type="password">
-                                <span asp-validation-for=Password class="form-erorr"></span>
+                        @if (this.User.Identity.Name == Model.Email)
+                        {
+                            <div class="form-group">
+                                <label asp-for=Password class="col-lg-3 control-label">Password:</label>
+                                <div class="col-lg-8">
+                                    <input asp-for=Password class="form-control" type="password">
+                                    <span asp-validation-for=Password class="form-erorr"></span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label asp-for=ConfirmPassword class="col-lg-3 control-label">Confirm Password:</label>
-                            <div class="col-lg-8">
-                                <input asp-for=ConfirmPassword class="form-control" type="password">
-                                <span asp-validation-for=ConfirmPassword class="form-erorr"></span>
+                            <div class="form-group">
+                                <label asp-for=ConfirmPassword class="col-lg-3 control-label">Confirm Password:</label>
+                                <div class="col-lg-8">
+                                    <input asp-for=ConfirmPassword class="form-control" type="password">
+                                    <span asp-validation-for=ConfirmPassword class="form-erorr"></span>
+                                </div>
                             </div>
-                        </div>
+                        }
                         <hr>
                         <div class="col-md-10 col-sm-9 col-xs-12 col-md-push-2 col-sm-push-3 col-xs-push-0">
                             <input class="btn btn-primary" type="submit" value="Update Profile" style="background-color: #e53637; border: none;">
@@ -82,35 +93,35 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
 <script>
 
-         function getIp(callback) {
-     fetch('https://ipinfo.io/json?token=<your token>', { headers: { 'Accept': 'application/json' }})
-       .then((resp) => resp.json())
-       .catch(() => {
-         return {
-           country: 'us',
-         };
-       })
-       .then((resp) => callback(resp.country));
+    function getIp(callback) {
+        fetch('https://ipinfo.io/json?token=<your token>', { headers: { 'Accept': 'application/json' } })
+            .then((resp) => resp.json())
+            .catch(() => {
+                return {
+                    country: 'us',
+                };
+            })
+            .then((resp) => callback(resp.country));
     }
 
 
 
-       const phoneInputField = document.querySelector("#phone");
-       const phoneInput = window.intlTelInput(phoneInputField, {
-     initialCountry: "bg",
-     geoIpLookup: getIp,
-     utilsScript:
-       "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+    const phoneInputField = document.querySelector("#phone");
+    const phoneInput = window.intlTelInput(phoneInputField, {
+        initialCountry: "bg",
+        geoIpLookup: getIp,
+        utilsScript:
+            "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
     });
-       const info = document.querySelector(".alert-info");
+    const info = document.querySelector(".alert-info");
 
     function process(event) {
-     event.preventDefault();
+        event.preventDefault();
 
-     const phoneNumber = phoneInput.getNumber();
+        const phoneNumber = phoneInput.getNumber();
 
-     info.style.display = "";
-     info.innerHTML = `Phone number in E.164 format: <strong>${phoneNumber}</strong>`;
+        info.style.display = "";
+        info.innerHTML = `Phone number in E.164 format: <strong>${phoneNumber}</strong>`;
     }
 </script>
 </html>

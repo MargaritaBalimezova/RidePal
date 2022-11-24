@@ -1,31 +1,40 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Routing;
 using RidePal.Data.Models;
-using RidePal.Services.DTOModels;
-using RidePal.Services.Models;
-using RidePal.Web.Models;
-using System.Threading.Tasks;
-using System;
-using AutoMapper;
-using RidePal.Services.Interfaces;
-using RidePal.WEB.Models;
 using RidePal.Models;
+using RidePal.Services.DTOModels;
+using RidePal.Services.Interfaces;
+using RidePal.Services.Models;
+using RidePal.WEB.Models;
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace RidePal.WEB.Controllers
 {
+    [Authorize]
     public class PlaylistController : Controller
     {
         private readonly IPlaylistServices playlistService;
         private readonly ITripServices tripService;
+        private readonly IUserServices userService;
+        private readonly IGenreService genreService;
+
         private readonly IMapper mapper;
         private readonly IBingMapsServices bingMapsService;
 
-        public PlaylistController(IPlaylistServices playlistService, ITripServices tripService, IMapper mapper, IBingMapsServices bingMapsService)
+        public PlaylistController(IPlaylistServices playlistService, ITripServices tripService, IMapper mapper, IBingMapsServices bingMapsService, IUserServices userService, IGenreService genreService)
         {
             this.playlistService = playlistService;
             this.tripService = tripService;
+            this.userService = userService;
             this.mapper = mapper;
             this.bingMapsService = bingMapsService;
+            this.genreService = genreService;
         }
 
         public async Task<IActionResult> Index(string title)
@@ -33,7 +42,7 @@ namespace RidePal.WEB.Controllers
             try
             {
                 var playList = await playlistService.GetPlaylistDTOAsync(title);
-                return View(mapper.Map<CreatePlaylistViewModel>(playList));
+                return View(mapper.Map<PlaylistViewModel>(playList));
             }
             catch (Exception ex)
             {
@@ -47,6 +56,8 @@ namespace RidePal.WEB.Controllers
             var playlist = new CreatePlaylistViewModel();
             playlist.GenresWithPercentages = new List<GenreWithPercentage>();
             await FillGenres(playlist);
+            ViewData["Audiences"] = new SelectList(await FillAudiences(), "Id", "Name");
+
             return this.View(playlist);
         }
 
@@ -66,6 +77,7 @@ namespace RidePal.WEB.Controllers
             {
                 var startingPoint = model.Trip.StartPoint.Split(", ");
                 var destination = model.Trip.Destination.Split(", ");
+
                 var cred = new TripQuerryParameters
                 {
                     DepartCountry = startingPoint[0],
@@ -85,23 +97,24 @@ namespace RidePal.WEB.Controllers
                     Distance = 1000
                 };
 
+                var audience = await playlistService.GetAudienceAsync(model.AudienceId);
+
+                var trip = await tripService.PostAsync(tmpTrip);
+
                 var playlistDTO = new PlaylistDTO
                 {
                     Name = model.Name,
                     RepeatArtists = model.RepeatArtists,
                     TopSongs = model.TopSongs,
                     GenresWithPercentages = model.GenresWithPercentages,
-                    Audience = model.Audience,
-                    Trip = tmpTrip
+                    Audience = audience,
+                    Author = await userService.GetUserDTOByEmailAsync(this.User.Identity.Name),
+                    Trip = trip
                 };
 
                 var newPlaylist = await playlistService.PostAsync(playlistDTO);
 
-                tmpTrip.PlaylistId = newPlaylist.Id;
-
-                await tripService.PostAsync(tmpTrip);
-
-                return RedirectToAction("Index", "Playlist", new { title = newPlaylist.Name });
+                return RedirectToAction("Index", new { title = $"{newPlaylist.Name}" });
             }
             catch (Exception ex)
             {
@@ -111,15 +124,80 @@ namespace RidePal.WEB.Controllers
             }
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Delete(string title)
+        {
+            try
+            {
+                await playlistService.DeleteAsync(title);
+                return RedirectToAction("Index", "Home");
+            }
+            catch (Exception ex)
+            {
+                return RedirectToPage("Error", new ErrorViewModel { RequestId = ex.Message });
+            }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> EditPlaylist(string title)
+        {
+            var playlist = await playlistService.GetPlaylistDTOAsync(title);
+            ViewData["Audiences"] = new SelectList(await FillAudiences(), "Id", "Name");
+            var update = new UpdatePlaylistViewModel
+            {
+                Name = playlist.Name,
+                Id = playlist.Id,
+            };
+            return this.View(update);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditPlaylist(UpdatePlaylistViewModel model)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(model);
+            }
+
+            try
+            {
+                var playlist = await playlistService.GetPlaylistDTOAsync(model.Id);
+
+                if (await playlistService.IsExistingAsync(model.Name))
+                {
+                    this.ModelState.AddModelError("Name", "Playlist with this title already exists.");
+                }
+
+                var updatePlaylistDTO = new UpdatePlaylistDTO();
+
+                updatePlaylistDTO.Name = model.Name;
+                updatePlaylistDTO.Audience = await playlistService.GetAudienceAsync(model.AudienceId);
+
+                await playlistService.UpdateAsync(playlist.Id, updatePlaylistDTO);
+            }
+            catch (Exception)
+            {
+                return this.View(model);
+            }
+
+            return this.RedirectToAction("EditPlaylist", "Playlist", new { title = model.Name });
+        }
+
         private async Task FillGenres(CreatePlaylistViewModel model)
         {
-            var genres = await playlistService.GetGenres();
+            var genres = await genreService.GetGenres();
             foreach (var item in genres)
             {
                 var tempGenre = new GenreWithPercentage();
                 tempGenre.GenreName = item.Name;
                 model.GenresWithPercentages.Add(tempGenre);
             }
+        }
+
+        private async Task<List<Audience>> FillAudiences()
+        {
+            var audiences = await genreService.GetAudiences();
+            return audiences.ToList();
         }
     }
 }

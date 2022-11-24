@@ -1,19 +1,14 @@
-﻿using RidePal.Data;
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
+using RidePal.Data;
+using RidePal.Data.Models;
 using RidePal.Services.DTOModels;
-using RidePal.Services.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using RidePal.Services.Exceptions;
 using RidePal.Services.Helpers;
-using AutoMapper;
-using RidePal.Data.Models;
-using RidePal.Data.DataInitialize;
-using Microsoft.AspNetCore.Mvc.ViewFeatures;
-using Microsoft.EntityFrameworkCore;
-using RidePal.Services.Models;
+using RidePal.Services.Interfaces;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace RidePal.Services.Services
 {
@@ -42,9 +37,9 @@ namespace RidePal.Services.Services
 
         public IQueryable<TripDTO> Get()
         {
-            var trips = this.context.Trips.Where(t=>t.IsDeleted==false).Select(x => this.mapper.Map<TripDTO>(x)).AsQueryable();
+            var trips = this.context.Trips.Where(t => t.IsDeleted == false).Select(x => this.mapper.Map<TripDTO>(x)).AsQueryable();
 
-            if (trips.Count()==0)
+            if (trips.Count() == 0)
             {
                 throw new EntityNotFoundException(Constants.NO_TRIPS_FOUND);
             }
@@ -57,7 +52,6 @@ namespace RidePal.Services.Services
             var trip = await this.context.Trips.FirstOrDefaultAsync(t => t.Id == id && t.IsDeleted == false) ?? throw new EntityNotFoundException(Constants.TRIP_NOT_FOUND);
 
             return this.mapper.Map<TripDTO>(trip);
-
         }
 
         public async Task<TripDTO> PostAsync(TripDTO obj)
@@ -68,11 +62,10 @@ namespace RidePal.Services.Services
                 Destination = obj.Destination,
                 Distance = obj.Distance,
                 Duration = obj.Duration,
-                PlaylistId = obj.PlaylistId,
                 IsDeleted = false
             };
 
-            if (trip==null)
+            if (trip == null)
             {
                 throw new InvalidOperationException(Constants.NOT_ENOUGH_PARAMETERS_PASSED);
             }
@@ -87,7 +80,7 @@ namespace RidePal.Services.Services
         {
             var trip = await this.context.Trips.FirstOrDefaultAsync(t => t.Id == id && t.IsDeleted == false) ?? throw new EntityNotFoundException(Constants.TRIP_NOT_FOUND);
 
-            if (obj.Destination!=null && obj.Distance != 0 && obj.Duration != 0 && obj.StartPoint != null )
+            if (obj.Destination != null && obj.Distance != 0 && obj.Duration != 0 && obj.StartPoint != null)
             {
                 trip.Destination = obj.Destination;
                 trip.Distance = obj.Distance;
@@ -98,12 +91,10 @@ namespace RidePal.Services.Services
             {
                 throw new InvalidOperationException(Constants.NOT_ENOUGH_PARAMETERS_PASSED);
             }
-            
 
             await context.SaveChangesAsync();
 
             return this.mapper.Map<TripDTO>(trip);
-
         }
     }
 }

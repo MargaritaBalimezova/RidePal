@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
-using RidePal.Data.Models;
-using RidePal.Services.DTOModels;
+﻿using RidePal.Services.DTOModels;
 using RidePal.Services.Models;
+using System.Threading.Tasks;
 
 namespace RidePal.Services.Interfaces
 {

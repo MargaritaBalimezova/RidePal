@@ -1,18 +1,16 @@
-﻿using Microsoft.AspNetCore.Authentication;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace RidePal.WEB.Models
 {
     public class LoginViewModel
     {
-        [Required]
+        [Required(ErrorMessage = "Email/username and password combination doesn't match")]
         public string Credential { get; set; }
 
         [Required]
+        [MinLength(8, ErrorMessage = "Email/username and password combination doesn't match")]
         public string Password { get; set; }
 
-        [Display(Name = "Remember me")]
         public bool RememberMe { get; set; }
 
         public bool IsEmailConfirmed { get; set; }

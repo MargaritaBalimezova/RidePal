@@ -1,20 +1,18 @@
 ﻿using RidePal.Data.DataInitialize.Interfaces;
 using RidePal.Data.DataInitialize.Models;
 using RidePal.Data.Models;
-using System;
 using System.Collections.Generic;
 using System.Net.Http;
-using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
-using System.Linq;
 
 namespace RidePal.Data.DataInitialize
 {
     public class FetchSongs : IFetchSongs
     {
-       //private readonly HttpClient client;
+        //private readonly HttpClient client;
         private static HashSet<Artist> artists = new HashSet<Artist>();
+
         private static HashSet<Track> tracks = new HashSet<Track>();
         private static HashSet<Album> albums = new HashSet<Album>();
 
@@ -43,7 +41,7 @@ namespace RidePal.Data.DataInitialize
 
             for (int i = 0; i < playlists.data.Length; i++)
             {
-                if(i == playlistToFetch)
+                if (i == playlistToFetch)
                 {
                     break;
                 }
@@ -108,14 +106,13 @@ namespace RidePal.Data.DataInitialize
                         if (albums.Contains(album))
                         {
                             track.AlbumId = trackListDesirialized.data[j].album.id;
-
                         }
                         else
                         {
                             albums.Add(album);
                             new_albums.Add(album);
                         }
-                        
+
                         track.AlbumId = trackListDesirialized.data[j].album.id;
                         track.ArtistId = trackListDesirialized.data[j].artist.id;
                         tracks.Add(track);
@@ -123,9 +120,7 @@ namespace RidePal.Data.DataInitialize
                     }
 
                     tracklistUrl = trackListDesirialized.next;
-
                 } while (tracklistUrl != null);
-               
             }
 
             return new ArtistTrackAlbumWrap { artists = new_artists, albums = new_albums, tracks = new_tracks };

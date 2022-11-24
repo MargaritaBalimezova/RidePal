@@ -1,6 +1,4 @@
-﻿using RidePal.Data.Models;
-
-namespace RidePal.Services.Models
+﻿namespace RidePal.Services.Models
 {
     public class GenreWithPercentage
     {

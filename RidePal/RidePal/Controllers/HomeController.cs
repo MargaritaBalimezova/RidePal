@@ -1,14 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using RidePal.Data.DataInitialize;
-using RidePal.Data.DataInitialize.Interfaces;
 using RidePal.Data.Models;
 using RidePal.Models;
 using RidePal.Services.Interfaces;
 using RidePal.Services.Models;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
@@ -20,11 +16,14 @@ namespace RidePal.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly IBingMapsServices _mapsService;
         private readonly ITrackServices trackServices;
+        private readonly IMapper _mapper;
 
         public HomeController(ILogger<HomeController> logger,
-            IBingMapsServices mapsService, ITrackServices trackServices
+            IBingMapsServices mapsService, ITrackServices trackServices,
+            IMapper mapper
            )
         {
+            _mapper = mapper;
             _logger = logger;
             _mapsService = mapsService;
             this.trackServices = trackServices;
@@ -64,7 +63,7 @@ namespace RidePal.Controllers
             int minutes = 34;
             int duration = hour * 3600 + minutes * 60 + 14;
 
-            var res = this.trackServices.GetTracksWithDistinctArtists(new Genre { Id = 1, Name = "Rap" }, duration);
+            var res = this.trackServices.GetTracksWithDistinctArtists(new Genre { Id = 1, Name = "Rap" }, duration).Select(x => _mapper.Map<Track>(x));
 
             return this.View(res);
         }

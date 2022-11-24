@@ -5,10 +5,8 @@ using RidePal.Services.DTOModels;
 using RidePal.Services.Exceptions;
 using RidePal.Services.Helpers;
 using RidePal.Services.Interfaces;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace RidePal.Services.Services
@@ -23,7 +21,6 @@ namespace RidePal.Services.Services
             this.db = ridePalContext;
             this.mapper = mapper;
         }
-
 
         public async Task<IEnumerable<AlbumDTO>> GetAlbumByGenreAsync(GenreDTO genre)
         {

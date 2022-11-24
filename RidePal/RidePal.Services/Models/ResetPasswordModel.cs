@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using RidePal.Services.Helpers;
+using System.ComponentModel.DataAnnotations;
 
 namespace RidePal.Services.Models
 {
@@ -11,7 +12,7 @@ namespace RidePal.Services.Models
         public string Token { get; set; }
 
         [Required, DataType(DataType.Password)]
-        [StringLength(int.MaxValue, MinimumLength = 8)]
+        [MinLength(Constants.USER_PASSWORD_MIN_LENGTH, ErrorMessage = "Password length should be more than 8 characters!")]
         public string NewPassword { get; set; }
 
         [Required, DataType(DataType.Password)]
