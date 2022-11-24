@@ -104,6 +104,7 @@ namespace RidePal
             services.AddScoped<IGenreService, GenreServices>();
             services.AddScoped<IPlaylistServices, PlaylistServices>();
             services.AddScoped<ITripServices, TripServices>();
+            services.AddScoped<IAWSCloudStorageService, AWSCloudStorageServices>();
 
             services.Configure<SMTPConfigModel>(Configuration.GetSection("SMTPConfig"));
         }

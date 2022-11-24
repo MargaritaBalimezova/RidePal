@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Amazon.S3.Transfer;
+using Amazon.S3;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using RidePal.Data.DataInitialize;
@@ -10,24 +13,30 @@ using RidePal.Services.Models;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Amazon;
+using Amazon.S3.Model;
 
 namespace RidePal.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-        private readonly IBingMapsServices _mapsService;
+        private readonly ILogger<HomeController> logger;
+        private readonly IBingMapsServices mapsService;
         private readonly ITrackServices trackServices;
+        private readonly IAWSCloudStorageService storageService;
 
         public HomeController(ILogger<HomeController> logger,
-            IBingMapsServices mapsService, ITrackServices trackServices
+            IBingMapsServices mapsService, ITrackServices trackServices,
+            IAWSCloudStorageService storageService
            )
         {
-            _logger = logger;
-            _mapsService = mapsService;
+            this.logger = logger;
+            this.mapsService = mapsService;
             this.trackServices = trackServices;
+            this.storageService = storageService;
         }
 
         public async Task<IActionResult> Index(TripQuerryParameters trip)
@@ -54,7 +63,7 @@ namespace RidePal.Controllers
             this.ViewData["DepartAddress"] = trip.DepartAddress;
             this.ViewData["ArriveAddress"] = trip.ArriveAddress;
 
-            var res = await _mapsService.GetTrip(cred);
+            var res = await mapsService.GetTrip(cred);
             return this.View(res);
         }
 
@@ -79,5 +88,7 @@ namespace RidePal.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+        
     }
 }
