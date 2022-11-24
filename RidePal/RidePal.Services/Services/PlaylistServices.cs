@@ -32,7 +32,7 @@ namespace RidePal.Services.Services
 
         public async Task<IEnumerable<PlaylistDTO>> GetAsync()
         {
-            return await db.Users.Select(x => mapper.Map<PlaylistDTO>(x)).ToListAsync();
+            return await db.Playlists.Select(x => mapper.Map<PlaylistDTO>(x)).ToListAsync();
         }
 
         public async Task<PlaylistDTO> PostAsync(PlaylistDTO obj)

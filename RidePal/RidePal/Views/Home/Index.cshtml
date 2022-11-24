@@ -1,95 +1,269 @@
-﻿@model RidePal.Services.DTOModels.TripDTO;
+﻿@using RidePal.Services.DTOModels
+@using RidePal.WEB.Models;
+@model IEnumerable<PlaylistDTO>
 <html>
-@{
-    var countries = new List<String> { "Bulgaria", "Serbia", "Albania", "Romania" };
 
-    var countriesList = new SelectList(countries);
-}
-<head>
-
-</head>
 <body>
-    <form>
-        <div class="form-row">
-            <div class="form-group col-md-6">
-                <label for="inputEmail4">Depart Country</label>
-                <input type="text" class="form-control" name="DepartCountry" id="inputAddress"
-                       value="@this.ViewData["DepartCountry"]" placeholder="@this.ViewData["DepartCountry"]" />
+    <div class="ms_main_wrapper">
+        <div class="ms_content_wrapper padder_top80">
+            <div class="ms-banner">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12">
+                            <div class="ms_banner_img">
+                                <img src="~/Images/stephen-cook-Zu0gm67wFOc-unsplash.jpg" style="border-radius:5%;opacity:85%" alt="" class="img-fluid">
+                            </div>
+                            <div class="ms_banner_text" style="padding-left:5%">
+                                <h1>Everywhere with you</h1>
+                                <h1 class="ms_color">Joy Ride Music player</h1>
+                                <p style="font-size:20px;"> The journey of a thousand miles begins with one step -> Press the Play button!</p>
+                                <div class="ms_banner_btn">
+                                    <a href="#" class="ms_btn">Generate trip</a>
+                                    <a href="#" class="ms_btn">Previuos trips</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="form-group col-md-6">
-                <label for="inputPassword4">Destination Country</label>
-                <input type="text" class="form-control" name="ArriveCountry" id="inputAddress"
-                       value="@this.ViewData["ArriveCountry"]" placeholder="@this.ViewData["ArriveCountry"]" />
+
+            <div class="ms_rcnt_slider">
+                <div class="ms_heading">
+                    <h1>Recently Created</h1>
+                    <span class="veiw_all"><a href="#">view more</a></span>
+                </div>
+                <div class="swiper-container">
+                    <div class="swiper-wrapper">
+                        @{
+                            //Todo OrderBYDesc most recent
+
+                            var recentList = this.Model.Take(15).ToList();
+                            foreach (var item in recentList)
+                            {
+                                    <div class="swiper-slide">
+                                        <div class="ms_rcnt_box">
+                                            <div class="ms_rcnt_box_img">
+                                                <img src="@item.ImagePath" alt="">
+                                                <div class="ms_main_overlay">
+                                                    <div class="ms_box_overlay"></div>
+                                                    <div class="ms_more_icon">
+                                                        <img src="assets/images/svg/more.svg" alt="">
+                                                    </div>
+                                                    <ul class="more_option">
+                                                        <li><a href="#"><span class="opt_icon"><span class="icon icon_fav"></span></span>Add To Favourites</a></li>
+                                                        <li><a href="#"><span class="opt_icon"><span class="icon icon_share"></span></span>Share</a></li>
+                                                    </ul>
+                                                    <div class="ms_play_icon">
+                                                        <img src="assets/images/svg/play.svg" alt="">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="ms_rcnt_box_text">
+                                                <h3><a href="#">@item.Name</a></h3>
+                                                 <p>@item.Author.Username</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                            }
+                        }
+
+                        <!-- Add Arrows -->
+                        <div class="swiper-button-next slider_nav_next"></div>
+                        <div class="swiper-button-prev slider_nav_prev"></div>
+                    </div>
+                    <!---Weekly Top 15--->
+                    <div class="ms_weekly_wrapper">
+                        <div class="ms_weekly_inner">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="ms_heading">
+                                        <h1>Top 15 most liked playlists</h1>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-12 padding_right40">
+                                    @{
+                                        //TODO: MOST LIKED PLAYLIST
+                                        var likedList = this.Model.Take(15).ToList();
+                                        @*for(int i = 0; i<15 ;i++)
+                                        {
+                                                  <div class="ms_weekly_box">
+                                            <div class="weekly_left">
+                                                <span class="w_top_no">
+                                                    @i;
+                                                </span>
+                                                <div class="w_top_song">
+                                                    <div class="w_tp_song_img">
+                                                        <img src="@likedList[i].ImagePath" alt="" class="img-fluid">
+                                                        <div class="ms_song_overlay">
+                                                        </div>
+                                                        <div class="ms_play_icon">
+                                                            <img src="assets/images/svg/play.svg" alt="">
+                                                        </div>
+                                                    </div>
+                                                    <div class="w_tp_song_name">
+                                                        <h3><a href="#">"@likedList[i].Name</a></h3>
+                                                        <p>@likedList[i].Author.Username</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="weekly_right">
+                                                <span class="w_song_time">@likedList[i].Duration</span>
+                                                <span class="ms_more_icon" data-other="@i">
+                                                    <img src="assets/images/svg/more.svg" alt="">
+                                                </span>
+                                            </div>
+                                            <ul class="more_option">
+                                                <li><a href="#"><span class="opt_icon"><span class="icon icon_fav"></span></span>Add To Favourites</a></li>
+                                                <li><a href="#"><span class="opt_icon"><span class="icon icon_queue"></span></span>Add To Queue</a></li>
+                                                <li><a href="#"><span class="opt_icon"><span class="icon icon_dwn"></span></span>Download Now</a></li>
+                                                <li><a href="#"><span class="opt_icon"><span class="icon icon_playlst"></span></span>Add To Playlist</a></li>
+                                                <li><a href="#"><span class="opt_icon"><span class="icon icon_share"></span></span>Share</a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="ms_divider"></div>
+                                        }*@
+                                    }
+
+                                </div>
+                    
+                    <!----Top Genres Section Start---->
+                    <div class="ms_genres_wrapper">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="ms_heading">
+                                    <h1>Genres</h1>
+                                    <span class="veiw_all"><a href="#">view more</a></span>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="ms_genres_box">
+                                    <img src="https://dummyimage.com/523x523" alt="" class="img-fluid" />
+                                    <div class="ms_main_overlay">
+                                        <div class="ms_box_overlay"></div>
+                                        <div class="ms_play_icon">
+                                            <img src="assets/images/svg/play.svg" alt="">
+                                        </div>
+                                        <div class="ovrly_text_div">
+                                            <span class="ovrly_text1"><a href="#">Pop</a></span>
+                                        </div>
+                                    </div>
+                                    <div class="ms_box_overlay_on">
+                                        <div class="ovrly_text_div">
+                                            <span class="ovrly_text1"><a href="#">Pop</a></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="row">
+                                    <div class="col-lg-4">
+                                        <div class="ms_genres_box">
+                                            <img src="https://dummyimage.com/246x246" alt="" class="img-fluid" />
+                                            <div class="ms_main_overlay">
+                                                <div class="ms_box_overlay"></div>
+                                                <div class="ms_play_icon">
+                                                    <img src="assets/images/svg/play.svg" alt="">
+                                                </div>
+                                                <div class="ovrly_text_div">
+                                                    <span class="ovrly_text1"><a href="#">Latin</a></span>
+                                                </div>
+                                            </div>
+                                            <div class="ms_box_overlay_on">
+                                                <div class="ovrly_text_div">
+                                                                <span class="ovrly_text1"><a href="#">Latin</a></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <div class="ms_genres_box">
+                                            <img src="https://dummyimage.com/523x246" alt="" class="img-fluid" />
+                                            <div class="ms_main_overlay">
+                                                <div class="ms_box_overlay"></div>
+                                                <div class="ms_play_icon">
+                                                    <img src="assets/images/svg/play.svg" alt="">
+                                                </div>
+                                                <div class="ovrly_text_div">
+                                                    <span class="ovrly_text1"><a href="#">Hip-Hop and R&B</a></span>
+                                                </div>
+                                            </div>
+                                            <div class="ms_box_overlay_on">
+                                                <div class="ovrly_text_div">
+                                                                <span class="ovrly_text1"><a href="#">Hip-Hop and R&B</a></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <div class="ms_genres_box">
+                                            <img src="https://dummyimage.com/523x246" alt="" class="img-fluid" />
+                                            <div class="ms_main_overlay">
+                                                <div class="ms_box_overlay"></div>
+                                                <div class="ms_play_icon">
+                                                    <img src="assets/images/svg/play.svg" alt="">
+                                                </div>
+                                                <div class="ovrly_text_div">
+                                                    <span class="ovrly_text1"><a href="#">Classical</a></span>
+                                                </div>
+                                            </div>
+                                            <div class="ms_box_overlay_on">
+                                                <div class="ovrly_text_div">
+                                                                <span class="ovrly_text1"><a href="#">Classical</a></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="ms_genres_box">
+                                            <img src="https://dummyimage.com/246x246" alt="" class="img-fluid" />
+                                            <div class="ms_main_overlay">
+                                                <div class="ms_box_overlay"></div>
+                                                <div class="ms_play_icon">
+                                                    <img src="assets/images/svg/play.svg" alt="">
+                                                </div>
+                                                <div class="ovrly_text_div">
+                                                    <span class="ovrly_text1"><a href="#">EDM</a></span>
+                                                </div>
+                                            </div>
+                                            <div class="ms_box_overlay_on">
+                                                <div class="ovrly_text_div">
+                                                    <span class="ovrly_text1"><a href="#">EDM</a></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="ms_genres_box">
+                                    <img src="https://dummyimage.com/246x523" alt="" class="img-fluid" />
+                                    <div class="ms_main_overlay">
+                                        <div class="ms_box_overlay"></div>
+                                        <div class="ms_play_icon">
+                                            <img src="assets/images/svg/play.svg" alt="">
+                                        </div>
+                                        <div class="ovrly_text_div">
+                                            <span class="ovrly_text1"><a href="#">Rock</a></span>
+                                        </div>
+                                    </div>
+                                    <div class="ms_box_overlay_on">
+                                        <div class="ovrly_text_div">
+                                            <span class="ovrly_text1"><a href="#">Rock</a></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                   
+                    <!----Live Radio Section Start---->
+                   
+                   
+                </div>
             </div>
         </div>
-        <div class="form-row">
-            <div class="form-group col-md-6">
-                <label for="inputEmail4">Depart City</label>
-                <input type="text" class="form-control" name="DepartCity" id="inputAddress"
-                       value="@this.ViewData["DepartCity"]" placeholder="@this.ViewData["DepartCity"]" />
-            </div>
-            <div class="form-group col-md-6">
-                <label for="inputPassword4">Destination City</label>
-                <input type="text" class="form-control" name="ArriveCity" id="inputAddress"
-                       value="@this.ViewData["ArriveCity"]" placeholder="@this.ViewData["ArriveCity"]" />
-
-            </div>
-        </div>
-        <div class="form-row">
-            <div class="form-group col-md-6">
-                <label for="inputAddress">Depart Address</label>
-                <input type="text" class="form-control" name="DepartAddress" id="inputAddress"
-                       value="@this.ViewData["DepartAddress"]" placeholder="@this.ViewData["DepartAddress"]" />
-
-            </div>
-            <div class="form-group col-md-6">
-                <label for="inputAddress2">Destination Address </label>
-                <input type="text" class="form-control" name="ArriveAddress" id="inputAddress2"
-                       value="@this.ViewData["ArriveAddress"]" placeholder="@this.ViewData["ArriveAddress"]" />
-
-            </div>
-        </div>
-
-
-        <button type="submit" class="btn btn-primary">Generate trip</button>
-    </form>
-
-@*@{ 
-    var playlistDuration = 0;
-}
-
-@{
-    foreach (var item in this.Model)
-    {
-        <h4>@item.Id</h4>
-        <h4>@item.Title</h4>
-        <h4>@item.Artist.Name</h4>
-        <h4>@item.Duration</h4>
-        <h4>@item.Genre.Name</h4>
-        <h4>@item.Rank</h4>
-        <br>
-        <br>
-        <hr>
-        {
-            playlistDuration = playlistDuration + item.Duration;
-        }
-    }
-}
-
-@{
-    var minutes = playlistDuration / 60;
-    var hours = minutes / 60;
-
-}
-
-<h1>Playlist Duration: @hours h  @(minutes%60)minutes @(playlistDuration%60)seconds</h1>
-<h3>@this.Model.Count()</h3>
-    @{
-        if (this.Model != null)
-        {
-            <h4>Your trip distance is: @this.Model.Distance km.</h4>
-            <h4>Your trip duration is: @this.Model.Duration min.</h4>
-        }
-    }*@
+    </div>
 </body>
+
+
 </html>
