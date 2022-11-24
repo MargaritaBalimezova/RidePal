@@ -852,6 +852,7 @@ ul.ms_lang_box:after {
 	width: 100%;
 	float: left;
 }
+
 .ms_banner_text {
 	width: calc(100% - 511px);
 	float: left;

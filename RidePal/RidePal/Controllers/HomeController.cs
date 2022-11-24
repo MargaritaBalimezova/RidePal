@@ -26,45 +26,24 @@ namespace RidePal.Controllers
         private readonly ILogger<HomeController> logger;
         private readonly IBingMapsServices mapsService;
         private readonly ITrackServices trackServices;
-        private readonly IAWSCloudStorageService storageService;
+        private readonly IPlaylistServices playServices;
 
         public HomeController(ILogger<HomeController> logger,
-            IBingMapsServices mapsService, ITrackServices trackServices,
-            IAWSCloudStorageService storageService
+            IBingMapsServices mapsService, ITrackServices trackServices,IPlaylistServices playServices
            )
         {
             this.logger = logger;
             this.mapsService = mapsService;
             this.trackServices = trackServices;
-            this.storageService = storageService;
+            this.playServices = playServices;
         }
 
-        public async Task<IActionResult> Index(TripQuerryParameters trip)
+        public async Task<IActionResult> Index()
         {
-            if (!this.ModelState.IsValid)
-            {
-                return this.View();
-            }
+           
+           var lists = await playServices.GetAsync();
 
-            var cred = new TripQuerryParameters
-            {
-                DepartCountry = trip.DepartCountry,
-                ArriveCountry = trip.ArriveCountry,
-                DepartCity = trip.DepartCity,
-                ArriveCity = trip.ArriveCity,
-                DepartAddress = trip.DepartAddress,
-                ArriveAddress = trip.ArriveAddress
-            };
-
-            this.ViewData["DepartCountry"] = trip.DepartCountry;
-            this.ViewData["ArriveCountry"] = trip.ArriveCountry;
-            this.ViewData["DepartCity"] = trip.DepartCity;
-            this.ViewData["ArriveCity"] = trip.ArriveCity;
-            this.ViewData["DepartAddress"] = trip.DepartAddress;
-            this.ViewData["ArriveAddress"] = trip.ArriveAddress;
-
-            var res = await mapsService.GetTrip(cred);
-            return this.View(res);
+            return this.View(lists);
         }
 
         public IActionResult Tracks()
