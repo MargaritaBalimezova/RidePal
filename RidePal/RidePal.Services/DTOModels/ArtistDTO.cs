@@ -13,5 +13,9 @@ namespace RidePal.Services.DTOModels
         public ICollection<AlbumDTO> Albums { get; set; } = new List<AlbumDTO>();
 
         public ICollection<TrackDTO> Tracks { get; set; } = new List<TrackDTO>();
+
+        public string ImagePathMedium { get; set; }
+
+        public string ImagePathBig { get; set; }
     }
 }

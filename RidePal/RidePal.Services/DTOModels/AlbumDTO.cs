@@ -13,11 +13,15 @@ namespace RidePal.Services.DTOModels
         [Required]
         public long ArtistId { get; set; }
 
+        public string ArtistName { get; set; }
+
         [Required]
         public int? GenreId { get; set; }
 
         public GenreDTO Genre { get; set; }
 
         public ICollection<TrackDTO> Tracks { get; set; } = new List<TrackDTO>();
+
+        public string ImagePath { get; set; }
     }
 }

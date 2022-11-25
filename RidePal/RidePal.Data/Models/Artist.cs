@@ -17,6 +17,10 @@ namespace RidePal.Data.Models
 
         public virtual ICollection<Track> Tracks { get; set; } = new List<Track>();
 
+        public string ImagePathMedium { get; set; }
+
+        public string ImagePathBig { get; set; }
+
         [Required]
         public bool IsDeleted { get; set; }
 

@@ -5,6 +5,7 @@ using RidePal.Services.DTOModels;
 using RidePal.Services.Exceptions;
 using RidePal.Services.Helpers;
 using RidePal.Services.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -37,6 +38,18 @@ namespace RidePal.Services.Services
                 ?? throw new EntityNotFoundException(string.Format(Constants.ALBUM_NOT_FOUND, id));
 
             return this.mapper.Map<AlbumDTO>(album);
+        }
+
+        public async Task<IEnumerable<AlbumDTO>> GetSuggestedAlbums(int genreId, long albumId)
+        {
+            var albums = await db.Albums
+                                .Where(x => x.GenreId == genreId && x.Id != albumId)
+                                .OrderByDescending(x => (int)(x.Tracks.Sum(x => x.Rank) / x.Tracks.Count()))
+                                .Take(18)
+                                .OrderBy(x => Guid.NewGuid())
+                                .ToListAsync();
+
+            return this.mapper.Map<List<AlbumDTO>>(albums);
         }
 
         public IQueryable<AlbumDTO> GetAlbums()

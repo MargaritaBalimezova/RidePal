@@ -13,6 +13,7 @@ namespace MovieForum.Web.MappingConfig
                 .ReverseMap();
 
             this.CreateMap<Album, AlbumDTO>()
+                .ForMember(dest => dest.ArtistName, act => act.MapFrom(src => src.Artist.Name))
                 .ReverseMap();
 
             this.CreateMap<Artist, ArtistDTO>()

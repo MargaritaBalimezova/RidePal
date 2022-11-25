@@ -99,7 +99,7 @@ namespace RidePal.Services.Services
             if (genre == null)
             {
                 var tracks = await this.Get()
-                .OrderBy(x => x.Rank)
+                .OrderByDescending(x => x.Rank)
                 .Take(x)
                 .ToListAsync();
 
@@ -110,7 +110,7 @@ namespace RidePal.Services.Services
 
             var tracksByGenre = await this.Get()
                 .Where(x => x.Genre.Id == genre.Id)
-                .OrderBy(x => x.Rank)
+                .OrderByDescending(x => x.Rank)
                 .Take(x)
                 .ToListAsync();
 

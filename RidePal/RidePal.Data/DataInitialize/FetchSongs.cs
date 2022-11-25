@@ -81,7 +81,9 @@ namespace RidePal.Data.DataInitialize
                         {
                             Id = trackListDesirialized.data[j].artist.id,
                             Name = trackListDesirialized.data[j].artist.name,
-                            IsDeleted = false
+                            IsDeleted = false,
+                            ImagePathBig = trackListDesirialized.data[j].artist.picture_big,
+                            ImagePathMedium = trackListDesirialized.data[j].artist.picture_medium,
                         };
 
                         if (artists.Contains(artist))
@@ -100,7 +102,8 @@ namespace RidePal.Data.DataInitialize
                             Name = trackListDesirialized.data[j].album.title,
                             ArtistId = trackListDesirialized.data[j].artist.id,
                             GenreId = genre.Id,
-                            IsDeleted = false
+                            IsDeleted = false,
+                            ImagePath = trackListDesirialized.data[j].album.cover_medium
                         };
 
                         if (albums.Contains(album))
