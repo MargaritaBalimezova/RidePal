@@ -149,7 +149,12 @@ namespace MovieForum.Web.Controllers
         #endregion Register Google
 
         #region Register App
-
+        [HttpGet]
+        public IActionResult LoginPartial()
+        {
+            var login = new LoginViewModel();
+            return this.PartialView("_LoginPartial",login);
+        }
         [HttpGet]
         public IActionResult Register()
         {

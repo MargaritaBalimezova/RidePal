@@ -1,0 +1,64 @@
+﻿@model RidePal.WEB.Models.LoginViewModel
+
+<!----Login Popup Start---->
+<div id="myModal1" class="modal centered-modal" role="dialog">
+    <form id="loginModal">
+        <div class="modal-dialog login_dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <button type="button" class="close" data-dismiss="modal">
+                    <i class="fa_icon form_close"></i>
+                </button>
+                <div class="modal-body">
+                    <div class="ms_register_img">
+                        <img src="https://dummyimage.com/368x395" alt="" class="img-fluid" />
+                    </div>
+                    <div class="ms_register_form">
+                        <h2>login / Sign in</h2>
+                        <div class="form-group">
+                            <input asp-for="Credential" type="text" placeholder="Enter Your Email" class="form-control">
+                            <span class="form_icon">
+                                <i class="fa_icon form-envelope" aria-hidden="true"></i>
+                            </span>
+                        </div>
+                        <div class="form-group">
+                            <input asp-for=Password type="password" placeholder="Enter Password" class="form-control">
+                            <span class="form_icon">
+                                <i class="fa_icon form-lock" aria-hidden="true"></i>
+                            </span>
+                        </div>
+                        <div class="remember_checkbox">
+                            <label>
+                                Keep me signed in
+                                <input asp-for=RememberMe type="checkbox">
+                                <span class="checkmark"></span>
+                            </label>
+                        </div>
+                        <input id="login" type="submit" class="ms_btn">Login/>
+                        <div class="popup_forgot">
+                            <a href="#">Forgot Password ?</a>
+                        </div>
+                        <p>Don't Have An Account? <a href="#myModal" data-toggle="modal" class="ms_modal1 hideCurrentModel">register here</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<script>
+    document.getElementById("login").addEventListener("click", LoginModal, false);
+    function Login(){
+        let obj = JSON.stringify(@Html.Raw(Json.Serialize(Model));
+
+        $.ajax{
+            type:'POST',
+            url: 'Auth/Login',
+            data: obj,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function(){
+                $('#SignIn').modal('hide');
+            }
+        }
+    }
+</script>

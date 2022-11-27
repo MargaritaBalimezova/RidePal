@@ -218,11 +218,12 @@ Purchase:
                     <span data-bs-toggle="modal" data-target="#lang_modal">languages <img src="images/svg/lang.svg" alt=""></span>
                 </div>
                 <div class="ms_top_btn">
-                    <a href="javascript:;" class="ms_btn reg_btn" data-bs-toggle="modal" data-bs-target="#myModal"><span>register</span></a>
-                    <a href="javascript:;" class="ms_btn login_btn" data-bs-toggle="modal" data-bs-target="#myModal1"><span>login</span></a>
+                    <button type="button" id="loginClick" @*class="ms_btn reg_btn" data-bs-toggle="modal" data-bs-target="#myModal1"*@>Button</button>
+                    <a href="javascript:;" class="ms_btn login_btn" @*data-bs-toggle="modal" data-bs-target="#myModal1"*@><span>login</span></a>
                 </div>
             </div>
         </div>
+        <div id="SignIn" class="modal"></div>
     </div>
     @RenderBody()
     <!--Main js file Style-->
@@ -235,6 +236,47 @@ Purchase:
     <script type="text/javascript" src="~/js/plugins/player/volume.js"></script>
     <script type="text/javascript" src="~/js/plugins/nice_select/jquery.nice-select.min.js"></script>
     <script type="text/javascript" src="~/js/plugins/scroll/jquery.mCustomScrollbar.js"></script>
+    <script type="text/javascript" src="~/js/site.js"></script>
     <script type="text/javascript" src="~/js/custom.js"></script>
 </body>
+<script>
+     document.getElementById("loginClick").addEventListener("click", LoginModal, false);
+    //$(document).ready(function()){
+    //    //document.getElementById("loginClick").addEventListener("click", LoginModal, false);
+    //    $('#loginClick').click(function(){
+
+    //    });
+    //}
+    function LoginModal() {
+        debugger;
+        $.ajax({
+            type:'GET',
+            url: "@Url.Action("LoginPartial","Auth")",
+            contentType: "application/json; charset=utf-8",
+            datatype: "json",
+            success: function(data){
+                //let modal = $('#myModal1');
+                //let modalContent = modal.find('.modal-content');
+                //modal.css('display', 'block');
+                //modalContent.removeClass('modal-animat
+                // ed-out').addClass('modal-animated-in');
+                //$('body').addClass('modal-open');
+                let modal = document.getElementById("SignIn");
+                //modal.setHTML(data);
+                //$("#SignIn").html(data);
+                debugger;
+                //$(modal).modal('show');
+                $("SginIn").html(data);
+                $("#SignIn").modal('show');
+                console.log("Successfully opened the modal");
+            }
+        });
+    }
+        //get("@Url.Action("LoginPartial","Auth")",
+        //    function (data) {
+        //        $('.modal-body').html(data);
+        //    });
+
+        //$('#myModal1').modal('show');
+</script>
 </html>
