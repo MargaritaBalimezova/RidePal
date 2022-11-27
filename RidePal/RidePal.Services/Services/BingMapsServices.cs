@@ -3,6 +3,7 @@ using RidePal.Services.Helpers;
 using RidePal.Services.Interfaces;
 using RidePal.Services.Models;
 using System;
+using System.Linq;
 using System.Net.Http;
 using System.Text.Json;
 using System.Text.RegularExpressions;
@@ -59,14 +60,15 @@ namespace RidePal.Services.Services
         }
 
         public async Task<TripDTO> GetTrip(TripQuerryParameters parameters)
-        {
-            var departPoint = await GetLocation(parameters.DepartCountry, parameters.DepartCity, parameters.DepartAddress);
 
-            var arrivePoint = await GetLocation(parameters.ArriveCountry, parameters.ArriveCity, parameters.ArriveAddress);
+        {
+            var departPoint = parameters.StartPoint.Split(',').ToArray();
+
+            var arrivePoint = parameters.ArrivePoint.Split(',').ToArray();
 
             string distanceUrl;
 
-            distanceUrl = string.Format(Constants.MatrixUr, departPoint.longtitude, departPoint.latitude, arrivePoint.longtitude, arrivePoint.latitude);
+            distanceUrl = string.Format(Constants.MatrixUr, departPoint[0], departPoint[1], arrivePoint[0], arrivePoint[1]);
 
             var response = await _client.GetAsync(distanceUrl);
             response.EnsureSuccessStatusCode();
@@ -81,23 +83,17 @@ namespace RidePal.Services.Services
             {
                 throw new InvalidOperationException(Constants.INVALID_DATA);
             }
-            if (parameters.DepartAddress == null && parameters.ArriveAddress == null)
-            {
-                return new TripDTO
-                {
-                    StartPoint = $"{parameters.DepartCity}, {parameters.DepartCountry}".Trim(),
-                    Destination = $"{parameters.ArriveCity}, {parameters.ArriveCountry}".Trim(),
-                    Duration = Math.Round(res.travelDuration, 2),
-                    Distance = Math.Round(res.travelDistance, 2)
-                };
-            }
+
 
             return new TripDTO
             {
-                StartPoint = $"{parameters.DepartCity}, {parameters.DepartCountry}, {parameters.DepartAddress}".Trim(),
-                Destination = $"{parameters.ArriveCity}, {parameters.ArriveCountry}, {parameters.ArriveAddress}".Trim(),
+                StartPoint = parameters.StartingDestination,
+                Destination = parameters.ArrivingDestination,
                 Duration = Math.Round(res.travelDuration, 2),
-                Distance = Math.Round(res.travelDistance, 2)
+                Distance = Math.Round(res.travelDistance, 2),
+                StartCoordinates = parameters.StartPoint,
+                DestinationCoordinates = parameters.ArrivePoint
+                
             };
         }
     }

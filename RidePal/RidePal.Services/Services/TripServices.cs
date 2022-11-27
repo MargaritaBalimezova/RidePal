@@ -62,7 +62,10 @@ namespace RidePal.Services.Services
                 Destination = obj.Destination,
                 Distance = obj.Distance,
                 Duration = obj.Duration,
-                IsDeleted = false
+                IsDeleted = false,
+                StartCoordinates = obj.StartCoordinates,
+                DestinationCoordinates = obj.DestinationCoordinates
+                
             };
 
             if (trip == null)
