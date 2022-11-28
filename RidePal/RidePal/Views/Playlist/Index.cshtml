@@ -13,7 +13,9 @@
     <div class="ms_main_wrapper">
         <div class="ms_content_wrapper padder_top80">
             <div id='myMap' style='width: 100%; height: 350px;'></div>
-            
+            <button type="button" onclick="event.preventDefault(); DZ.player.playTracks([@string.Join(",", this.Model.Tracks.Select(x => x.TrackId))]);"
+                    style="height: 100px; width: 100px" value="Puskai gi"
+                    ></button>
             <p>
                 @Model.Audience.Name
             </p>
@@ -58,6 +60,98 @@
             <a asp-action="EditPlaylist" asp-route-title=@Model.Name class="button-1">Edit</a>
         </div>
     </div>
+    <div id="dz-root"></div>
+    <div id="player" style="width:100%; display: none" align="center"></div>
+    <br />
+    <!----Audio Player Section---->
+    <div class="ms_player_wrapper">
+        <div class="ms_player_close">
+            <i class="fa fa-angle-up" aria-hidden="true"></i>
+        </div>
+        <div class="player_mid">
+            <div class="audio-player">
+                <div id="jquery_jplayer_1" class="jp-jplayer"></div>
+                <div id="jp_container_1" class="jp-audio" role="application" aria-label="media player">
+                    <div class="player_left">
+                        <div class="ms_play_song">
+                            <div class="play_song_name">
+                                <a href="javascript:void(0);" id="playlist-text">
+                                    <div class="jp-now-playing flex-item">
+                                        <div id="trackTitle" class="jp-track-name"></div>
+                                        <div id="artistName" class="jp-artist-name"></div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="play_song_options">
+                            <ul>
+                                <li><a href="#"><span class="song_optn_icon"><i class="ms_icon icon_download"></i></span>download now</a></li>
+                                <li><a href="#"><span class="song_optn_icon"><i class="ms_icon icon_fav"></i></span>Add To Favourites</a></li>
+                                <li><a href="#"><span class="song_optn_icon"><i class="ms_icon icon_playlist"></i></span>Add To Playlist</a></li>
+                                <li><a href="#"><span class="song_optn_icon"><i class="ms_icon icon_share"></i></span>Share</a></li>
+                            </ul>
+                        </div>
+                        <span class="play-left-arrow"><i class="fa fa-angle-right" aria-hidden="true"></i></span>
+                    </div>
+                    <!----Right Queue---->
+                    <div class="jp_queue_wrapper">
+                        <span class="que_text" id="myPlaylistQueue"><i class="fa fa-angle-up" aria-hidden="true"></i> queue</span>
+                        <div id="playlist-wrap" class="jp-playlist">
+                            <div class="jp_queue_cls"><i class="fa fa-times" aria-hidden="true"></i></div>
+                            <h2>queue</h2>
+                            <div class="jp_queue_list_inner">
+                                <ul>
+                                    <li>&nbsp;</li>
+                                </ul>
+                            </div>
+                            <div class="jp_queue_btn">
+                                <a href="javascript:;" class="ms_clear" data-toggle="modal" data-target="#clear_modal">clear</a>
+                                <a href="clear_modal" class="ms_save" data-toggle="modal" data-target="#save_modal">save</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="jp-type-playlist">
+                        <div class="jp-gui jp-interface flex-wrap">
+                            <div class="jp-controls flex-item">
+                                <button class="jp-previous" tabindex="0" onclick="DZ.player.prev()">
+                                    <i class="ms_play_control"></i>
+                                </button>
+                                <button class="jp-play" tabindex="0" onclick="DZ.player.isPlaying() ? DZ.player.pause() : DZ.player.play() ">
+                                    <i class="ms_play_control"></i>
+                                </button>
+                                <button class="jp-next" tabindex="0" onclick="DZ.player.next()">
+                                    <i class="ms_play_control"></i>
+                                </button>
+                            </div>
+                            <div class="jp-volume-controls flex-item">
+                                <div class="widget knob-container">
+                                    <div class="knob-wrapper-outer">
+                                        <div class="knob-wrapper">
+                                            <div class="knob-mask">
+                                                <div class="knob d3"><span></span></div>
+                                                <div class="handle" id="playerVolume"></div>
+                                                <div class="round">
+                                                    <img src="~/images/svg/volume.svg" alt="">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- <input></input> -->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="jp-toggles flex-item">
+                                <button class="jp-shuffle" tabindex="0" title="Shuffle">
+                                    <i class="ms_play_control"></i>
+                                    <button class="jp-repeat" tabindex="0" title="Repeat"><i class="ms_play_control"></i></button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--main div-->
+    </div>
 
     <script type='text/javascript'>
         function loadMapScenario() {
@@ -81,6 +175,49 @@
             });
         }
 
+    </script>
+    <script>
+        function onPlayerLoaded() {
+            $("#controlers input").attr('disabled', false);
+            event_listener_append('player_loaded');
+            DZ.Event.subscribe('current_track', function (arg) {
+                event_listener_append('current_track', arg.index, arg.track.title, arg.track.album.title);
+            });
+            DZ.Event.subscribe('player_position', function (arg) {
+                event_listener_append('position', arg[0], arg[1]);
+                $("#slider_seek").find('.bar').css('width', (100 * arg[0] / arg[1]) + '%');
+            });
+        }
+        DZ.init({
+            appId: '8',
+            channelUrl: 'http://developers.deezer.com/examples/channel.php',
+            player: {
+                container: 'player',
+                cover: true,
+                playlist: true,
+                width: 650,
+                height: 300,
+                onload: onPlayerLoaded
+            }
+        });
+
+        DZ.Event.subscribe('current_track', function (track, evt_name) {
+            document.getElementById('trackTitle').innerHTML = track.track.title;
+            document.getElementById('artistName').innerHTML = track.track.artist.name;
+            document.getElementById('trackDuration').innerHTML = track.track.duration;
+        });
+
+        DZ.Event.subscribe('player_play', function (track, evt_name) {
+            if (!document.getElementById('jp_container_1').classList.contains('jp-state-playing')) {
+                document.getElementById('jp_container_1').classList.add('jp-state-playing');
+            }
+        });
+
+        DZ.Event.subscribe('player_paused', function (track, evt_name) {
+            if (document.getElementById('jp_container_1').classList.contains('jp-state-playing')) {
+                document.getElementById('jp_container_1').classList.remove('jp-state-playing');
+            }
+        });
     </script>
     <script type='text/javascript' src='https://www.bing.com/api/maps/mapcontrol?key=Ap4BY1B20Ldbim2QZCCJK3EAW0jdSisoIOvt3kJjv8dBjM_3pzfu9442oM8AsrxJ&callback=loadMapScenario' async defer></script>
 </body>

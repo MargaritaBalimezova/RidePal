@@ -2,13 +2,10 @@
 @using RidePal.WEB.Models;
 @model IEnumerable<PlaylistDTO>
 <html>
-<head>
 
-</head>
 <body>
     <div class="ms_main_wrapper">
         <div class="ms_content_wrapper padder_top80">
-
             <div class="ms-banner">
                 <div class="container-fluid">
                     <div class="row">
@@ -29,7 +26,7 @@
                     </div>
                 </div>
             </div>
-           
+
             <div class="ms_rcnt_slider">
                 <div class="ms_heading">
                     <h1>Recently Created</h1>
@@ -128,143 +125,141 @@
                                 }*@
                                 }
 
+                                </div>
+                    
+                    <!----Top Genres Section Start---->
+                    <div class="ms_genres_wrapper">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="ms_heading">
+                                    <h1>Genres</h1>
+                                    <span class="veiw_all"><a href="#">view more</a></span>
+                                </div>
                             </div>
-
-                            <!----Top Genres Section Start---->
-                            <div class="ms_genres_wrapper">
+                            <div class="col-lg-4">
+                                <div class="ms_genres_box">
+                                    <img src="~/Images/pop.jpg" alt="" class="img-fluid" style="object-fit: contain;"/>
+                                    <div class="ms_main_overlay">
+                                        <div class="ms_box_overlay"></div>
+                                        <div class="ms_play_icon">
+                                            <img src="assets/images/svg/play.svg" alt="">
+                                        </div>
+                                        <div class="ovrly_text_div">
+                                            <span class="ovrly_text1"><a href="#">Pop</a></span>
+                                        </div>
+                                    </div>
+                                    <div class="ms_box_overlay_on">
+                                        <div class="ovrly_text_div">
+                                            <span class="ovrly_text1"><a href="#">Pop</a></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
                                 <div class="row">
-                                    <div class="col-lg-12">
-                                        <div class="ms_heading">
-                                            <h1>Genres</h1>
-                                            <span class="veiw_all"><a href="#">view more</a></span>
+                                    <div class="col-lg-4">
+                                        <div class="ms_genres_box">
+                                            <img src="~/Images/latin.jpg" alt="" class="img-fluid" />
+                                            <div class="ms_main_overlay">
+                                                <div class="ms_box_overlay"></div>
+                                                <div class="ms_play_icon">
+                                                    <img src="assets/images/svg/play.svg" alt="">
+                                                </div>
+                                                <div class="ovrly_text_div">
+                                                    <span class="ovrly_text1"><a href="#">Latin</a></span>
+                                                </div>
+                                            </div>
+                                            <div class="ms_box_overlay_on">
+                                                <div class="ovrly_text_div">
+                                                                <span class="ovrly_text1"><a href="#">Latin</a></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <div class="ms_genres_box">
+                                            <img src="~/Images/rap.jpg" alt="" class="img-fluid" />
+                                            <div class="ms_main_overlay">
+                                                <div class="ms_box_overlay"></div>
+                                                <div class="ms_play_icon">
+                                                    <img src="assets/images/svg/play.svg" alt="">
+                                                </div>
+                                                <div class="ovrly_text_div">
+                                                    <span class="ovrly_text1"><a href="#">Hip-Hop and R&B</a></span>
+                                                </div>
+                                            </div>
+                                            <div class="ms_box_overlay_on">
+                                                <div class="ovrly_text_div">
+                                                                <span class="ovrly_text1"><a href="#">Hip-Hop and R&B</a></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <div class="ms_genres_box">
+                                            <img src="~/Images/classical.jpg" alt="" class="img-fluid" />
+                                            <div class="ms_main_overlay">
+                                                <div class="ms_box_overlay"></div>
+                                                <div class="ms_play_icon">
+                                                    <img src="assets/images/svg/play.svg" alt="">
+                                                </div>
+                                                <div class="ovrly_text_div">
+                                                    <span class="ovrly_text1"><a href="#">Classical</a></span>
+                                                </div>
+                                            </div>
+                                            <div class="ms_box_overlay_on">
+                                                <div class="ovrly_text_div">
+                                                                <span class="ovrly_text1"><a href="#">Classical</a></span>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="ms_genres_box">
-                                            <img src="https://dummyimage.com/523x523" alt="" class="img-fluid" />
+                                            <img src="https://dummyimage.com/246x246" alt="" class="img-fluid" />
                                             <div class="ms_main_overlay">
                                                 <div class="ms_box_overlay"></div>
                                                 <div class="ms_play_icon">
                                                     <img src="assets/images/svg/play.svg" alt="">
                                                 </div>
                                                 <div class="ovrly_text_div">
-                                                    <span class="ovrly_text1"><a href="#">Pop</a></span>
+                                                    <span class="ovrly_text1"><a href="#">EDM</a></span>
                                                 </div>
                                             </div>
                                             <div class="ms_box_overlay_on">
                                                 <div class="ovrly_text_div">
-                                                    <span class="ovrly_text1"><a href="#">Pop</a></span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <div class="row">
-                                            <div class="col-lg-4">
-                                                <div class="ms_genres_box">
-                                                    <img src="https://dummyimage.com/246x246" alt="" class="img-fluid" />
-                                                    <div class="ms_main_overlay">
-                                                        <div class="ms_box_overlay"></div>
-                                                        <div class="ms_play_icon">
-                                                            <img src="assets/images/svg/play.svg" alt="">
-                                                        </div>
-                                                        <div class="ovrly_text_div">
-                                                            <span class="ovrly_text1"><a href="#">Latin</a></span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="ms_box_overlay_on">
-                                                        <div class="ovrly_text_div">
-                                                            <span class="ovrly_text1"><a href="#">Latin</a></span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-8">
-                                                <div class="ms_genres_box">
-                                                    <img src="https://dummyimage.com/523x246" alt="" class="img-fluid" />
-                                                    <div class="ms_main_overlay">
-                                                        <div class="ms_box_overlay"></div>
-                                                        <div class="ms_play_icon">
-                                                            <img src="assets/images/svg/play.svg" alt="">
-                                                        </div>
-                                                        <div class="ovrly_text_div">
-                                                            <span class="ovrly_text1"><a href="#">Hip-Hop and R&B</a></span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="ms_box_overlay_on">
-                                                        <div class="ovrly_text_div">
-                                                            <span class="ovrly_text1"><a href="#">Hip-Hop and R&B</a></span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-8">
-                                                <div class="ms_genres_box">
-                                                    <img src="https://dummyimage.com/523x246" alt="" class="img-fluid" />
-                                                    <div class="ms_main_overlay">
-                                                        <div class="ms_box_overlay"></div>
-                                                        <div class="ms_play_icon">
-                                                            <img src="assets/images/svg/play.svg" alt="">
-                                                        </div>
-                                                        <div class="ovrly_text_div">
-                                                            <span class="ovrly_text1"><a href="#">Classical</a></span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="ms_box_overlay_on">
-                                                        <div class="ovrly_text_div">
-                                                            <span class="ovrly_text1"><a href="#">Classical</a></span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-4">
-                                                <div class="ms_genres_box">
-                                                    <img src="https://dummyimage.com/246x246" alt="" class="img-fluid" />
-                                                    <div class="ms_main_overlay">
-                                                        <div class="ms_box_overlay"></div>
-                                                        <div class="ms_play_icon">
-                                                            <img src="assets/images/svg/play.svg" alt="">
-                                                        </div>
-                                                        <div class="ovrly_text_div">
-                                                            <span class="ovrly_text1"><a href="#">EDM</a></span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="ms_box_overlay_on">
-                                                        <div class="ovrly_text_div">
-                                                            <span class="ovrly_text1"><a href="#">EDM</a></span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-2">
-                                        <div class="ms_genres_box">
-                                            <img src="https://dummyimage.com/246x523" alt="" class="img-fluid" />
-                                            <div class="ms_main_overlay">
-                                                <div class="ms_box_overlay"></div>
-                                                <div class="ms_play_icon">
-                                                    <img src="assets/images/svg/play.svg" alt="">
-                                                </div>
-                                                <div class="ovrly_text_div">
-                                                    <span class="ovrly_text1"><a href="#">Rock</a></span>
-                                                </div>
-                                            </div>
-                                            <div class="ms_box_overlay_on">
-                                                <div class="ovrly_text_div">
-                                                    <span class="ovrly_text1"><a href="#">Rock</a></span>
+                                                    <span class="ovrly_text1"><a href="#">EDM</a></span>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-
-                            <!----Live Radio Section Start---->
-
-
+                            <div class="col-lg-2">
+                                <div class="ms_genres_box">
+                                    <img src="https://dummyimage.com/246x523" alt="" class="img-fluid" />
+                                    <div class="ms_main_overlay">
+                                        <div class="ms_box_overlay"></div>
+                                        <div class="ms_play_icon">
+                                            <img src="assets/images/svg/play.svg" alt="">
+                                        </div>
+                                        <div class="ovrly_text_div">
+                                            <span class="ovrly_text1"><a href="#">Rock</a></span>
+                                        </div>
+                                    </div>
+                                    <div class="ms_box_overlay_on">
+                                        <div class="ovrly_text_div">
+                                            <span class="ovrly_text1"><a href="#">Rock</a></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
+                   
+                    <!----Live Radio Section Start---->
+                   
+                   
                 </div>
             </div>
         </div>
