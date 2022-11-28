@@ -1,4 +1,9 @@
-﻿
+﻿@using RidePal.Services.Interfaces;
+@inject IUserServices userService
+@{
+    var userDTO = await this.userService.GetUserDTOByEmailAsync(this.User.Identity.Name);
+
+}
 <!DOCTYPE html>
 <!--
 Template Name: Miraculous - Online Music Store Html Template
@@ -57,10 +62,10 @@ Purchase:
             <div class="ms_sidemenu_inner">
                 <div class="ms_logo_inner">
                     <div class="ms_logo">
-                        <a href="index.html"><img src="https://dummyimage.com/78x78" alt="" class="img-fluid" /></a>
+                        <a href="index.html"><img src="@userDTO.ImagePath"/></a>
                     </div>
                     <div class="ms_logo_open">
-                        <a href="index.html"><img src="https://dummyimage.com/126x97" alt="" class="img-fluid" /></a>
+                        <a href="index.html"><img src="@userDTO.ImagePath" alt="" class="img-fluid" /></a>
                     </div>
                 </div>
                 <div class="ms_nav_wrapper">
@@ -85,6 +90,16 @@ Purchase:
                                 </span>
                             </a>
                         </li>
+                            <li>
+                                <a href="feature_playlist.html" title="Featured Playlist">
+                                    <span class="nav_icon">
+                                        <span class="icon icon_fe_playlist"></span>
+                                    </span>
+                                    <span class="nav_text">
+                                        My playlists
+                                    </span>
+                                </a>
+                            </li>
                         <li>
                             <a href="album.html" title="Albums">
                                 <span class="nav_icon">
@@ -188,19 +203,7 @@ Purchase:
                             </a>
                         </li>
                     </ul>
-                    <ul class="nav_playlist">
-                        <li>
-                            <a href="feature_playlist.html" title="Featured Playlist">
-                                <span class="nav_icon">
-                                    <span class="icon icon_fe_playlist"></span>
-                                </span>
-                                <span class="nav_text">
-                                    featured playlist
-                                </span>
-                            </a>
-                        </li>
-                       
-                    </ul>
+                   
                 </div>
             </div>
         </div>

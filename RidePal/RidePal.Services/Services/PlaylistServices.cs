@@ -72,8 +72,8 @@ namespace RidePal.Services.Services
                         obj.Tracks.Add(sth);
                         currentDuration += track.Duration;
                     }
-
-                    obj.Genres.Add(mapper.Map<PlaylistGenreDTO>(await genreService.GetGenreByName(obj.GenresWithPercentages.First().GenreName)));
+                    //TODO:This one adds additional genres to the DB
+                    //obj.Genres.Add(mapper.Map<PlaylistGenreDTO>(await genreService.GetGenreByName(obj.GenresWithPercentages.First().GenreName)));
                     obj.GenresWithPercentages.Remove(obj.GenresWithPercentages.First());
                 }
             }
@@ -104,8 +104,8 @@ namespace RidePal.Services.Services
                         GenreId = currentGenre.Id,
                         Name = currentGenre.Name
                     };
-
-                    obj.Genres.Add(playlistGenreDTO);
+                    //TODO:This one adds additional genres to the DB
+                    //obj.Genres.Add(playlistGenreDTO);
                     obj.GenresWithPercentages.Remove(obj.GenresWithPercentages.First());
                 }
             }
@@ -169,8 +169,8 @@ namespace RidePal.Services.Services
                         GenreId = currentGenre.Id,
                         Name = currentGenre.Name
                     };
-
-                    obj.Genres.Add(playlistGenreDTO);
+                    //TODO:This one adds additional genres to the DB
+                    //obj.Genres.Add(playlistGenreDTO);
                     obj.GenresWithPercentages.Remove(obj.GenresWithPercentages.First());
                 }
             }
