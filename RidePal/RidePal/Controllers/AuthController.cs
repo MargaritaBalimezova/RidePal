@@ -149,12 +149,14 @@ namespace MovieForum.Web.Controllers
         #endregion Register Google
 
         #region Register App
+
         [HttpGet]
         public IActionResult LoginPartial()
         {
             var login = new LoginViewModel();
-            return this.PartialView("_LoginPartial",login);
+            return this.PartialView("_LoginPartial", login);
         }
+
         [HttpGet]
         public IActionResult Register()
         {
@@ -233,11 +235,11 @@ namespace MovieForum.Web.Controllers
             if (!await userService.IsExistingAsync(model.Credential) && !await userService.IsExistingUsernameAsync(model.Credential))
             {
                 this.ModelState.AddModelError("Credential", "Incorrect combination of email/username and password.");
-                return this.View(model);
+                return this.PartialView("_LoginPartial", model);
             }
             if (!this.ModelState.IsValid)
             {
-                return this.View(model);
+                return this.PartialView("_LoginPartial", model);
             }
 
             try
@@ -247,7 +249,7 @@ namespace MovieForum.Web.Controllers
                 if (user == null)
                 {
                     this.ModelState.AddModelError("IsEmailConfirmed", "You have to confirm your email.");
-                    return this.View(model);
+                    return this.PartialView("_LoginPartial", model);
                 }
 
                 if (user.IsBlocked && DateTime.Compare(DateTime.Now, user.LastBlockTime.AddDays(7)) < 0)
@@ -256,7 +258,7 @@ namespace MovieForum.Web.Controllers
                     TimeSpan span = (unblock - DateTime.Now);
 
                     this.ModelState.AddModelError("IsBlocked", $"You were blocked on {user.LastBlockTime.ToString("dd/MM/yyyy hh:mm")}. Try again in {span.Days} days, {span.Hours} hours and {span.Minutes} minutes.");
-                    return this.View(model);
+                    return this.PartialView("_LoginPartial", model);
                 }
 
                 var claims = new List<Claim>
@@ -299,7 +301,7 @@ namespace MovieForum.Web.Controllers
             catch (Exception)
             {
                 this.ModelState.AddModelError("Password", "Incorrect combination of email/username and password.");
-                return this.View(model);
+                return this.PartialView("_LoginPartial", model);
             }
 
             return this.RedirectToAction("Index", "Home");

@@ -218,10 +218,28 @@ Purchase:
                     <span data-bs-toggle="modal" data-target="#lang_modal">languages <img src="images/svg/lang.svg" alt=""></span>
                 </div>
                 <div class="ms_top_btn">
-                    <button type="button" id="loginClick" @*class="ms_btn reg_btn" data-bs-toggle="modal" data-bs-target="#myModal1"*@>Button</button>
+                    <button type="button" id="loginClick" class="ms_btn reg_btn" data-bs-toggle="modal" data-bs-target="#myModal1">Login</button>
                     <a href="javascript:;" class="ms_btn login_btn" @*data-bs-toggle="modal" data-bs-target="#myModal1"*@><span>login</span></a>
                 </div>
             </div>
+        </div>
+        <div id="myModal1" class="modal  centered-modal" role="dialog">
+            <form id="loginModal" asp-action="Login" asp-controller="Auth" data-ajax="true" data-ajax-method="POST"
+                  data-ajax-complete="OnComplete">
+                <div class="modal-dialog login_dialog">
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <button type="button" class="close" data-dismiss="modal">
+                            <i class="fa_icon form_close"></i>
+                        </button>
+                        <div class="modal-body">
+                         @{await Html.RenderPartialAsync("_LoginPartial", new RidePal.WEB.Models.LoginViewModel());}
+                        </div>
+                        
+                    </div>
+
+                </div>
+            </form>
         </div>
         <div id="SignIn" class="modal"></div>
     </div>
@@ -236,47 +254,32 @@ Purchase:
     <script type="text/javascript" src="~/js/plugins/player/volume.js"></script>
     <script type="text/javascript" src="~/js/plugins/nice_select/jquery.nice-select.min.js"></script>
     <script type="text/javascript" src="~/js/plugins/scroll/jquery.mCustomScrollbar.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
     <script type="text/javascript" src="~/js/site.js"></script>
     <script type="text/javascript" src="~/js/custom.js"></script>
 </body>
-<script>
-     document.getElementById("loginClick").addEventListener("click", LoginModal, false);
-    //$(document).ready(function()){
-    //    //document.getElementById("loginClick").addEventListener("click", LoginModal, false);
-    //    $('#loginClick').click(function(){
+@*<script>
+    document.getElementById("loginClick").addEventListener("click", LoginModal, false);
 
-    //    });
-    //}
     function LoginModal() {
         debugger;
         $.ajax({
-            type:'GET',
+            type: 'GET',
             url: "@Url.Action("LoginPartial","Auth")",
             contentType: "application/json; charset=utf-8",
             datatype: "json",
-            success: function(data){
-                //let modal = $('#myModal1');
-                //let modalContent = modal.find('.modal-content');
-                //modal.css('display', 'block');
-                //modalContent.removeClass('modal-animat
-                // ed-out').addClass('modal-animated-in');
-                //$('body').addClass('modal-open');
+            success: function (data) {
                 let modal = document.getElementById("SignIn");
-                //modal.setHTML(data);
-                //$("#SignIn").html(data);
                 debugger;
+                //modal.setHTML(data);
                 //$(modal).modal('show');
-                $("SginIn").html(data);
+                $("#SignIn").html(data);
                 $("#SignIn").modal('show');
                 console.log("Successfully opened the modal");
             }
         });
     }
-        //get("@Url.Action("LoginPartial","Auth")",
-        //    function (data) {
-        //        $('.modal-body').html(data);
-        //    });
 
-        //$('#myModal1').modal('show');
-</script>
+</script>*@
 </html>
