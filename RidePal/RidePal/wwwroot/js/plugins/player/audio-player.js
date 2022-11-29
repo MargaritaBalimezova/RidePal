@@ -6,99 +6,7 @@ $(function() {
         var myPlaylist = new jPlayerPlaylist({
             jPlayer: "#jquery_jplayer_1",
             cssSelectorAncestor: "#jp_container_1"
-        }, [{
-			image : 'https://dummyimage.com/50x50',	
-            title: "Cro Magnon Man",
-            artist: "Mushroom Records",
-            mp3: "http://www.jplayer.org/audio/mp3/TSP-01-Cro_magnon_man.mp3",
-            oga: "http://www.jplayer.org/audio/ogg/TSP-01-Cro_magnon_man.ogg",
-			option : myPlayListOtion
-        }, {
-			image : 'https://dummyimage.com/50x50',	
-            title: "Your Face",
-            artist: "Ministry",
-            mp3: "http://www.jplayer.org/audio/mp3/TSP-05-Your_face.mp3",
-            oga: "http://www.jplayer.org/audio/ogg/TSP-05-Your_face.ogg",
-			option : myPlayListOtion
-        }, {
-			image : 'https://dummyimage.com/50x50',	
-            title: "Cyber Sonnet",
-            artist: "You Am I",
-            mp3: "http://www.jplayer.org/audio/mp3/TSP-07-Cybersonnet.mp3",
-            oga: "http://www.jplayer.org/audio/ogg/TSP-07-Cybersonnet.ogg",
-			option : myPlayListOtion
-        }, {
-			image : 'https://dummyimage.com/50x50',	
-            title: "Tempered Song",
-            artist: "Shelter",
-            mp3: "http://www.jplayer.org/audio/mp3/Miaow-01-Tempered-song.mp3",
-            oga: "http://www.jplayer.org/audio/ogg/Miaow-01-Tempered-song.ogg",
-			option : myPlayListOtion
-        }, {
-			image : 'https://dummyimage.com/50x50',	
-            title: "Hidden",
-            artist: "Bad Religion",
-            mp3: "http://www.jplayer.org/audio/mp3/Miaow-02-Hidden.mp3",
-            oga: "http://www.jplayer.org/audio/ogg/Miaow-02-Hidden.ogg",
-			option : myPlayListOtion
-        }, {
-			image : 'https://dummyimage.com/50x50',	
-            title: "Lentement",
-            artist: "Apollo 440",
-            mp3: "http://www.jplayer.org/audio/mp3/Miaow-03-Lentement.mp3",
-            oga: "http://www.jplayer.org/audio/ogg/Miaow-03-Lentement.ogg",
-			option : myPlayListOtion
-        }, {
-			image : 'https://dummyimage.com/50x50',	
-            title: "Lismore",
-            artist: "Bloodhound Gang",
-            mp3: "http://www.jplayer.org/audio/mp3/Miaow-04-Lismore.mp3",
-            oga: "http://www.jplayer.org/audio/ogg/Miaow-04-Lismore.ogg",
-			option : myPlayListOtion
-        }, {
-			image : 'https://dummyimage.com/50x50',	
-            title: "The Separation",
-            artist: "Friendly Fires ",
-            mp3: "http://www.jplayer.org/audio/mp3/Miaow-05-The-separation.mp3",
-            oga: "http://www.jplayer.org/audio/ogg/Miaow-05-The-separation.ogg",
-			option : myPlayListOtion
-        }, {
-			image : 'https://dummyimage.com/50x50',	
-            title: "Beside Me",
-            artist: "Friendly Fires ",
-            mp3: "http://www.jplayer.org/audio/mp3/Miaow-06-Beside-me.mp3",
-            oga: "http://www.jplayer.org/audio/ogg/Miaow-06-Beside-me.ogg",
-			option : myPlayListOtion
-        }, {
-			image : 'https://dummyimage.com/50x50',	
-            title: "Bubble",
-            artist: "Skunkhour",
-            mp3: "http://www.jplayer.org/audio/mp3/Miaow-07-Bubble.mp3",
-            oga: "http://www.jplayer.org/audio/ogg/Miaow-07-Bubble.ogg",
-			option : myPlayListOtion
-        }, {
-			image : 'https://dummyimage.com/50x50',	
-            title: "Stirring of a fool",
-            artist: "The Meanies",
-            mp3: "http://www.jplayer.org/audio/mp3/Miaow-08-Stirring-of-a-fool.mp3",
-            oga: "http://www.jplayer.org/audio/ogg/Miaow-08-Stirring-of-a-fool.ogg",
-			option : myPlayListOtion
-        }, {
-			image : 'https://dummyimage.com/50x50',	
-            title: "Partir",
-            artist: "The Living End",
-            mp3: "http://www.jplayer.org/audio/mp3/Miaow-09-Partir.mp3",
-            oga: "http://www.jplayer.org/audio/ogg/Miaow-09-Partir.ogg",
-			option : myPlayListOtion
-        }, {
-			image : 'https://dummyimage.com/50x50',	
-            title: "Thin Ice",
-            artist: "Screaming Trees",
-            mp3: "http://www.jplayer.org/audio/mp3/Miaow-10-Thin-ice.mp3",
-            oga: "http://www.jplayer.org/audio/ogg/Miaow-10-Thin-ice.ogg",
-			option : myPlayListOtion
-			
-        }], {
+        }, [], {
             swfPath: "js/plugins",
             supplied: "oga, mp3",
             wmode: "window",
@@ -159,7 +67,7 @@ $(function() {
 			
 			
             var timeDrag = false;
-            $('.jp-play-bar').mousedown(function(e) {
+            $('.jp-play-bar').mousedown(function (e) {
                 timeDrag = true;
                 updatebar(e.pageX);
 				

@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using Amazon.S3.Model.Internal.MarshallTransformations;
+using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using RidePal.Data;
@@ -72,8 +73,8 @@ namespace RidePal.Services.Services
                         obj.Tracks.Add(sth);
                         currentDuration += track.Duration;
                     }
-
-                    obj.Genres.Add(mapper.Map<PlaylistGenreDTO>(await genreService.GetGenreByName(obj.GenresWithPercentages.First().GenreName)));
+                    //TODO:This one adds additional genres to the DB
+                    //obj.Genres.Add(mapper.Map<PlaylistGenreDTO>(await genreService.GetGenreByName(obj.GenresWithPercentages.First().GenreName)));
                     obj.GenresWithPercentages.Remove(obj.GenresWithPercentages.First());
                 }
             }
@@ -104,8 +105,8 @@ namespace RidePal.Services.Services
                         GenreId = currentGenre.Id,
                         Name = currentGenre.Name
                     };
-
-                    obj.Genres.Add(playlistGenreDTO);
+                    //TODO:This one adds additional genres to the DB
+                    //obj.Genres.Add(playlistGenreDTO);
                     obj.GenresWithPercentages.Remove(obj.GenresWithPercentages.First());
                 }
             }
@@ -169,8 +170,8 @@ namespace RidePal.Services.Services
                         GenreId = currentGenre.Id,
                         Name = currentGenre.Name
                     };
-
-                    obj.Genres.Add(playlistGenreDTO);
+                    //TODO:This one adds additional genres to the DB
+                    //obj.Genres.Add(playlistGenreDTO);
                     obj.GenresWithPercentages.Remove(obj.GenresWithPercentages.First());
                 }
             }
@@ -282,6 +283,15 @@ namespace RidePal.Services.Services
             var audience = await db.Audience.FirstOrDefaultAsync(x => x.Id == id);
 
             return audience ?? throw new Exception(Constants.AUDIENCE_NOT_FOUND);
+        }
+
+        public async Task<IEnumerable<PlaylistDTO>> GetUserPlaylists(int userId)
+        {
+
+            var playlists = await db.Playlists.Where(x => x.AuthorId == userId).ToListAsync();
+
+            return mapper.Map<IEnumerable<PlaylistDTO>>(playlists);
+
         }
     }
 }

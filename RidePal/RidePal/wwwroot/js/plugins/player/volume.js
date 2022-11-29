@@ -209,6 +209,7 @@ This is just just a sample showing the knob widget. It's meant to be used in a c
             widget.trigger('sync')
             widget.showValue(v)
 
+            DZ.player.setVolume(v * 100);
         })
 
         widget.getValue = function() {
@@ -239,7 +240,7 @@ This is just just a sample showing the knob widget. It's meant to be used in a c
             input.val(v)
         }
 
-        input.change(function() {
+        input.change(function () {
             widget.setValue(input.val(), true, true)
         })
 

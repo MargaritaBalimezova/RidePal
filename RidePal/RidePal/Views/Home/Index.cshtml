@@ -18,8 +18,8 @@
                                 <h1 class="ms_color">Joy Ride Music player</h1>
                                 <p style="font-size:20px;"> The journey of a thousand miles begins with one step -> Press the Play button!</p>
                                 <div class="ms_banner_btn">
-                                    <a href="#" class="ms_btn">Generate trip</a>
-                                    <a href="#" class="ms_btn">Previuos trips</a>
+                                    <a href="/Playlist/CreatePlaylist" class="ms_btn">Generate trip</a>
+                                    <a href="/Playlist/MyPlaylists" class="ms_btn">Previuos trips</a>
                                 </div>
                             </div>
                         </div>
@@ -37,33 +37,27 @@
                         @{
                             //Todo OrderBYDesc most recent
 
-                            var recentList = this.Model.Take(15).ToList();
+                            var recentList = this.Model.Where(x=>x.Audience.Id==1).Take(15).ToList();
                             foreach (var item in recentList)
-                            {
-                                    <div class="swiper-slide">
-                                        <div class="ms_rcnt_box">
-                                            <div class="ms_rcnt_box_img">
-                                                <img src="@item.ImagePath" alt="">
-                                                <div class="ms_main_overlay">
-                                                    <div class="ms_box_overlay"></div>
-                                                    <div class="ms_more_icon">
-                                                        <img src="assets/images/svg/more.svg" alt="">
-                                                    </div>
-                                                    <ul class="more_option">
-                                                        <li><a href="#"><span class="opt_icon"><span class="icon icon_fav"></span></span>Add To Favourites</a></li>
-                                                        <li><a href="#"><span class="opt_icon"><span class="icon icon_share"></span></span>Share</a></li>
-                                                    </ul>
-                                                    <div class="ms_play_icon">
-                                                        <img src="assets/images/svg/play.svg" alt="">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="ms_rcnt_box_text">
-                                                <h3><a href="#">@item.Name</a></h3>
-                                                 <p>@item.Author.Username</p>
+                            {  <a href="/Playlist?title=@item.Name">
+                                <div class="swiper-slide">
+                                    <div class="ms_rcnt_box">
+                                        <div class="ms_rcnt_box_img" >
+                                            <img src="@item.ImagePath" alt="" style="max-height:200px;min-height:200px;">
+                                            <div class="ms_main_overlay">
+                                                <div class="ms_box_overlay"></div>
+                                                
+                                              
+                                                
                                             </div>
                                         </div>
+                                        <div class="ms_rcnt_box_text">
+                                            <h3><a href="#">@item.Name</a></h3>
+                                            <p>@item.Author.Username</p>
+                                        </div>
                                     </div>
+                                </div>
+                                </a>
                             }
                         }
 
@@ -71,58 +65,59 @@
                         <div class="swiper-button-next slider_nav_next"></div>
                         <div class="swiper-button-prev slider_nav_prev"></div>
                     </div>
-                    <!---Weekly Top 15--->
-                    <div class="ms_weekly_wrapper">
-                        <div class="ms_weekly_inner">
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <div class="ms_heading">
-                                        <h1>Top 15 most liked playlists</h1>
-                                    </div>
+                </div>
+                <!---Weekly Top 15--->
+                <div class="ms_weekly_wrapper">
+                    <div class="ms_weekly_inner">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="ms_heading">
+                                    <h1>Top 15 most liked playlists</h1>
                                 </div>
-                                <div class="col-lg-4 col-md-12 padding_right40">
-                                    @{
-                                        //TODO: MOST LIKED PLAYLIST
-                                        var likedList = this.Model.Take(15).ToList();
-                                        @*for(int i = 0; i<15 ;i++)
-                                        {
-                                                  <div class="ms_weekly_box">
-                                            <div class="weekly_left">
-                                                <span class="w_top_no">
-                                                    @i;
-                                                </span>
-                                                <div class="w_top_song">
-                                                    <div class="w_tp_song_img">
-                                                        <img src="@likedList[i].ImagePath" alt="" class="img-fluid">
-                                                        <div class="ms_song_overlay">
-                                                        </div>
-                                                        <div class="ms_play_icon">
-                                                            <img src="assets/images/svg/play.svg" alt="">
-                                                        </div>
-                                                    </div>
-                                                    <div class="w_tp_song_name">
-                                                        <h3><a href="#">"@likedList[i].Name</a></h3>
-                                                        <p>@likedList[i].Author.Username</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="weekly_right">
-                                                <span class="w_song_time">@likedList[i].Duration</span>
-                                                <span class="ms_more_icon" data-other="@i">
-                                                    <img src="assets/images/svg/more.svg" alt="">
-                                                </span>
-                                            </div>
-                                            <ul class="more_option">
-                                                <li><a href="#"><span class="opt_icon"><span class="icon icon_fav"></span></span>Add To Favourites</a></li>
-                                                <li><a href="#"><span class="opt_icon"><span class="icon icon_queue"></span></span>Add To Queue</a></li>
-                                                <li><a href="#"><span class="opt_icon"><span class="icon icon_dwn"></span></span>Download Now</a></li>
-                                                <li><a href="#"><span class="opt_icon"><span class="icon icon_playlst"></span></span>Add To Playlist</a></li>
-                                                <li><a href="#"><span class="opt_icon"><span class="icon icon_share"></span></span>Share</a></li>
-                                            </ul>
-                                        </div>
-                                        <div class="ms_divider"></div>
-                                        }*@
-                                    }
+                            </div>
+                            <div class="col-lg-4 col-md-12 padding_right40">
+                                @{
+                                    //TODO: MOST LIKED PLAYLIST
+                                    var likedList = this.Model.Take(15).ToList();
+                                    @*for(int i = 0; i<15 ;i++)
+                                {
+                                <div class="ms_weekly_box">
+                                <div class="weekly_left">
+                                <span class="w_top_no">
+                                @i;
+                                </span>
+                                <div class="w_top_song">
+                                <div class="w_tp_song_img">
+                                <img src="@likedList[i].ImagePath" alt="" class="img-fluid">
+                                <div class="ms_song_overlay">
+                                </div>
+                                <div class="ms_play_icon">
+                                <img src="assets/images/svg/play.svg" alt="">
+                                </div>
+                                </div>
+                                <div class="w_tp_song_name">
+                                <h3><a href="#">"@likedList[i].Name</a></h3>
+                                <p>@likedList[i].Author.Username</p>
+                                </div>
+                                </div>
+                                </div>
+                                <div class="weekly_right">
+                                <span class="w_song_time">@likedList[i].Duration</span>
+                                <span class="ms_more_icon" data-other="@i">
+                                <img src="assets/images/svg/more.svg" alt="">
+                                </span>
+                                </div>
+                                <ul class="more_option">
+                                <li><a href="#"><span class="opt_icon"><span class="icon icon_fav"></span></span>Add To Favourites</a></li>
+                                <li><a href="#"><span class="opt_icon"><span class="icon icon_queue"></span></span>Add To Queue</a></li>
+                                <li><a href="#"><span class="opt_icon"><span class="icon icon_dwn"></span></span>Download Now</a></li>
+                                <li><a href="#"><span class="opt_icon"><span class="icon icon_playlst"></span></span>Add To Playlist</a></li>
+                                <li><a href="#"><span class="opt_icon"><span class="icon icon_share"></span></span>Share</a></li>
+                                </ul>
+                                </div>
+                                <div class="ms_divider"></div>
+                                }*@
+                                }
 
                                 </div>
                     
@@ -137,7 +132,7 @@
                             </div>
                             <div class="col-lg-4">
                                 <div class="ms_genres_box">
-                                    <img src="https://dummyimage.com/523x523" alt="" class="img-fluid" />
+                                    <img src="~/Images/pop.jpg" alt="" class="img-fluid" style="object-fit: contain;"/>
                                     <div class="ms_main_overlay">
                                         <div class="ms_box_overlay"></div>
                                         <div class="ms_play_icon">
@@ -158,7 +153,7 @@
                                 <div class="row">
                                     <div class="col-lg-4">
                                         <div class="ms_genres_box">
-                                            <img src="https://dummyimage.com/246x246" alt="" class="img-fluid" />
+                                            <img src="~/Images/latin.jpg" alt="" class="img-fluid" />
                                             <div class="ms_main_overlay">
                                                 <div class="ms_box_overlay"></div>
                                                 <div class="ms_play_icon">
@@ -177,7 +172,7 @@
                                     </div>
                                     <div class="col-lg-8">
                                         <div class="ms_genres_box">
-                                            <img src="https://dummyimage.com/523x246" alt="" class="img-fluid" />
+                                            <img src="~/Images/rap.jpg" alt="" class="img-fluid" />
                                             <div class="ms_main_overlay">
                                                 <div class="ms_box_overlay"></div>
                                                 <div class="ms_play_icon">
@@ -196,7 +191,7 @@
                                     </div>
                                     <div class="col-lg-8">
                                         <div class="ms_genres_box">
-                                            <img src="https://dummyimage.com/523x246" alt="" class="img-fluid" />
+                                            <img src="~/Images/classical.jpg" alt="" class="img-fluid" />
                                             <div class="ms_main_overlay">
                                                 <div class="ms_box_overlay"></div>
                                                 <div class="ms_play_icon">
@@ -265,5 +260,5 @@
     </div>
 </body>
 
-
+    
 </html>

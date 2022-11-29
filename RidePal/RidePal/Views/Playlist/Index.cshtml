@@ -1,51 +1,329 @@
 ﻿@using RidePal.WEB.Models;
 
 @model PlaylistViewModel
+@{
+    var startCoordinates = this.Model.Trip.StartCoordinates.Split(',').ToArray();
+    var destCoordinates = this.Model.Trip.DestinationCoordinates.Split(',').ToArray();
+}
 
 <head>
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 </head>
 <body>
-    <p>
-        @Model.Audience.Name
-    </p>
-    <p>
-        @Model.Author.Email
-    </p>
-    <p>
-        @String.Format("{0:0.##}", Model.AvgRank);
-    </p>
-    <p>
-        @TimeSpan.FromSeconds(Model.Duration).ToString(@"hh\:mm\:ss")
-    </p>
-    @foreach (var item in @Model.Genres)
-    {
-        <p>
-            @item.Name
-        </p>
-    }
-    <table>
-        <tr>
-            <th>Title</th>
-            <th>Album</th>
-            <th>Rank</th>
-            <th>Artist</th>
-            <th>Duration</th>
-        </tr>
-
-        @foreach (var track in Model.Tracks)
+    <div class="ms_inner_loader">
+        <div class="ms_loader">
+            <div class="ms_bars">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </div>
+        </div>
+    </div>
+    @{
+        TimeSpan t = TimeSpan.FromSeconds(this.Model.Duration);
+        string duration3;
+        if (this.Model.Duration>3600)
         {
-            <tr>
-                <td> @track.Track.Title</td>
-                <td> @track.Track.Album.Name</td>
-                <td> @track.Track.Rank</td>
-                <td> @track.Track.Genre.Name</td>
-                <td> @track.Track.Artist.Name</td>
-                <td> @TimeSpan.FromSeconds(track.Track.Duration).ToString(@"mm\:ss") </td>
-            </tr>
 
+            duration3 = string.Format("{0:D1}h:{1:D2}m:{2:D2}s",
+            t.Hours,
+            t.Minutes,
+            t.Seconds);
         }
-    </table>
-    <a asp-action="Delete" asp-route-title=@Model.Name class="button-1">Delete</a>
-    <a asp-action="EditPlaylist" asp-route-title=@Model.Name class="button-1">Edit</a>
+        else
+        {
+            duration3 = string.Format("{0:D2}m:{1:D2}s",
+            t.Minutes,
+            t.Seconds);
+        }
+    }
+
+    <div class="ms_album_single_wrapper">
+        <div class="album_single_data">
+            <div class="album_single_img">
+                <img src="@this.Model.ImagePath" alt="" class="img-fluid">
+            </div>
+            <div class="album_single_text">
+                <h2>@this.Model.Name</h2>
+                <p class="singer_name">@this.Model.Author.Username</p>
+                <div class="album_feature">
+                    <a href="#" class="album_date"> Tracks:@this.Model.Tracks.Count() | Duration: @duration3</a>
+                    <a href="#" class="album_date">Created: @this.Model.CreatedOn | Audience: @this.Model.Audience.Name</a>
+                </div>
+                <div class="album_btn">
+                    <a class="ms_btn play_btn" onclick="event.preventDefault(); DZ.player.playTracks([@string.Join(",", this.Model.Tracks.Select(x => x.TrackId))]);"><img src="assets/images/svg/play_all.svg" alt="">Play All</a>
+                </div>
+                
+            </div>
+            <div class="album_more_optn ms_more_icon">
+                <span><img src="assets/images/svg/more.svg" alt=""></span>
+            </div>
+            <ul class="more_option">
+                <li><a href="#"><span class="opt_icon"><span class="icon icon_fav"></span></span>Add To Favourites</a></li>
+                <li><a href="#"><span class="opt_icon"><span class="icon icon_queue"></span></span>Add To Queue</a></li>
+            </ul>
+        </div>
+
+        <div class="album_inner_list">
+            <div class="album_list_wrapper">
+                <ul class="album_list_name">
+                    <li>#</li>
+                    <li>Song Title</li>
+                    <li>Artist</li>
+                    <li class="text-center">Duration</li>
+                    <li class="text-center">Add To Favourites</li>
+                    <li class="text-center">More</li>
+                </ul>
+                @{
+                    int count = 1;
+                    foreach (var item in this.Model.Tracks)
+                    {
+                        TimeSpan t1 = TimeSpan.FromSeconds(item.Track.Duration);
+
+                        string duration1 = string.Format("{0:D2}m:{1:D2}s",
+                        t1.Minutes,
+                        t1.Seconds);
+
+                        <ul>
+                            <li><a onclick="DZ.player.playTracks([@item.TrackId]); return false;"><span class="play_no">@count</span><span class="play_hover"></span></a></li>
+                            <li><a href="#">@item.Track.Title</a></li>
+                            <li><a href="#">@item.Track.Artist.Name</a></li>
+                            <li class="text-center"><a href="#">@duration1</a></li>
+                            <li class="text-center"><a href="#"><span class="ms_icon1 ms_fav_icon"></span></a></li>
+                            <li class="text-center ms_more_icon">
+                                <a href="javascript:;"><span class="ms_icon1 ms_active_icon"></span></a>
+                                <ul class="more_option">
+                                    <li><a href="#"><span class="opt_icon"><span class="icon icon_fav"></span></span>Add To Favourites</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                        count++;
+                        if (count == 5)
+                        {
+                            break;
+                        }
+                    }
+
+                }
+                <div id="list" class="album_inner_list">
+                    <div class="album_list_wrapper">
+                        @{
+                            foreach (var item in this.Model.Tracks.Skip(5))
+                            {
+                                TimeSpan t2 = TimeSpan.FromSeconds(item.Track.Duration);
+
+                                string duration2 = string.Format("{0:D2}m:{1:D2}s",
+                                t2.Minutes,
+                                t2.Seconds);
+                                <ul>
+                                    <li><a onclick="DZ.player.playTracks([@item.TrackId]); return false;"><span class="play_no">@count</span><span class="play_hover"></span></a></li>
+                                    <li><a href="#">@item.Track.Title</a></li>
+                                    <li><a href="#">@item.Track.Artist.Name</a></li>
+                                    <li class="text-center"><a href="#">@duration2</a></li>
+                                    <li class="text-center"><a href="#"><span class="ms_icon1 ms_fav_icon"></span></a></li>
+                                    <li class="text-center ms_more_icon">
+                                        <a href="javascript:;"><span class="ms_icon1 ms_active_icon"></span></a>
+                                        <ul class="more_option">
+                                            <li><a href="#"><span class="opt_icon"><span class="icon icon_fav"></span></span>Add To Favourites</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                                count++;
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+            <div id="show" class="ms_view_more padder_bottom20">
+                <a class="ms_btn">view more</a>
+            </div>
+            <br>
+            <br>
+            <div id='myMap' style='width: 100%; height: 350px;'></div>
+            <br>
+            <br>
+            <br>
+            <br>
+        </div>
+    </div>
+    </div>
+
+    <div id="dz-root"></div>
+    <div id="player" style="width:100%; display: none" align="center"></div>
+    <br />
+    <!----Audio Player Section---->
+    <div class="ms_player_wrapper">
+        <div class="ms_player_close">
+            <i class="fa fa-angle-up" aria-hidden="true"></i>
+        </div>
+        <div class="player_mid">
+            <div class="audio-player">
+                <div id="jquery_jplayer_1" class="jp-jplayer"></div>
+                <div id="jp_container_1" class="jp-audio" role="application" aria-label="media player">
+                    <div class="player_left">
+                        <div class="ms_play_song">
+                            <div class="play_song_name">
+                                <a href="javascript:void(0);" id="playlist-text">
+                                    <div class="jp-now-playing flex-item">
+                                        <div id="trackTitle" class="jp-track-name"></div>
+                                        <div id="artistName" class="jp-artist-name"></div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="play_song_options">
+                            <ul>
+                                <li><a href="#"><span class="song_optn_icon"><i class="ms_icon icon_download"></i></span>download now</a></li>
+                                <li><a href="#"><span class="song_optn_icon"><i class="ms_icon icon_fav"></i></span>Add To Favourites</a></li>
+                                <li><a href="#"><span class="song_optn_icon"><i class="ms_icon icon_playlist"></i></span>Add To Playlist</a></li>
+                                <li><a href="#"><span class="song_optn_icon"><i class="ms_icon icon_share"></i></span>Share</a></li>
+                            </ul>
+                        </div>
+                        <span class="play-left-arrow"><i class="fa fa-angle-right" aria-hidden="true"></i></span>
+                    </div>
+                    <!----Right Queue---->
+                    <div class="jp_queue_wrapper">
+                        <span class="que_text" id="myPlaylistQueue"><i class="fa fa-angle-up" aria-hidden="true"></i> queue</span>
+                        <div id="playlist-wrap" class="jp-playlist">
+                            <div class="jp_queue_cls"><i class="fa fa-times" aria-hidden="true"></i></div>
+                            <h2>queue</h2>
+                            <div class="jp_queue_list_inner">
+                                <ul>
+                                    <li>&nbsp;</li>
+                                </ul>
+                            </div>
+                            <div class="jp_queue_btn">
+                                <a href="javascript:;" class="ms_clear" data-toggle="modal" data-target="#clear_modal">clear</a>
+                                <a href="clear_modal" class="ms_save" data-toggle="modal" data-target="#save_modal">save</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="jp-type-playlist">
+                        <div class="jp-gui jp-interface flex-wrap">
+                            <div class="jp-controls flex-item">
+                                <button class="jp-previous" tabindex="0" onclick="DZ.player.prev()">
+                                    <i class="ms_play_control"></i>
+                                </button>
+                                <button class="jp-play" tabindex="0" onclick="DZ.player.isPlaying() ? DZ.player.pause() : DZ.player.play() ">
+                                    <i class="ms_play_control"></i>
+                                </button>
+                                <button class="jp-next" tabindex="0" onclick="DZ.player.next()">
+                                    <i class="ms_play_control"></i>
+                                </button>
+                            </div>
+                            <div class="jp-volume-controls flex-item">
+                                <div class="widget knob-container">
+                                    <div class="knob-wrapper-outer">
+                                        <div class="knob-wrapper">
+                                            <div class="knob-mask">
+                                                <div class="knob d3"><span></span></div>
+                                                <div class="handle" id="playerVolume"></div>
+                                                <div class="round">
+                                                    <img src="~/images/svg/volume.svg" alt="">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- <input></input> -->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="jp-toggles flex-item">
+                                <button class="jp-shuffle" tabindex="0" title="Shuffle">
+                                    <i class="ms_play_control"></i>
+                                </button>
+                                <button class="jp-repeat" tabindex="0" title="Repeat"><i class="ms_play_control"></i></button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--main div-->
+    </div>
+
+    <script>
+        $(document).ready(function () {
+
+            $("#list").hide();
+            $("#show").click(function () {
+                $("#list").slideToggle();
+            });
+        });
+    </script>
+    <script type='text/javascript'>
+        function loadMapScenario() {
+            var map = new Microsoft.Maps.Map(document.getElementById('myMap'), {
+                /* No need to set credentials if already passed in URL */
+
+            });
+
+            Microsoft.Maps.loadModule('Microsoft.Maps.Directions', function () {
+
+                var directionsManager = new Microsoft.Maps.Directions.DirectionsManager(map);
+                // Set Route Mode to driving
+                directionsManager.setRequestOptions({ routeMode: Microsoft.Maps.Directions.RouteMode.driving });
+                var waypoint1 = new Microsoft.Maps.Directions.Waypoint({ location: new Microsoft.Maps.Location(@startCoordinates[0], @startCoordinates[1]) });
+                var waypoint2 = new Microsoft.Maps.Directions.Waypoint({ location: new Microsoft.Maps.Location(@destCoordinates[0], @destCoordinates[1]) });
+                directionsManager.addWaypoint(waypoint1);
+                directionsManager.addWaypoint(waypoint2);
+                // Set the element in which the itinerary will be rendered
+                directionsManager.setRenderOptions({ itineraryContainer: document.getElementById('printoutPanel') });
+                directionsManager.calculateDirections();
+            });
+        }
+
+    </script>
+    <script>
+        function onPlayerLoaded() {
+            $("#controlers input").attr('disabled', false);
+            event_listener_append('player_loaded');
+            DZ.Event.subscribe('current_track', function (arg) {
+                event_listener_append('current_track', arg.index, arg.track.title, arg.track.album.title);
+            });
+            DZ.Event.subscribe('player_position', function (arg) {
+                event_listener_append('position', arg[0], arg[1]);
+                $("#slider_seek").find('.bar').css('width', (100 * arg[0] / arg[1]) + '%');
+            });
+        }
+        DZ.init({
+            appId: '8',
+            channelUrl: 'http://developers.deezer.com/examples/channel.php',
+            player: {
+                container: 'player',
+                cover: true,
+                playlist: true,
+                width: 650,
+                height: 300,
+                onload: onPlayerLoaded
+            }
+        });
+
+        DZ.Event.subscribe('current_track', function (track, evt_name) {
+            document.getElementById('trackTitle').innerHTML = track.track.title;
+            document.getElementById('artistName').innerHTML = track.track.artist.name;
+            document.getElementById('trackDuration').innerHTML = track.track.duration;
+        });
+
+        DZ.Event.subscribe('player_play', function (track, evt_name) {
+            if (!document.getElementById('jp_container_1').classList.contains('jp-state-playing')) {
+                document.getElementById('jp_container_1').classList.add('jp-state-playing');
+            }
+        });
+
+        DZ.Event.subscribe('player_paused', function (track, evt_name) {
+            if (document.getElementById('jp_container_1').classList.contains('jp-state-playing')) {
+                document.getElementById('jp_container_1').classList.remove('jp-state-playing');
+            }
+        });
+    </script>
+    <script type='text/javascript' src='https://www.bing.com/api/maps/mapcontrol?key=Ap4BY1B20Ldbim2QZCCJK3EAW0jdSisoIOvt3kJjv8dBjM_3pzfu9442oM8AsrxJ&callback=loadMapScenario' async defer></script>
 </body>

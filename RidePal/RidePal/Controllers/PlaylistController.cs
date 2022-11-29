@@ -11,6 +11,7 @@ using RidePal.Services.Models;
 using RidePal.WEB.Models;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -39,6 +40,7 @@ namespace RidePal.WEB.Controllers
 
         public async Task<IActionResult> Index(string title)
         {
+
             try
             {
                 var playList = await playlistService.GetPlaylistDTOAsync(title);
@@ -58,13 +60,25 @@ namespace RidePal.WEB.Controllers
             await FillGenres(playlist);
             ViewData["Audiences"] = new SelectList(await FillAudiences(), "Id", "Name");
 
+            this.ViewData["StartPoint"] = "The start of your journey";
+            this.ViewData["ArrivePoint"] = "Your journey's destination";
+            
             return this.View(playlist);
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreatePlaylist(CreatePlaylistViewModel model)
+        public async Task<IActionResult> CreatePlaylist(CreatePlaylistViewModel model, TripQuerryParameters coordinates)
         {
-            if (!this.ModelState.IsValid)
+            if (coordinates.StartPoint==null || coordinates.ArrivingDestination==null)
+            {
+                return this.View(model);
+            }
+          
+            this.ViewData["StartPoint"] = coordinates.StartingDestination;
+            this.ViewData["ArrivePoint"] = coordinates.ArrivingDestination;
+
+            //TODO: Chack model state
+            if (model.Name.Length<4 || model.AudienceId==0)
             {
                 return this.View(model);
             }
@@ -73,33 +87,15 @@ namespace RidePal.WEB.Controllers
                 this.ModelState.AddModelError("Name", "Playlist with this title already exists.");
                 return this.View(model);
             }
+
+            var tripDTO = await bingMapsService.GetTrip(coordinates);
             try
             {
-                var startingPoint = model.Trip.StartPoint.Split(", ");
-                var destination = model.Trip.Destination.Split(", ");
-
-                var cred = new TripQuerryParameters
-                {
-                    DepartCountry = startingPoint[0],
-                    ArriveCountry = destination[0],
-                    DepartCity = startingPoint[1],
-                    ArriveCity = destination[1],
-                    DepartAddress = startingPoint[2],
-                    ArriveAddress = destination[2]
-                };
-
-                //var tmpTrip = await bingMapsService.GetTrip(cred);
-                var tmpTrip = new TripDTO
-                {
-                    Destination = model.Trip.Destination,
-                    StartPoint = model.Trip.StartPoint,
-                    Duration = 180,
-                    Distance = 1000
-                };
+             
 
                 var audience = await playlistService.GetAudienceAsync(model.AudienceId);
 
-                var trip = await tripService.PostAsync(tmpTrip);
+                var trip = await tripService.PostAsync(tripDTO);
 
                 var playlistDTO = new PlaylistDTO
                 {
@@ -198,6 +194,17 @@ namespace RidePal.WEB.Controllers
         {
             var audiences = await genreService.GetAudiences();
             return audiences.ToList();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> MyPlaylists()
+        {
+            var user = await this.userService.GetUserDTOByEmailAsync(this.User.Identity.Name);
+
+            var result = await this.playlistService.GetUserPlaylists(user.Id);
+
+            return this.View(mapper.Map<IEnumerable<PlaylistViewModel>>(result));
+            
         }
     }
 }
