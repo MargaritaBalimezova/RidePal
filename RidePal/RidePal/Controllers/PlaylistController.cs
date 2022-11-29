@@ -195,5 +195,16 @@ namespace RidePal.WEB.Controllers
             var audiences = await genreService.GetAudiences();
             return audiences.ToList();
         }
+
+        [HttpGet]
+        public async Task<IActionResult> MyPlaylists()
+        {
+            var user = await this.userService.GetUserDTOByEmailAsync(this.User.Identity.Name);
+
+            var result = await this.playlistService.GetUserPlaylists(user.Id);
+
+            return this.View(mapper.Map<IEnumerable<PlaylistViewModel>>(result));
+            
+        }
     }
 }

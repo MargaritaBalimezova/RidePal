@@ -24,5 +24,7 @@ namespace RidePal.Services.Interfaces
         Task<PlaylistDTO> GetPlaylistDTOAsync(int id);
 
         Task<Audience> GetAudienceAsync(int id);
+
+        Task<IEnumerable<PlaylistDTO>> GetUserPlaylists(int userId);
     }
 }

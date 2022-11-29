@@ -18,8 +18,8 @@
                                 <h1 class="ms_color">Joy Ride Music player</h1>
                                 <p style="font-size:20px;"> The journey of a thousand miles begins with one step -> Press the Play button!</p>
                                 <div class="ms_banner_btn">
-                                    <a href="#" class="ms_btn">Generate trip</a>
-                                    <a href="#" class="ms_btn">Previuos trips</a>
+                                    <a href="/Playlist/CreatePlaylist" class="ms_btn">Generate trip</a>
+                                    <a href="/Playlist/MyPlaylists" class="ms_btn">Previuos trips</a>
                                 </div>
                             </div>
                         </div>
@@ -37,25 +37,18 @@
                         @{
                             //Todo OrderBYDesc most recent
 
-                            var recentList = this.Model.Take(15).ToList();
+                            var recentList = this.Model.Where(x=>x.Audience.Id==1).Take(15).ToList();
                             foreach (var item in recentList)
-                            {
+                            {  <a href="/Playlist?title=@item.Name">
                                 <div class="swiper-slide">
                                     <div class="ms_rcnt_box">
-                                        <div class="ms_rcnt_box_img">
-                                            <img src="@item.ImagePath" alt="">
+                                        <div class="ms_rcnt_box_img" >
+                                            <img src="@item.ImagePath" alt="" style="max-height:200px;min-height:200px;">
                                             <div class="ms_main_overlay">
                                                 <div class="ms_box_overlay"></div>
-                                                <div class="ms_more_icon">
-                                                    <img src="assets/images/svg/more.svg" alt="">
-                                                </div>
-                                                <ul class="more_option">
-                                                    <li><a href="#"><span class="opt_icon"><span class="icon icon_fav"></span></span>Add To Favourites</a></li>
-                                                    <li><a href="#"><span class="opt_icon"><span class="icon icon_share"></span></span>Share</a></li>
-                                                </ul>
-                                                <div class="ms_play_icon">
-                                                    <img src="assets/images/svg/play.svg" alt="">
-                                                </div>
+                                                
+                                              
+                                                
                                             </div>
                                         </div>
                                         <div class="ms_rcnt_box_text">
@@ -64,6 +57,7 @@
                                         </div>
                                     </div>
                                 </div>
+                                </a>
                             }
                         }
 
