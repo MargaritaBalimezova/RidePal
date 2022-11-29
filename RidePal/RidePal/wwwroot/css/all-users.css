@@ -33,14 +33,12 @@
 }
 
 .table thead > tr > th {
-    border-bottom: 1px solid #C2C2C2;
     padding-bottom: 0;
 }
 
 .table tbody > tr > td {
     font-size: 0.875em;
-    background: #f5f5f5;
-    border-top: 10px solid #fff;
+    background: #14182a;
     vertical-align: middle;
     padding: 12px 8px;
 }
@@ -51,7 +49,6 @@
     }
 
 .table thead > tr > th span {
-    border-bottom: 2px solid #C2C2C2;
     display: inline-block;
     padding: 0 5px;
     padding-bottom: 5px;
@@ -59,7 +56,7 @@
 }
 
 .table thead > tr > th > a span {
-    color: #344644;
+    color: #14182a;
 }
 
     .table thead > tr > th > a span:after {
@@ -83,7 +80,7 @@
 .table thead > tr > th > a:hover span {
     text-decoration: none;
     color: #2bb6a3;
-    border-color: #2bb6a3;
+    border: none;
 }
 
 .table.table-hover tbody > tr > td {
@@ -105,7 +102,7 @@
 
     .table tbody tr td .first-line span {
         font-size: 0.875em;
-        color: #969696;
+        color: #14182a;
         font-weight: 300;
     }
 
@@ -121,21 +118,22 @@
 
     .table a.table-link:hover {
         text-decoration: none;
-        color: #2aa493;
+        color: #14182a;
     }
 
     .table a.table-link.danger {
-        color: #fe635f;
+        color: #14182a;
     }
 
         .table a.table-link.danger:hover {
-            color: #dd504c;
+            color: #14182a;
         }
 
 .table-products tbody > tr > td {
     background: none;
     border: none;
-    border-bottom: 1px solid #ebebeb;
+    border-bottom: #14182a;
+    border-top: #14182a;
     -webkit-transition: background-color 0.15s ease-in-out 0s;
     transition: background-color 0.15s ease-in-out 0s;
     position: relative;
@@ -143,7 +141,7 @@
 
 .table-products tbody > tr:hover > td {
     text-decoration: none;
-    background-color: #f6f6f6;
+    background-color: #14182a;
 }
 
 .table-products .name {
@@ -161,7 +159,7 @@
 }
 
     .table-products .price > i {
-        color: #8dc859;
+        color: #14182a;
     }
 
 .table-products .warranty {
@@ -173,37 +171,5 @@
 }
 
     .table-products .warranty > i {
-        color: #f1c40f;
+        color: #14182a;
     }
-
-.table tbody > tr.table-line-fb > td {
-    background-color: #9daccb;
-    color: #262525;
-}
-
-.table tbody > tr.table-line-twitter > td {
-    background-color: #9fccff;
-    color: #262525;
-}
-
-.table tbody > tr.table-line-plus > td {
-    background-color: #eea59c;
-    color: #262525;
-}
-
-.table-stats .status-social-icon {
-    font-size: 1.9em;
-    vertical-align: bottom;
-}
-
-.table-stats .table-line-fb .status-social-icon {
-    color: #556484;
-}
-
-.table-stats .table-line-twitter .status-social-icon {
-    color: #5885b8;
-}
-
-.table-stats .table-line-plus .status-social-icon {
-    color: #a75d54;
-}

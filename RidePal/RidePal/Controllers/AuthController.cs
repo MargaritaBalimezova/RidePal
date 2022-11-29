@@ -57,7 +57,7 @@ namespace MovieForum.Web.Controllers
 
             var email = claims.Where(c => c.Type == ClaimTypes.Email)
                    .Select(c => c.Value).FirstOrDefault();
-
+           
             if (await userService.IsExistingAsync(email))
             {
                 var user = await userService.GetUserDTOByEmailAsync(email);
@@ -76,7 +76,7 @@ namespace MovieForum.Web.Controllers
                     new Claim(ClaimTypes.Name,user.Email),
                     new Claim("Username", user.Username),
                     new Claim("Full Name", user.FirstName +" " + user.LastName),
-                    //new Claim("Image", user.ImagePath)
+                    new Claim("Image", user.ImagePath)
                 };
 
                 if (user.RoleId == 1)
@@ -99,7 +99,7 @@ namespace MovieForum.Web.Controllers
                 return RedirectToAction("Index", "Home");
             }
             await this.GoogleRegister();
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("GoogleResponse", "Auth");
         }
 
         #endregion Login Google
@@ -139,6 +139,7 @@ namespace MovieForum.Web.Controllers
                 FirstName = firstName,
                 LastName = lastName,
                 Email = email,
+                ImagePath= "https://ridepalbucket.s3.amazonaws.com/default.jpg",
                 IsEmailConfirmed = true,
                 IsGoogleAccount = true
             };
@@ -248,7 +249,7 @@ namespace MovieForum.Web.Controllers
 
                 if (user == null)
                 {
-                    this.ModelState.AddModelError("IsEmailConfirmed", "You have to confirm your email.");
+                    this.ModelState.AddModelError("Credential", "You have to confirm your email.");
                     return this.PartialView("_LoginPartial", model);
                 }
 
@@ -257,7 +258,7 @@ namespace MovieForum.Web.Controllers
                     DateTime unblock = user.LastBlockTime.AddDays(7);
                     TimeSpan span = (unblock - DateTime.Now);
 
-                    this.ModelState.AddModelError("IsBlocked", $"You were blocked on {user.LastBlockTime.ToString("dd/MM/yyyy hh:mm")}. Try again in {span.Days} days, {span.Hours} hours and {span.Minutes} minutes.");
+                    this.ModelState.AddModelError("Credential", $"You were blocked on {user.LastBlockTime.ToString("dd/MM/yyyy hh:mm")}. Try again in {span.Days} days, {span.Hours} hours and {span.Minutes} minutes.");
                     return this.PartialView("_LoginPartial", model);
                 }
 
@@ -298,9 +299,10 @@ namespace MovieForum.Web.Controllers
                     AuthProperties
                 );
             }
+            
             catch (Exception)
             {
-                this.ModelState.AddModelError("Password", "Incorrect combination of email/username and password.");
+                this.ModelState.AddModelError("Credential", "Incorrect combination of email/username and password.");
                 return this.PartialView("_LoginPartial", model);
             }
 
@@ -428,5 +430,6 @@ namespace MovieForum.Web.Controllers
         }
 
         #endregion Email actions
+
     }
 }

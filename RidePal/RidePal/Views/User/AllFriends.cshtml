@@ -4,53 +4,55 @@
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
 <link href="~/css//all-users.css" rel="stylesheet">
 <div class="container">
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="main-box clearfix">
-                <div class="table-responsive">
-                    @if (Model.Friends.Count == 0)
-                    {
-                        <h1>You don't have any friends</h1>
-                    }
-                    else
-                    {
-                        <table class="table user-list">
-                            <thead>
-                                <tr>
-                                    <th><span>User</span></th>
-                                    <th><span>Email</span></th>
-                                    <th>&nbsp;</th>
-                                </tr>
-                            </thead>
-                            <tbody>
+    <div class="ms_content_wrapper padder_top80">
+        <div class="ms_free_download ms_purchase_wrapper">
+            <div class="ms_heading">
+                <h1>Your Friends</h1>
+            </div>
+            <div class="album_inner_list">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="main-box clearfix">
+                            <div class="table-responsive">
 
-                                @foreach (var friend in this.Model.Friends)
-                                {
-                                    <tr>
-                                        <td>
-                                            <img src="https://ridepalbucket.s3.amazonaws.com/@friend.ImagePath" alt="profile image">
-                                            <a asp-controller="User" asp-action="Index" asp-route-email="@friend.Email" class="user-link">@friend.Username</a>
-                                            <span class="user-subhead">@friend.RoleId.ToString()</span>
-                                        </td>
-                                        <td>
-                                            <a asp-controller="User" asp-action="Index" asp-route-email="@friend.Email">@friend.Email</a>
-                                        </td>
-                                        <td style="width: 20%;">
-                                            <a asp-action="RemoveFriend" asp-controller="User" asp-route-friendEmail="@friend.Email" asp-route-email="@Model.Email" asp-route-currentView="allFriends" class="table-link danger">
-                                                <span class="fa-stack">
-                                                    <i class="fa fa-square fa-stack-2x"></i>
-                                                    <i class="fa fa-trash-o fa-stack-1x fa-inverse"></i>
-                                                </span>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                }
+                                <table class="table user-list">
+                                    <thead>
+                                        <tr>
+                                            <th>&nbsp;</th>
+                                            <th>&nbsp;</th>
+                                            <th>&nbsp;</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
 
-                            </tbody>
-                        </table>
-                    }
+                                        @foreach (var friend in this.Model.Friends)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    <img src="@friend.ImagePath" alt="profile image">
+                                                    <a asp-controller="User" asp-action="Index" asp-route-email="@friend.Email" class="user-link">@friend.Username</a>
+                                                    <span class="user-subhead" style="color:white">@friend.RoleName</span>
+                                                </td>
+                                                <td>
+                                                    <a asp-controller="User" asp-action="Index" asp-route-email="@friend.Email">@friend.Email</a>
+                                                </td>
+                                                <td style="width: 20%;">
+                                                    <a asp-action="RemoveFriend" asp-controller="User" asp-route-friendEmail="@friend.Email" asp-route-email="@Model.Email" asp-route-currentView="allFriends" class="table-link danger">
+                                                        <span class="fa-stack">
+                                                            <i class="fa fa-square fa-stack-2x"></i>
+                                                            <i class="fa fa-trash-o fa-stack-1x fa-inverse"></i>
+                                                        </span>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
                 </div>
-               
             </div>
         </div>
     </div>

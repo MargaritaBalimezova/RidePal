@@ -3249,8 +3249,8 @@ i.fa_icon.form-envelope {
 i.fa_icon.form-lock {
 	background-position: -80px -40px;
 }
-.ms_register_form a.ms_btn,
-.ms_lang_btn a.ms_btn {
+.ms_register_form input.ms_btn,
+.ms_lang_btn input.ms_btn {
 	background-color: transparent;
 	height: 40px;
 	border: 1px solid #fff;
@@ -3260,8 +3260,8 @@ i.fa_icon.form-lock {
 	width: auto;
 	margin-top: 10px;
 }
-.ms_register_form a.ms_btn:hover,
-.ms_lang_popup .modal-content.add_lang .ms_lang_btn a.ms_btn:hover {
+.ms_register_form input.ms_btn:hover,
+.ms_lang_popup .modal-content.add_lang .ms_lang_btn input.ms_btn:hover {
 	background-color: #ffffff;
 	color: #22bed7;
 }
@@ -3524,7 +3524,7 @@ button.save_btn:hover {
 .ms_main_wrapper.ms_profile .ms_top_lang {
 	padding-right: 34px;
 }
-.ms_admin_name span.ms_pro_name {
+.ms_admin_name .ms_pro_name {
 	width: 50px;
 	height: 50px;
 	display: inline-block;
@@ -3645,7 +3645,7 @@ ul.pro_dropdown_menu {
 	max-width: 150px;
 	width: 100%;
 	right: 0;
-	top: 157%;
+	top: 122%;
 	position: absolute;
 	padding: 0px;
 	list-style: none;

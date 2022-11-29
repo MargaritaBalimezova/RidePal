@@ -64,7 +64,7 @@ namespace RidePal.Data.DataInitialize
                         Email = "fakeemail@gmail.com",
                         RoleId = 2,
                         IsDeleted = false,
-                        ImagePath = "default.jpg",
+                        ImagePath = "https://ridepalbucket.s3.amazonaws.com/default.jpg",
                         IsEmailConfirmed = true,
                         IsGoogleAccount = false
                     },
@@ -78,7 +78,7 @@ namespace RidePal.Data.DataInitialize
                         Email = "adminsemail@gmail.com",
                         RoleId = 1,
                         IsDeleted = false,
-                        ImagePath = "default.jpg",
+                        ImagePath = "https://ridepalbucket.s3.amazonaws.com/default.jpg",
                         IsEmailConfirmed = true,
                         IsGoogleAccount = false
                     },
@@ -92,7 +92,7 @@ namespace RidePal.Data.DataInitialize
                         Email = "morefakeemails@gmail.com",
                         RoleId = 1,
                         IsDeleted = false,
-                        ImagePath = "default.jpg",
+                        ImagePath = "https://ridepalbucket.s3.amazonaws.com/default.jpg",
                         IsEmailConfirmed = true,
                         IsGoogleAccount = false
                     },
@@ -106,7 +106,7 @@ namespace RidePal.Data.DataInitialize
                         Email = "agent007@gmail.com",
                         RoleId = 1,
                         IsDeleted = false,
-                        ImagePath = "default.jpg",
+                        ImagePath = "https://ridepalbucket.s3.amazonaws.com/default.jpg",
                         IsEmailConfirmed = true,
                         IsGoogleAccount = false
                     }

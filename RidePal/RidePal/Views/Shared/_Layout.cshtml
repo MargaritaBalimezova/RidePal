@@ -15,7 +15,7 @@ Purchase:
 <!-- Begin Head -->
 
 <head>
-    <title>Miraculous - Online Music Store Html Template</title>
+    <title>RidePal - Online PlaylistGenerator</title>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta name="description" content="Music">
@@ -32,7 +32,7 @@ Purchase:
     <link rel="stylesheet" type="text/css" href="~/js/plugins/scroll/jquery.mCustomScrollbar.css">
     <link rel="stylesheet" type="text/css" href="~/css/style.css">
     <!-- Favicon Link -->
-    <link rel="shortcut icon" type="image/png" href="~/images/favicon.png">
+    <link rel="shortcut icon" type="image/png" href="~/images/logo.png">
 </head>
 <body>
     <!----Loader Start---->
@@ -51,10 +51,10 @@ Purchase:
             <div class="ms_sidemenu_inner">
                 <div class="ms_logo_inner">
                     <div class="ms_logo">
-                        <a href="index.html"><img src="https://dummyimage.com/78x78" alt="" class="img-fluid" /></a>
+                        <a href="index.html"><img src="~/Images/logo.png" alt="" class="img-fluid" /></a>
                     </div>
                     <div class="ms_logo_open">
-                        <a href="index.html"><img src="https://dummyimage.com/126x97" alt="" class="img-fluid" /></a>
+                        <a href="index.html"><img src="~/Images/logo.png" alt="" class="img-fluid" style="max-width: 80%;"/></a>
                     </div>
                 </div>
                 <div class="ms_nav_wrapper">
@@ -131,43 +131,35 @@ Purchase:
                         </li>
                     </ul>
                     <ul class="nav_downloads">
+
                         <li>
-                            <a href="download.html" title="Downloads">
-                                <span class="nav_icon">
-                                    <span class="icon icon_download"></span>
-                                </span>
-                                <span class="nav_text">
-                                    downloads
-                                </span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="purchase.html" title="Purchased">
-                                <span class="nav_icon">
-                                    <span class="icon icon_purchased"></span>
-                                </span>
-                                <span class="nav_text">
-                                    purchased
-                                </span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="favourite.html" title="Favourites">
-                                <span class="nav_icon">
-                                    <span class="icon icon_favourite"></span>
-                                </span>
-                                <span class="nav_text">
-                                    favourites
-                                </span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="history.html" title="History">
+                            <a asp-controller="User" asp-action="AllUsers" title="Users">
                                 <span class="nav_icon">
                                     <span class="icon icon_history"></span>
                                 </span>
                                 <span class="nav_text">
-                                    history
+                                    Users
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a asp-controller="User" asp-action="AllFriends" asp-route-email="@this.User.Identity.Name" title="Friends">
+                                <span class="nav_icon">
+                                    <span class="icon icon_favourite"></span>
+                                </span>
+                                <span class="nav_text">
+                                    Friends
+                                </span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a asp-controller="User" asp-action="FriendRequests" asp-route-email="@this.User.Identity.Name" title="Requests">
+                                <span class="nav_icon">
+                                    <span class="icon icon_purchased"></span>
+                                </span>
+                                <span class="nav_text">
+                                    Requests
                                 </span>
                             </a>
                         </li>
@@ -214,18 +206,35 @@ Purchase:
                 </div>
             </div>
             <div class="ms_top_right">
-                <div class="ms_top_lang">
-                    <span data-bs-toggle="modal" data-target="#lang_modal">languages <img src="images/svg/lang.svg" alt=""></span>
-                </div>
-                <div class="ms_top_btn">
-                    <button type="button" id="loginClick" class="ms_btn reg_btn" data-bs-toggle="modal" data-bs-target="#myModal1">Login</button>
-                    <a href="javascript:;" class="ms_btn login_btn" @*data-bs-toggle="modal" data-bs-target="#myModal1"*@><span>login</span></a>
-                </div>
+                @if (!this.User.Identity.IsAuthenticated)
+                {
+                    <div class="ms_top_btn">
+                        <a class="ms_btn login_btn" data-bs-toggle="modal" data-bs-target="#myModal1"><span>Sign In</span></a>
+                        <a class="ms_btn reg_btn" data-bs-toggle="modal" data-bs-target="#myModal2"><span>Sign Up</span></a>
+                    </div>
+                }
+
+                else
+                {
+                    <div class="ms_top_btn">
+                        <div class="ms_top_btn">
+                            @*
+                                <a href="upload.html" class="ms_btn ms_upload_btn">upload</a>*@
+                            <a href="javascript:;" class="ms_admin_name">
+                                <span class="hello-bella-hide">Hello @this.User.Claims.FirstOrDefault(x=>x.Type=="Username").Value</span><img class="ms_pro_name" src="@this.User.Claims.FirstOrDefault(x=>x.Type=="Image").Value" />
+                            </a>
+                        </div>
+                        <ul class="pro_dropdown_menu">
+                            <li><a asp-controller="User" asp-action="Index" asp-route-email="@this.User.Identity.Name">Profile</a></li>
+                            <li><a asp-controller="User" asp-action="Update" asp-route-email="@this.User.Identity.Name">Settings</a></li>
+                            <li><a asp-controller="Auth" asp-action="Logout">Sign Out</a></li>
+                        </ul>
+                    </div>
+                }
             </div>
         </div>
         <div id="myModal1" class="modal  centered-modal" role="dialog">
-            <form id="loginModal" asp-action="Login" asp-controller="Auth" data-ajax="true" data-ajax-method="POST"
-                  data-ajax-complete="OnComplete">
+            <form id="loginModal" asp-action="Login" asp-controller="Auth" data-ajax="true" data-ajax-method="POST">
                 <div class="modal-dialog login_dialog">
                     <!-- Modal content-->
                     <div class="modal-content">
@@ -233,15 +242,35 @@ Purchase:
                             <i class="fa_icon form_close"></i>
                         </button>
                         <div class="modal-body">
-                         @{await Html.RenderPartialAsync("_LoginPartial", new RidePal.WEB.Models.LoginViewModel());}
+                            @{
+                                await Html.RenderPartialAsync("_LoginPartial", new RidePal.WEB.Models.LoginViewModel());
+                            }
                         </div>
-                        
+
                     </div>
 
                 </div>
             </form>
         </div>
-        <div id="SignIn" class="modal"></div>
+        <div id="SignUp" class="modal"></div>
+        <div id="myModal2" class="modal  centered-modal" role="dialog">
+            <form id="registerModal" asp-action="Register" asp-controller="Auth" data-ajax="true" data-ajax-method="POST">
+                <div class="modal-dialog register_dialog">
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <button type="button" class="close" data-dismiss="modal">
+                            <i class="fa_icon form_close"></i>
+                        </button>
+                        <div class="modal-body">
+                            @{
+                                await Html.RenderPartialAsync("_RegisterPartial", new RidePal.Web.Models.CreateUserViewModel());
+                            }
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div id="SignUp" class="modal"></div>
     </div>
     @RenderBody()
     <!--Main js file Style-->
@@ -259,27 +288,4 @@ Purchase:
     <script type="text/javascript" src="~/js/site.js"></script>
     <script type="text/javascript" src="~/js/custom.js"></script>
 </body>
-@*<script>
-    document.getElementById("loginClick").addEventListener("click", LoginModal, false);
-
-    function LoginModal() {
-        debugger;
-        $.ajax({
-            type: 'GET',
-            url: "@Url.Action("LoginPartial","Auth")",
-            contentType: "application/json; charset=utf-8",
-            datatype: "json",
-            success: function (data) {
-                let modal = document.getElementById("SignIn");
-                debugger;
-                //modal.setHTML(data);
-                //$(modal).modal('show');
-                $("#SignIn").html(data);
-                $("#SignIn").modal('show');
-                console.log("Successfully opened the modal");
-            }
-        });
-    }
-
-</script>*@
 </html>

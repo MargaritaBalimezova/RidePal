@@ -19,6 +19,7 @@ using RidePal.Web.Helpers;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using RidePal.Services.Models;
+using Microsoft.AspNetCore.Authentication.OAuth;
 
 namespace RidePal
 {
@@ -67,12 +68,15 @@ namespace RidePal
                             options.ClientId = Configuration["Authentication:Google:ClientId"];
                             options.ClientSecret = Configuration["Authentication:Google:ClientSecret"];
                             options.ClaimActions.MapJsonKey("urn:google:picture", "picture", "url");
+                            
                             options.Events.OnTicketReceived = ctx =>
                             {
                                 var userEmail = ctx.Principal.FindFirstValue(ClaimTypes.Email);
+                                var picture = ctx.Principal.FindFirstValue("pictureUrl");
+                                
                                 //Check the user exists in database and if not create.
                                 return Task.CompletedTask;
-                            };
+                            };                            
                         });
 
             services.AddAuthorization(options =>

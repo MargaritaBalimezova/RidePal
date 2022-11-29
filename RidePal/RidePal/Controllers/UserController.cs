@@ -311,7 +311,7 @@ namespace RidePal.WEB.Controllers
             try
             {
                 FileInfo fi = new FileInfo(file.FileName);
-                var newFileName = "Image_" + DateTime.Now.TimeOfDay.Milliseconds + fi.Extension;
+                var newFileName = "https://ridepalbucket.s3.amazonaws.com/Image_" + DateTime.Now.TimeOfDay.Milliseconds + fi.Extension;
                 this.storageService.Upload(file);
                 ViewBag.Success = "File Uploaded on S3";
                 return newFileName;
