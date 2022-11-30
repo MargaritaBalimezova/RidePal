@@ -1,78 +1,275 @@
 ﻿@using RidePal.WEB.Models;
 
 @model UserViewModel
-<head>
-    <title>Profile: @User.Identity.Name</title>
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
-    <link href="/css/profile-page.css" rel="stylesheet">
-</head>
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+<link href="~/css//all-users.css" rel="stylesheet">
 
-<body>
-    <section class="anime-details spad">
+<!----User Profile Section Start---->
+<div class="ms_album_single_wrapper ms_artist_single">
+    <div class="album_single_data">
+        <div class="album_single_img">
+            <img src="@this.Model.ImagePath" alt="" class="img-fluid">
+        </div>
+        <div class="album_single_text">
+            <h2>@this.Model.Username</h2>
+            <p class="singer_name">@this.Model.FirstName @this.Model.LastName</p>
+            <div class="about_artist">
+                @this.Model.Email
+            </div>
+            <div class="album_btn">
+                @if (this.User.HasClaim(x => x.Value == "Admin") && this.User.Identity.Name != @Model.Email)
+                {
+                    @if (Model.IsBlocked)
+                    {
+                        <a asp-action="Unblock" asp-route-id=@Model.Id class="ms_btn play_btn">Unblock</a>
+                    }
+                    else
+                    {
+                        <a asp-action="Block" asp-route-id=@Model.Id class="ms_btn play_btn">Block</a>
+                    }
+                    <a asp-action="Delete" asp-route-email=@Model.Email class="ms_btn play_btn">Delete</a>
+                }
+                @if (this.User.Identity.Name == Model.Email || this.User.HasClaim(x => x.Value == "Admin"))
+                {
+                    <a asp-action="Update" class="ms_btn play_btn" asp-route-email="@Model.Email">Edit Profile</a>
+                }
+                else
+                {
+                    @if (!Model.Friends.Any(x => x.Email == this.User.Identity.Name) && !Model.ReceivedFriendRequests.Any(x => x.Sender.Email == this.User.Identity.Name) && !Model.SentFriendRequests.Any(x => x.Recipient.Email == this.User.Identity.Name))
+                    {
+                        <a asp-action="SendFriendRequest" asp-route-senderEmail="@User.Identity.Name" asp-route-recipientEmail="@Model.Email" asp-route-currentView="index" class="ms_btn play_btn">Add Friend</a>
+                    }
+                    else if (Model.Friends.Any(x => x.Email == this.User.Identity.Name))
+                    {
+                        <a asp-action="RemoveFriend" asp-route-email="@User.Identity.Name" asp-route-friendEmail="@Model.Email" asp-route-currentView="index" class="ms_btn play_btn">Unfriend</a>
+                    }
+                    else if (Model.ReceivedFriendRequests.Any(x => x.Sender.Email == this.User.Identity.Name))
+                    {
+                        <a asp-action="DeclineFriendRequest" asp-route-senderEmail="@User.Identity.Name" asp-route-recipientEmail="@Model.Email" asp-route-currentView="index" class="ms_btn play_btn">Cancel Request</a>
+                    }
+                    else
+                    {
+                        <a asp-action="AcceptFriendRequest" asp-route-recipientEmail="@User.Identity.Name" asp-route-senderEmail="@Model.Email" asp-route-currentView="index" class="ms_btn play_btn">Confirm Request</a>
+                        <a asp-action="DeclineFriendRequest" asp-route-recipientEmail="@User.Identity.Name" asp-route-senderEmail="@Model.Email" asp-route-currentView="indexRemove" class="ms_btn play_btn">Remove Request</a>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+
+</div>
+@if (this.Model.Email == this.User.Identity.Name)
+{
+    @if (this.Model.Friends.Count == 0)
+    {
+        <div class="ms_content_wrapper ms_artist_content">
+            <div class="ms_featured_slider">
+                <div class="ms_heading">
+                    <h1>You don't have friends currently :( <a asp-action="AllUsers" asp-controller="User">Find some friends here</a></h1>
+                </div>
+            </div>
+        </div>
+
+    }
+    else
+    {
         <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div id="content" class="content content-full-width">
-                        <!-- begin profile -->
-                        <div class="profile">
-                            <div class="profile-header">
-                                <!-- BEGIN profile-header-cover -->
-                                <div class="profile-header-cover"></div>
-                                <!-- END profile-header-cover -->
-                                <!-- BEGIN profile-header-content -->
-                                <div class="profile-header-content">
-                                    <!-- BEGIN profile-header-img -->
-                                    <div class="profile-header-img">
-                                        <img src="@Model.ImagePath" class="avatar img-circle img-thumbnail" alt="avatar">
-                                    </div>
-                                    <!-- END profile-header-img -->
-                                    <!-- BEGIN profile-header-info -->
-                                    <div class="profile-header-info">
-                                        <h4 style="color:black" class="m-t-10 m-b-5">@Model.FirstName @Model.LastName</h4>
-                                        @if (this.User.HasClaim(x => x.Value == "Admin") && this.User.Identity.Name != @Model.Email)
-                                        {
-                                            @if (Model.IsBlocked)
+            <div class="ms_free_download ms_purchase_wrapper">
+                <div class="ms_heading">
+                    <h1>Your Friends</h1>
+                </div>
+                <div class="album_inner_list">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="main-box clearfix">
+
+
+                                <div class="table-responsive">
+                                    <table class="table user-list">
+                                        <thead>
+                                            <tr>
+                                                <th>&nbsp;</th>
+                                                <th>&nbsp;</th>
+                                                <th>&nbsp;</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+                                            @foreach (var friend in this.Model.Friends.Take(5))
                                             {
-                                                <a asp-action="Unblock" asp-route-id=@Model.Id class="button-1">Unblock</a>
+                                                <tr>
+                                                    <td>
+                                                        <img src="@friend.ImagePath" alt="profile image">
+                                                        <a asp-controller="User" asp-action="Index" asp-route-email="@friend.Email" class="user-link">@friend.Username</a>
+                                                        <span class="user-subhead" style="color:white">@friend.RoleName</span>
+                                                    </td>
+                                                    <td>
+                                                        <a asp-controller="User" asp-action="Index" asp-route-email="@friend.Email">@friend.Email</a>
+                                                    </td>
+                                                    <td style="width: 20%;">
+                                                        <a asp-action="RemoveFriend" asp-controller="User" asp-route-friendEmail="@friend.Email" asp-route-email="@Model.Email" asp-route-currentView="allFriends" class="table-link danger">
+                                                            <span class="fa-stack">
+                                                                <i class="fa fa-square fa-stack-2x"></i>
+                                                                <i class="fa fa-trash-o fa-stack-1x fa-inverse"></i>
+                                                            </span>
+                                                        </a>
+                                                    </td>
+                                                </tr>
                                             }
-                                            else
-                                            {
-                                                <a asp-action="Block" asp-route-id=@Model.Id class="button-1">Block</a>
-                                            }
-                                            <a asp-action="Delete" asp-route-email=@Model.Email class="button-1">Delete</a>
-                                        }
-                                        @if (this.User.Identity.Name == Model.Email || this.User.HasClaim(x => x.Value == "Admin"))
-                                        {
-                                            <a asp-action="Update" class="button-1" asp-route-email="@Model.Email">Edit Profile</a>
-                                        }else{
-                                            @if (!Model.Friends.Any(x => x.Email == this.User.Identity.Name) && !Model.ReceivedFriendRequests.Any(x => x.Sender.Email == this.User.Identity.Name) && !Model.SentFriendRequests.Any(x => x.Recipient.Email == this.User.Identity.Name))
-                                            {
-                                                <a asp-action="SendFriendRequest" asp-route-senderEmail="@User.Identity.Name" asp-route-recipientEmail="@Model.Email" asp-route-currentView="index" class="button-1">Add Friend</a>
-                                            }
-                                            else if (Model.Friends.Any(x => x.Email == this.User.Identity.Name))
-                                            {
-                                                <a asp-action="RemoveFriend" asp-route-email="@User.Identity.Name" asp-route-friendEmail="@Model.Email" asp-route-currentView="index"  class="button-1">Unfriend</a>
-                                            }
-                                            else if (Model.ReceivedFriendRequests.Any(x => x.Sender.Email == this.User.Identity.Name))
-                                            {
-                                                <a asp-action="DeclineFriendRequest" asp-route-senderEmail="@User.Identity.Name" asp-route-recipientEmail="@Model.Email" asp-route-currentView="index" class="button-1">Cancel Request</a>
-                                            }
-                                            else
-                                            {
-                                                <a asp-action="AcceptFriendRequest" asp-route-recipientEmail="@User.Identity.Name" asp-route-senderEmail="@Model.Email" asp-route-currentView="index" class="button-1">Confirm Request</a>
-                                                <a asp-action="DeclineFriendRequest" asp-route-recipientEmail="@User.Identity.Name" asp-route-senderEmail="@Model.Email" asp-route-currentView="indexRemove" class="button-1">Remove Request</a>
-                                            }
-                                        }
-                                    </div>
-                                    <!-- END profile-header-info -->
+                                        </tbody>
+                                    </table>
                                 </div>
-                                <!-- END profile-header-content -->
+
                             </div>
                         </div>
-                        <!-- end profile -->
                     </div>
                 </div>
             </div>
         </div>
-    </section>
-</body>
+        <div class="ms_view_more padder_bottom20">
+            <a asp-action="AllFriends" asp-controller="User" asp-route-email="@this.Model.Email" class="ms_btn">View All</a>
+        </div>
+    }
+}
+<!---Main Content Start--->
+<div class="ms_content_wrapper ms_artist_content">
+    <div class="ms_featured_slider">
+        <div class="ms_heading">
+            <h1>Public Playlists</h1>
+        </div>
+
+        <div class="ms_relative_inner">
+            @foreach (var playlist in this.Model.Playlists)
+            {
+                if (playlist.Audience.Name == "Public")
+                {
+                    <div class="ms_feature_slider swiper-container">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide">
+                                <div class="ms_rcnt_box">
+                                    <div class="ms_rcnt_box_img">
+                                        <img src="@playlist.ImagePath" alt="">
+                                        <div class="ms_main_overlay">
+                                            @if (this.Model.Friends.Any(x => x.Email == this.User.Identity.Name) || this.User.HasClaim(x => x.Value == "Admin"))
+                                            {
+                                                <div class="ms_more_icon">
+                                                    <img src="~/Images/svg/more.svg" alt="">
+                                                </div>
+                                                <ul class="more_option">
+                                                    <li><a asp-action="EditPlaylist" asp-controller="Playlist" asp-route-title="@playlist.Name"><span class="opt_icon"><span class="icon icon_fav"></span></span>Edit Playlist</a></li>
+                                                    <li><a asp-action="Delete" asp-controller="Playlist" asp-route-title="@playlist.Name"><span class="opt_icon"><span class="icon icon_queue"></span></span>Delete Playlist</a></li>
+                                                </ul>
+                                            }
+                                        </div>
+                                    </div>
+                                    <div class="ms_rcnt_box_text">
+                                        <h3><a asp-action="Index" asp-controller="Playlist" asp-route-title="@playlist.Name">@playlist.Name</a></h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+            <!-- Add Arrows -->
+            <div class="swiper-button-next1 slider_nav_next"></div>
+            <div class="swiper-button-prev1 slider_nav_prev"></div>
+        </div>
+    </div>
+    <!----Friends Playlist---->
+    @if (this.Model.Friends.Any(x => x.Email == this.User.Identity.Name) || this.User.HasClaim(x => x.Value == "Admin"))
+    {
+        <div class="ms_featured_slider">
+            <div class="ms_heading">
+                <h1>Friends Playlists</h1>
+            </div>
+
+            <div class="ms_relative_inner">
+                @foreach (var playlist in this.Model.Playlists)
+                {
+                    if (playlist.Audience.Name == "Friends")
+                    {
+                        <div class="ms_feature_slider swiper-container">
+                            <div class="swiper-wrapper">
+                                <div class="swiper-slide">
+                                    <div class="ms_rcnt_box">
+                                        <div class="ms_rcnt_box_img">
+                                            <img src="@playlist.ImagePath" alt="">
+                                            <div class="ms_main_overlay">
+
+                                                @if (this.Model.Friends.Any(x => x.Email == this.User.Identity.Name) || this.User.HasClaim(x => x.Value == "Admin"))
+                                                {
+                                                    <div class="ms_more_icon">
+                                                        <img src="~/Images/svg/more.svg" alt="">
+                                                    </div>
+                                                    <ul class="more_option">
+                                                        <li><a asp-action="EditPlaylist" asp-controller="Playlist" asp-route-title="@playlist.Name"><span class="opt_icon"><span class="icon icon_fav"></span></span>Edit Playlist</a></li>
+                                                        <li><a asp-action="Delete" asp-controller="Playlist" asp-route-title="@playlist.Name"><span class="opt_icon"><span class="icon icon_queue"></span></span>Delete Playlist</a></li>
+                                                    </ul>
+                                                }
+                                            </div>
+                                        </div>
+                                        <div class="ms_rcnt_box_text">
+                                            <h3><a asp-action="Index" asp-controller="Playlist" asp-route-title="@playlist.Name">@playlist.Name</a></h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    }
+                }
+                <!-- Add Arrows -->
+            <div class="swiper-button-next1 slider_nav_next"></div>
+                <div class="swiper-button-prev1 slider_nav_prev"></div>
+            </div>
+        </div>
+    }
+    @if (this.Model.Email == this.User.Identity.Name || this.User.HasClaim(x => x.Value == "Admin"))
+    {
+        <!----Private Playlists---->
+        <div class="ms_featured_slider">
+            <div class="ms_heading">
+                <h1>Private Playlists</h1>
+            </div>
+
+            <div class="ms_relative_inner">
+                @foreach (var playlist in this.Model.Playlists)
+                {
+                    if (playlist.Audience.Name == "Private")
+                    {
+                        <div class="ms_feature_slider swiper-container">
+                            <div class="swiper-wrapper">
+                                <div class="swiper-slide">
+                                    <div class="ms_rcnt_box">
+                                        <div class="ms_rcnt_box_img">
+                                            <img src="@playlist.ImagePath" alt="">
+                                            <div class="ms_main_overlay">
+                                                <div class="ms_more_icon">
+                                                    <img src="~/Images/svg/more.svg" alt="">
+                                                </div>
+                                                <ul class="more_option">
+                                                    <li><a asp-action="EditPlaylist" asp-controller="Playlist" asp-route-title="@playlist.Name"><span class="opt_icon"><span class="icon icon_fav"></span></span>Edit Playlist</a></li>
+                                                    <li><a asp-action="Delete" asp-controller="Playlist" asp-route-title="@playlist.Name"><span class="opt_icon"><span class="icon icon_queue"></span></span>Delete Playlist</a></li>
+                                                </ul>
+
+                                            </div>
+                                        </div>
+                                        <div class="ms_rcnt_box_text">
+                                            <h3><a asp-action="Index" asp-controller="Playlist" asp-route-title="@playlist.Name">@playlist.Name</a></h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    }
+                }
+                <!-- Add Arrows -->
+            <div class="swiper-button-next1 slider_nav_next"></div>
+                <div class="swiper-button-prev1 slider_nav_prev"></div>
+            </div>
+        </div>
+    }
+    <!----Main div close---->
+</div>
