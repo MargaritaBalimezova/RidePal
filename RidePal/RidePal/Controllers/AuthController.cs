@@ -235,8 +235,8 @@ namespace MovieForum.Web.Controllers
         {
             if (!await userService.IsExistingAsync(model.Credential) && !await userService.IsExistingUsernameAsync(model.Credential))
             {
-                this.ModelState.AddModelError("Credential", "Incorrect combination of email/username and password.");
-                return this.PartialView("_LoginPartial", model);
+                return Json("Incorrect combination of email/username and password.");
+                //return this.PartialView("_LoginPartial", model);
             }
             if (!this.ModelState.IsValid)
             {
@@ -249,8 +249,8 @@ namespace MovieForum.Web.Controllers
 
                 if (user == null)
                 {
-                    this.ModelState.AddModelError("Credential", "You have to confirm your email.");
-                    return this.PartialView("_LoginPartial", model);
+                    return Json("You have to confirm your email.");
+                    //return this.PartialView("_LoginPartial", model);
                 }
 
                 if (user.IsBlocked && DateTime.Compare(DateTime.Now, user.LastBlockTime.AddDays(7)) < 0)
@@ -258,8 +258,8 @@ namespace MovieForum.Web.Controllers
                     DateTime unblock = user.LastBlockTime.AddDays(7);
                     TimeSpan span = (unblock - DateTime.Now);
 
-                    this.ModelState.AddModelError("Credential", $"You were blocked on {user.LastBlockTime.ToString("dd/MM/yyyy hh:mm")}. Try again in {span.Days} days, {span.Hours} hours and {span.Minutes} minutes.");
-                    return this.PartialView("_LoginPartial", model);
+                    return Json($"You were blocked on {user.LastBlockTime.ToString("dd/MM/yyyy hh:mm")}. Try again in {span.Days} days, {span.Hours} hours and {span.Minutes} minutes.");
+                    //return this.PartialView("_LoginPartial", model);
                 }
 
                 var claims = new List<Claim>
@@ -302,8 +302,8 @@ namespace MovieForum.Web.Controllers
             
             catch (Exception)
             {
-                this.ModelState.AddModelError("Credential", "Incorrect combination of email/username and password.");
-                return this.PartialView("_LoginPartial", model);
+                return Json("Incorrect combination of email/username and password.");
+                //return this.PartialView("_LoginPartial", model);
             }
 
             return this.RedirectToAction("Index", "Home");
