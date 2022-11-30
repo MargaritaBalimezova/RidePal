@@ -1808,8 +1808,8 @@ h1.footer_title:after {
 }
 /*====Player Css Start====*/
 .ms_player_wrapper {
-	background-image: url(https://dummyimage.com/1920x80);
-	background-size: cover;
+	/*background-image: url(https://www.google.com/search?q=blur+landscape+background+hd+1920&tbm=isch&ved=2ahUKEwi0oZeq7NX7AhUr57sIHcvjDlwQ2-cCegQIABAA&oq=blur+landscape+background+hd+1920&gs_lcp=CgNpbWcQAzoECCMQJzoGCAAQCBAeOgQIABAeUPUEWNAPYMsRaABwAHgAgAFYiAHdA5IBATaYAQCgAQGqAQtnd3Mtd2l6LWltZ8ABAQ&sclient=img&ei=hESHY7TPOqvO7_UPy8e74AU&bih=969&biw=1920&rlz=1C1CHBD_enBG870BG870#imgrc=BiHJS0ic3UdbsM) background-size: cover;
+	*/
 	position: fixed;
 	bottom: 0px;
 	width: 100%;
@@ -2569,6 +2569,7 @@ button.jp-next .ms_play_control {
 	background-position: 869px 0px !important;
 }
 .jp-controls.flex-item {
+	margin-left: 40%;
 	position: relative;
 	top: 4px;
 }
@@ -2596,10 +2597,10 @@ button.jp-repeat .ms_play_control:hover {
 	background-position: 20px 0px !important;
 	background-color: #fff !important;
 }
-button.jp-shuffle .ms_play_control:hover {
+/*button.jp-shuffle .ms_play_control:hover {
 	background-position: 100px 0px !important;
 	background-color: #fff !important;
-}
+}*/
 .jp-volume-bar {
 	position: relative;
 }
@@ -6691,4 +6692,13 @@ body.loaded.modal-open .ms_player_wrapper {
 .top100artist {
 	margin-left: 10%;
 	margin-right: 3%;
+}
+
+.ms_play_control .shuffle-btn-trigger {
+	background-position: 100px 0px !important;
+	background-color: #fff !important;
+}
+
+.ms_weekly_wrapper {
+	margin-left: 8%;
 }

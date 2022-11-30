@@ -1,0 +1,221 @@
+﻿@model RidePal.WEB.Models.GenreTopTracksWrapModel
+
+<html>
+<head>
+    <link rel="shortcut icon" type="image/png" href="~/images/favicon.png">
+</head>
+<body>
+    <div class="ms_album_single_wrapper">
+        <div class="album_single_data">
+            <div class="album_single_img">
+                @{ switch (this.Model.Genre.Name.ToLower())
+                    {
+                        case "rock":
+                            <img src="~/Images/rock_246x246.jpg" alt="" class="img-fluid">
+                            break;
+                        case "pop":
+                            <img src="~/Images/pop_246x246.jpg" alt="" class="img-fluid">
+                            break;
+                        case "latin":
+                            <img src="~/Images/latin_246x246.jpg" alt="" class="img-fluid">
+                            break;
+                        case "dance & edm":
+                            <img src="~/Images/edm_246x246.jpg" alt="" class="img-fluid">
+                            break;
+                        case "classical":
+                            <img src="~/Images/classical_246x246.jpg" alt="" class="img-fluid">
+                            break;
+                        case "pop-folk":
+                            <img src="~/Images/pop-folk_246x246.jpg" alt="" class="img-fluid">
+                            break;
+                        case "rap":
+                            <img src="~/Images/rap_246x246.jpg" alt="" class="img-fluid">
+                            break;
+                        default:
+                            <img src="https://dummyimage.com/240x240" alt="" class="img-fluid">
+                            break;
+                    }
+                }
+            </div>
+            <div class="album_single_text">
+                <h2>@this.Model.Genre.Name</h2>
+                <p class="singer_name">Best Of Recent @this.Model.Genre.Name Music</p>
+                <div class="album_btn">
+                    <a class="ms_btn play_btn" onclick="DZ.player.playTracks([@string.Join(",", this.Model.Tracks.Select(x => x.Id))])"><img src="assets/images/svg/play_all.svg" alt="">Play All</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!---Weekly Top 15--->
+    <div class="ms_weekly_wrapper">
+        <div class="ms_weekly_inner">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="ms_heading">
+                        <h1>weekly top 15</h1>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-12 padding_right40">
+                    @{
+                        int idx = 1;
+                        foreach (var item in this.Model.Tracks.Take(5))
+                        {
+                            <div class="ms_weekly_box">
+                                <div class="weekly_left">
+                                    <span class="w_top_no">
+                                        0@(idx)
+                                    </span>
+                                    <div class="w_top_song">
+                                        <div class="w_tp_song_img">
+                                            <img src="@item.ImagePath" alt="">
+
+                                        </div>
+                                        <div class="w_tp_song_name">
+                                            <h3><a onclick="DZ.player.playTracks([@item.Id])">@item.Title</a></h3>
+                                            <p>@item.Artist.Name</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="weekly_right">
+                                    @{
+                                        if (@item.Duration % 60 < 10)
+                                        {
+                                            <span class="w_song_time"> @(item.Duration / 60):0@(item.Duration % 60)</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="w_song_time">
+                                                @(item.Duration / 60):@(item.Duration % 60)
+                                            </span>
+                                        }
+                                        idx++;
+                                    }
+                                    <span class="ms_more_icon" data-other="1">
+                                        <img src="~/images/svg/more.svg" alt="">
+                                    </span>
+                                </div>
+                                <ul class="more_option">
+                                    <li><a href="#"><span class="opt_icon"><span class="icon icon_fav"></span></span>Add To Favourites</a></li>
+                                </ul>
+                            </div>
+                            <div class="ms_divider"></div>
+                        }
+                    }
+
+                </div>
+                <div class="col-lg-4 col-md-12 padding_right40">
+                    @{
+                        foreach (var item in this.Model.Tracks.Skip(5).Take(5))
+                        {
+                            <div class="ms_weekly_box">
+                                <div class="weekly_left">
+                                    @{
+                                        if (idx >= 10)
+                                        {
+                                            <span class="w_top_no">
+                                                @idx
+                                            </span>
+                                        }
+                                        else
+                                        {
+                                            <span class="w_top_no">
+                                                0@(idx)
+                                            </span>
+                                        }
+                                    }
+                                    <div class="w_top_song">
+                                        <div class="w_tp_song_img">
+                                            <img src="@item.ImagePath" alt="">
+
+                                        </div>
+                                        <div class="w_tp_song_name">
+                                            <h3><a onclick="DZ.player.playTracks([@item.Id])">@item.Title</a></h3>
+                                            <p>@item.Artist.Name</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="weekly_right">
+                                    @{
+                                        if (@item.Duration % 60 < 10)
+                                        {
+                                            <span class="w_song_time"> @(item.Duration / 60):0@(item.Duration % 60)</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="w_song_time">
+                                                @(item.Duration / 60):@(item.Duration % 60)
+                                            </span>
+                                        }
+                                        idx++;
+                                    }
+                                    <span class="ms_more_icon" data-other="1">
+                                        <img src="~/images/svg/more.svg" alt="">
+                                    </span>
+                                </div>
+                                <ul class="more_option">
+                                    <li><a href="#"><span class="opt_icon"><span class="icon icon_fav"></span></span>Add To Favourites</a></li>
+                                </ul>
+                            </div>
+                            <div class="ms_divider"></div>
+                        }
+                    }
+                </div>
+                <div class="col-lg-4 col-md-12">
+
+                    @{
+                        foreach (var item in this.Model.Tracks.Skip(10).Take(5))
+                        {
+                            <div class="ms_weekly_box">
+                                <div class="weekly_left">
+                                    <span class="w_top_no">
+                                        @idx
+                                    </span>
+                                    <div class="w_top_song">
+                                        <div class="w_tp_song_img">
+                                            <img src="@item.ImagePath" alt="">
+
+                                        </div>
+                                        <div class="w_tp_song_name">
+                                            <h3><a onclick="DZ.player.playTracks([@item.Id])">@item.Title</a></h3>
+                                            <p>
+                                                @item.Artist.Name
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="weekly_right">
+                                    @{
+                                        if (@item.Duration % 60 < 10)
+                                        {
+                                            <span class="w_song_time">
+                                                @(item.Duration / 60):0@(item.Duration % 60)
+                                            </span>
+                                        }
+                                        else
+                                        {
+                                            <span class="w_song_time">
+                                                @(item.Duration / 60):@(item.Duration % 60)
+                                            </span>
+                                        }
+                                        idx++;
+                                    }
+                                    <span class="ms_more_icon" data-other="1">
+                                        <img src="~/images/svg/more.svg" alt="">
+                                    </span>
+                                </div>
+                                <ul class="more_option">
+                                    <li><a href="#"><span class="opt_icon"><span class="icon icon_fav"></span></span>Add To Favourites</a></li>
+                                </ul>
+                            </div>
+                            <div class="ms_divider"></div>
+                        }
+                    }
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <partial name="~/Views/Shared/_PlayerPartial.cshtml" />
+</body>
+</html>

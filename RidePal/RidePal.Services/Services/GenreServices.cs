@@ -34,7 +34,7 @@ namespace RidePal.Services.Services
         public async Task<GenreDTO> GetGenreByName(string GenreName)
         {
             var genre = await this.db.Genres
-                .FirstOrDefaultAsync(x => x.Name == GenreName)
+                .FirstOrDefaultAsync(x => x.Name.ToLower() == GenreName.ToLower())
                 ?? throw new EntityNotFoundException(Constants.GENRE_NOT_FOUND);
 
             return this.mapper.Map<GenreDTO>(genre);
