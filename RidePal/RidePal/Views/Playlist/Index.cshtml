@@ -60,7 +60,7 @@
                 <div class="album_btn">
                     <a class="ms_btn play_btn" onclick="event.preventDefault(); DZ.player.playTracks([@string.Join(",", this.Model.Tracks.Select(x => x.TrackId))]);"><img src="assets/images/svg/play_all.svg" alt="">Play All</a>
                 </div>
-                
+
             </div>
             <div class="album_more_optn ms_more_icon">
                 <span><img src="assets/images/svg/more.svg" alt=""></span>
@@ -310,7 +310,20 @@
         DZ.Event.subscribe('current_track', function (track, evt_name) {
             document.getElementById('trackTitle').innerHTML = track.track.title;
             document.getElementById('artistName').innerHTML = track.track.artist.name;
-            document.getElementById('trackDuration').innerHTML = track.track.duration;
+            let currentIndex = DZ.player.getCurrentIndex();
+
+            [...document.getElementById('mCSB_2_container')
+                .getElementsByTagName('ul')[0]
+                .getElementsByTagName('li')
+            ].forEach((item, index) => {
+                if (index === currentIndex && !item.classList.contains('jp-playlist-current')) {
+                    item.classList.add('jp-playlist-current');
+                }
+                else if (index !== currentIndex && item.classList.contains('jp-playlist-current')) {
+                    item.classList.remove('jp-playlist-current');
+                }
+            });
+
         });
 
         DZ.Event.subscribe('player_play', function (track, evt_name) {
@@ -322,6 +335,20 @@
         DZ.Event.subscribe('player_paused', function (track, evt_name) {
             if (document.getElementById('jp_container_1').classList.contains('jp-state-playing')) {
                 document.getElementById('jp_container_1').classList.remove('jp-state-playing');
+            }
+        });
+
+        DZ.Event.subscribe('tracklist_changed', function (tracklist, evt_name) {
+            for (track of tracklist.data) {
+                let queueElement = document.getElementById('mCSB_2_container').getElementsByTagName('ul')[0];
+                let node = document.createElement('li');
+                let div = document.createElement('div');
+                let trackElement = document.createElement('a');
+                trackElement.classList.add('jp-playlist-item');
+                trackElement.innerHTML = "<div class='jp-track-name'><div class='que_data'>" + track.SNG_TITLE + " <div class='jp-artist-name'>" + track.ART_NAME + "</div></div></div>";
+                div.appendChild(trackElement);
+                node.appendChild(div);
+                queueElement.appendChild(node);
             }
         });
     </script>
