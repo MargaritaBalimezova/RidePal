@@ -170,17 +170,19 @@ namespace MovieForum.Web.Controllers
         {
             if (!this.ModelState.IsValid)
             {
-                return this.View(model);
+                return this.PartialView("_RegisterPartial", model);
             }
             if (await userService.IsExistingAsync(model.Email))
             {
-                this.ModelState.AddModelError("Email", "User with this email address already exists.");
-                return this.View(model);
+                return Json("User with this email address already exists.");
+                //this.ModelState.AddModelError("Email", "User with this email address already exists.");
+                //return this.View(model);
             }
             if (await userService.IsExistingUsernameAsync(model.Username))
             {
-                this.ModelState.AddModelError("Username", "User with this username already exists.");
-                return this.View(model);
+                return Json("User with this username already exists.");
+                //this.ModelState.AddModelError("Username", "User with this username already exists.");
+                //return this.View(model);
             }
             try
             {
@@ -203,20 +205,22 @@ namespace MovieForum.Web.Controllers
                 };
 
                 await userService.GenerateEmailConfirmationTokenAsync(user);
+                return View("ConfirmEmail", new EmailConfirmModel {EmailSent=true});
             }
             catch (Exception ex)
             {
                 if (ex.Message.Contains("Email"))
                 {
-                    this.ModelState.AddModelError("Email", ex.Message);
+                    return Json(ex.Message);
+                    //this.ModelState.AddModelError("Email", ex.Message);
                 }
                 else
                 {
-                    this.ModelState.AddModelError("Username", ex.Message);
+                    return Json(ex.Message);
+                    //this.ModelState.AddModelError("Username", ex.Message);
                 }
-                return this.View(model);
             }
-            return View("ConfirmEmail", new EmailConfirmModel());
+            
         }
 
         #endregion Register App
@@ -356,7 +360,8 @@ namespace MovieForum.Web.Controllers
         }
 
         [HttpGet("confirm-email")]
-        public async Task<IActionResult> ConfirmEmail(string uid, string token)
+        [Route("/ConfirmEmail")]
+        public async Task<IActionResult> ConfirmEmail(string uid, string token,bool resendLink = false)
         {
             EmailConfirmModel model = new EmailConfirmModel();
 
@@ -368,7 +373,14 @@ namespace MovieForum.Web.Controllers
                     model.EmailVerified = true;
                 }
             }
-
+            if (resendLink)
+            {
+                model.EmailSent = false;
+            }
+            else
+            {
+                model.EmailSent = true;
+            }
             return View(model);
         }
 

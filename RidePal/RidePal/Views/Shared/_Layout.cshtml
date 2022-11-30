@@ -254,7 +254,8 @@ Purchase:
         </div>
         <div id="SignUp" class="modal"></div>
         <div id="myModal2" class="modal  centered-modal" role="dialog">
-            <form id="registerModal" asp-action="Register" asp-controller="Auth" data-ajax="true" data-ajax-method="POST">
+            <form id="registerModal" asp-action="Register" asp-controller="Auth" data-ajax="true" data-ajax-method="POST" 
+            data-ajax-success="FormError2">
                 <div class="modal-dialog register_dialog">
                     <!-- Modal content-->
                     <div class="modal-content">
@@ -287,7 +288,19 @@ Purchase:
             let element = div.getAttribute("hidden");
             div.removeAttribute(element);
         }
-         
+        function FormError2(result) {
+            debugger;
+            if(result.includes("<!DOCTYPE html>")){
+                $("myModal2").hide();
+                window.location.replace("ConfirmEmail");
+                return;
+            }
+            $("#validation-error2 span").remove();
+            $("#validation-error2").append(`<span class="error-msg2">${result}</span>`);
+            let div = document.getElementById("validation-error2");
+            let element = div.getAttribute("hidden");
+            div.removeAttribute(element);
+        }
     </script>
     <!--Main js file Style-->
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
