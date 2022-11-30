@@ -33,7 +33,11 @@ Purchase:
     <link rel="stylesheet" type="text/css" href="~/css/style.css">
     <!-- Favicon Link -->
     <link rel="shortcut icon" type="image/png" href="~/images/favicon.png">
-    
+
+    <!-- Please do not move those scripts from here its breaking the DZ player logic-->
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="~/js/DeezPlayer.js"></script>
 </head>
 <body>
     <!----Loader Start---->
@@ -274,9 +278,6 @@ Purchase:
     </div>
     @RenderBody()
     <!--Main js file Style-->
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js"></script>
-    <script type="text/javascript" src="~/js/DeezPlayer.js"></script>
     @*<script type="text/javascript" src="~/js/jquery.min.js"></script>*@
     <script type="text/javascript" src="~/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="~/js/plugins/swiper/js/swiper.min.js"></script>
