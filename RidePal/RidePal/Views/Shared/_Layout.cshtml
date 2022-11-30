@@ -1,5 +1,4 @@
-﻿
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <!--
 Template Name: Miraculous - Online Music Store Html Template
 Version: 1.0.0
@@ -234,7 +233,8 @@ Purchase:
             </div>
         </div>
         <div id="myModal1" class="modal  centered-modal" role="dialog">
-            <form id="loginModal" asp-action="Login" asp-controller="Auth" data-ajax="true" data-ajax-method="POST">
+            <form id="loginModal" asp-action="Login" asp-controller="Auth" data-ajax="true" data-ajax-method="POST"
+                  data-ajax-success="FormError">
                 <div class="modal-dialog login_dialog">
                     <!-- Modal content-->
                     <div class="modal-content">
@@ -273,6 +273,22 @@ Purchase:
         <div id="SignUp" class="modal"></div>
     </div>
     @RenderBody()
+   <script>
+         function FormError(result) {
+            debugger;
+            if(result.includes("<!DOCTYPE html>")){
+                $("myModal1").hide();
+                window.location.replace("");
+                return;
+            }
+            $("#validation-error span").remove();
+            $("#validation-error").append(`<span class="error-msg">${result}</span>`);
+            let div = document.getElementById("validation-error");
+            let element = div.getAttribute("hidden");
+            div.removeAttribute(element);
+        }
+         
+    </script>
     <!--Main js file Style-->
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js"></script>
@@ -287,8 +303,10 @@ Purchase:
     <script type="text/javascript" src="~/js/plugins/nice_select/jquery.nice-select.min.js"></script>
     <script type="text/javascript" src="~/js/plugins/scroll/jquery.mCustomScrollbar.js"></script>
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
-    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+    <script src="~/lib/jquery-unobtrusive/jquery.unobtrusive-ajax.js"></script>
+    <script src="~/lib//jquery-validation-unobtrusive//jquery.validate.unobtrusive.min.js"></script>
     <script type="text/javascript" src="~/js/site.js"></script>
     <script type="text/javascript" src="~/js/custom.js"></script>
+    
 </body>
 </html>
