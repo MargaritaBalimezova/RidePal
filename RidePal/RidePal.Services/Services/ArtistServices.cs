@@ -88,7 +88,7 @@ namespace RidePal.Services.Services
             var artist = await db.Artists.FirstOrDefaultAsync(x => x.Id == id)
                 ?? throw new EntityNotFoundException(Constants.ARTIST_NOT_FOUND);
 
-            return this.mapper.Map<IEnumerable<TrackDTO>>(artist.Tracks.OrderByDescending(x => x.Rank).Take(5));
+            return this.mapper.Map<IEnumerable<TrackDTO>>(artist.Tracks.OrderByDescending(x => x.Rank).Take(10));
         }
     }
 }

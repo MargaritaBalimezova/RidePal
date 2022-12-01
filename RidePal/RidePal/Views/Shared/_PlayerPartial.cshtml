@@ -4,7 +4,7 @@
 <div id="player" style="width:100%; visibility: hidden;" align="center"></div>
 <br />
 <!----Audio Player Section---->
-<div class="ms_player_wrapper">
+<div class="ms_player_wrapper" id="playerWrapper" style="visibility: hidden;">
     <div class="ms_player_close">
         <i class="fa fa-angle-up" aria-hidden="true"></i>
     </div>
@@ -146,7 +146,9 @@
     });
 
     DZ.Event.subscribe('tracklist_changed', function (tracklist, evt_name) {
-        console.log(tracklist, evt_name);
+        if (document.getElementById('playerWrapper').style.visibility) {
+            document.getElementById('playerWrapper').style.removeProperty('visibility')
+        }
         let tracks = DZ.player.getTrackList();
         document.getElementById('mCSB_2_container').getElementsByTagName('ul')[0].innerHTML = "";
         let temp = document.createElement('ul');
@@ -160,7 +162,6 @@
             node.appendChild(div);
             temp.appendChild(node);
         }
-        console.log(temp)
         document.getElementById('mCSB_2_container').getElementsByTagName('ul')[0].innerHTML = temp.innerHTML;
     });
 
@@ -172,8 +173,6 @@
         }
         else {
             DZ.player.setShuffle(true);
-
-            console.log("AfterShuffle");
 
             document.getElementById('shuffleIcon').classList.add('shuffle-btn-trigger');
         }

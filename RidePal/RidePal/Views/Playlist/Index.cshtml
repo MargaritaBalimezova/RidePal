@@ -29,7 +29,7 @@
     @{
         TimeSpan t = TimeSpan.FromSeconds(this.Model.Duration);
         string duration3;
-        if (this.Model.Duration>3600)
+        if (this.Model.Duration > 3600)
         {
 
             duration3 = string.Format("{0:D1}h:{1:D2}m:{2:D2}s",
@@ -143,7 +143,7 @@
                 </div>
             </div>
             <div id="show" class="ms_view_more padder_bottom20">
-                <a class="ms_btn">view more</a>
+                <a id="viewMoreBtn" class="ms_btn">view more</a>
             </div>
             <br>
             <br>
@@ -154,103 +154,20 @@
             <br>
         </div>
     </div>
-    </div>
 
-    <div id="dz-root"></div>
-    <div id="player" style="width:100%;" align="center"></div>
-    <br />
-    <!----Audio Player Section---->
-    <div class="ms_player_wrapper">
-        <div class="ms_player_close">
-            <i class="fa fa-angle-up" aria-hidden="true"></i>
-        </div>
-        <div class="player_mid">
-            <div class="audio-player">
-                <div id="jquery_jplayer_1" class="jp-jplayer"></div>
-                <div id="jp_container_1" class="jp-audio" role="application" aria-label="media player">
-                    <div class="player_left">
-                        <div class="ms_play_song">
-                            <div class="play_song_name">
-                                <a href="javascript:void(0);" id="playlist-text">
-                                    <div class="jp-now-playing flex-item">
-                                        <div id="trackTitle" class="jp-track-name"></div>
-                                        <div id="artistName" class="jp-artist-name"></div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="play_song_options">
-                            <ul>
-                                <li><a href="#"><span class="song_optn_icon"><i class="ms_icon icon_download"></i></span>download now</a></li>
-                                <li><a href="#"><span class="song_optn_icon"><i class="ms_icon icon_fav"></i></span>Add To Favourites</a></li>
-                                <li><a href="#"><span class="song_optn_icon"><i class="ms_icon icon_playlist"></i></span>Add To Playlist</a></li>
-                                <li><a href="#"><span class="song_optn_icon"><i class="ms_icon icon_share"></i></span>Share</a></li>
-                            </ul>
-                        </div>
-                        <span class="play-left-arrow"><i class="fa fa-angle-right" aria-hidden="true"></i></span>
-                    </div>
-                    <!----Right Queue---->
-                    <div class="jp_queue_wrapper">
-                        <span class="que_text" id="myPlaylistQueue"><i class="fa fa-angle-up" aria-hidden="true"></i> queue</span>
-                        <div id="playlist-wrap" class="jp-playlist">
-                            <div class="jp_queue_cls"><i class="fa fa-times" aria-hidden="true"></i></div>
-                            <h2>queue</h2>
-                            <div class="jp_queue_list_inner">
-                                <ul>
-                                    <li>&nbsp;</li>
-                                </ul>
-                            </div>
-
-                        </div>
-                    </div>
-                    <div class="jp-type-playlist">
-                        <div class="jp-gui jp-interface flex-wrap">
-                            <div class="jp-controls flex-item">
-                                <button class="jp-previous" tabindex="0" onclick="DZ.player.prev()">
-                                    <i class="ms_play_control"></i>
-                                </button>
-                                <button class="jp-play" tabindex="0" onclick="DZ.player.isPlaying() ? DZ.player.pause() : DZ.player.play() ">
-                                    <i class="ms_play_control"></i>
-                                </button>
-                                <button class="jp-next" tabindex="0" onclick="DZ.player.next()">
-                                    <i class="ms_play_control"></i>
-                                </button>
-                            </div>
-                            <div class="jp-volume-controls flex-item">
-                                <div class="widget knob-container">
-                                    <div class="knob-wrapper-outer">
-                                        <div class="knob-wrapper">
-                                            <div class="knob-mask">
-                                                <div class="knob d3"><span></span></div>
-                                                <div class="handle" id="playerVolume"></div>
-                                                <div class="round">
-                                                    <img src="~/images/svg/volume.svg" alt="">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- <input></input> -->
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="jp-toggles flex-item">
-                                <button class="jp-shuffle" id="shuffleBtn" tabindex="0" title="Shuffle">
-                                    <i class="ms_play_control" id="shuffleIcon"></i>
-                                </button>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!--main div-->
-    </div>
+    <partial name="~/Views/Shared/_PlayerPartial.cshtml" />
 
     <script>
         $(document).ready(function () {
 
             $("#list").hide();
             $("#show").click(function () {
+                if (document.getElementById('viewMoreBtn').innerHTML === 'view more') {
+                    document.getElementById('viewMoreBtn').innerHTML = 'hide';
+                }
+                else {
+                    document.getElementById('viewMoreBtn').innerHTML = 'view more'
+                }
                 $("#list").slideToggle();
             });
         });
@@ -276,115 +193,6 @@
                 directionsManager.calculateDirections();
             });
         }
-
-    </script>
-    <script>
-        function onPlayerLoaded() {
-            $("#controlers input").attr('disabled', false);
-            event_listener_append('player_loaded');
-            DZ.Event.subscribe('current_track', function (arg) {
-                event_listener_append('current_track', arg.index, arg.track.title, arg.track.album.title);
-            });
-            DZ.Event.subscribe('player_position', function (arg) {
-                event_listener_append('position', arg[0], arg[1]);
-                $("#slider_seek").find('.bar').css('width', (100 * arg[0] / arg[1]) + '%');
-            });
-        }
-        DZ.init({
-            appId: '8',
-            channelUrl: 'http://developers.deezer.com/examples/channel.php',
-            player: {
-                container: 'player',
-                cover: true,
-                playlist: true,
-                width: 650,
-                height: 300,
-                onload: onPlayerLoaded
-            }
-        });
-
-        DZ.Event.subscribe('current_track', function (track, evt_name) {
-            document.getElementById('trackTitle').innerHTML = track.track.title;
-            document.getElementById('artistName').innerHTML = track.track.artist.name;
-            let currentIndex = DZ.player.getCurrentIndex();
-
-            [...document.getElementById('mCSB_2_container')
-                .getElementsByTagName('ul')[0]
-                .getElementsByTagName('li')
-            ].forEach((item, index) => {
-                if (index === currentIndex && !item.classList.contains('jp-playlist-current')) {
-                    item.classList.add('jp-playlist-current');
-                }
-                else if (index !== currentIndex && item.classList.contains('jp-playlist-current')) {
-                    item.classList.remove('jp-playlist-current');
-                }
-            });
-
-        });
-
-        DZ.Event.subscribe('player_play', function (track, evt_name) {
-            if (!document.getElementById('jp_container_1').classList.contains('jp-state-playing')) {
-                document.getElementById('jp_container_1').classList.add('jp-state-playing');
-            }
-        });
-
-        DZ.Event.subscribe('player_paused', function (track, evt_name) {
-            if (document.getElementById('jp_container_1').classList.contains('jp-state-playing')) {
-                document.getElementById('jp_container_1').classList.remove('jp-state-playing');
-            }
-        });
-
-        DZ.Event.subscribe('tracklist_changed', function (tracklist, evt_name) {
-            console.log(tracklist, evt_name);
-            let tracks = DZ.player.getTrackList();
-            document.getElementById('mCSB_2_container').getElementsByTagName('ul')[0].innerHTML = "";
-            let temp = document.createElement('ul');
-            for (track of tracks) {
-                let node = document.createElement('li');
-                let div = document.createElement('div');
-                let trackElement = document.createElement('a');
-                trackElement.classList.add('jp-playlist-item');
-                trackElement.innerHTML = "<div class='jp-track-name'><div class='que_data'>" + track.title + " <div class='jp-artist-name'>" + track.artist.name + "</div></div></div>";
-                div.appendChild(trackElement);
-                node.appendChild(div);
-                temp.appendChild(node);
-            }
-            console.log(temp)
-            document.getElementById('mCSB_2_container').getElementsByTagName('ul')[0].innerHTML = temp.innerHTML;
-        });
-
-        document.getElementById('shuffleBtn').addEventListener('click', () => {
-            if (document.getElementById('shuffleIcon').classList.contains('shuffle-btn-trigger')) {
-                DZ.player.setShuffle(false);
-                document.getElementById('shuffleIcon').classList.remove('shuffle-btn-trigger');
-                
-            }
-            else {
-                DZ.player.setShuffle(true);
-
-                console.log("AfterShuffle");
-
-                document.getElementById('shuffleIcon').classList.add('shuffle-btn-trigger');
-            }
-        });
-
-        //DZ.Event.subscribe('shuffle_changed', function (tracklist, evt_name) {
-        //    console.log(tracklist);
-        //    let tracks = DZ.player.getTrackList();
-        //    document.getElementById('mCSB_2_container').getElementsByTagName('ul')[0].innerHTML = "";
-        //    let queueElement = document.getElementById('mCSB_2_container').getElementsByTagName('ul')[0];
-        //    for (track of tracks) {
-        //        console.log(track.title)
-        //        let node = document.createElement('li');
-        //        let div = document.createElement('div');
-        //        let trackElement = document.createElement('a');
-        //        trackElement.classList.add('jp-playlist-item');
-        //        trackElement.innerHTML = "<div class='jp-track-name'><div class='que_data'>" + track.title + " <div class='jp-artist-name'>" + track.artist.name + "</div></div></div>";
-        //        div.appendChild(trackElement);
-        //        node.appendChild(div);
-        //        queueElement.appendChild(node);
-        //    }
-        //});
 
     </script>
     <script type='text/javascript' src='https://www.bing.com/api/maps/mapcontrol?key=Ap4BY1B20Ldbim2QZCCJK3EAW0jdSisoIOvt3kJjv8dBjM_3pzfu9442oM8AsrxJ&callback=loadMapScenario' async defer></script>

@@ -1,21 +1,9 @@
 ﻿@model RidePal.WEB.Models.ArtistWrapModel
 
 <!DOCTYPE html>
-<!--
-Template Name: Miraculous - Online Music Store Html Template
-Version: 1.0.0
-Author: Kamleshyadav
-Website:
-Purchase:
--->
-<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
-<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
-<!--[if !IE]><!-->
+
 <html lang="en">
-<!--<![endif]-->
-<head>
-    <link rel="stylesheet" type="text/css" href="~/css/player.css">
-</head>
+
 <body>
 
     <!----Loader---->
@@ -46,12 +34,9 @@ Purchase:
                 <div class="album_single_text">
                     <h2>@this.Model.Artist.Name</h2>
                     <p class="singer_name">Artist, @this.Model.Style</p>
-                    <div class="about_artist">
-                        Quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in<br> reprehenderit in voluptate velit esse cillum dolor... <a href="#">Read More</a>
-                    </div>
+
                     <div class="album_btn">
-                        <a href="#" class="ms_btn play_btn"><span class="play_all"><img src="~/images/svg/play_all.svg" alt="">Play All</span><span class="pause_all"><img src="~/images/svg/pause_all.svg" alt="">Pause</span></a>
-                        <a href="#" class="ms_btn"><span class="play_all"><img src="~/images/svg/add_q.svg" alt="">Add To Queue</span></a>
+                        <a class="ms_btn play_btn" onclick="DZ.player.playTracks([@string.Join(",", this.Model.TopTracks.Select(x => x.Id))])"><img src="assets/images/svg/play_all.svg" alt="">Play All</a>
                     </div>
                 </div>
                 <div class="album_more_optn ms_more_icon">
@@ -59,9 +44,6 @@ Purchase:
                 </div>
                 <ul class="more_option">
                     <li><a href="#"><span class="opt_icon"><span class="icon icon_fav"></span></span>Add To Favourites</a></li>
-                    <li><a href="#"><span class="opt_icon"><span class="icon icon_queue"></span></span>Add To Queue</a></li>
-                    <li><a href="#"><span class="opt_icon"><span class="icon icon_dwn"></span></span>Download Now</a></li>
-                    <li><a href="#"><span class="opt_icon"><span class="icon icon_playlst"></span></span>Add To Playlist</a></li>
                     <li><a href="#"><span class="opt_icon"><span class="icon icon_share"></span></span>Share</a></li>
                 </ul>
             </div>
@@ -78,7 +60,7 @@ Purchase:
                     </ul>
                     @{
                         int idx = 1;
-                        foreach (var track in this.Model.TopTracks)
+                        foreach (var track in this.Model.TopTracks.Take(5))
                         {
                             <ul>
                                 <li><a href="#"><span class="play_no">0 @idx </span><span class="play_hover" onclick="event.preventDefault(); DZ.player.playTracks([ @track.Id ]);"></span></a></li>
@@ -99,9 +81,6 @@ Purchase:
                                     <a href="javascript:;"><span class="ms_icon1 ms_active_icon"></span></a>
                                     <ul class="more_option">
                                         <li><a href="#"><span class="opt_icon"><span class="icon icon_fav"></span></span>Add To Favourites</a></li>
-                                        <li><a href="#"><span class="opt_icon"><span class="icon icon_queue"></span></span>Add To Queue</a></li>
-                                        <li><a href="#"><span class="opt_icon"><span class="icon icon_dwn"></span></span>Download Now</a></li>
-                                        <li><a href="#"><span class="opt_icon"><span class="icon icon_playlst"></span></span>Add To Playlist</a></li>
                                         <li><a href="#"><span class="opt_icon"><span class="icon icon_share"></span></span>Share</a></li>
                                     </ul>
                                 </li>
@@ -112,8 +91,52 @@ Purchase:
 
                 </div>
             </div>
-            <div class="ms_view_more padder_bottom20">
-                <a href="#" class="ms_btn">view more</a>
+            <div id="list" class="album_inner_list">
+                <div class="album_list_wrapper">
+                    @{
+                        foreach (var track in this.Model.TopTracks.Skip(5))
+                        {
+                            <ul>
+                                @{
+                                    if (idx < 10)
+                                    {
+                                        <li><a href="#"><span class="play_no">0 @idx </span><span class="play_hover" onclick="event.preventDefault(); DZ.player.playTracks([ @track.Id ]);"></span></a></li>
+                                    }
+                                    else
+                                    {
+                                        <li><a href="#"><span class="play_no"> @idx </span><span class="play_hover" onclick="event.preventDefault(); DZ.player.playTracks([ @track.Id ]);"></span></a></li>
+
+                                    }
+                                }
+                                <li><a href="#">@track.Title</a></li>
+                                <li><a href="#">@this.Model.Artist.Name</a></li>
+                                @{
+                                    if (track.Duration % 60 < 10)
+                                    {
+                                        <li class="text-center"><a href="#">@(track.Duration/60):0@(track.Duration%60)</a></li>
+                                    }
+                                    else
+                                    {
+                                        <li class="text-center"><a href="#">@(track.Duration/60):@(track.Duration%60)</a></li>
+                                    }
+                                }
+                                <li class="text-center"><a href="#"><span class="ms_icon1 ms_fav_icon"></span></a></li>
+                                <li class="text-center ms_more_icon">
+                                    <a href="javascript:;"><span class="ms_icon1 ms_active_icon"></span></a>
+                                    <ul class="more_option">
+                                        <li><a href="#"><span class="opt_icon"><span class="icon icon_fav"></span></span>Add To Favourites</a></li>
+                                        <li><a href="#"><span class="opt_icon"><span class="icon icon_share"></span></span>Share</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            idx++;
+                        }
+                    }
+
+                </div>
+            </div>
+            <div id="show" class="ms_view_more padder_bottom20">
+                <a id="viewMoreBtn" href="#" class="ms_btn">view more</a>
             </div>
         </div>
         <!---Main Content Start--->
@@ -121,7 +144,6 @@ Purchase:
             <div class="ms_featured_slider">
                 <div class="ms_heading">
                     <h1>Albums & Singles</h1>
-                    <span class="veiw_all"><a href="#">view more</a></span>
                 </div>
                 <div class="ms_relative_inner">
                     <div class="ms_feature_slider swiper-container">
@@ -169,152 +191,22 @@ Purchase:
             <!--main div-->
         </div>
     </div>
-   
-    <div id="dz-root"></div>
-    <div id="player" style="width:100%;" align="center"></div>
-    <br />
-    <!----Audio Player Section---->
-    <div class="ms_player_wrapper">
-        <div class="ms_player_close">
-            <i class="fa fa-angle-up" aria-hidden="true"></i>
-        </div>
-        <div class="player_mid">
-            <div class="audio-player">
-                <div id="jquery_jplayer_1" class="jp-jplayer"></div>
-                <div id="jp_container_1" class="jp-audio" role="application" aria-label="media player">
-                    <div class="player_left">
-                        <div class="ms_play_song">
-                            <div class="play_song_name">
-                                <a href="javascript:void(0);" id="playlist-text">
-                                    <div class="jp-now-playing flex-item">
-                                        <div id="trackTitle" class="jp-track-name"></div>
-                                        <div id="artistName" class="jp-artist-name"></div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="play_song_options">
-                            <ul>
-                                <li><a href="#"><span class="song_optn_icon"><i class="ms_icon icon_download"></i></span>download now</a></li>
-                                <li><a href="#"><span class="song_optn_icon"><i class="ms_icon icon_fav"></i></span>Add To Favourites</a></li>
-                                <li><a href="#"><span class="song_optn_icon"><i class="ms_icon icon_playlist"></i></span>Add To Playlist</a></li>
-                                <li><a href="#"><span class="song_optn_icon"><i class="ms_icon icon_share"></i></span>Share</a></li>
-                            </ul>
-                        </div>
-                        <span class="play-left-arrow"><i class="fa fa-angle-right" aria-hidden="true"></i></span>
-                    </div>
-                    <!----Right Queue---->
-                    <div class="jp_queue_wrapper">
-                        <span class="que_text" id="myPlaylistQueue"><i class="fa fa-angle-up" aria-hidden="true"></i> queue</span>
-                        <div id="playlist-wrap" class="jp-playlist">
-                            <div class="jp_queue_cls"><i class="fa fa-times" aria-hidden="true"></i></div>
-                            <h2>queue</h2>
-                            <div class="jp_queue_list_inner">
-                                <ul>
-                                    <li>&nbsp;</li>
-                                </ul>
-                            </div>
-                            <div class="jp_queue_btn">
-                                <a href="javascript:;" class="ms_clear" data-toggle="modal" data-target="#clear_modal">clear</a>
-                                <a href="clear_modal" class="ms_save" data-toggle="modal" data-target="#save_modal">save</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="jp-type-playlist">
-                        <div class="jp-gui jp-interface flex-wrap">
-                            <div class="jp-controls flex-item">
-                                <button class="jp-previous" tabindex="0">
-                                    <i class="ms_play_control"></i>
-                                </button>
-                                <button class="jp-play" tabindex="0" onclick="DZ.player.isPlaying() ? DZ.player.pause() : DZ.player.play() ">
-                                    <i class="ms_play_control"></i>
-                                </button>
-                                <button class="jp-next" tabindex="0">
-                                    <i class="ms_play_control"></i>
-                                </button>
-                            </div>
-                            <div class="jp-volume-controls flex-item">
-                                <div class="widget knob-container">
-                                    <div class="knob-wrapper-outer">
-                                        <div class="knob-wrapper">
-                                            <div class="knob-mask">
-                                                <div class="knob d3"><span></span></div>
-                                                <div class="handle" id="playerVolume"></div>
-                                                <div class="round">
-                                                    <img src="~/images/svg/volume.svg" alt="">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- <input></input> -->
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="jp-toggles flex-item">
-                                <button class="jp-shuffle" tabindex="0" title="Shuffle">
-                                    <i class="ms_play_control"></i>
-                                <button class="jp-repeat" tabindex="0" title="Repeat"><i class="ms_play_control"></i></button>
-                            </div>
-                           
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!--main div-->
-    </div>
+
+    <partial name="~/Views/Shared/_PlayerPartial.cshtml" />
     <script>
-        function onPlayerLoaded() {
-            $("#controlers input").attr('disabled', false);
-            event_listener_append('player_loaded');
-            DZ.Event.subscribe('current_track', function (arg) {
-                event_listener_append('current_track', arg.index, arg.track.title, arg.track.album.title);
+        $(document).ready(function () {
+
+            $("#list").hide();
+            $("#show").click(function () {
+                if (document.getElementById('viewMoreBtn').innerHTML === 'view more') {
+                    document.getElementById('viewMoreBtn').innerHTML = 'hide';
+                }
+                else {
+                    document.getElementById('viewMoreBtn').innerHTML = 'view more'
+                }
+                $("#list").slideToggle();
             });
-            DZ.Event.subscribe('player_position', function (arg) {
-                event_listener_append('position', arg[0], arg[1]);
-                $("#slider_seek").find('.bar').css('width', (100 * arg[0] / arg[1]) + '%');
-            });
-        }
-        DZ.init({
-            appId: '8',
-            channelUrl: 'http://developers.deezer.com/examples/channel.php',
-            player: {
-                container: 'player',
-                cover: true,
-                playlist: true,
-                width: 650,
-                height: 300,
-                onload: onPlayerLoaded
-            }
-        });
-
-        DZ.Event.subscribe('current_track', function (track, evt_name) {
-            document.getElementById('trackTitle').innerHTML = track.track.title;
-            document.getElementById('artistName').innerHTML = track.track.artist.name;
-            document.getElementById('trackDuration').innerHTML = track.track.duration;
-        });
-
-        DZ.Event.subscribe('player_play', function (track, evt_name) {
-            if (!document.getElementById('jp_container_1').classList.contains('jp-state-playing')) {
-                document.getElementById('jp_container_1').classList.add('jp-state-playing');
-            }
-        });
-
-        DZ.Event.subscribe('player_paused', function (track, evt_name) {
-            if (document.getElementById('jp_container_1').classList.contains('jp-state-playing')) {
-                document.getElementById('jp_container_1').classList.remove('jp-state-playing');
-            }
         });
     </script>
-    <!--Main js file Style-->
-    <script type="text/javascript" src="~/js/jquery.min.js"></script>
-    <script type="text/javascript" src="~/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="~/js/plugins/swiper/js/swiper.min.js"></script>
-    <script type="text/javascript" src="~/js/plugins/player/jplayer.playlist.min.js"></script>
-    <script type="text/javascript" src="~/js/plugins/player/jquery.jplayer.min.js"></script>
-    <script type="text/javascript" src="~/js/plugins/player/audio-player.js"></script>
-    <script type="text/javascript" src="~/js/plugins/player/volume.js"></script>
-    <script type="text/javascript" src="~/js/plugins/nice_select/jquery.nice-select.min.js"></script>
-    <script type="text/javascript" src="~/js/plugins/scroll/jquery.mCustomScrollbar.js"></script>
-    <script type="text/javascript" src="~/js/custom.js"></script>
 </body>
 </html>
