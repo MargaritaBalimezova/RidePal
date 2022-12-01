@@ -33,8 +33,7 @@
                 {
                     <a asp-action="Update" class="ms_btn play_btn" asp-route-email="@Model.Email">Edit Profile</a>
                 }
-                else
-                {
+                
                     @if (!Model.Friends.Any(x => x.Email == this.User.Identity.Name) && !Model.ReceivedFriendRequests.Any(x => x.Sender.Email == this.User.Identity.Name) && !Model.SentFriendRequests.Any(x => x.Recipient.Email == this.User.Identity.Name))
                     {
                         <a asp-action="SendFriendRequest" asp-route-senderEmail="@User.Identity.Name" asp-route-recipientEmail="@Model.Email" asp-route-currentView="index" class="ms_btn play_btn">Add Friend</a>
@@ -52,7 +51,7 @@
                         <a asp-action="AcceptFriendRequest" asp-route-recipientEmail="@User.Identity.Name" asp-route-senderEmail="@Model.Email" asp-route-currentView="index" class="ms_btn play_btn">Confirm Request</a>
                         <a asp-action="DeclineFriendRequest" asp-route-recipientEmail="@User.Identity.Name" asp-route-senderEmail="@Model.Email" asp-route-currentView="indexRemove" class="ms_btn play_btn">Remove Request</a>
                     }
-                }
+                
             </div>
         </div>
     </div>

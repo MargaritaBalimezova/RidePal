@@ -73,8 +73,15 @@ namespace RidePal.Services.Services
                         obj.Tracks.Add(sth);
                         currentDuration += track.Duration;
                     }
+
+                    var playlistGenreDTO = new PlaylistGenreDTO
+                    {
+                        GenreId = currentGenre.Id,
+                        Name = currentGenre.Name
+                    };
+
                     //TODO:This one adds additional genres to the DB
-                    //obj.Genres.Add(mapper.Map<PlaylistGenreDTO>(await genreService.GetGenreByName(obj.GenresWithPercentages.First().GenreName)));
+                    obj.Genres.Add(playlistGenreDTO);
                     obj.GenresWithPercentages.Remove(obj.GenresWithPercentages.First());
                 }
             }
@@ -106,7 +113,7 @@ namespace RidePal.Services.Services
                         Name = currentGenre.Name
                     };
                     //TODO:This one adds additional genres to the DB
-                    //obj.Genres.Add(playlistGenreDTO);
+                    obj.Genres.Add(playlistGenreDTO);
                     obj.GenresWithPercentages.Remove(obj.GenresWithPercentages.First());
                 }
             }
@@ -171,7 +178,7 @@ namespace RidePal.Services.Services
                         Name = currentGenre.Name
                     };
                     //TODO:This one adds additional genres to the DB
-                    //obj.Genres.Add(playlistGenreDTO);
+                    obj.Genres.Add(playlistGenreDTO);
                     obj.GenresWithPercentages.Remove(obj.GenresWithPercentages.First());
                 }
             }
@@ -193,6 +200,11 @@ namespace RidePal.Services.Services
             playlist.Author = null;
             playlist.Trip = null;
             playlist.Audience = null;
+
+            foreach (var item in playlist.Genres)
+            {
+                item.Genre = null;
+            }
 
             await db.Playlists.AddAsync(playlist);
 

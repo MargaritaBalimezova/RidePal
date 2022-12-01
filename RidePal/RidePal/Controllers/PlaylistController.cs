@@ -77,6 +77,7 @@ namespace RidePal.WEB.Controllers
             this.ViewData["StartPoint"] = coordinates.StartingDestination;
             this.ViewData["ArrivePoint"] = coordinates.ArrivingDestination;
 
+            
             //TODO: Chack model state
             if (model.Name.Length<4 || model.AudienceId==0)
             {
@@ -90,9 +91,7 @@ namespace RidePal.WEB.Controllers
 
             var tripDTO = await bingMapsService.GetTrip(coordinates);
             try
-            {
-             
-
+            {          
                 var audience = await playlistService.GetAudienceAsync(model.AudienceId);
 
                 var trip = await tripService.PostAsync(tripDTO);
@@ -114,7 +113,7 @@ namespace RidePal.WEB.Controllers
             }
             catch (Exception ex)
             {
-                this.ModelState.AddModelError("Email", ex.Message);
+                this.ModelState.AddModelError("Name", ex.Message);
 
                 return this.View(model);
             }

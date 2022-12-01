@@ -193,8 +193,7 @@ namespace MovieForum.Web.Controllers
                     FirstName = model.FirstName,
                     LastName = model.LastName,
                     Email = model.Email,
-                    IsGoogleAccount = false,
-                    ImagePath = "default.jpg"
+                    IsGoogleAccount = false
                 };
 
                 var newUser = await userService.PostAsync(userDTO);

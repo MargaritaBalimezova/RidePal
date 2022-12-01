@@ -69,6 +69,7 @@ namespace RidePal.Services.Services
                 var passHasher = new PasswordHasher<User>();
                 user.Password = passHasher.HashPassword(user, obj.Password);
             }
+            user.ImagePath = "https://ridepalbucket.s3.amazonaws.com/default.jpg";
             await db.Users.AddAsync(user);
             await db.SaveChangesAsync();
 
