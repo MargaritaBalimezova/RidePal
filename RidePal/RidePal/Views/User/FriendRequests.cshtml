@@ -1,61 +1,66 @@
 ﻿@using RidePal.WEB.Models;
 @model UserViewModel
 
-<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
-<link href="~/css//all-users.css" rel="stylesheet">
-<div class="container">
-    <div class="ms_content_wrapper padder_top80">
-        <div class="ms_free_download ms_purchase_wrapper">
-            <div class="ms_heading">
-                <h1>Friend Requests</h1>
-            </div>
-            <div class="album_inner_list">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="main-box clearfix">
-                            <div class="table-responsive">
+<html>
+<head>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="~/css//all-users.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">        
+        <div class="ms_content_wrapper">
+            <div class="ms_free_download ms_purchase_wrapper">
+                <div class="ms_heading">
+                    <h1>Friend Requests</h1>
+                </div>
+                <div class="album_inner_list">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="main-box clearfix">
+                                <div class="table-responsive">
 
-                                <table class="table user-list">
-                                    <thead>
-                                        <tr>
-                                            <th>&nbsp;</th>
-                                            <th>&nbsp;</th>
-                                            <th>&nbsp;</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-
-                                        @foreach (var request in this.Model.ReceivedFriendRequests)
-                                        {
+                                    <table class="table user-list">
+                                        <thead>
                                             <tr>
-                                                <td>
-                                                    <img src="@request.Sender.ImagePath" alt="profile image">
-                                                    <a asp-controller="User" asp-action="Index" asp-route-email="@request.Sender.Email" class="user-link">@request.Sender.Username</a>
-                                                    <span class="user-subhead">@request.Sender.RoleId.ToString()</span>
-                                                </td>
-                                                <td>
-                                                    <a asp-controller="User" asp-action="Index" asp-route-email="@request.Sender.Email">@request.Sender.Email</a>
-                                                </td>
-                                                <td style="width: 20%;">
-                                                    <a asp-action="AcceptFriendRequest" asp-controller="User" asp-route-senderEmail="@request.Sender.Email" asp-route-recipientEmail="@Model.Email" asp-route-currentView="friendRequests" class="table-link">
-                                                        <span class="fa-stack">
-                                                            <i class="fa fa-square fa-stack-2x"></i>
-                                                            <i class="fa fa-pencil fa-stack-1x fa-inverse"></i>
-                                                        </span>
-                                                    </a>
-                                                    <a asp-action="DeclineFriendRequest" asp-controller="User" asp-route-senderEmail="@request.Sender.Email" asp-route-recipientEmail="@Model.Email" asp-route-currentView="friendRequests" class="table-link danger">
-                                                        <span class="fa-stack">
-                                                            <i class="fa fa-square fa-stack-2x"></i>
-                                                            <i class="fa fa-trash-o fa-stack-1x fa-inverse"></i>
-                                                        </span>
-                                                    </a>
-                                                </td>
+                                                <th>&nbsp;</th>
+                                                <th>&nbsp;</th>
+                                                <th>&nbsp;</th>
                                             </tr>
-                                        }
+                                        </thead>
+                                        <tbody>
 
-                                    </tbody>
-                                </table>
+                                            @foreach (var request in this.Model.ReceivedFriendRequests)
+                                            {
+                                                <tr>
+                                                    <td>
+                                                        <img src="@request.Sender.ImagePath" alt="profile image">
+                                                        <a asp-controller="User" asp-action="Index" asp-route-email="@request.Sender.Email" class="user-link">@request.Sender.Username</a>
+                                                        <span class="user-subhead">@request.Sender.RoleId.ToString()</span>
+                                                    </td>
+                                                    <td>
+                                                        <a asp-controller="User" asp-action="Index" asp-route-email="@request.Sender.Email">@request.Sender.Email</a>
+                                                    </td>
+                                                    <td style="width: 20%;">
+                                                        <a asp-action="AcceptFriendRequest" asp-controller="User" asp-route-senderEmail="@request.Sender.Email" asp-route-recipientEmail="@Model.Email" asp-route-currentView="friendRequests" class="table-link">
+                                                            <span class="fa-stack">
+                                                                <i class="fa fa-square fa-stack-2x"></i>
+                                                                <i class="fa fa-pencil fa-stack-1x fa-inverse"></i>
+                                                            </span>
+                                                        </a>
+                                                        <a asp-action="DeclineFriendRequest" asp-controller="User" asp-route-senderEmail="@request.Sender.Email" asp-route-recipientEmail="@Model.Email" asp-route-currentView="friendRequests" class="table-link danger">
+                                                            <span class="fa-stack">
+                                                                <i class="fa fa-square fa-stack-2x"></i>
+                                                                <i class="fa fa-trash-o fa-stack-1x fa-inverse"></i>
+                                                            </span>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            }
 
+                                        </tbody>
+                                    </table>
+
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -63,4 +68,5 @@
             </div>
         </div>
     </div>
-</div>
+</body>
+</html>

@@ -134,11 +134,18 @@ namespace RidePal.WEB.Controllers
         #endregion CRUD
 
         [HttpPost]
-        public async Task<IActionResult> Search(string userSearch, int type)
+        public async Task<IActionResult> Search(string userSearch, int type,string page)
         {
             try
             {
-                return View("AllUsers", await userService.SearchAsync(userSearch, type));
+                if (page == "allFriends")
+                {
+                    return View("AllUsers", await userService.SearchAsync(userSearch, type));
+                }
+                else
+                {
+                    return View("AllUsers", await userService.SearchAsync(userSearch, type));
+                }
             }
             catch (Exception ex)
             {
