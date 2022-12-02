@@ -399,3 +399,4 @@ FodyWeavers.xsd
 # End of https://www.toptal.com/developers/gitignore/api/VisualStudio
 #/MovieForum/MovieForum/wwwroot/Images
 /MovieForum/MovieForum/wwwroot/Images
+/RidePal/RidePal/Helpers/ApiSecretscs.cs
