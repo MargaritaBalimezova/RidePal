@@ -6,14 +6,17 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RidePal.Data.Models;
 using RidePal.Services.DTOModels;
+using RidePal.Services.Helpers;
 using RidePal.Services.Interfaces;
 using RidePal.Services.Models;
 using RidePal.Web.Helpers;
 using RidePal.Web.Models;
+using RidePal.WEB.Helpers;
 using RidePal.WEB.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
@@ -31,6 +34,30 @@ namespace MovieForum.Web.Controllers
             this.userService = userService;
             this.mapper = mapper;
         }
+
+        #region Login Deezer
+        public IActionResult LoginWithDeezer()
+        {
+            return Redirect($"https://connect.deezer.com/oauth/auth.php?app_id={ApiSecrets.DeezerId}&redirect_uri={Constants.RedirectUrlDeezer}");
+        }
+
+
+        [Authorize]
+        public async Task<IActionResult> DeezerResponse(string code)
+        {
+            using (HttpClient client = new HttpClient()){
+                var result = await client.GetAsync($"https://connect.deezer.com/oauth/access_token.php?app_id={ApiSecrets.DeezerId}&secret={ApiSecrets.DeezerSecret}&code={code}");
+                var response = await result.Content.ReadAsStringAsync();    
+                var token = response.Split("access_token=").Last();
+                var user = await userService.GetUserDTOByEmailAsync(this.User.Identity.Name);
+                user.AccessToken = token;
+
+                var userDTO = await userService.UpdateAsync(user.Id, mapper.Map<UpdateUserDTO>(user));
+
+                return RedirectToAction("Index", "Home");
+            }
+        }
+        #endregion
 
         #region Login Google
 
@@ -57,7 +84,7 @@ namespace MovieForum.Web.Controllers
 
             var email = claims.Where(c => c.Type == ClaimTypes.Email)
                    .Select(c => c.Value).FirstOrDefault();
-           
+
             if (await userService.IsExistingAsync(email))
             {
                 var user = await userService.GetUserDTOByEmailAsync(email);
@@ -139,7 +166,7 @@ namespace MovieForum.Web.Controllers
                 FirstName = firstName,
                 LastName = lastName,
                 Email = email,
-                ImagePath= "https://ridepalbucket.s3.amazonaws.com/default.jpg",
+                ImagePath = "https://ridepalbucket.s3.amazonaws.com/default.jpg",
                 IsEmailConfirmed = true,
                 IsGoogleAccount = true
             };
@@ -150,13 +177,6 @@ namespace MovieForum.Web.Controllers
         #endregion Register Google
 
         #region Register App
-
-        [HttpGet]
-        public IActionResult LoginPartial()
-        {
-            var login = new LoginViewModel();
-            return this.PartialView("_LoginPartial", login);
-        }
 
         [HttpGet]
         public IActionResult Register()
@@ -204,7 +224,7 @@ namespace MovieForum.Web.Controllers
                 };
 
                 await userService.GenerateEmailConfirmationTokenAsync(user);
-                return View("ConfirmEmail", new EmailConfirmModel {EmailSent=true});
+                return View("ConfirmEmail", new EmailConfirmModel { EmailSent = true });
             }
             catch (Exception ex)
             {
@@ -219,7 +239,7 @@ namespace MovieForum.Web.Controllers
                     //this.ModelState.AddModelError("Username", ex.Message);
                 }
             }
-            
+
         }
 
         #endregion Register App
@@ -270,9 +290,12 @@ namespace MovieForum.Web.Controllers
                     new Claim(ClaimTypes.Name,user.Email),
                     new Claim("Username", user.Username),
                     new Claim("Full Name", user.FirstName +" " + user.LastName),
-                    new Claim("Image", user.ImagePath)
+                    new Claim("Image", user.ImagePath),
                 };
-
+                if (!String.IsNullOrEmpty(user.AccessToken))
+                {
+                    claims.Add(new Claim("AccessToken", user.AccessToken));
+                }
                 if (user.RoleId == 1)
                 {
                     claims.Add(new Claim(ClaimTypes.Role, "Admin"));
@@ -302,7 +325,7 @@ namespace MovieForum.Web.Controllers
                     AuthProperties
                 );
             }
-            
+
             catch (Exception)
             {
                 return Json("Incorrect combination of email/username and password.");
@@ -360,7 +383,7 @@ namespace MovieForum.Web.Controllers
 
         [HttpGet("confirm-email")]
         [Route("/ConfirmEmail")]
-        public async Task<IActionResult> ConfirmEmail(string uid, string token,bool resendLink = false)
+        public async Task<IActionResult> ConfirmEmail(string uid, string token, bool resendLink = false)
         {
             EmailConfirmModel model = new EmailConfirmModel();
 

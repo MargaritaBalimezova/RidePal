@@ -27,7 +27,7 @@ namespace RidePal.Services.DTOModels
         public int RoleId { get; set; }
 
         public string RoleName { get; set; }
-
+        public string AccessToken { get; set; }
         public bool IsGoogleAccount { get; set; }
         public bool IsEmailConfirmed { get; set; }
         public bool IsBlocked { get; set; }

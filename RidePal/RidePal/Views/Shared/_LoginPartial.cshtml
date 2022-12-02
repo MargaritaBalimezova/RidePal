@@ -28,10 +28,11 @@
     <input id="login" type="submit" class="ms_btn" value="Sing In" />
      <span asp-validation-for="IsEmailConfirmed"></span>
                                     <span asp-validation-for="IsBlocked"></span>
+                           
 
     <div class="popup_forgot">
-        <a asp-controller="Auth" asp-action="LoginWithGoogle">Sign in with Google</a>
-    </div>
+        <a asp-controller="Auth" asp-action="LoginWithGoogle">Sign in with Google</a>    
+    </div>   
     <div class="popup_forgot">
         <a asp-controller="Auth" asp-action="ForgotPassword">Forgot Password</a>
     </div>

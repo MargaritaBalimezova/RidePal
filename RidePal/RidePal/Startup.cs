@@ -20,6 +20,9 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using RidePal.Services.Models;
 using Microsoft.AspNetCore.Authentication.OAuth;
+using RidePal.WEB.Controllers;
+using MovieForum.Web.Controllers;
+using RidePal.WEB.Helpers;
 
 namespace RidePal
 {
@@ -48,8 +51,9 @@ namespace RidePal
                  options.BaseAddress = new Uri("http://dev.virtualearth.net/REST/v1/");
                  options.DefaultRequestHeaders.Add("Accept", "application/.json");
              });
-
+           
             services.AddHttpClient<IPixabayServices, PixabayServices>();
+            services.AddTransient<IClaimsTransformation, AddClaimsTransformation>();
 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
             .AddCookie(options =>
@@ -58,15 +62,16 @@ namespace RidePal
                             options.Cookie.Name = "auth_cookie";
                             options.SlidingExpiration = true;
                             options.ExpireTimeSpan = TimeSpan.FromDays(7);
-                        }).AddGoogle(options =>
+                        })
+            .AddGoogle(options =>
                         {
                             options.Events.OnRedirectToAuthorizationEndpoint = context =>
                             {
                                 context.Response.Redirect(context.RedirectUri + "&prompt=consent");
                                 return Task.CompletedTask;
                             };
-                            options.ClientId = Configuration["Authentication:Google:ClientId"];
-                            options.ClientSecret = Configuration["Authentication:Google:ClientSecret"];
+                            options.ClientId = ApiSecrets.GoogleClientId;
+                            options.ClientSecret = ApiSecrets.GoogleClientSecret;
                             options.ClaimActions.MapJsonKey("urn:google:picture", "picture", "url");
                             
                             options.Events.OnTicketReceived = ctx =>
