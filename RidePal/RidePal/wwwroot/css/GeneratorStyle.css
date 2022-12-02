@@ -1,0 +1,69 @@
+﻿select.minimal {
+    background-image: linear-gradient(45deg, transparent 50%, gray 50%), linear-gradient(135deg, gray 50%, transparent 50%), linear-gradient(to right, #ccc, #ccc);
+    background-position: calc(100% - 20px) calc(1em + 2px), calc(100% - 15px) calc(1em + 2px), calc(100% - 2.5em) 0.5em;
+    background-size: 5px 5px, 5px 5px, 1px 1.5em;
+    background-repeat: no-repeat;
+}
+
+
+
+
+select:-moz-focusring {
+    color: transparent;
+    text-shadow: 0 0 0 #000;
+}
+
+
+.myClass {
+    flex-direction: row;
+}
+
+    .myClass div {
+        margin: 10px 20px;
+        display: inline;
+    }
+
+.column {
+    float: left;
+    width: 48%;
+}
+
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+@media screen and (max-width: 1000px) {
+    .column {
+        width: 100%;
+    }
+
+    .title div {
+        width: 80% !important;
+    }
+
+
+    .myClassItems {
+        width: 100%;
+    }
+
+    .myClass {
+        display: block;
+    }
+
+    .form-row {
+        margin-left: 0%;
+        width: 100%;
+    }
+
+    .audienceDrop {
+        display: block;
+        margin-bottom: 5%;
+    }
+
+    .sumDiv {
+        margin-left: 2% !important;
+    }
+}

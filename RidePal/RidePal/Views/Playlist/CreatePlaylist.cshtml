@@ -1,11 +1,22 @@
 ﻿@using RidePal.Data.Models;
+@using RidePal.Services.Interfaces;
 @using RidePal.WEB.Models;
 
 @model CreatePlaylistViewModel
 
+@inject IGenreService genService
+@{
+    var list = await this.genService.GetAudiences();
+    var audiences = new SelectList(list, "Id", "Name");
+}
+
 
 <html>
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="~/css/GeneratorStyle.css">
 
+</head>
 <body>
     <div class="ms_inner_loader">
         <div class="ms_loader">
@@ -24,77 +35,141 @@
         </div>
     </div>
     <div class="ms_main_wrapper">
-        <div class="ms_content_wrapper padder_top80">
+        <div class="ms_content_wrapper padder_top80" style="padding-top:20px !important">
 
-            <div id='myMap' style='width: 100%; height: 350px;'></div>
-            <br>
-            <br>
-            <form asp-controller="Playlist" asp-action="CreatePlaylist" method="post">
+            <div id='myMap' style='width: 100%; height: 300px;'></div>
+            <center>
+                <form asp-controller="Playlist" asp-action="CreatePlaylist" method="post">
+                    <div class="row">
 
-                <div class="form-row">
-                    <center>
-                        <div class="form-group col-md-6" id='searchBoxContainer'>
-                            <input id='searchBox' type="text" class="form-control" name="StartingDestination"
-                                   placeholder="@this.ViewData["StartPoint"]" />
-                            <input id="depart" type="hidden" value="" name="StartPoint" />
+                        <div class="form-row" style="margin-left:2%;">
 
-                        </div>
-                        <br>
+                            <center>
+                                <div class="title">
+                                    <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+                                    <div class="class=" form-control title" style="width:50%;">
+                                        <input asp-for="Name" type="text" id="form3Example1c" class="form-control" placeholder="Give a name to your amazing playlist here..." />
+                                        <span asp-validation-for="Name"></span>
+                                    </div>
+                                </div>
+                            </center>
+                            <div class="column">
+                                <br>
+                                <center>
+                                    <div id='searchBoxContainer' style="width:80%;">
+                                        <input id='searchBox' type="text" class="form-control" style="padding:0 !important;" name="StartingDestination"
+                                               placeholder="@this.ViewData["StartPoint"]" />
+                                        <input id="depart" type="hidden" value="" name="StartPoint" />
 
-                        <div class="form-group col-md-6" id='searchBoxContainer2'>
-                            <input id='searchBox2' type="text" class="form-control" name="ArrivingDestination"
-                                   placeholder="@this.ViewData["ArrivePoint"]" />
-                            <input id="arrive" type="hidden" value="" name="ArrivePoint" />
-                        </div>
+                                    </div>
+                                </center>
+                                <br>
+                                <center>
 
-                    </center>
+                                <div class="myClass">
 
-
-                    <br>
-                    <center>
-                        <button type="submit">GenerateTrip</button>
-                    </center>
-
-                    <div class="form-group col-md-6">
-                        <i class="fas fa-user fa-lg me-3 fa-fw"></i>
-                        <div class="form-outline flex-fill mb-0">
-                            <label class="form-label" for="form3Example1c">Title</label>
-                            <input asp-for="Name" type="text" id="form3Example1c" class="form-control" />
-                            <span asp-validation-for="Name"></span>
-                        </div>
-                    </div>
-
-                    <div class="form-group col-md-6">
-                        <i class="fas fa-user fa-lg me-3 fa-fw"></i>
-                        <div class="form-outline flex-fill mb-0">
-                            <label>Choose an audience:</label>
-                            <select asp-for="AudienceId" asp-items="@ViewBag.Audiences">
-                            </select>
-                           @* <select asp-for="Audience" asp-items="@Html.GetEnumSelectList<Audience>()"></select>*@
-                        </div>
-                    </div>
-
-                    <input asp-for="RepeatArtists" type="checkbox" />
-                    <label asp-for="RepeatArtists">Repeat Artists</label>
-
-                    <input asp-for="TopSongs" type="checkbox" />
-                    <label asp-for="TopSongs">Top Songs</label>
-                    @for (int i = 0; i < Model.GenresWithPercentages.Count; i++)
-                    {
-                       <div class="form-group col-md-6">
-                            <div class="form-outline flex-fill mb-0">
-                        <label>@Model.GenresWithPercentages[i].GenreName</label>
-                        @Html.HiddenFor(model => model.GenresWithPercentages[i].GenreName)
-                        <input asp-for="@Model.GenresWithPercentages[i].Percentage" />
+                                    <div class="myClassItems">
+                                        <input asp-for="RepeatArtists" type="checkbox" />
+                                            <label style ="color:whitesmoke" asp-for="RepeatArtists">Repeat Artists</label>
+                                    </div>
+                                    <div class="myClassItems">
+                                        <input asp-for="TopSongs" type="checkbox" />
+                                            <label style="color:whitesmoke" asp-for="TopSongs">Top Songs</label>
+                                    </div>
+                                </div>
+                                </center>
+                                <br>
+                                <center>
+                                    <div class="audienceDrop" style="display: inline-flex;flex-direction: row;">
+                                        <label style="color:whitesmoke;display: flex;flex-direction:row;margin-top:8px;margin-right: 10px;font-size: 19px;">Choose an audience:</label>
+                                        <div>
+                                        <select class="minimal form-control" style="width:200px;" asp-for="AudienceId" asp-items="@audiences">
+                                            <option class="defOpt" selected="Audience"> Audience</option>
+                                        </select>
+                                        </div>
+                                        @* <select asp-for="Audience" asp-items="@Html.GetEnumSelectList<Audience>()"></select>*@
+                                    </div>
+                                    </center>
                             </div>
+                             <br>
+                            <div class="column">
+                                <center>
+                                    <div id='searchBoxContainer2' style="width:80%;">
+                                        <input id='searchBox2' type="text" class="form-control" style="padding:0 !important;" name="ArrivingDestination"
+                                               placeholder="@this.ViewData["ArrivePoint"]" />
+                                        <input id="arrive" type="hidden" value="" name="ArrivePoint" />
+                                    </div>
+                                </center>
+                                <br>
+
+
+                                @*div event listener взима чек боксовете/ проверява дали са чекд/ на отворените запазва ID/ for цикъл през отворениие кутийски за проценти*@
+                                <center>
+                                    <div id="checkboxes" style="margin-right:1%;">
+                                        @for (int i = 0; i < Model.GenresWithPercentages.Count; i++)
+                                        {
+                                            var genrename = this.Model.GenresWithPercentages[i].GenreName;
+                                            if (genrename.ToLower().Contains("edm"))
+                                            {
+                                                genrename = "EDM";
+                                            }
+                                            var checkboxId = i;
+
+                                            <input class="gorenInput" type="checkbox" id=@checkboxId value="@this.Model.GenresWithPercentages[i].GenreName" name="userInp">
+                                            <label style="color:whitesmoke;margin-right:5px;margin-left:5px;">@genrename</label>
+
+                                        }
+
+
+
+                                    </div>
+                                    <br>
+                                </center>
+                                <center>
+                                    <div class="container-fluid" style="width:auto;">
+                                        @for (int i = 0; i < Model.GenresWithPercentages.Count; i++)
+                                        {
+                                            var inputId = $"inp{i}";
+                                            var function = $"myFunction{i}()";
+                                            var divId = $"getGenre{i}";
+
+
+                                            <div id=@divId style="display:none;" name="divBoxes">
+                                                <div>
+                                                    @* <label>@Model.GenresWithPercentages[i].GenreName</label>*@
+                                                    @Html.HiddenFor(model => model.GenresWithPercentages[i].GenreName)
+
+                                                    <label style="color:whitesmoke">@this.Model.GenresWithPercentages[i].GenreName</label>
+                                                    <input asp-for="@this.Model.GenresWithPercentages[i].Percentage" type="text" class="form-control" style="width:80px;margin:0 !important;" id=@inputId />
+
+                                                </div>
+                                            </div>
+
+                                        }
+
+
+
+                                    </div>
+                                </center>
+
+                                <center>
+
+                                    <input class=" ms_btn" style="width:200px;margin:2%;height: 40px;" type="button" id="openBox" value="Set genre % (Required)">
+                                    <button class="ms_btn " type="reset" style="width:200px;margin:2%;height: 40px;" onClick="window.location.reload();">Reset </button>
+
+                                </center>
+                            </div>
+
                         </div>
-                        <br>
-                    }
-                    <div class="form-group col-md-6">
-                        <input type="submit" class="btn btn-primary btn-lg" value="Generate Playlist">
+
+                        <div class="sumDiv">
+                    
+                            <input id="submitTrip" type="submit" class="submTr ms_btn" style="width:200px;margin:2%;height: 40px;" value="Generate Playlist">
+                   
+                        </div>
                     </div>
-                </div>
-            </form>
+                </form>
+            </center>
             <br>
             <br>
             <br>
@@ -109,7 +184,7 @@
                 /* No need to set credentials if already passed in URL */
 
             });
-                       
+
 
             Microsoft.Maps.loadModule('Microsoft.Maps.AutoSuggest', function () {
                 var options = {
@@ -141,12 +216,12 @@
             }
 
 
-            
-
-
         }
     </script>
     <script type='text/javascript' src='https://www.bing.com/api/maps/mapcontrol?key=Ap4BY1B20Ldbim2QZCCJK3EAW0jdSisoIOvt3kJjv8dBjM_3pzfu9442oM8AsrxJ&callback=loadMapScenario' async defer></script>
+
+
+    <script class="myScript" src="/js/playlistGenerator.js"> </script>
 
 
 </body>

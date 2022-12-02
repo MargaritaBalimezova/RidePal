@@ -58,7 +58,7 @@ namespace RidePal.WEB.Controllers
             var playlist = new CreatePlaylistViewModel();
             playlist.GenresWithPercentages = new List<GenreWithPercentage>();
             await FillGenres(playlist);
-            ViewData["Audiences"] = new SelectList(await FillAudiences(), "Id", "Name");
+            //ViewData["Audiences"] = new SelectList(await FillAudiences(), "Id", "Name");
 
             this.ViewData["StartPoint"] = "The start of your journey";
             this.ViewData["ArrivePoint"] = "Your journey's destination";
@@ -77,7 +77,6 @@ namespace RidePal.WEB.Controllers
             this.ViewData["StartPoint"] = coordinates.StartingDestination;
             this.ViewData["ArrivePoint"] = coordinates.ArrivingDestination;
 
-            
             //TODO: Chack model state
             if (model.Name.Length<4 || model.AudienceId==0)
             {
