@@ -14,6 +14,16 @@
                                 <img src="~/Images/stephen-cook-Zu0gm67wFOc-unsplash.jpg" style="border-radius:5%;opacity:85%" alt="" class="img-fluid">
                             </div>
                             <div class="ms_banner_text" style="padding-left:5%">
+                                @*TODO use this to get access token*@
+                                
+                                @if (this.User.Identities.First().FindFirst(x => x.Type == "AuthToken")!=null)
+                                {
+                                    <p>my auth token is : @this.User.Identities.First().FindFirst(x => x.Type == "AuthToken").Value</p>
+                                }
+                                else
+                                {
+                                    <p>No token!</p>
+                                }
                                 <h1>Everywhere with you</h1>
                                 <h1 class="ms_color">Joy Ride Music player</h1>
                                 <p style="font-size:20px;"> The journey of a thousand miles begins with one step -> Press the Play button!</p>
@@ -40,7 +50,7 @@
                             var recentList = this.Model.Where(x => x.Audience.Id == 1).Take(15).ToList();
                             foreach (var item in recentList)
                             {
-                                  <a href="/Playlist?title=@item.Name">
+                                <a href="/Playlist?title=@item.Name">
                                     <div class="swiper-slide">
                                         <div class="ms_rcnt_box">
                                             <div class="ms_rcnt_box_img">
@@ -263,6 +273,8 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
 </body>
 
 

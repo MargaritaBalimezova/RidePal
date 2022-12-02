@@ -19,7 +19,7 @@ namespace RidePal.Services.DTOModels
         public string Password { get; set; }
 
         public string ImagePath { get; set; }
-
+        public string AccessToken { get; set; }
         public bool IsEmailConfirmed { get; set; }
         public bool IsGoogleAccount { get; set; }
 

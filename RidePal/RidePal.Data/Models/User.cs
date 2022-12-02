@@ -33,7 +33,7 @@ namespace RidePal.Data.Models
         public bool IsEmailConfirmed { get; set; }
 
         public bool IsGoogleAccount { get; set; }
-
+        public string AccessToken { get; set; }
         public virtual ICollection<Playlist> Playlists { get; set; } = new List<Playlist>();
 
         public virtual ICollection<User> Friends { get; set; } = new List<User>();

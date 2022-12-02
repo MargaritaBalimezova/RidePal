@@ -106,6 +106,12 @@ namespace RidePal.Services.Services
                 userToUpdate.LastName = obj.LastName;
             }
 
+            if (!String.IsNullOrEmpty(obj.AccessToken) && userToUpdate.AccessToken != obj.AccessToken)
+            {
+                userToUpdate.AccessToken = obj.AccessToken;
+            }
+
+
             userToUpdate.ImagePath = obj.ImagePath ?? userToUpdate.ImagePath;
 
             if (isEmailValid && userToUpdate.Email != obj.Email)
