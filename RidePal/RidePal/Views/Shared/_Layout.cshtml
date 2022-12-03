@@ -198,7 +198,19 @@ Purchase:
         <div class="ms_header">
             <div class="ms_top_left">
                 <div class="ms_top_search">
-                    <input type="text" class="form-control" placeholder="Search Music Here..">
+                    <form asp-controller="Search" asp-action="Index" method="get">
+                        @{
+                            if (this.ViewData["search"] != null)
+                            {
+                                <input type="text" name="name" class="form-control" value="@this.ViewData["search"]">
+                            }
+                            else
+                            {
+                                <input type="text" name="name" class="form-control" placeholder="Search Music Here..">
+                            }
+
+                        }
+                    </form>
                     <span class="search_icon">
                         <img src="~/Images/svg/search.svg" alt="">
                     </span>
@@ -223,7 +235,7 @@ Purchase:
                             @*TODO use this link to redirect user to login with user*@
                             <a asp-action="LoginWithDeezer" asp-controller="Auth" class="ms_btn ms_upload_btn">Deezer</a>
                             <a href="javascript:;" class="ms_admin_name">
-                                <span class="hello-bella-hide">Hello @this.User.Claims.FirstOrDefault(x=>x.Type=="Username").Value</span><img class="ms_pro_name" src="@this.User.Claims.FirstOrDefault(x=>x.Type=="Image").Value" />
+                                <span class="hello-bella-hide">Hello @this.User.Claims.FirstOrDefault(x => x.Type == "Username").Value</span><img class="ms_pro_name" src="@this.User.Claims.FirstOrDefault(x=>x.Type=="Image").Value" />
                             </a>
                         </div>
                         <ul class="pro_dropdown_menu">
@@ -278,9 +290,9 @@ Purchase:
     </div>
     @RenderBody()
     <script>
-         function FormError(result) {
+        function FormError(result) {
             debugger;
-            if(result.includes("<!DOCTYPE html>")){
+            if (result.includes("<!DOCTYPE html>")) {
                 $("myModal1").hide();
                 window.location.replace("");
                 return;
@@ -293,7 +305,7 @@ Purchase:
         }
         function FormError2(result) {
             debugger;
-            if(result.includes("<!DOCTYPE html>")){
+            if (result.includes("<!DOCTYPE html>")) {
                 $("myModal2").hide();
                 window.location.replace("ConfirmEmail");
                 return;

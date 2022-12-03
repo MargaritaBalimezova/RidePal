@@ -1,0 +1,249 @@
+﻿@model RidePal.WEB.Models.SearchResultWrapper
+
+<h2>Tracks: @this.Model.Tracks.Count()</h2>
+<h2>Artists: @this.Model.Artists.Count()</h2>
+<h2>Albums: @this.Model.Albums.Count()</h2>
+<h2>Users: @this.Model.Users.Count()</h2>
+
+<!DOCTYPE html>
+<!--
+Template Name: Miraculous - Online Music Store Html Template
+Version: 1.0.0
+Author: Kamleshyadav
+Website:
+Purchase:
+-->
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<body>
+    @{
+        if (this.Model.Tracks.Count() == 0 && this.Model.Users.Count() == 0
+            && this.Model.Albums.Count() == 0 && this.Model.Artists.Count() == 0)
+        {
+            <center style="margin-top: 140px;">
+                <div class="ms_heading">
+                    <h1>No Results Found! &#128531;	</h1>
+                </div>
+            </center>
+        }
+    }
+
+    @{
+        if (this.Model.Tracks.Count() != 0)
+        {
+            <div class="album_inner_list" style=" padding-top: 5%; position: relative; margin-left: 160px; margin-right: 80px;">
+                <div class="col-lg-12">
+                    <div class="ms_heading">
+                        <h1>Tracks</h1>
+                    </div>
+                </div>
+                <div class="album_list_wrapper">
+                    <ul class="album_list_name">
+                        <li>#</li>
+                        <li>Song Title</li>
+                        <li>Artist</li>
+                        <li class="text-center">Duration</li>
+                        <li class="text-center">Add To Favourites</li>
+                        <li class="text-center">More</li>
+                    </ul>
+                    @{
+                        int count = 1;
+                        foreach (var item in this.Model.Tracks.Take(5))
+                        {
+                            TimeSpan t1 = TimeSpan.FromSeconds(item.Duration);
+
+                            string duration1 = string.Format("{0:D2}:{1:D2}",
+                            t1.Minutes,
+                            t1.Seconds);
+
+                            <ul>
+                                <li><a onclick="DZ.player.playTracks([@item.Id]); return false;"><span class="play_no">@count</span><span class="play_hover"></span></a></li>
+                                <li><a href="#">@item.Title</a></li>
+                                <li><a asp-controller="Artists" asp-action="Artist" asp-route-id="@item.ArtistId">@item.Artist.Name</a></li>
+                                <li class="text-center"><a href="#">@duration1</a></li>
+                                <li class="text-center"><a href="#"><span class="ms_icon1 ms_fav_icon"></span></a></li>
+                                <li class="text-center ms_more_icon">
+                                    <a href="javascript:;"><span class="ms_icon1 ms_active_icon"></span></a>
+                                    <ul class="more_option">
+                                        <li><a href="#"><span class="opt_icon"><span class="icon icon_fav"></span></span>Add To Favourites</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+
+                            count++;
+                        }
+
+                    }
+                    <div id="list" class="album_inner_list">
+                        <div class="album_list_wrapper">
+                            @{
+                                foreach (var item in this.Model.Tracks.Skip(5))
+                                {
+                                    TimeSpan t2 = TimeSpan.FromSeconds(item.Duration);
+
+                                    string duration2 = string.Format("{0:D2}:{1:D2}",
+                                    t2.Minutes,
+                                    t2.Seconds);
+                                    <ul>
+                                        <li><a onclick="DZ.player.playTracks([@item.Id]); return false;"><span class="play_no">@count</span><span class="play_hover"></span></a></li>
+                                        <li><a href="#">@item.Title</a></li>
+                                        <li><a asp-controller="Artists" asp-action="Artist" asp-route-id="@item.ArtistId">@item.Artist.Name</a></li>
+                                        <li class="text-center"><a href="#">@duration2</a></li>
+                                        <li class="text-center"><a href="#"><span class="ms_icon1 ms_fav_icon"></span></a></li>
+                                        <li class="text-center ms_more_icon">
+                                            <a href="javascript:;"><span class="ms_icon1 ms_active_icon"></span></a>
+                                            <ul class="more_option">
+                                                <li><a href="#"><span class="opt_icon"><span class="icon icon_fav"></span></span>Add To Favourites</a></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                    count++;
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="show" class="ms_view_more padder_bottom20">
+                <a id="viewMoreBtn" class="ms_btn">view more</a>
+            </div>
+        }
+    }
+
+
+    @{
+        if (this.Model.Artists.Count() != 0)
+        {
+            <div class="ms_content_wrapper padder_top90">
+                <div class="ms_top_artist">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="ms_heading">
+                                    <h1>Artists</h1>
+                                </div>
+                            </div>
+                            @{
+                                foreach (var item in this.Model.Artists)
+                                {
+                                    <div class="col-lg-2 col-md-6">
+                                        <div class="ms_rcnt_box marger_bottom30">
+                                            <div class="ms_rcnt_box_img">
+                                                <img src="@item.ImagePathMedium" alt="" class="img-fluid">
+                                                <div class="ms_main_overlay">
+                                                    <div class="ms_box_overlay"></div>
+                                                </div>
+                                            </div>
+                                            <div class="ms_rcnt_box_text">
+                                                <h3><a asp-controller="Artists" asp-action="Artist" asp-route-id="@item.Id">@item.Name</a></h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            }
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+
+    @{
+        if (this.Model.Albums.Count() != 0)
+        {
+            <div class="ms_content_wrapper padder_top90">
+                <div class="ms_top_artist">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="ms_heading">
+                                    <h1>Albums</h1>
+                                </div>
+                            </div>
+                            @{
+                                foreach (var item in this.Model.Albums)
+                                {
+                                    <div class="col-lg-2 col-md-6">
+                                        <div class="ms_rcnt_box marger_bottom30">
+                                            <div class="ms_rcnt_box_img">
+                                                <img src="@item.ImagePath" alt="" class="img-fluid">
+                                                <div class="ms_main_overlay">
+                                                    <div class="ms_box_overlay"></div>
+                                                </div>
+                                            </div>
+                                            <div class="ms_rcnt_box_text">
+                                                <h3><a asp-controller="Albums" asp-action="Album" asp-route-id="@item.Id">@item.Name</a></h3>
+                                                <p>@item.ArtistName</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            }
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+
+    @{
+        if (this.Model.Users.Count() != 0)
+        {
+            <div class="ms_content_wrapper padder_top90">
+                <div class="ms_top_artist">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="ms_heading">
+                                    <h1>Users</h1>
+                                </div>
+                            </div>
+                            @{
+                                foreach (var item in this.Model.Users)
+                                {
+                                    <div class="col-lg-2 col-md-6">
+                                        <div class="ms_rcnt_box marger_bottom30">
+                                            <div class="ms_rcnt_box_img">
+                                                <img src="@item.ImagePath" alt="" class="img-fluid">
+                                                <div class="ms_main_overlay">
+                                                    <div class="ms_box_overlay"></div>
+                                                </div>
+                                            </div>
+                                            <div class="ms_rcnt_box_text">
+                                                <h3><a asp-controller="User" asp-action="Index" asp-route-email="@item.Email">@item.Username</a></h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            }
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+
+    <partial name="~/Views/Shared/_PlayerPartial.cshtml" />
+    <script>
+        $(document).ready(function () {
+
+            $("#list").hide();
+            $("#show").click(function () {
+                if (document.getElementById('viewMoreBtn').innerHTML === 'view more') {
+                    document.getElementById('viewMoreBtn').innerHTML = 'hide';
+                }
+                else {
+                    document.getElementById('viewMoreBtn').innerHTML = 'view more'
+                }
+                $("#list").slideToggle();
+            });
+        });
+    </script>
+</body>
+
+</html>

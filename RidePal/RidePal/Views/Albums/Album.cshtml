@@ -22,29 +22,6 @@
     </div>
     <!----Main Wrapper Start---->
     <div class="ms_main_wrapper">
-        <!---Header--->
-        <div class="ms_header">
-            <div class="ms_top_left">
-                <div class="ms_top_search">
-                    <input type="text" class="form-control" placeholder="Search Music Here..">
-                    <span class="search_icon">
-                        <img src="~/images/svg/search.svg" alt="">
-                    </span>
-                </div>
-                <div class="ms_top_trend">
-                    <span><a href="#" class="ms_color">Trending Songs :</a></span> <span class="top_marquee"><a href="#">Dream your moments, Until I Met You, Gimme Some Courage, Dark Alley (+8 More)</a></span>
-                </div>
-            </div>
-            <div class="ms_top_right">
-                <div class="ms_top_lang">
-                    <span data-bs-toggle="modal" data-target="#lang_modal">languages <img src="~/images/svg/lang.svg" alt=""></span>
-                </div>
-                <div class="ms_top_btn">
-                    <a href="javascript:;" class="ms_btn reg_btn" data-bs-toggle="modal" data-bs-target="#myModal"><span>register</span></a>
-                    <a href="javascript:;" class="ms_btn login_btn" data-bs-toggle="modal" data-bs-target="#myModal1"><span>login</span></a>
-                </div>
-            </div>
-        </div>
         <!----Album Single Section Start---->
         <div class="ms_album_single_wrapper">
             <div class="album_single_data">
@@ -71,7 +48,7 @@
                         <a href="#" class="album_date">@this.Model.Album.Genre.Name</a>
                     </div>
                     <div class="album_btn">
-                        <a class="ms_btn play_btn" onclick="DZ.player.playTracks([@string.Join(",", this.Model.Album.Tracks.Select(x => x.Id))])"><img src="assets/images/svg/play_all.svg" alt="">Play All</a>                        <a href="#" class="ms_btn"><span class="play_all"><img src="~/images/svg/add_q.svg" alt="">Add To Queue</span></a>
+                        <a class="ms_btn play_btn" onclick="DZ.player.playTracks([@string.Join(",", this.Model.Album.Tracks.Select(x => x.Id))])"><img src="assets/images/svg/play_all.svg" alt="">Play All</a>                       
                     </div>
                 </div>
                 <div class="album_more_optn ms_more_icon">
@@ -108,7 +85,7 @@
                                     }
                                 }
                                 <li><a href="#">@track.Title</a></li>
-                                <li><a href="#">@this.Model.Album.ArtistName</a></li>
+                                <li><a asp-controller="Artists" asp-action="Artist" asp-route-id="@track.ArtistId">@this.Model.Album.ArtistName</a></li>
                                 @{
                                     if (track.Duration % 60 < 10)
                                     {
@@ -149,7 +126,7 @@
                             foreach (var album in this.Model.SuggestedAlbums)
                             {
                                 <div class="swiper-slide">
-                                    <a asp-for="Albums" asp-action="Album" asp-route-id="@album.Id">
+                                    <a asp-controller="Albums" asp-action="Album" asp-route-id="@album.Id">
                                         <div class="ms_rcnt_box">
                                             <div class="ms_rcnt_box_img">
                                                 <img src=@album.ImagePath alt="">

@@ -94,7 +94,7 @@
                         <ul>
                             <li><a onclick="DZ.player.playTracks([@item.TrackId]); return false;"><span class="play_no">@count</span><span class="play_hover"></span></a></li>
                             <li><a href="#">@item.Track.Title</a></li>
-                            <li><a href="#">@item.Track.Artist.Name</a></li>
+                            <li><a  asp-controller="Artists" asp-action="Artist" asp-route-id="@item.Track.ArtistId">@item.Track.Artist.Name</a></li>
                             <li class="text-center"><a href="#">@duration1</a></li>
                             <li class="text-center"><a href="#"><span class="ms_icon1 ms_fav_icon"></span></a></li>
                             <li class="text-center ms_more_icon">
@@ -126,7 +126,7 @@
                                 <ul>
                                     <li><a onclick="DZ.player.playTracks([@item.TrackId]); return false;"><span class="play_no">@count</span><span class="play_hover"></span></a></li>
                                     <li><a href="#">@item.Track.Title</a></li>
-                                    <li><a href="#">@item.Track.Artist.Name</a></li>
+                                    <li><a asp-controller="Artists" asp-action="Artist" asp-route-id="@item.Track.ArtistId">@item.Track.Artist.Name</a></li>
                                     <li class="text-center"><a href="#">@duration2</a></li>
                                     <li class="text-center"><a href="#"><span class="ms_icon1 ms_fav_icon"></span></a></li>
                                     <li class="text-center ms_more_icon">

@@ -65,7 +65,7 @@
                             <ul>
                                 <li><a href="#"><span class="play_no">0 @idx </span><span class="play_hover" onclick="event.preventDefault(); DZ.player.playTracks([ @track.Id ]);"></span></a></li>
                                 <li><a href="#">@track.Title</a></li>
-                                <li><a href="#">@this.Model.Artist.Name</a></li>
+                                <li><a asp-controller="Artists" asp-action="Artist" asp-route-id="@track.ArtistId">@this.Model.Artist.Name</a></li>
                                 @{
                                     if (track.Duration % 60 < 10)
                                     {
@@ -109,7 +109,7 @@
                                     }
                                 }
                                 <li><a href="#">@track.Title</a></li>
-                                <li><a href="#">@this.Model.Artist.Name</a></li>
+                                <li><a asp-controller="Artists" asp-action="Artist" asp-route-id="@track.ArtistId">@this.Model.Artist.Name</a></li>
                                 @{
                                     if (track.Duration % 60 < 10)
                                     {
