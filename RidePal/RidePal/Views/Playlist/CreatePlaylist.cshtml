@@ -199,7 +199,12 @@
             function selectedSuggestion(suggestionResult) {
 
                 map.setView({ bounds: suggestionResult.bestView });
-                var pushpin = new Microsoft.Maps.Pushpin(suggestionResult.location);
+                if(pushpin==null){
+                  var pushpin = new Microsoft.Maps.Pushpin(suggestionResult.location);
+                }
+                else{
+                    pushpin = new Microsoft.Maps.Pushpin(suggestionResult.location);
+                }
                 map.entities.push(pushpin);
 
                 $("#depart").attr('value', suggestionResult.location.latitude + "," + suggestionResult.location.longitude);

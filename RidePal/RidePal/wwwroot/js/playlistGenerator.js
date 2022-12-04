@@ -126,35 +126,39 @@ document.getElementById("openBox").addEventListener('click', function openBoxes(
 
 
         list.forEach(function (percBox) {
-            percBox.addEventListener('change', function calculations(percBox) {
-
+            percBox.addEventListener('change',function calculations(percBox) {
+                
                 var elem = percBox.path[0];
                 const calc = restPercentage - list.length - 1;
                 const error = 'The value for the input is exceeded. You can not pass more than'.concat(calc).concat('%');
 
-                if (elem.value > restPercentage - list.length - 1) {
-                    alert(error);
-                    elem.value = percentage;
-                }
-                else {
-                    if (list.includes(elem)) {
-                        if (list.length > 1 && elem != null) {
+                if (this.value.length == 2) {
 
-                            console.log(percBox.id + " was changed");
-                            percentage = (restPercentage - elem.value) / (list.length - 1).toFixed(0);
-                            const indexBox = list.indexOf(elem);
-                            list.splice(indexBox, 1);
-                            restPercentage = restPercentage - elem.value;
-                            elem.disabled = true;
-                            print.call();
-                        }
-                        else {
-                            var elem = percBox.path[0];
-                            const indexBox = list.indexOf(elem);
-                            list.splice(indexBox, 1);
-                            elem.disabled = true;
+                    if (elem.value > restPercentage - list.length - 1) {
+                        alert(error);
+                        elem.value = percentage;
+                    }
+                    else {
+                        if (list.includes(elem)) {
+                            if (list.length > 1 && elem != null) {
+
+                                console.log(percBox.id + " was changed");
+                                percentage = (restPercentage - elem.value) / (list.length - 1).toFixed(0);
+                                const indexBox = list.indexOf(elem);
+                                list.splice(indexBox, 1);
+                                restPercentage = restPercentage - elem.value;
+                                elem.setAttribute("readonly", "readonly")
+                                print.call();
+                            }
+                            else {
+                                var elem = percBox.path[0];
+                                const indexBox = list.indexOf(elem);
+                                list.splice(indexBox, 1);
+                                elem.setAttribute("readonly", "readonly")
+                            }
                         }
                     }
+                    
                 }
 
 
@@ -165,7 +169,7 @@ document.getElementById("openBox").addEventListener('click', function openBoxes(
         function print() {
             list.forEach((x, i) => x.value = percentage.toFixed(0))
             if (list.length == 1) {
-                list.forEach((x, i) => x.disabled = true)
+                list.forEach((x, i) => x.setAttribute("readonly", "readonly"))
             };
 
         };
