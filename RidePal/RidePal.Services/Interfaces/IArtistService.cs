@@ -6,8 +6,8 @@ namespace RidePal.Services.Interfaces
 {
     public interface IArtistService
     {
-        Task<string> GetArtistStyle(int id);
-        Task<IEnumerable<TrackDTO>> GetArtistTopTracks(int id);
+        Task<string> GetArtistStyleAsync(int id);
+        Task<IEnumerable<TrackDTO>> GetArtistTopTracksAsync(int id);
         Task<IEnumerable<ArtistDTO>> GetTopArtists(int x);
         Task<IEnumerable<ArtistDTO>> GetArtistsAsync();
 
@@ -17,6 +17,6 @@ namespace RidePal.Services.Interfaces
 
         Task<IEnumerable<AlbumDTO>> GetArtistAlbumsByArtistAsync(int id);
 
-        Task<IEnumerable<TrackDTO>> GetArtistTracks(int id);
+        Task<IEnumerable<TrackDTO>> GetArtistTracksAsync(int id);
     }
 }

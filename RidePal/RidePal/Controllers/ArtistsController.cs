@@ -33,8 +33,8 @@ namespace RidePal.WEB.Controllers
             {
                 var artist = await this.artistService.GetArtistByIdAsync(id);
                 var albums = await this.artistService.GetArtistAlbumsByArtistAsync(id);
-                var tracks = await this.artistService.GetArtistTopTracks(id);
-                var style = await this.artistService.GetArtistStyle(id);
+                var tracks = await this.artistService.GetArtistTopTracksAsync(id);
+                var style = await this.artistService.GetArtistStyleAsync(id);
 
                 return this.View(new ArtistWrapModel {TopTracks = tracks, Albums = albums, Artist = artist, Style = style });
             }

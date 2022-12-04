@@ -64,7 +64,7 @@ namespace RidePal.Services.Services
             return this.mapper.Map<IEnumerable<ArtistDTO>>(artists);
         }
 
-        public async Task<IEnumerable<TrackDTO>> GetArtistTracks(int id)
+        public async Task<IEnumerable<TrackDTO>> GetArtistTracksAsync(int id)
         {
             var artist = await db.Artists.FirstOrDefaultAsync(x => x.Id == id)
                 ?? throw new EntityNotFoundException(Constants.ARTIST_NOT_FOUND);
@@ -72,7 +72,7 @@ namespace RidePal.Services.Services
             return this.mapper.Map<IEnumerable<TrackDTO>>(artist.Tracks);
         }
 
-        public async Task<string> GetArtistStyle(int id)
+        public async Task<string> GetArtistStyleAsync(int id)
         {
             var artist = await db.Artists.FirstOrDefaultAsync(x => x.Id == id)
                 ?? throw new EntityNotFoundException(Constants.ARTIST_NOT_FOUND);
@@ -83,7 +83,7 @@ namespace RidePal.Services.Services
             return genre;
         }
 
-        public async Task<IEnumerable<TrackDTO>> GetArtistTopTracks(int id)
+        public async Task<IEnumerable<TrackDTO>> GetArtistTopTracksAsync(int id)
         {
             var artist = await db.Artists.FirstOrDefaultAsync(x => x.Id == id)
                 ?? throw new EntityNotFoundException(Constants.ARTIST_NOT_FOUND);

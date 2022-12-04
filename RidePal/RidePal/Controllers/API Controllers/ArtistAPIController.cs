@@ -79,7 +79,7 @@ namespace RidePal.WEB.Controllers.API_Controllers
         {
             try
             {
-                var tracks = await this.artistService.GetArtistTracks(id);
+                var tracks = await this.artistService.GetArtistTracksAsync(id);
 
                 return this.Ok(tracks);
             }
