@@ -36,18 +36,19 @@ namespace MovieForum.Web.Controllers
         }
 
         #region Login Deezer
+
         public IActionResult LoginWithDeezer()
         {
             return Redirect($"https://connect.deezer.com/oauth/auth.php?app_id={ApiSecrets.DeezerId}&redirect_uri={Constants.RedirectUrlDeezer}");
         }
 
-
         [Authorize]
         public async Task<IActionResult> DeezerResponse(string code)
         {
-            using (HttpClient client = new HttpClient()){
+            using (HttpClient client = new HttpClient())
+            {
                 var result = await client.GetAsync($"https://connect.deezer.com/oauth/access_token.php?app_id={ApiSecrets.DeezerId}&secret={ApiSecrets.DeezerSecret}&code={code}");
-                var response = await result.Content.ReadAsStringAsync();    
+                var response = await result.Content.ReadAsStringAsync();
                 var token = response.Split("access_token=").Last();
                 var user = await userService.GetUserDTOByEmailAsync(this.User.Identity.Name);
                 user.AccessToken = token;
@@ -57,7 +58,8 @@ namespace MovieForum.Web.Controllers
                 return RedirectToAction("Index", "Home");
             }
         }
-        #endregion
+
+        #endregion Login Deezer
 
         #region Login Google
 
@@ -190,6 +192,163 @@ namespace MovieForum.Web.Controllers
         {
             if (!this.ModelState.IsValid)
             {
+                return this.View(model);
+            }
+            if (await userService.IsExistingAsync(model.Email))
+            {
+                this.ModelState.AddModelError("Email", "User with this email address already exists.");
+                return this.View(model);
+            }
+            if (await userService.IsExistingUsernameAsync(model.Username))
+            {
+                this.ModelState.AddModelError("Email", "User with this email address already exists.");
+                return this.View(model);
+            }
+            try
+            {
+                var userDTO = new UpdateUserDTO
+                {
+                    Password = model.Password,
+                    Username = model.Username,
+                    FirstName = model.FirstName,
+                    LastName = model.LastName,
+                    Email = model.Email,
+                    IsGoogleAccount = false
+                };
+
+                var newUser = await userService.PostAsync(userDTO);
+
+                var user = new User
+                {
+                    Username = newUser.Username,
+                };
+
+                await userService.GenerateEmailConfirmationTokenAsync(user);
+            }
+            catch (Exception ex)
+            {
+                if (ex.Message.Contains("Email"))
+                {
+                    this.ModelState.AddModelError("Email", ex.Message);
+                }
+                else
+                {
+                    this.ModelState.AddModelError("Username", ex.Message);
+                }
+                this.ModelState.AddModelError("Username", ex.Message);
+            }
+
+            return View("ConfirmEmail", new EmailConfirmModel { EmailSent = true });
+        }
+
+        #endregion Register App
+
+        #region Login App
+
+        [HttpGet]
+        public IActionResult Login()
+        {
+            var login = new LoginViewModel();
+            return this.View(login);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Login(LoginViewModel model)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(model);
+            }
+            if (!await userService.IsExistingAsync(model.Credential) && !await userService.IsExistingUsernameAsync(model.Credential))
+            {
+                this.ModelState.AddModelError("Credential", "Incorrect combination of email/username and password.");
+                return this.View(model);
+            }
+
+            try
+            {
+                var user = await authHelper.TryLogin(model.Credential, model.Password);
+
+                if (user == null)
+                {
+                    this.ModelState.AddModelError("Credential", "You have to confirm your email.");
+                    return this.View(model);
+                }
+
+                if (user.IsBlocked && DateTime.Compare(DateTime.Now, user.LastBlockTime.AddDays(7)) < 0)
+                {
+                    DateTime unblock = user.LastBlockTime.AddDays(7);
+                    TimeSpan span = (unblock - DateTime.Now);
+
+                    this.ModelState.AddModelError("Credential", $"You were blocked on {user.LastBlockTime.ToString("dd/MM/yyyy hh:mm")}. Try again in {span.Days} days, {span.Hours} hours and {span.Minutes} minutes.");
+                    return this.View(model);
+                }
+
+                var claims = new List<Claim>
+                {
+                    new Claim(ClaimTypes.Name,user.Email),
+                    new Claim("Username", user.Username),
+                    new Claim("Full Name", user.FirstName +" " + user.LastName),
+                    new Claim("Image", user.ImagePath),
+                };
+                if (!String.IsNullOrEmpty(user.AccessToken))
+                {
+                    claims.Add(new Claim("AccessToken", user.AccessToken));
+                }
+                if (user.RoleId == 1)
+                {
+                    claims.Add(new Claim(ClaimTypes.Role, "Admin"));
+                }
+                else
+                {
+                    claims.Add(new Claim(ClaimTypes.Role, "User"));
+                }
+
+                var claimsIdentity = new ClaimsIdentity(
+                    claims, CookieAuthenticationDefaults.AuthenticationScheme);
+
+                var AuthProperties = new AuthenticationProperties
+                {
+                    IsPersistent = false,
+                    ExpiresUtc = DateTime.UtcNow.AddDays(14)
+                };
+
+                if (model.RememberMe == true)
+                {
+                    AuthProperties.IsPersistent = true;
+                }
+
+                await HttpContext.SignInAsync(
+                    CookieAuthenticationDefaults.AuthenticationScheme,
+                    new ClaimsPrincipal(claimsIdentity),
+                    AuthProperties
+                );
+            }
+            catch (Exception)
+            {
+                this.ModelState.AddModelError("Credential", "Incorrect combination of email/username and password.");
+                return this.View(model);
+            }
+
+            return this.RedirectToAction("Index", "Home");
+        }
+
+        #endregion Login App
+
+        #region Register App Modal
+
+        [HttpGet]
+        public IActionResult RegisterModal()
+        {
+            var register = new CreateUserViewModel();
+            return this.View(register);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> RegisterModal(CreateUserViewModel model)
+        {
+            if (!this.ModelState.IsValid)
+            {
                 return this.PartialView("_RegisterPartial", model);
             }
             if (await userService.IsExistingAsync(model.Email))
@@ -239,22 +398,21 @@ namespace MovieForum.Web.Controllers
                     //this.ModelState.AddModelError("Username", ex.Message);
                 }
             }
-
         }
 
-        #endregion Register App
+        #endregion Register App Modal
 
-        #region Login App
+        #region Login App Modal
 
         [HttpGet]
-        public IActionResult Login()
+        public IActionResult LoginModal()
         {
             var login = new LoginViewModel();
             return this.View(login);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Login(LoginViewModel model)
+        public async Task<IActionResult> LoginModal(LoginViewModel model)
         {
             if (!await userService.IsExistingAsync(model.Credential) && !await userService.IsExistingUsernameAsync(model.Credential))
             {
@@ -325,7 +483,6 @@ namespace MovieForum.Web.Controllers
                     AuthProperties
                 );
             }
-
             catch (Exception)
             {
                 return Json("Incorrect combination of email/username and password.");
@@ -335,7 +492,7 @@ namespace MovieForum.Web.Controllers
             return this.RedirectToAction("Index", "Home");
         }
 
-        #endregion Login App
+        #endregion Login App Modal
 
         public async Task<IActionResult> Logout()
         {
@@ -464,6 +621,5 @@ namespace MovieForum.Web.Controllers
         }
 
         #endregion Email actions
-
     }
 }

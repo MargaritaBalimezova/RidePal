@@ -1,14 +1,8 @@
 ﻿@using RidePal.WEB.Models
 
 @model LoginViewModel
-
-<style>
-    span {
-        color: red;
-        font-size: 0.8em;
-    }
-</style>
-<section class="vh-100" style="background-color: #eee;">
+@*
+<section class="vh-100">
     <div class="container h-100">
         <div class="row d-flex justify-content-center align-items-center h-100">
             <div class="col-lg-12 col-xl-11">
@@ -60,13 +54,6 @@
                                 <div class="d-flex flex-row align-items-center mb-4">
                                     <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
                                     <div class="form-outline flex-fill mb-0">
-                                        <a asp-controller="Auth" asp-action="LoginWithDeezer" class="google"><i class="fa fa-google"></i> Sign in with Deezer</a>
-                                    </div>
-                                </div>
-
-                                <div class="d-flex flex-row align-items-center mb-4">
-                                    <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
-                                    <div class="form-outline flex-fill mb-0">
                                         <a asp-controller="Auth" asp-action="ForgotPassword" class="google">Forgot yout password?</a>
                                     </div>
                                 </div>
@@ -91,95 +78,64 @@
             </div>
         </div>
     </div>
-</section>
+</section>*@
 
-<!DOCTYPE html>
-<!--
-Template Name: Miraculous - Online Music Store Html Template
-Version: 1.0.0
-Author: Kamleshyadav
-Website:
-Purchase:
--->
-<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
-<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
-<!--[if !IE]><!-->
 <html lang="en">
-<!--<![endif]-->
-<!-- Begin Head -->
-
 <head>
-    <title>Miraculous - Online Music Store Html Template</title>
-    <meta charset="utf-8">
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <meta name="description" content="Music">
-    <meta name="keywords" content="">
-    <meta name="author" content="kamleshyadav">
-    <meta name="MobileOptimized" content="320">
-    <!--Start Style -->
-    <link rel="stylesheet" type="text/css" href="~/css/fonts.css">
-    <link rel="stylesheet" type="text/css" href="~/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="~/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="~/js/plugins/swiper/css/swiper.min.css">
-    <link rel="stylesheet" type="text/css" href="~/js/plugins/nice_select/nice-select.css">
-    <link rel="stylesheet" type="text/css" href="~/js/plugins/player/volume.css">
-    <link rel="stylesheet" type="text/css" href="~/js/plugins/scroll/jquery.mCustomScrollbar.css">
-    <link rel="stylesheet" type="text/css" href="~/css/style.css">
-    <!-- Favicon Link -->
-    <link rel="shortcut icon" type="image/png" href="~/images/favicon.png">
+    <style>
+        #center {
+            margin: auto;
+            width: 50%;
+            border: none;
+            padding-top: 100px;
+        }
+
+        .validation {
+            color: red;
+            font-size: 1em;
+        }
+    </style>
 </head>
 <body>
-    <!----Login Popup Start---->
-        <div id="myModal1" class="modal  centered-modal" role="dialog">
-            <div class="modal-dialog login_dialog">
-                <!-- Modal content-->
-                <div class="modal-content">
-                    <button type="button" class="close" data-dismiss="modal">
-						<i class="fa_icon form_close"></i>
-					</button>
-                    <div class="modal-body">
-                        <div class="ms_register_img">
-                            <img src="https://dummyimage.com/368x395" alt="" class="img-fluid" />
-                        </div>
-                        <div class="ms_register_form">
-                            <h2>login / Sign in</h2>
-                            <div class="form-group">
-                                <input type="text" placeholder="Enter Your Email" class="form-control">
-                                <span class="form_icon">
-							<i class="fa_icon form-envelope" aria-hidden="true"></i>
-						</span>
-                            </div>
-                            <div class="form-group">
-                                <input type="password" placeholder="Enter Password" class="form-control">
-                                <span class="form_icon">
-						<i class="fa_icon form-lock" aria-hidden="true"></i>
-						</span>
-                            </div>
-                            <div class="remember_checkbox">
-                                <label>Keep me signed in
-							<input type="checkbox">
-							<span class="checkmark"></span>
-						</label>
-                            </div>
-                            <a href="profile.html" class="ms_btn" target="_blank">login now</a>
-                            <div class="popup_forgot">
-                                <a href="#">Forgot Password ?</a>
-                            </div>
-                            <p>Don't Have An Account? <a href="#myModal" data-toggle="modal" class="ms_modal1 hideCurrentModel">register here</a></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <!----Login Start---->
+    <div id="center">
+        <div class="ms_register_img">
+            <img src="~/Images/register_img.png" alt="" class="img-fluid" />
         </div>
-    <script type="text/javascript" src="~/js/jquery.min.js"></script>
-    <script type="text/javascript" src="~/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="~/js/plugins/swiper/js/swiper.min.js"></script>
-    <script type="text/javascript" src="~/js/plugins/player/jplayer.playlist.min.js"></script>
-    <script type="text/javascript" src="~/js/plugins/player/jquery.jplayer.min.js"></script>
-    <script type="text/javascript" src="~/js/plugins/player/audio-player.js"></script>
-    <script type="text/javascript" src="~/js/plugins/player/volume.js"></script>
-    <script type="text/javascript" src="~/js/plugins/nice_select/jquery.nice-select.min.js"></script>
-    <script type="text/javascript" src="~/js/plugins/scroll/jquery.mCustomScrollbar.js"></script>
-    <script type="text/javascript" src="~/js/custom.js"></script>
+        <div class="ms_register_form ">
+            <h2>Sign in</h2>
+            <form asp-action="Login">
+                <div class="form-group">
+                    <div id="validation-error" class="text-danger" hidden="hidden"></div>
+                    <span asp-validation-for="Credential" class="validation"></span>
+                    <input id="email" asp-for="Credential" type="text" placeholder="Enter Your Email" class="form-control">
+                </div>
+                <div class="form-group">
+                    <input id="password" asp-for=Password type="password" placeholder="Enter Password" class="form-control">
+                </div>
+                <div class="remember_checkbox">
+                    <label>
+                        Keep me signed in
+                        <input id="rememberMe" asp-for=RememberMe type="checkbox">
+                        <span class="checkmark"></span>
+                    </label>
+                </div>
+                <input type="submit" class="ms_btn login-btn" value="Sing In" style="background-color: #3bc8e7; border:none; color:white"/>
+                <span asp-validation-for="IsEmailConfirmed" class="validation"></span>
+                <span asp-validation-for="IsBlocked" class="validation"></span>
+            </form>
+
+            <div class="popup_forgot">
+                <a asp-controller="Auth" asp-action="LoginWithGoogle">Sign in with Google</a>
+            </div>
+            <div class="popup_forgot">
+                <a asp-controller="Auth" asp-action="ForgotPassword">Forgot Password</a>
+            </div>
+            <div class="popup_forgot">
+                <a asp-controller="Auth" asp-action="ConfirmEmail" class="google" asp-route-resendLink="true">Resend Email Confirmation</a>
+            </div>
+            <p>Don't Have An Account? <a asp-action="Register">Sign Up</a></p>
+        </div>
+    </div>
 </body>
 </html>

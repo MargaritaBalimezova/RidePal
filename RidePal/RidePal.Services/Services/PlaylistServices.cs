@@ -9,8 +9,16 @@ using RidePal.Services.Helpers;
 using RidePal.Services.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net.Http;
+using System.Net;
 using System.Threading.Tasks;
+using Windows.UI.Xaml.Media.Imaging;
+using System.Diagnostics;
+using Windows.Storage.Streams;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 
 namespace RidePal.Services.Services
 {
@@ -21,19 +29,63 @@ namespace RidePal.Services.Services
         private readonly IGenreService genreService;
         private readonly ITrackServices trackServices;
         private readonly IPixabayServices pixabayServices;
+        private readonly IAWSCloudStorageService storageService;
 
-        public PlaylistServices(RidePalContext context, IMapper mapper, IGenreService genreService, ITrackServices trackServices, IPixabayServices pixabayServices)
+        public PlaylistServices(RidePalContext context, IMapper mapper, IGenreService genreService, ITrackServices trackServices, IPixabayServices pixabayServices, IAWSCloudStorageService storageService)
         {
             this.db = context;
             this.mapper = mapper;
             this.genreService = genreService;
             this.trackServices = trackServices;
             this.pixabayServices = pixabayServices;
+            this.storageService = storageService;
         }
+
+        #region CRUD
 
         public async Task<IEnumerable<PlaylistDTO>> GetAsync()
         {
             return await db.Playlists.Select(x => mapper.Map<PlaylistDTO>(x)).ToListAsync();
+        }
+
+        public async Task<PlaylistDTO> UpdateAsync(int id, UpdatePlaylistDTO obj)
+        {
+            var playlistToUpdate = await GetPlaylistAsync(id);
+
+            if (String.IsNullOrEmpty(obj.Name))
+            {
+                throw new Exception(Constants.INVALID_DATA);
+            }
+
+            if (obj.Name != playlistToUpdate.Name && obj.Name.Length >= Constants.PLAYLIST_TITLE_MIN_LENGTH)
+            {
+                if (await IsExistingAsync(obj.Name))
+                {
+                    throw new Exception(string.Format(Constants.ALREADY_TAKEN, "Title"));
+                }
+                playlistToUpdate.Name = obj.Name;
+            }
+
+            if (obj.Audience.Id != playlistToUpdate.Audience.Id && (obj.Audience.Id >= 1 && obj.Audience.Id <= 3))
+            {
+                playlistToUpdate.Audience.Id = obj.Audience.Id;
+            }
+
+            await db.SaveChangesAsync();
+
+            return mapper.Map<PlaylistDTO>(playlistToUpdate);
+        }
+
+        public async Task<PlaylistDTO> DeleteAsync(string title)
+        {
+            var playlistToDelete = await GetPlaylistAsync(title);
+
+            playlistToDelete.DeletedOn = DateTime.Now;
+            playlistToDelete.IsDeleted = true;
+
+            await db.SaveChangesAsync();
+
+            return mapper.Map<PlaylistDTO>(playlistToDelete);
         }
 
         public async Task<PlaylistDTO> PostAsync(PlaylistDTO obj)
@@ -191,7 +243,11 @@ namespace RidePal.Services.Services
             }
 
             obj.Duration = currentDuration;
-            obj.ImagePath = await pixabayServices.GetImageURL();
+            var imagePath = await pixabayServices.GetImageURL();
+            var image = DownloadPhoto(imagePath);
+
+            var uploadImage = await UploadPhoto((IFormFile)image);
+            obj.ImagePath = uploadImage;
             var playlist = mapper.Map<Playlist>(obj);
             playlist.CreatedOn = DateTime.Now;
 
@@ -213,56 +269,9 @@ namespace RidePal.Services.Services
             return mapper.Map<PlaylistDTO>(obj);
         }
 
-        public async Task<PlaylistDTO> UpdateAsync(int id, UpdatePlaylistDTO obj)
-        {
-            var playlistToUpdate = await GetPlaylistAsync(id);
+        #endregion CRUD
 
-            if (String.IsNullOrEmpty(obj.Name))
-            {
-                throw new Exception(Constants.INVALID_DATA);
-            }
-
-            if (obj.Name != playlistToUpdate.Name && obj.Name.Length >= Constants.PLAYLIST_TITLE_MIN_LENGTH)
-            {
-                if (await IsExistingAsync(obj.Name))
-                {
-                    throw new Exception(string.Format(Constants.ALREADY_TAKEN, "Title"));
-                }
-                playlistToUpdate.Name = obj.Name;
-            }
-
-            if (obj.Audience.Id != playlistToUpdate.Audience.Id && (obj.Audience.Id >= 1 && obj.Audience.Id <= 3))
-            {
-                playlistToUpdate.Audience.Id = obj.Audience.Id;
-            }
-
-            await db.SaveChangesAsync();
-
-            return mapper.Map<PlaylistDTO>(playlistToUpdate);
-        }
-
-        public async Task<PlaylistDTO> DeleteAsync(string title)
-        {
-            var playlistToDelete = await GetPlaylistAsync(title);
-
-            playlistToDelete.DeletedOn = DateTime.Now;
-            playlistToDelete.IsDeleted = true;
-
-            await db.SaveChangesAsync();
-
-            return mapper.Map<PlaylistDTO>(playlistToDelete);
-        }
-
-        public async Task<int> PlaylistCount()
-        {
-            var numOfPlaylists = await GetAsync();
-            return numOfPlaylists.Count();
-        }
-
-        public async Task<bool> IsExistingAsync(string title)
-        {
-            return await db.Playlists.AnyAsync(x => x.Name == title);
-        }
+        #region Get Playlist
 
         private async Task<Playlist> GetPlaylistAsync(int id)
         {
@@ -290,6 +299,26 @@ namespace RidePal.Services.Services
             return mapper.Map<PlaylistDTO>(playlist) ?? throw new Exception(Constants.PLAYLIST_NOT_FOUND);
         }
 
+        public async Task<IEnumerable<PlaylistDTO>> GetUserPlaylists(int userId)
+        {
+            var playlists = await db.Playlists.Where(x => x.AuthorId == userId).ToListAsync();
+
+            return mapper.Map<IEnumerable<PlaylistDTO>>(playlists);
+        }
+
+        #endregion Get Playlist
+
+        public async Task<int> PlaylistCount()
+        {
+            var numOfPlaylists = await GetAsync();
+            return numOfPlaylists.Count();
+        }
+
+        public async Task<bool> IsExistingAsync(string title)
+        {
+            return await db.Playlists.AnyAsync(x => x.Name == title);
+        }
+
         public async Task<Audience> GetAudienceAsync(int id)
         {
             var audience = await db.Audience.FirstOrDefaultAsync(x => x.Id == id);
@@ -297,13 +326,50 @@ namespace RidePal.Services.Services
             return audience ?? throw new Exception(Constants.AUDIENCE_NOT_FOUND);
         }
 
-        public async Task<IEnumerable<PlaylistDTO>> GetUserPlaylists(int userId)
+        #region Private Methods
+
+        private async Task<BitmapImage> DownloadPhoto(string url)
         {
-
-            var playlists = await db.Playlists.Where(x => x.AuthorId == userId).ToListAsync();
-
-            return mapper.Map<IEnumerable<PlaylistDTO>>(playlists);
-
+            using (var client = new HttpClient())
+            {
+                var response = client.GetAsync(url).Result;
+                BitmapImage bitmap = new BitmapImage();
+                if (response != null && response.StatusCode == HttpStatusCode.OK)
+                {
+                    using (var stream = await response.Content.ReadAsStreamAsync())
+                    {
+                        using (var memStream = new MemoryStream())
+                        {
+                            await stream.CopyToAsync(memStream);
+                            memStream.Position = 0;
+                            bitmap.SetSource(memStream.AsRandomAccessStream());
+                        }
+                    }
+                    return bitmap;
+                }
+            }
+            return null;
         }
+
+        private async Task<string> UploadPhoto(IFormFile file)
+        {
+            if (file == null)
+            {
+                return null;
+            }
+            try
+            {
+                FileInfo fi = new FileInfo(file.FileName);
+                var newFileName = "https://ridepalbucket.s3.amazonaws.com/Image_" + DateTime.Now.TimeOfDay.Milliseconds + fi.Extension;
+                await this.storageService.Upload(file);
+                return newFileName;
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+        }
+
+        #endregion Private Methods
     }
 }

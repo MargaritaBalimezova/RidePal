@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace RidePal.WEB.Helpers
+﻿namespace RidePal.WEB.Helpers
 {
     public class ApiSecrets
     {

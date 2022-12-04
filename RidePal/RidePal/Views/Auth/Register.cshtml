@@ -1,12 +1,14 @@
 ﻿@using RidePal.Web.Models
 @model CreateUserViewModel
 
-<style>
+@*<style>
     span {
         color: red;
         font-size: 0.8em;
     }
-</style>
+</style>*@
+@*
+
 
 <section class="vh-100" style="background-color: #eee;">
     <div class="container h-100">
@@ -96,3 +98,62 @@
         </div>
     </div>
 </section>
+*@
+<html lang="en">
+<head>
+    <style>
+        #center {
+            margin: auto;
+            width: 50%;
+            border: none;
+            padding-top: 100px;
+        }
+
+        .validation {
+            color: red;
+            font-size: 1em;
+        }
+    </style>
+</head>
+<body>
+    <div id="center">
+        <div class="ms_register_img">
+            <img src="~/Images/register_img.png" alt="" class="img-fluid" />
+        </div>
+        <div class="ms_register_form">
+            <h2>Sign Up</h2>
+            <form asp-action="Register">
+                <div class="form-group">
+                    <span asp-validation-for="FirstName" class="validation"></span>
+                    <input asp-for="FirstName" type="text" placeholder="First Name" class="form-control">
+                </div>
+                <div class="form-group">
+                    <span asp-validation-for="LastName" class="validation"></span>
+                    <input asp-for="LastName" type="text" placeholder="Last Name" class="form-control">
+                </div>
+                <div class="form-group">
+                    <div id="validation-error2" class="text-danger" hidden="hidden"></div>
+                    <span asp-validation-for="Username" class="validation"></span>
+                    <input asp-for="Username" type="text" placeholder="Username" class="form-control">
+                </div>
+                <div class="form-group">
+                    <span asp-validation-for="Email" class="validation"></span>
+                    <div id="validation-error2" class="text-danger" hidden="hidden"></div>
+                    <input asp-for="Email" type="text" placeholder="Email" class="form-control">
+                </div>
+                <div class="form-group">
+                    <span asp-validation-for="Password" class="validation"></span>
+                    <input asp-for="Password" type="password" placeholder="Password" class="form-control">
+                </div>
+                <div class="form-group">
+                    <span asp-validation-for="ConfirmPassword" class="validation"></span>
+                    <input asp-for="ConfirmPassword" type="password" placeholder="Confirm Password" class="form-control">
+
+                </div>
+                <input type="submit" value="Sign Up" class="ms_btn login_btn" style="background-color: #3bc8e7; border:none; color:white">
+            </form>
+            <p>Already Have An Account? <a asp-action="Login" asp-controller="Auth">Sign In</a></p>
+        </div>
+    </div>
+</body>
+</html>

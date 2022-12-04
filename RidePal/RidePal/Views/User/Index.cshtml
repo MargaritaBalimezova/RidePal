@@ -33,25 +33,25 @@
                 {
                     <a asp-action="Update" class="ms_btn play_btn" asp-route-email="@Model.Email">Edit Profile</a>
                 }
-                
-                    @if (!Model.Friends.Any(x => x.Email == this.User.Identity.Name) && !Model.ReceivedFriendRequests.Any(x => x.Sender.Email == this.User.Identity.Name) && !Model.SentFriendRequests.Any(x => x.Recipient.Email == this.User.Identity.Name))
-                    {
-                        <a asp-action="SendFriendRequest" asp-route-senderEmail="@User.Identity.Name" asp-route-recipientEmail="@Model.Email" asp-route-currentView="index" class="ms_btn play_btn">Add Friend</a>
-                    }
-                    else if (Model.Friends.Any(x => x.Email == this.User.Identity.Name))
-                    {
-                        <a asp-action="RemoveFriend" asp-route-email="@User.Identity.Name" asp-route-friendEmail="@Model.Email" asp-route-currentView="index" class="ms_btn play_btn">Unfriend</a>
-                    }
-                    else if (Model.ReceivedFriendRequests.Any(x => x.Sender.Email == this.User.Identity.Name))
-                    {
-                        <a asp-action="DeclineFriendRequest" asp-route-senderEmail="@User.Identity.Name" asp-route-recipientEmail="@Model.Email" asp-route-currentView="index" class="ms_btn play_btn">Cancel Request</a>
-                    }
-                    else
-                    {
-                        <a asp-action="AcceptFriendRequest" asp-route-recipientEmail="@User.Identity.Name" asp-route-senderEmail="@Model.Email" asp-route-currentView="index" class="ms_btn play_btn">Confirm Request</a>
-                        <a asp-action="DeclineFriendRequest" asp-route-recipientEmail="@User.Identity.Name" asp-route-senderEmail="@Model.Email" asp-route-currentView="indexRemove" class="ms_btn play_btn">Remove Request</a>
-                    }
-                
+
+                @if (!Model.Friends.Any(x => x.Email == this.User.Identity.Name) && !Model.ReceivedFriendRequests.Any(x => x.Sender.Email == this.User.Identity.Name) && !Model.SentFriendRequests.Any(x => x.Recipient.Email == this.User.Identity.Name))
+                {
+                    <a asp-action="SendFriendRequest" asp-route-senderEmail="@User.Identity.Name" asp-route-recipientEmail="@Model.Email" asp-route-currentView="index" class="ms_btn play_btn">Add Friend</a>
+                }
+                else if (Model.Friends.Any(x => x.Email == this.User.Identity.Name))
+                {
+                    <a asp-action="RemoveFriend" asp-route-email="@User.Identity.Name" asp-route-friendEmail="@Model.Email" asp-route-currentView="index" class="ms_btn play_btn">Unfriend</a>
+                }
+                else if (Model.ReceivedFriendRequests.Any(x => x.Sender.Email == this.User.Identity.Name))
+                {
+                    <a asp-action="DeclineFriendRequest" asp-route-senderEmail="@User.Identity.Name" asp-route-recipientEmail="@Model.Email" asp-route-currentView="index" class="ms_btn play_btn">Cancel Request</a>
+                }
+                else
+                {
+                    <a asp-action="AcceptFriendRequest" asp-route-recipientEmail="@User.Identity.Name" asp-route-senderEmail="@Model.Email" asp-route-currentView="index" class="ms_btn play_btn">Confirm Request</a>
+                    <a asp-action="DeclineFriendRequest" asp-route-recipientEmail="@User.Identity.Name" asp-route-senderEmail="@Model.Email" asp-route-currentView="indexRemove" class="ms_btn play_btn">Remove Request</a>
+                }
+
             </div>
         </div>
     </div>
@@ -138,16 +138,16 @@
         </div>
 
         <div class="ms_relative_inner">
-            @foreach (var playlist in this.Model.Playlists)
-            {
-                if (playlist.Audience.Name == "Public")
-                {
-                    <div class="ms_feature_slider swiper-container">
-                        <div class="swiper-wrapper">
+            <div class="ms_feature_slider swiper-container">
+                <div class="swiper-wrapper">
+                    @foreach (var playlist in this.Model.Playlists)
+                    {
+                        if (playlist.Audience.Name == "Public")
+                        {
                             <div class="swiper-slide">
                                 <div class="ms_rcnt_box">
                                     <div class="ms_rcnt_box_img">
-                                        <img src="@playlist.ImagePath" alt="">
+                                        <img src="@playlist.ImagePath" alt="" style="max-height:200px;min-height:200px;">
                                         <div class="ms_main_overlay">
                                             @if (this.Model.Friends.Any(x => x.Email == this.User.Identity.Name) || this.User.HasClaim(x => x.Value == "Admin"))
                                             {
@@ -155,8 +155,8 @@
                                                     <img src="~/Images/svg/more.svg" alt="">
                                                 </div>
                                                 <ul class="more_option">
-                                                    <li><a asp-action="EditPlaylist" asp-controller="Playlist" asp-route-title="@playlist.Name"><span class="opt_icon"><span class="icon icon_fav"></span></span>Edit Playlist</a></li>
-                                                    <li><a asp-action="Delete" asp-controller="Playlist" asp-route-title="@playlist.Name"><span class="opt_icon"><span class="icon icon_queue"></span></span>Delete Playlist</a></li>
+                                                    <li><a asp-action="EditPlaylist" asp-controller="Playlist" asp-route-title="@playlist.Name"><span class="opt_icon"></span>Edit Playlist</a></li>
+                                                    <li><a asp-action="Delete" asp-controller="Playlist" asp-route-title="@playlist.Name"><span class="opt_icon"></span>Delete Playlist</a></li>
                                                 </ul>
                                             }
                                         </div>
@@ -166,34 +166,35 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                }
-            }
+                        }
+                    }
+                </div>
+            </div>
             <!-- Add Arrows -->
             <div class="swiper-button-next1 slider_nav_next"></div>
             <div class="swiper-button-prev1 slider_nav_prev"></div>
         </div>
     </div>
-    <!----Friends Playlist---->
-    @if (this.Model.Friends.Any(x => x.Email == this.User.Identity.Name) || this.User.HasClaim(x => x.Value == "Admin"))
-    {
+</div>
+<!----Friends Playlist---->
+@if (this.Model.Friends.Any(x => x.Email == this.User.Identity.Name) || this.User.HasClaim(x => x.Value == "Admin"))
+{
+    <div class="ms_content_wrapper ms_artist_content">
         <div class="ms_featured_slider">
             <div class="ms_heading">
                 <h1>Friends Playlists</h1>
             </div>
-
             <div class="ms_relative_inner">
-                @foreach (var playlist in this.Model.Playlists)
-                {
-                    if (playlist.Audience.Name == "Friends")
-                    {
-                        <div class="ms_feature_slider swiper-container">
-                            <div class="swiper-wrapper">
+                <div class="ms_feature_slider swiper-container">
+                    <div class="ms_feature_slider swiper-container">
+                        @foreach (var playlist in this.Model.Playlists)
+                        {
+                            if (playlist.Audience.Name == "Friends")
+                            {
                                 <div class="swiper-slide">
                                     <div class="ms_rcnt_box">
                                         <div class="ms_rcnt_box_img">
-                                            <img src="@playlist.ImagePath" alt="">
+                                            <img src="@playlist.ImagePath" alt="" style="max-height:200px;min-height:200px;">
                                             <div class="ms_main_overlay">
 
                                                 @if (this.Model.Friends.Any(x => x.Email == this.User.Identity.Name) || this.User.HasClaim(x => x.Value == "Admin"))
@@ -202,8 +203,8 @@
                                                         <img src="~/Images/svg/more.svg" alt="">
                                                     </div>
                                                     <ul class="more_option">
-                                                        <li><a asp-action="EditPlaylist" asp-controller="Playlist" asp-route-title="@playlist.Name"><span class="opt_icon"><span class="icon icon_fav"></span></span>Edit Playlist</a></li>
-                                                        <li><a asp-action="Delete" asp-controller="Playlist" asp-route-title="@playlist.Name"><span class="opt_icon"><span class="icon icon_queue"></span></span>Delete Playlist</a></li>
+                                                        <li><a asp-action="EditPlaylist" asp-controller="Playlist" asp-route-title="@playlist.Name"><span class="opt_icon"></span>Edit Playlist</a></li>
+                                                        <li><a asp-action="Delete" asp-controller="Playlist" asp-route-title="@playlist.Name"><span class="opt_icon"></span>Delete Playlist</a></li>
                                                     </ul>
                                                 }
                                             </div>
@@ -213,19 +214,20 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-
-                        </div>
-                    }
-                }
+                            }
+                        }
+                    </div>
+                </div>
                 <!-- Add Arrows -->
-            <div class="swiper-button-next1 slider_nav_next"></div>
+                <div class="swiper-button-next1 slider_nav_next"></div>
                 <div class="swiper-button-prev1 slider_nav_prev"></div>
             </div>
         </div>
-    }
-    @if (this.Model.Email == this.User.Identity.Name || this.User.HasClaim(x => x.Value == "Admin"))
-    {
+    </div>
+}
+@if (this.Model.Email == this.User.Identity.Name || this.User.HasClaim(x => x.Value == "Admin"))
+{
+    <div class="ms_content_wrapper ms_artist_content">
         <!----Private Playlists---->
         <div class="ms_featured_slider">
             <div class="ms_heading">
@@ -233,23 +235,23 @@
             </div>
 
             <div class="ms_relative_inner">
-                @foreach (var playlist in this.Model.Playlists)
-                {
-                    if (playlist.Audience.Name == "Private")
-                    {
-                        <div class="ms_feature_slider swiper-container">
-                            <div class="swiper-wrapper">
+                <div class="ms_feature_slider swiper-container">
+                    <div class="swiper-wrapper">
+                        @foreach (var playlist in this.Model.Playlists)
+                        {
+                            if (playlist.Audience.Name == "Private")
+                            {
                                 <div class="swiper-slide">
                                     <div class="ms_rcnt_box">
                                         <div class="ms_rcnt_box_img">
-                                            <img src="@playlist.ImagePath" alt="">
+                                            <img src="@playlist.ImagePath" alt="" style="max-height:200px;min-height:200px;">
                                             <div class="ms_main_overlay">
                                                 <div class="ms_more_icon">
                                                     <img src="~/Images/svg/more.svg" alt="">
                                                 </div>
                                                 <ul class="more_option">
-                                                    <li><a asp-action="EditPlaylist" asp-controller="Playlist" asp-route-title="@playlist.Name"><span class="opt_icon"><span class="icon icon_fav"></span></span>Edit Playlist</a></li>
-                                                    <li><a asp-action="Delete" asp-controller="Playlist" asp-route-title="@playlist.Name"><span class="opt_icon"><span class="icon icon_queue"></span></span>Delete Playlist</a></li>
+                                                    <li><a asp-action="EditPlaylist" asp-controller="Playlist" asp-route-title="@playlist.Name"><span class="opt_icon"></span>Edit Playlist</a></li>
+                                                    <li><a asp-action="Delete" asp-controller="Playlist" asp-route-title="@playlist.Name"><span class="opt_icon"></span>Delete Playlist</a></li>
                                                 </ul>
 
                                             </div>
@@ -259,16 +261,15 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-
-                        </div>
-                    }
-                }
+                            }
+                        }
+                    </div>
+                </div>
                 <!-- Add Arrows -->
-            <div class="swiper-button-next1 slider_nav_next"></div>
+                <div class="swiper-button-next1 slider_nav_next"></div>
                 <div class="swiper-button-prev1 slider_nav_prev"></div>
             </div>
         </div>
-    }
-    <!----Main div close---->
-</div>
+    </div>
+}
+

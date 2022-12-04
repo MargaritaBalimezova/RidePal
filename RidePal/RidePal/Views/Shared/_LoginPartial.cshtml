@@ -8,15 +8,9 @@
         @Html.ValidationMessageFor(x=>x.Credential)
         <div id="validation-error" class="text-danger" hidden="hidden"></div>
         <input id="email" asp-for="Credential" type="text" placeholder="Enter Your Email" class="form-control">
-        <span class="form_icon">
-            <i class="fa_icon form-envelope" aria-hidden="true"></i>
-        </span>
     </div>
     <div class="form-group">
         <input id="password" asp-for=Password type="password" placeholder="Enter Password" class="form-control">
-        <span class="form_icon">
-            <i class="fa_icon form-lock" aria-hidden="true"></i>
-        </span>
     </div>
     <div class="remember_checkbox">
         <label>
@@ -26,13 +20,12 @@
         </label>
     </div>
     <input id="login" type="submit" class="ms_btn" value="Sing In" />
-     <span asp-validation-for="IsEmailConfirmed"></span>
-                                    <span asp-validation-for="IsBlocked"></span>
-                           
+    <span asp-validation-for="IsEmailConfirmed"></span>
+    <span asp-validation-for="IsBlocked"></span>
 
     <div class="popup_forgot">
-        <a asp-controller="Auth" asp-action="LoginWithGoogle">Sign in with Google</a>    
-    </div>   
+        <a asp-controller="Auth" asp-action="LoginWithGoogle">Sign in with Google</a>
+    </div>
     <div class="popup_forgot">
         <a asp-controller="Auth" asp-action="ForgotPassword">Forgot Password</a>
     </div>
