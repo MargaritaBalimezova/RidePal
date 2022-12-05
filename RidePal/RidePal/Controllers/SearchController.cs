@@ -29,9 +29,10 @@ namespace RidePal.WEB.Controllers
                 var albums = await this.searchService.SearchAlbumssAsync(name);
                 var users = await this.searchService.SearchUsersAsync(name);
                 var artists = await this.searchService.SearchArtistsAsync(name);
+                var playlists = await this.searchService.SearchPlaylistsAsync(name);
 
                 return this.View(new SearchResultWrapper 
-                { Tracks = tracks, Artists = artists, Albums = albums, Users = users });
+                { Tracks = tracks, Artists = artists, Albums = albums, Users = users, Playlists = playlists });
             }
             catch (Exception ex)
             {

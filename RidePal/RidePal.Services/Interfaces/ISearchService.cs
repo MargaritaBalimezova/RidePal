@@ -12,5 +12,6 @@ namespace RidePal.Services.Interfaces
         Task<IEnumerable<UserDTO>> SearchUsersAsync(string name);
         Task<IEnumerable<AlbumDTO>> SearchAlbumssAsync(string name);
         Task<IEnumerable<ArtistDTO>> SearchArtistsAsync(string name);
+        Task<IEnumerable<PlaylistDTO>> SearchPlaylistsAsync(string name);
     }
 }
