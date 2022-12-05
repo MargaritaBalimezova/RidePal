@@ -1,0 +1,155 @@
+﻿@using RidePal.Services.Models
+@using RidePal.Services.DTOModels
+@model PaginatedList<PlaylistDTO>
+@{
+    var paramToSort = new List<string>
+{
+        "Name", "Duration"
+    };
+    var paramSortOrder = new List<string>
+{
+        "Ascending", "Descending"
+    };
+    var sortBy = new SelectList(paramToSort);
+    var sortOptions = new SelectList(paramSortOrder);
+}
+
+<html lang="en">
+<body>
+
+    <div id="filter-form">
+        <form asp-controller="Playlist" asp-action="Playlists" method="get">
+            <label>Sort By</label>
+            <select asp-items="@sortBy" name="SortBy" class="select-sortBy"
+                    style="border-radius: 9px" id="sortByDropdown">
+                <option value="@this.ViewData["SortBy"]" selected disabled hidden>@this.ViewData["SortBy"]</option>
+            </select>
+            <label>Sort Order</label>
+            <select asp-items="@sortOptions" name="SortOrder" class="select-sortBy"
+                    style="border-radius: 9px" id="sortByDropdown">
+                <option value="@this.ViewData["SortOrder"]" selected disabled hidden>@this.ViewData["SortOrder"]</option>
+            </select>
+            <label>Playlist Duration</label>
+            <select name="Duration" class="select-sortBy"
+                    style="border-radius: 9px" id="sortByDropdown">
+                <option value="@this.ViewData["Duration"]" selected disabled hidden>Up to @this.ViewData["Duration"] Hours</option>
+                <option value="1">Up to 1 Hour</option>
+                <option value="2">Up to 2 Hour</option>
+                <option value="4">Up to 4 Hour</option>
+                <option value="5">Above 5 Hours</option>
+            </select>
+
+            <input name="PageSize" value="@this.ViewData["PageSize"]" hidden />
+
+            <div class="album_btn">
+                <button type="submit" class="ms_btn play_btn">Filter</button>
+            </div>
+        </form>
+        <form asp-controller="Playlist" asp-action="Playlists" method="get">
+            <input name="PageSize" value="@this.ViewData["PageSize"]" hidden />
+
+            <input type="submit" value="Clear filters" class="ms_btn play_btn" style="background-color: #b02a37 !important;"/>
+        </form>
+    </div>
+
+    <form asp-controller="Playlist" asp-action="Playlists" method="get" id="paginationSize">
+        <label>Page Size</label>
+        <select name="PageSize" onchange="this.form.submit()" class="pageSize-Dropdown"
+                style="border-radius: 10px;margin-top: 12px;">
+            <option value="" selected disabled hidden>@this.ViewData["PageSize"]</option>
+            <option value="3">3</option>
+            <option value="6">6</option>
+            <option value="9">9</option>
+
+            @{
+                if (this.ViewData["SortBy"] != null)
+                {
+                    <input name="SortBy" value="@this.ViewData["SortBy"]" hidden />
+                }
+                if (this.ViewData["SortOrder"] != null)
+                {
+                    <input name="SortOrder" value="@this.ViewData["SortOrder"]" hidden />
+                }
+                if (this.ViewData["Duration"] != null)
+                {
+                    <input name="Duration" value="@this.ViewData["Duration"]" hidden />
+                }
+            }
+        </select>
+    </form>
+
+
+    @{
+        if (this.Model.Count() != 0)
+        {
+            <div class="ms_content_wrapper padder_top90">
+                <div class="ms_top_artist">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="ms_heading">
+                                    <h1>Playlists</h1>
+                                </div>
+                            </div>
+                            @{
+                                foreach (var item in this.Model)
+                                {
+                                    <div class="col-lg-2 col-md-6">
+                                        <div class="ms_rcnt_box marger_bottom30">
+                                            <div class="ms_rcnt_box_img">
+                                                <img src="@item.ImagePath" alt="" class="img-fluid">
+                                                <div class="ms_main_overlay">
+                                                    <div class="ms_box_overlay"></div>
+                                                </div>
+                                            </div>
+                                            <div class="ms_rcnt_box_text">
+                                                <h3><a asp-controller="Playlist" asp-action="Index" asp-route-title="@item.Name">@item.Name</a></h3>
+                                                <p>@item.Author.Username</p>
+                                                @{
+                                                    TimeSpan t1 = TimeSpan.FromSeconds(item.Duration);
+
+                                                    string duration1 = string.Format("{0:D2}:{1:D2}:{2:D2}",
+                                                    t1.Hours,
+                                                    t1.Minutes,
+                                                    t1.Seconds);
+                                                    <p>@duration1</p>
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            }
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        else
+        {
+            <center style="margin-top: 140px;">
+                <div class="ms_heading">
+                    <h1>No Results Found! &#128531;	</h1>
+                </div>
+            </center>
+        }
+    }
+    @{
+        string hasPrevPage = this.Model.HasPreviousPage ? "false" : "disabled";
+        string hasNextPage = this.Model.HasNextPage ? "false" : "disabled";
+    }
+    <hr />
+    <div class="pagination">
+        <a asp-controller="Playlist" asp-action="Playlists" asp-route-SortOrder="@this.ViewData["SortOrder"]"
+           asp-route-Duration="@this.ViewData["Duration"]" asp-route-SortBy="@this.ViewData["SortBy"]"
+           asp-route-PageSize="@this.ViewData["PageSize"]"
+           asp-route-PageNumber="@(this.Model.PageNumber - 1)" class="ms_btn play_btn @hasPrevPage page-buttons"> &lt;Prev</a>
+        <br />
+        <a asp-controller="Playlist" asp-action="Playlists" asp-route-SortOrder="@this.ViewData["SortOrder"]"
+           asp-route-Duration="@this.ViewData["Duration"]" asp-route-SortBy="@this.ViewData["SortBy"]"
+           asp-route-PageSize="@this.ViewData["PageSize"]"
+           asp-route-PageNumber="@(this.Model.PageNumber + 1)" class="ms_btn @hasNextPage play_btn page-buttons" >Next&gt;</a>
+    </div>
+</body>
+
+</html>

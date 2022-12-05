@@ -6698,3 +6698,35 @@ body.loaded.modal-open .ms_player_wrapper {
 	background-position: 100px 0px !important;
 	background-color: #fff !important;
 }
+
+#filter-form, #paginationSize, .pagination {
+	display: flex;
+	justify-content: center;
+	align-items: baseline;
+}
+
+#filter-form, .pagination {
+	margin-top: 5%;
+}
+
+#clear-filters {
+	background-color: #b02a37;
+	color: #fff;
+	height: 30px;
+	display: inline-block;
+	text-transform: capitalize;
+	width: 100px;
+	text-align: center;
+	line-height: 32px;
+	border-radius: 20px;
+	margin-left: 15px;
+	margin: 0;
+	font-family: inherit;
+	font-size: inherit;
+}
+
+.disabled {
+	opacity: 0.6;
+	cursor: not-allowed;
+	pointer-events: none;
+}

@@ -7,6 +7,7 @@ using RidePal.Data.Models;
 using RidePal.Services.DTOModels;
 using RidePal.Services.Helpers;
 using RidePal.Services.Interfaces;
+using RidePal.Services.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -304,6 +305,61 @@ namespace RidePal.Services.Services
 
             return mapper.Map<IEnumerable<PlaylistDTO>>(playlists);
 
+        }
+
+        public async Task<PaginatedList<PlaylistDTO>> FilterPlaylists(PlaylistQueryParameters parameters)
+        {
+            var result = db.Playlists
+                .Where(x => x.Audience.Name == "public")
+                .AsQueryable();
+
+            if(parameters.Duration.HasValue && parameters.Duration != 0)
+            {
+                parameters.Duration = parameters.Duration * 3600;
+                if(parameters.Duration != 5 * 3600)
+                {
+                    result = result
+                            .Where(x => x.Duration <= parameters.Duration);
+                }
+                else
+                {
+                    result = result
+                            .Where(x => x.Duration >= parameters.Duration);
+                }
+            }
+
+            if (!string.IsNullOrEmpty(parameters.SortBy))
+            {
+                if(parameters.SortBy.Equals("name", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    result = result.OrderBy(x => x.Name);
+                }
+                else if(parameters.SortBy.Equals("duration", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    result = result.OrderBy(x => x.Duration);
+                }
+
+                if (!string.IsNullOrEmpty(parameters.SortOrder)
+                    && parameters.SortOrder.Equals("descending", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    result = result.Reverse();
+                }
+            }
+
+            int totalPages = (result.Count() + 1) / parameters.PageSize;
+            if (result.Count() % parameters.PageSize != 0)
+            {
+                totalPages++;
+            }
+
+            var resultList = Paginate(await result.ToListAsync(), parameters.PageNumber, parameters.PageSize);
+
+            return new PaginatedList<PlaylistDTO>(resultList.ToList(), totalPages, parameters.PageNumber);
+        }
+
+        private IEnumerable<PlaylistDTO> Paginate(IEnumerable<Playlist> playlists, int pageNumber, int pageSize)
+        {
+            return this.mapper.Map<IEnumerable<PlaylistDTO>>(playlists.Skip((pageNumber - 1) * pageSize).Take(pageSize));
         }
     }
 }

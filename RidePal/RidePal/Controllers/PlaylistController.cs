@@ -204,5 +204,28 @@ namespace RidePal.WEB.Controllers
             return this.View(mapper.Map<IEnumerable<PlaylistViewModel>>(result));
             
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Playlists(PlaylistQueryParameters parameters)
+        {
+            try
+            {
+                this.ViewData["SortBy"] = parameters.SortBy;
+                this.ViewData["PageSize"] = parameters.PageSize;
+                this.ViewData["SortOrder"] = parameters.SortOrder;
+                this.ViewData["Duration"] = parameters.Duration;
+                
+                var playlists = await this.playlistService.FilterPlaylists(parameters);
+
+                return this.View(playlists);
+            }
+            catch (Exception ex)
+            {
+                return this.View("Error", new ErrorViewModel
+                {
+                    RequestId = ex.Message
+                });
+            }
+        }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using RidePal.Data.Models;
 using RidePal.Services.DTOModels;
+using RidePal.Services.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -26,5 +27,7 @@ namespace RidePal.Services.Interfaces
         Task<Audience> GetAudienceAsync(int id);
 
         Task<IEnumerable<PlaylistDTO>> GetUserPlaylists(int userId);
+
+        Task<PaginatedList<PlaylistDTO>> FilterPlaylists(PlaylistQueryParameters parameters);
     }
 }
