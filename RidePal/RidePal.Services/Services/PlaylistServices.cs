@@ -1,7 +1,5 @@
-﻿using Amazon.S3.Model.Internal.MarshallTransformations;
-using AutoMapper;
+﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
 using RidePal.Data;
 using RidePal.Data.Models;
 using RidePal.Services.DTOModels;
@@ -15,10 +13,7 @@ using System.Net.Http;
 using System.Net;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Media.Imaging;
-using System.Diagnostics;
-using Windows.Storage.Streams;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc.ViewFeatures;
 
 namespace RidePal.Services.Services
 {
@@ -132,7 +127,6 @@ namespace RidePal.Services.Services
                         Name = currentGenre.Name
                     };
 
-                    //TODO:This one adds additional genres to the DB
                     obj.Genres.Add(playlistGenreDTO);
                     obj.GenresWithPercentages.Remove(obj.GenresWithPercentages.First());
                 }
@@ -164,7 +158,7 @@ namespace RidePal.Services.Services
                         GenreId = currentGenre.Id,
                         Name = currentGenre.Name
                     };
-                    //TODO:This one adds additional genres to the DB
+
                     obj.Genres.Add(playlistGenreDTO);
                     obj.GenresWithPercentages.Remove(obj.GenresWithPercentages.First());
                 }
@@ -229,7 +223,7 @@ namespace RidePal.Services.Services
                         GenreId = currentGenre.Id,
                         Name = currentGenre.Name
                     };
-                    //TODO:This one adds additional genres to the DB
+
                     obj.Genres.Add(playlistGenreDTO);
                     obj.GenresWithPercentages.Remove(obj.GenresWithPercentages.First());
                 }
@@ -243,11 +237,11 @@ namespace RidePal.Services.Services
             }
 
             obj.Duration = currentDuration;
-            var imagePath = await pixabayServices.GetImageURL();
-            var image = DownloadPhoto(imagePath);
 
-            var uploadImage = await UploadPhoto((IFormFile)image);
-            obj.ImagePath = uploadImage;
+            var imageUrl = await pixabayServices.GetImageURL();
+            var imagePath = DownloadAndSavePhoto(imageUrl, obj.Name);
+            obj.ImagePath = await storageService.UploadPlaylistImage(imagePath);
+
             var playlist = mapper.Map<Playlist>(obj);
             playlist.CreatedOn = DateTime.Now;
 
@@ -328,46 +322,19 @@ namespace RidePal.Services.Services
 
         #region Private Methods
 
-        private async Task<BitmapImage> DownloadPhoto(string url)
+        private string DownloadAndSavePhoto(string url, string playlistName)
         {
-            using (var client = new HttpClient())
+            string directory = "D:\\Downloads\\RidePalImages";
+            string filePath = directory + "\\" + playlistName + ".jpg";
+            using (WebClient client = new WebClient())
             {
-                var response = client.GetAsync(url).Result;
-                BitmapImage bitmap = new BitmapImage();
-                if (response != null && response.StatusCode == HttpStatusCode.OK)
+                if (!System.IO.Directory.Exists(directory))
                 {
-                    using (var stream = await response.Content.ReadAsStreamAsync())
-                    {
-                        using (var memStream = new MemoryStream())
-                        {
-                            await stream.CopyToAsync(memStream);
-                            memStream.Position = 0;
-                            bitmap.SetSource(memStream.AsRandomAccessStream());
-                        }
-                    }
-                    return bitmap;
+                    System.IO.Directory.CreateDirectory(directory);
                 }
+                client.DownloadFile(new Uri(url), filePath);
             }
-            return null;
-        }
-
-        private async Task<string> UploadPhoto(IFormFile file)
-        {
-            if (file == null)
-            {
-                return null;
-            }
-            try
-            {
-                FileInfo fi = new FileInfo(file.FileName);
-                var newFileName = "https://ridepalbucket.s3.amazonaws.com/Image_" + DateTime.Now.TimeOfDay.Milliseconds + fi.Extension;
-                await this.storageService.Upload(file);
-                return newFileName;
-            }
-            catch (Exception ex)
-            {
-                return ex.Message;
-            }
+            return filePath;
         }
 
         #endregion Private Methods

@@ -17,6 +17,7 @@ namespace RidePal.WEB.Controllers
         {
             this.userService = userService;
         }
+
         public async Task<ClaimsPrincipal> TransformAsync(ClaimsPrincipal principal)
         {
             // Clone current identity
@@ -40,19 +41,27 @@ namespace RidePal.WEB.Controllers
                 {
                     return principal;
                 }
+
                 if (!string.IsNullOrEmpty(user.AccessToken))
                 {
                     var claim = new Claim("AuthToken", user.AccessToken);
                     newIdentity.AddClaim(claim);
                 }
+
+                //new Claim("Image", user.ImagePath),
+                var imgClaim = principal.Claims.FirstOrDefault(x => x.Type == "Image");
+                if (user.ImagePath != imgClaim.Value)
+                {
+                    newIdentity.RemoveClaim(imgClaim);
+                    newIdentity.AddClaim(new Claim("Image", user.ImagePath));
+                }
+
                 return clone;
             }
             catch (Exception)
             {
                 return principal;
             }
-            
         }
     }
 }
-

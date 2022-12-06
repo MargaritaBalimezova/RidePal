@@ -21,11 +21,11 @@
                 {
                     @if (Model.IsBlocked)
                     {
-                        <a asp-action="Unblock" asp-route-id=@Model.Id class="ms_btn play_btn">Unblock</a>
+                        <a asp-action="Unblock" asp-route-email=@Model.Email asp-route-currentView="profilePage" class="ms_btn play_btn">Unblock</a>
                     }
                     else
                     {
-                        <a asp-action="Block" asp-route-id=@Model.Id class="ms_btn play_btn">Block</a>
+                        <a asp-action="Block" asp-route-email=@Model.Email asp-route-currentView="profilePage" class="ms_btn play_btn">Block</a>
                     }
                     <a asp-action="Delete" asp-route-email=@Model.Email class="ms_btn play_btn">Delete</a>
                 }

@@ -36,9 +36,9 @@ namespace RidePal.Services.Interfaces
 
         public Task RemoveFriendAsync(string email, string friendEmail);
 
-        public Task BlockUserAsync(int id);
+        public Task BlockUserAsync(string email);
 
-        public Task UnblockUserAsync(int id);
+        public Task UnblockUserAsync(string email);
 
         public Task<IEnumerable<UserDTO>> SearchAsync(string userSearch, int type);
 

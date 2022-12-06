@@ -44,24 +44,27 @@
 
                                             @foreach (var friend in this.Model.Friends)
                                             {
-                                                <tr>
-                                                    <td>
-                                                        <img src="@friend.ImagePath" alt="profile image">
-                                                        <a asp-controller="User" asp-action="Index" asp-route-email="@friend.Email" class="user-link">@friend.Username</a>
-                                                        <span class="user-subhead" style="color:white">@friend.RoleName</span>
-                                                    </td>
-                                                    <td>
-                                                        <a asp-controller="User" asp-action="Index" asp-route-email="@friend.Email">@friend.Email</a>
-                                                    </td>
-                                                    <td style="width: 20%;">
-                                                        <a asp-action="RemoveFriend" asp-controller="User" asp-route-friendEmail="@friend.Email" asp-route-email="@Model.Email" asp-route-currentView="allFriends" class="table-link danger">
-                                                            <span class="fa-stack">
-                                                                <i class="fa fa-square fa-stack-2x"></i>
-                                                                <i class="fa fa-trash-o fa-stack-1x fa-inverse"></i>
-                                                            </span>
-                                                        </a>
-                                                    </td>
-                                                </tr>
+                                                if (!friend.IsBlocked)
+                                                {
+                                                    <tr>
+                                                        <td>
+                                                            <img src="@friend.ImagePath" alt="profile image">
+                                                            <a asp-controller="User" asp-action="Index" asp-route-email="@friend.Email" class="user-link">@friend.Username</a>
+                                                            <span class="user-subhead" style="color:white">@friend.RoleName</span>
+                                                        </td>
+                                                        <td>
+                                                            <a asp-controller="User" asp-action="Index" asp-route-email="@friend.Email">@friend.Email</a>
+                                                        </td>
+                                                        <td style="width: 20%;">
+                                                            <a asp-action="RemoveFriend" asp-controller="User" asp-route-friendEmail="@friend.Email" asp-route-email="@Model.Email" asp-route-currentView="allFriends" class="table-link danger">
+                                                                <span class="fa-stack">
+                                                                    <i class="fa fa-square fa-stack-2x"></i>
+                                                                    <i class="fa fa-trash-o fa-stack-1x fa-inverse"></i>
+                                                                </span>
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                }
                                             }
                                         </tbody>
                                     </table>

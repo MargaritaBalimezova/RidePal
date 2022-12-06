@@ -239,12 +239,12 @@ namespace MovieForum.Web.Controllers
 
         //Admin
         [HttpPut]
-        [Route("block/{id}")]
-        public async Task<IActionResult> Block(int id)
+        [Route("block/{email}")]
+        public async Task<IActionResult> Block(string email)
         {
             try
             {
-                await userService.BlockUserAsync(id);
+                await userService.BlockUserAsync(email);
                 return this.Ok("User blocked successfully");
             }
             catch (Exception ex)
@@ -254,12 +254,12 @@ namespace MovieForum.Web.Controllers
         }
 
         [HttpPut]
-        [Route("unblock/{id}")]
-        public async Task<IActionResult> Unblock(int id)
+        [Route("unblock/{email}")]
+        public async Task<IActionResult> Unblock(string email)
         {
             try
             {
-                await userService.UnblockUserAsync(id);
+                await userService.UnblockUserAsync(email);
                 return this.Ok("User unblocked successfully");
             }
             catch (Exception ex)
