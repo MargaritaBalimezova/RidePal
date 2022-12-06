@@ -131,17 +131,7 @@ Purchase:
                                     top tracks
                                 </span>
                             </a>
-                        </li>
-                        <li>
-                            <a href="free_music.html" title="Free Music">
-                                <span class="nav_icon">
-                                    <span class="icon icon_music"></span>
-                                </span>
-                                <span class="nav_text">
-                                    free music
-                                </span>
-                            </a>
-                        </li>
+                        </li>                      
                         <li>
                             <a href="stations.html" title="Stations">
                                 <span class="nav_icon">
@@ -166,28 +156,16 @@ Purchase:
                             </a>
                         </li>
                         <li>
-                            <a asp-controller="User" asp-action="AllFriends" asp-route-email="@this.User.Identity.Name" title="Friends">
+                            <a asp-controller="User" asp-action="FriendRequests" asp-route-email="@this.User.Identity.Name" title="Friends">
                                 <span class="nav_icon">
                                     <span class="icon icon_favourite"></span>
                                 </span>
                                 <span class="nav_text">
-                                    Friends
-                                </span>
-                            </a>
-                        </li>
-
-                        <li>
-                            <a asp-controller="User" asp-action="FriendRequests" asp-route-email="@this.User.Identity.Name" title="Requests">
-                                <span class="nav_icon">
-                                    <span class="icon icon_purchased"></span>
-                                </span>
-                                <span class="nav_text">
-                                    Requests
+                                    Friend Requests
                                 </span>
                             </a>
                         </li>
                     </ul>
-
                 </div>
             </div>
         </div>
