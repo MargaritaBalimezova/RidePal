@@ -83,8 +83,7 @@
                                     <div class="audienceDrop" style="display: inline-flex;flex-direction: row;">
                                         <label style="color:whitesmoke;display: flex;flex-direction:row;margin-top:8px;margin-right: 10px;font-size: 19px;">Choose an audience:</label>
                                         <div>
-                                        <select class="minimal form-control" style="width:200px;" asp-for="AudienceId" asp-items="@audiences">
-                                           
+                                        <select class="minimal form-control" style="width:200px;" asp-for="AudienceId" asp-items="@audiences">                                           
                                         </select>
                                         </div>
                                         @* <select asp-for="Audience" asp-items="@Html.GetEnumSelectList<Audience>()"></select>*@
@@ -101,8 +100,6 @@
                                     </div>
                                 </center>
                                 <br>
-
-
                                 @*div event listener взима чек боксовете/ проверява дали са чекд/ на отворените запазва ID/ for цикъл през отворениие кутийски за проценти*@
                                 <center>
                                     <div id="checkboxes" style="margin-right:1%;">
@@ -117,11 +114,7 @@
 
                                             <input class="gorenInput" type="checkbox" id=@checkboxId value="@this.Model.GenresWithPercentages[i].GenreName" name="userInp">
                                             <label style="color:whitesmoke;margin-right:5px;margin-left:5px;">@genrename</label>
-
                                         }
-
-
-
                                     </div>
                                     <br>
                                 </center>
@@ -133,7 +126,6 @@
                                             var function = $"myFunction{i}()";
                                             var divId = $"getGenre{i}";
 
-
                                             <div id=@divId style="display:none;" name="divBoxes">
                                                 <div>
                                                     @* <label>@Model.GenresWithPercentages[i].GenreName</label>*@
@@ -144,28 +136,19 @@
 
                                                 </div>
                                             </div>
-
                                         }
-
-
-
                                     </div>
                                 </center>
 
                                 <center>
-
-                                    <input class=" ms_btn" style="width:200px;margin:2%;height: 40px;" type="button" id="openBox" value="Set genre % (Required)">
-                                    <button class="ms_btn " type="reset" style="width:200px;margin:2%;height: 40px;" onClick="window.location.reload();">Reset </button>
-
+                                    <input class=" ms_btn" style="width:200px;margin:2%;height: 40px; border:none" type="button" id="openBox" value="Set genre % (Required)">
+                                    <button class="ms_btn " type="reset" style="width:200px;margin:2%;height: 40px; border:none" onClick="window.location.reload();">Reset </button>
                                 </center>
                             </div>
 
                         </div>
-
-                        <div class="sumDiv">
-                    
-                            <input id="submitTrip" type="submit" class="submTr ms_btn" style="width:200px;margin:2%;height: 40px;" value="Generate Playlist">
-                   
+                        <div class="sumDiv">                    
+                            <input id="submitTrip" type="submit" class="submTr ms_btn" style="width:200px;margin:2%;height: 40px;" value="Generate Playlist">                   
                         </div>
                     </div>
                 </form>
