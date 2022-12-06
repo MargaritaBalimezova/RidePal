@@ -121,8 +121,8 @@ namespace RidePal.Tests.TrackServiceTests
             var actual = service.GetTracksWithDistinctArtists(genre, duration);
 
             //Assert
-            Assert.IsTrue(actual.Sum(x => x.Duration) >= 1450 &&
-                actual.Sum(x => x.Duration) <= 1550);
+            Assert.IsTrue(actual.Sum(x => x.Duration) >= 1100 &&
+                actual.Sum(x => x.Duration) <= 1800);
         }
 
         [TestMethod]
@@ -143,8 +143,8 @@ namespace RidePal.Tests.TrackServiceTests
             var actual = service.GetTracks(genre, duration);
 
             //Assert
-            Assert.IsTrue(actual.Sum(x => x.Duration) >= 1450 &&
-                actual.Sum(x => x.Duration) <= 1550);
+            Assert.IsTrue(actual.Sum(x => x.Duration) >= 1200 &&
+                actual.Sum(x => x.Duration) <= 1800);
         }
 
         [TestMethod]

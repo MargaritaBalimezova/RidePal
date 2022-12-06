@@ -245,7 +245,7 @@ namespace RidePal.Tests.Helpers
                         Id = 2,
                         Title = "Spin Bout You",
                         Rank = 10,
-                        Duration = 500,
+                        Duration = 400,
                         AlbumId = 1,
                         ArtistId = 1,
                         GenreId = 1,
@@ -292,6 +292,76 @@ namespace RidePal.Tests.Helpers
                         ImagePath = "",
                         IsDeleted = false
                     },
+                };
+            }
+        }
+        
+
+        public static List<Audience> Audiences { 
+            get 
+            {
+                return new List<Audience>()
+                {
+                    new Audience
+                    {
+                        Id = 1,
+                        Name = "Public",
+                        IsDeleted = false
+                    },
+                    new Audience
+                    {
+                        Id = 2,
+                        Name = "Friends",
+                        IsDeleted = false
+                    }
+                    ,new Audience
+                    {
+                        Id = 3,
+                        Name = "Private",
+                        IsDeleted = false
+                    }
+                };
+            } 
+        }
+
+        public static List<Playlist> Playlists { 
+            get
+            {
+                return new List<Playlist>()
+                {
+                    new Playlist
+                    {
+                        Id = 1,
+                        Name = "PlaylistN=1",
+                        ImagePath = "",
+                        Duration = 6 * 3600,
+                        AvgRank = 3.5,
+                        AuthorId = 1,
+                        AudienceId = 1,
+                        IsDeleted = false,
+                    },
+                    new Playlist
+                    {
+                        Id = 2,
+                        Name = "PlaylistN=2",
+                        ImagePath = "",
+                        Duration = 4 * 3600,
+                        AvgRank = 6.5,
+                        AuthorId = 2,
+                        AudienceId = 2,
+                        IsDeleted = false,
+                    },
+                    new Playlist
+                    {
+                        Id = 3,
+                        Name = "PlaylistN=3",
+                        ImagePath = "",
+                        Duration = 2 * 3600,
+                        AvgRank = 10.6,
+                        AuthorId = 3,
+                        AudienceId = 1,
+                        IsDeleted = false,
+                    }
                 };
             }
         }

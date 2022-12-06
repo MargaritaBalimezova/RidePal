@@ -27,7 +27,9 @@ namespace RidePal.Services.Services
         private readonly IPixabayServices pixabayServices;
         private readonly IAWSCloudStorageService storageService;
 
-        public PlaylistServices(RidePalContext context, IMapper mapper, IGenreService genreService, ITrackServices trackServices, IPixabayServices pixabayServices, IAWSCloudStorageService storageService)
+        public PlaylistServices(RidePalContext context, IMapper mapper, 
+            IGenreService genreService, ITrackServices trackServices, 
+            IPixabayServices pixabayServices, IAWSCloudStorageService storageService)
         {
             this.db = context;
             this.mapper = mapper;
@@ -62,9 +64,9 @@ namespace RidePal.Services.Services
                 playlistToUpdate.Name = obj.Name;
             }
 
-            if (obj.Audience.Id != playlistToUpdate.Audience.Id && (obj.Audience.Id >= 1 && obj.Audience.Id <= 3))
+            if (obj.Audience.Id != playlistToUpdate.AudienceId && (obj.Audience.Id >= 1 && obj.Audience.Id <= 3))
             {
-                playlistToUpdate.Audience.Id = obj.Audience.Id;
+                playlistToUpdate.AudienceId = obj.Audience.Id;
             }
 
             await db.SaveChangesAsync();
@@ -324,7 +326,7 @@ namespace RidePal.Services.Services
         public async Task<PaginatedList<PlaylistDTO>> FilterPlaylists(PlaylistQueryParameters parameters)
         {
             var result = db.Playlists
-                .Where(x => x.Audience.Name == "public")
+                .Where(x => x.Audience.Name.ToLower() == "public")
                 .AsQueryable();
 
             if (parameters.Duration.HasValue && parameters.Duration != 0)

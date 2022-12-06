@@ -36,17 +36,20 @@ namespace RidePal.Data.DataInitialize
                 new Audience
                 {
                     Id = 1,
-                    Name = "Public"
+                    Name = "Public",
+                    IsDeleted = false
                 },
                 new Audience
                 {
                     Id = 2,
-                    Name = "Friends"
+                    Name = "Friends",
+                    IsDeleted = false
                 }
                 ,new Audience
                 {
                     Id = 3,
-                    Name = "Private"
+                    Name = "Private",
+                    IsDeleted = false
                 }
             };
 
