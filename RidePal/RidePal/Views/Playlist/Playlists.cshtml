@@ -48,7 +48,7 @@
         <form asp-controller="Playlist" asp-action="Playlists" method="get">
             <input name="PageSize" value="@this.ViewData["PageSize"]" hidden />
 
-            <input type="submit" value="Clear filters" class="ms_btn play_btn" style="background-color: #b02a37 !important;"/>
+            <input type="submit" value="Clear" class="ms_btn play_btn clearBtn" />
         </form>
     </div>
 
@@ -59,7 +59,7 @@
             <option value="" selected disabled hidden>@this.ViewData["PageSize"]</option>
             <option value="3">3</option>
             <option value="6">6</option>
-            <option value="9">9</option>
+            <option value="12">12</option>
 
             @{
                 if (this.ViewData["SortBy"] != null)

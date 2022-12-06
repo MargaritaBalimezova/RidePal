@@ -6730,3 +6730,11 @@ body.loaded.modal-open .ms_player_wrapper {
 	cursor: not-allowed;
 	pointer-events: none;
 }
+
+.clearBtn {
+	background-color: #b02a37 !important;
+
+}
+.clearBtn:hover > *{
+	box-shadow: 0px 0px 20px 0px #b02a37;
+} 

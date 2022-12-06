@@ -205,6 +205,7 @@ namespace RidePal.WEB.Controllers
         }
 
         [HttpGet]
+        [Route("Playlists")]
         public async Task<IActionResult> Playlists(PlaylistQueryParameters parameters)
         {
             try

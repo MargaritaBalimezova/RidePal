@@ -1,39 +1,139 @@
-﻿@model IEnumerable<RidePal.Data.Models.Track>
+﻿@using RidePal.Services.DTOModels
+@model IEnumerable<TrackDTO>
 
-
-<html>
+<html lang="en">
 <body>
-@{
-        var playlistDuration = 0;
-    }
+    <div class="ms_album_single_wrapper">
+        <div class="album_single_data">
+            <div class="album_single_img">
+                <img src="~/Images/Top-100-Global_246x246.jpg" alt="" class="img-fluid">
+            </div>
+            <div class="album_single_text">
+                <h2>Top 100 International Hits</h2>
+                <p class="singer_name">Brought to you by RidePal</p>
+                <div class="album_feature">
+                    @{
+                        int duration = this.Model.Sum(x => x.Duration);
+                    }
+                    @{
+                        if (duration % 60 < 10)
+                        {
+                            <a href="#" class="album_date">@this.Model.Count() tracks for  @(duration / 60):0@(duration % 60) minutes</a>
+                        }
+                        else
+                        {
+                            <a href="#" class="album_date">@this.Model.Count() tracks for @(duration/60):@(duration%60) minutes</a>
+                        }
+                    }
+                </div>
+                <div class="album_btn">
+                    <a class="ms_btn play_btn" onclick="DZ.player.playTracks([@string.Join(",", this.Model.Select(x => x.Id))])"><img src="assets/images/svg/play_all.svg" alt="">Play All</a>
+                </div>
+            </div>
+            <div class="album_more_optn ms_more_icon">
+                <span><img src="~/images/svg/more.svg" alt=""></span>
+            </div>
+            <ul class="more_option">
+                <li><a href="#"><span class="opt_icon"><span class="icon icon_fav"></span></span>Add To Favourites</a></li>
+                <li><a href="#"><span class="opt_icon"><span class="icon icon_share"></span></span>Share</a></li>
+            </ul>
+        </div>
+        <div class="album_inner_list">
+            <div class="col-lg-12">
+                <div class="ms_heading">
+                    <h1>Tracks</h1>
+                </div>
+            </div>
+            <div class="album_list_wrapper">
+                <ul class="album_list_name">
+                    <li>#</li>
+                    <li>Song Title</li>
+                    <li>Artist</li>
+                    <li class="text-center">Duration</li>
+                    <li class="text-center">Add To Favourites</li>
+                    <li class="text-center">More</li>
+                </ul>
+                @{
+                    int count = 1;
+                    foreach (var item in this.Model.Take(5))
+                    {
+                        TimeSpan t1 = TimeSpan.FromSeconds(item.Duration);
 
-    @{
-        foreach (var item in this.Model)
-        {
-            <h4>@item.Id</h4>
-            <h4>@item.Title</h4>
-            <h4>@item.Artist.Id</h4>
-            <h4>@item.Duration</h4>
-            <h4>@item.Genre.Name</h4>
-            <h4>@item.Rank</h4>
-            <br>
-            <br>
-            <hr>
-            {
-                playlistDuration = playlistDuration + item.Duration;
-            }
-        }
-    }
+                        string duration1 = string.Format("{0:D2}:{1:D2}",
+                        t1.Minutes,
+                        t1.Seconds);
 
-    @{
-        var minutes = playlistDuration / 60;
-        var hours = minutes / 60;
+                        <ul>
+                            <li><a onclick="DZ.player.playTracks([@item.Id]); return false;"><span class="play_no">@count</span><span class="play_hover"></span></a></li>
+                            <li><a href="#">@item.Title</a></li>
+                            <li><a asp-controller="Artists" asp-action="Artist" asp-route-id="@item.ArtistId">@item.Artist.Name</a></li>
+                            <li class="text-center"><a href="#">@duration1</a></li>
+                            <li class="text-center"><a href="#"><span class="ms_icon1 ms_fav_icon"></span></a></li>
+                            <li class="text-center ms_more_icon">
+                                <a href="javascript:;"><span class="ms_icon1 ms_active_icon"></span></a>
+                                <ul class="more_option">
+                                    <li><a href="#"><span class="opt_icon"><span class="icon icon_fav"></span></span>Add To Favourites</a></li>
+                                </ul>
+                            </li>
+                        </ul>
 
-    }
+                        count++;
+                    }
 
-    <h1>Playlist Duration: @hours h  @(minutes%60)minutes @(playlistDuration%60)seconds</h1>
-    <h3>@this.Model.Count()</h3>
-     
+                }
+                <div id="list" class="album_inner_list">
+                    <div class="album_list_wrapper">
+                        @{
+                            foreach (var item in this.Model.Skip(5))
+                            {
+                                TimeSpan t2 = TimeSpan.FromSeconds(item.Duration);
+
+                                string duration2 = string.Format("{0:D2}:{1:D2}",
+                                t2.Minutes,
+                                t2.Seconds);
+                                <ul>
+                                    <li><a onclick="DZ.player.playTracks([@item.Id]); return false;"><span class="play_no">@count</span><span class="play_hover"></span></a></li>
+                                    <li><a href="#">@item.Title</a></li>
+                                    <li><a asp-controller="Artists" asp-action="Artist" asp-route-id="@item.ArtistId">@item.Artist.Name</a></li>
+                                    <li class="text-center"><a href="#">@duration2</a></li>
+                                    <li class="text-center"><a href="#"><span class="ms_icon1 ms_fav_icon"></span></a></li>
+                                    <li class="text-center ms_more_icon">
+                                        <a href="javascript:;"><span class="ms_icon1 ms_active_icon"></span></a>
+                                        <ul class="more_option">
+                                            <li><a href="#"><span class="opt_icon"><span class="icon icon_fav"></span></span>Add To Favourites</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                                count++;
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="show" class="ms_view_more padder_bottom20">
+            <a id="viewMoreBtn" class="ms_btn">view more</a>
+        </div>
+    </div>
+
+
+    <partial name="~/Views/Shared/_PlayerPartial.cshtml" />
+    <script>
+        $(document).ready(function () {
+
+            $("#list").hide();
+            $("#show").click(function () {
+                if (document.getElementById('viewMoreBtn').innerHTML === 'view more') {
+                    document.getElementById('viewMoreBtn').innerHTML = 'hide';
+                }
+                else {
+                    document.getElementById('viewMoreBtn').innerHTML = 'view more'
+                }
+                $("#list").slideToggle();
+            });
+        });
+    </script>
 </body>
-</html>
 
+</html>

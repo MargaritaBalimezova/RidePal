@@ -46,13 +46,9 @@ namespace RidePal.Controllers
             return this.View(lists);
         }
 
-        public IActionResult Tracks()
+        public async Task<IActionResult> Tracks()
         {
-            int hour = 1;
-            int minutes = 34;
-            int duration = hour * 3600 + minutes * 60 + 14;
-
-            var res = this.trackServices.GetTracksWithDistinctArtists(new Genre { Id = 1, Name = "Rap" }, duration);
+            var res = await this.trackServices.GetTopXTracksAsync(100);
 
             return this.View(res);
         }

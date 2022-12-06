@@ -103,9 +103,8 @@ namespace RidePal.Services.Services
                 .Take(x)
                 .ToListAsync();
 
-                var tracksDTO = tracks.Select(x => this.mapper.Map<TrackDTO>(x)).ToList();
 
-                return tracksDTO;
+                return this.mapper.Map<IEnumerable<TrackDTO>>(tracks);
             }
 
             var tracksByGenre = await this.Get()
