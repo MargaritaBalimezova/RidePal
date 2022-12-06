@@ -134,7 +134,7 @@ namespace RidePal.WEB.Controllers
         #endregion CRUD
 
         [HttpPost]
-        public async Task<IActionResult> Search(string userSearch, int type,string page)
+        public async Task<IActionResult> Search(string userSearch, int type, string page)
         {
             try
             {
@@ -155,12 +155,16 @@ namespace RidePal.WEB.Controllers
 
         [HttpGet]
         [Authorize(Policy = "Admin")]
-        public async Task<IActionResult> Block(int id)
+        public async Task<IActionResult> Block(string email, string currentView)
         {
             try
             {
-                await userService.BlockUserAsync(id);
-                var user = await userService.GetUserDTOAsync(id);
+                await userService.BlockUserAsync(email);
+                var user = await userService.GetUserDTOByEmailAsync(email);
+                if (currentView == "allUsers")
+                {
+                    return RedirectToAction("AllUsers");
+                }
                 return RedirectToAction("Index", new { user.Email });
             }
             catch (Exception)
@@ -171,12 +175,16 @@ namespace RidePal.WEB.Controllers
 
         [HttpGet]
         [Authorize(Policy = "Admin")]
-        public async Task<IActionResult> Unblock(int id)
+        public async Task<IActionResult> Unblock(string email, string currentView)
         {
             try
             {
-                await userService.UnblockUserAsync(id);
-                var user = await userService.GetUserDTOAsync(id);
+                await userService.UnblockUserAsync(email);
+                var user = await userService.GetUserDTOByEmailAsync(email);
+                if (currentView == "allUsers")
+                {
+                    return RedirectToAction("AllUsers");
+                }
                 return RedirectToAction("Index", new { user.Email });
             }
             catch (Exception ex)
@@ -318,8 +326,11 @@ namespace RidePal.WEB.Controllers
             try
             {
                 FileInfo fi = new FileInfo(file.FileName);
-                var newFileName = "https://ridepalbucket.s3.amazonaws.com/Image_" + DateTime.Now.TimeOfDay.Milliseconds + fi.Extension;
-                this.storageService.Upload(file);
+                var fileName = DateTime.Now.TimeOfDay.Milliseconds + fi.Extension;
+
+                var newFileName = "https://ridepalbucket.s3.amazonaws.com/" + fileName;
+
+                this.storageService.Upload(file, fileName);
                 ViewBag.Success = "File Uploaded on S3";
                 return newFileName;
             }

@@ -40,7 +40,6 @@ namespace RidePal.WEB.Controllers
 
         public async Task<IActionResult> Index(string title)
         {
-
             try
             {
                 var playList = await playlistService.GetPlaylistDTOAsync(title);
@@ -62,23 +61,23 @@ namespace RidePal.WEB.Controllers
 
             this.ViewData["StartPoint"] = "The start of your journey";
             this.ViewData["ArrivePoint"] = "Your journey's destination";
-            
+
             return this.View(playlist);
         }
 
         [HttpPost]
         public async Task<IActionResult> CreatePlaylist(CreatePlaylistViewModel model, TripQuerryParameters coordinates)
         {
-            if (coordinates.StartPoint==null || coordinates.ArrivingDestination==null)
+            if (coordinates.StartPoint == null || coordinates.ArrivingDestination == null)
             {
                 return this.View(model);
             }
-          
+
             this.ViewData["StartPoint"] = coordinates.StartingDestination;
             this.ViewData["ArrivePoint"] = coordinates.ArrivingDestination;
 
             //TODO: Chack model state
-            if (model.Name.Length<4 || model.AudienceId==0)
+            if (model.Name.Length < 4 || model.AudienceId == 0)
             {
                 return this.View(model);
             }
@@ -90,7 +89,7 @@ namespace RidePal.WEB.Controllers
 
             var tripDTO = await bingMapsService.GetTrip(coordinates);
             try
-            {          
+            {
                 var audience = await playlistService.GetAudienceAsync(model.AudienceId);
 
                 var trip = await tripService.PostAsync(tripDTO);
@@ -139,6 +138,7 @@ namespace RidePal.WEB.Controllers
             ViewData["Audiences"] = new SelectList(await FillAudiences(), "Id", "Name");
             var update = new UpdatePlaylistViewModel
             {
+                ImagePath = playlist.ImagePath,
                 Name = playlist.Name,
                 Id = playlist.Id,
             };
@@ -202,7 +202,6 @@ namespace RidePal.WEB.Controllers
             var result = await this.playlistService.GetUserPlaylists(user.Id);
 
             return this.View(mapper.Map<IEnumerable<PlaylistViewModel>>(result));
-            
         }
 
         [HttpGet]

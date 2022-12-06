@@ -111,7 +111,6 @@ namespace RidePal.Services.Services
                 userToUpdate.AccessToken = obj.AccessToken;
             }
 
-
             userToUpdate.ImagePath = obj.ImagePath ?? userToUpdate.ImagePath;
 
             if (isEmailValid && userToUpdate.Email != obj.Email)
@@ -305,9 +304,9 @@ namespace RidePal.Services.Services
 
         #endregion Friends methods
 
-        public async Task BlockUserAsync(int id)
+        public async Task BlockUserAsync(string email)
         {
-            var user = await GetUserAsync(id);
+            var user = await GetUserByEmailAsync(email);
 
             if (user.NumOfBlocks >= 3)
             {
@@ -327,9 +326,9 @@ namespace RidePal.Services.Services
             await db.SaveChangesAsync();
         }
 
-        public async Task UnblockUserAsync(int id)
+        public async Task UnblockUserAsync(string email)
         {
-            var user = await GetUserAsync(id);
+            var user = await GetUserByEmailAsync(email);
 
             if (user.IsBlocked == false)
             {

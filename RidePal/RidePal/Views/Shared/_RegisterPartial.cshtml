@@ -1,61 +1,41 @@
 ﻿@using RidePal.Web.Models
 @model CreateUserViewModel
 
-
 <!----Register Modal Start---->
-<!-- Modal -->
 <div class="ms_register_img">
     <img src="~/Images/register_img.png" alt="" class="img-fluid" />
 </div>
 <div class="ms_register_form">
     <h2>Sign Up</h2>
     <div class="form-group">
-        @Html.ValidationMessageFor(x=>x.FirstName)       
+        @Html.ValidationMessageFor(x=>x.FirstName)      
         <input asp-for="FirstName" type="text" placeholder="First Name" class="form-control">
-        <span class="form_icon">
-            <i class="fa_icon form-user" aria-hidden="true"></i>
-        </span>
     </div>
     <div class="form-group">
         @Html.ValidationMessageFor(x=>x.LastName)
         <input asp-for="LastName" type="text" placeholder="Last Name" class="form-control">
-        <span class="form_icon">
-            <i class="fa_icon form-user" aria-hidden="true"></i>
-        </span>
     </div>
     <div class="form-group">
         @Html.ValidationMessageFor(x=>x.Username)
         <div id="validation-error2" class="text-danger" hidden="hidden"></div>
         
         <input asp-for="Username" type="text" placeholder="Username" class="form-control">
-        <span class="form_icon">
-            <i class="fa_icon form-user" aria-hidden="true"></i>
-        </span>
     </div>
     <div class="form-group">
         @Html.ValidationMessageFor(x=>x.Email)
         <div id="validation-error2" class="text-danger" hidden="hidden"></div>
         <input asp-for="Email" type="text" placeholder="Email" class="form-control">
-        <span class="form_icon">
-            <i class="fa_icon form-envelope" aria-hidden="true"></i>
-        </span>
     </div>
     <div class="form-group">
         @Html.ValidationMessageFor(x=>x.Password)
         <input asp-for="Password" type="password" placeholder="Password" class="form-control">
-        <span class="form_icon">
-            <i class="fa_icon form-lock" aria-hidden="true"></i>
-        </span>
     </div>
     <div class="form-group">
         @Html.ValidationMessageFor(x=>x.ConfirmPassword)
         <input asp-for="ConfirmPassword" type="password" placeholder="Confirm Password" class="form-control">
-        <span class="form_icon">
-            <i class=" fa_icon form-lock" aria-hidden="true"></i>
-        </span>
     </div>
     <input id="register" type="submit" value="Sign Up" class="ms_btn">
-    <p>Already Have An Account? <a asp-action="Login" asp-controller="Auth" data-toggle="modal" class="ms_modal hideCurrentModel">Sign In</a></p>
+    <p>Already Have An Account? <a href="#myModal1" data-toggle="modal" class="ms_modal hideCurrentModel">Sign In</a></p>
 </div>
 <script>
 

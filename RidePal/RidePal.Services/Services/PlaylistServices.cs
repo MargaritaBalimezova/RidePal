@@ -1,7 +1,5 @@
-﻿using Amazon.S3.Model.Internal.MarshallTransformations;
-using AutoMapper;
+﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
 using RidePal.Data;
 using RidePal.Data.Models;
 using RidePal.Services.DTOModels;
@@ -10,8 +8,13 @@ using RidePal.Services.Interfaces;
 using RidePal.Services.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net.Http;
+using System.Net;
 using System.Threading.Tasks;
+using Windows.UI.Xaml.Media.Imaging;
+using Microsoft.AspNetCore.Http;
 
 namespace RidePal.Services.Services
 {
@@ -22,19 +25,63 @@ namespace RidePal.Services.Services
         private readonly IGenreService genreService;
         private readonly ITrackServices trackServices;
         private readonly IPixabayServices pixabayServices;
+        private readonly IAWSCloudStorageService storageService;
 
-        public PlaylistServices(RidePalContext context, IMapper mapper, IGenreService genreService, ITrackServices trackServices, IPixabayServices pixabayServices)
+        public PlaylistServices(RidePalContext context, IMapper mapper, IGenreService genreService, ITrackServices trackServices, IPixabayServices pixabayServices, IAWSCloudStorageService storageService)
         {
             this.db = context;
             this.mapper = mapper;
             this.genreService = genreService;
             this.trackServices = trackServices;
             this.pixabayServices = pixabayServices;
+            this.storageService = storageService;
         }
+
+        #region CRUD
 
         public async Task<IEnumerable<PlaylistDTO>> GetAsync()
         {
             return await db.Playlists.Select(x => mapper.Map<PlaylistDTO>(x)).ToListAsync();
+        }
+
+        public async Task<PlaylistDTO> UpdateAsync(int id, UpdatePlaylistDTO obj)
+        {
+            var playlistToUpdate = await GetPlaylistAsync(id);
+
+            if (String.IsNullOrEmpty(obj.Name))
+            {
+                throw new Exception(Constants.INVALID_DATA);
+            }
+
+            if (obj.Name != playlistToUpdate.Name && obj.Name.Length >= Constants.PLAYLIST_TITLE_MIN_LENGTH)
+            {
+                if (await IsExistingAsync(obj.Name))
+                {
+                    throw new Exception(string.Format(Constants.ALREADY_TAKEN, "Title"));
+                }
+                playlistToUpdate.Name = obj.Name;
+            }
+
+            if (obj.Audience.Id != playlistToUpdate.Audience.Id && (obj.Audience.Id >= 1 && obj.Audience.Id <= 3))
+            {
+                playlistToUpdate.Audience.Id = obj.Audience.Id;
+            }
+
+            await db.SaveChangesAsync();
+
+            return mapper.Map<PlaylistDTO>(playlistToUpdate);
+        }
+
+        public async Task<PlaylistDTO> DeleteAsync(string title)
+        {
+            var playlistToDelete = await GetPlaylistAsync(title);
+
+            playlistToDelete.DeletedOn = DateTime.Now;
+            playlistToDelete.IsDeleted = true;
+
+            await db.SaveChangesAsync();
+
+            return mapper.Map<PlaylistDTO>(playlistToDelete);
         }
 
         public async Task<PlaylistDTO> PostAsync(PlaylistDTO obj)
@@ -81,7 +128,6 @@ namespace RidePal.Services.Services
                         Name = currentGenre.Name
                     };
 
-                    //TODO:This one adds additional genres to the DB
                     obj.Genres.Add(playlistGenreDTO);
                     obj.GenresWithPercentages.Remove(obj.GenresWithPercentages.First());
                 }
@@ -113,7 +159,7 @@ namespace RidePal.Services.Services
                         GenreId = currentGenre.Id,
                         Name = currentGenre.Name
                     };
-                    //TODO:This one adds additional genres to the DB
+
                     obj.Genres.Add(playlistGenreDTO);
                     obj.GenresWithPercentages.Remove(obj.GenresWithPercentages.First());
                 }
@@ -178,7 +224,7 @@ namespace RidePal.Services.Services
                         GenreId = currentGenre.Id,
                         Name = currentGenre.Name
                     };
-                    //TODO:This one adds additional genres to the DB
+
                     obj.Genres.Add(playlistGenreDTO);
                     obj.GenresWithPercentages.Remove(obj.GenresWithPercentages.First());
                 }
@@ -192,7 +238,11 @@ namespace RidePal.Services.Services
             }
 
             obj.Duration = currentDuration;
-            obj.ImagePath = await pixabayServices.GetImageURL();
+
+            var imageUrl = await pixabayServices.GetImageURL();
+            var imagePath = DownloadAndSavePhoto(imageUrl, obj.Name);
+            obj.ImagePath = await storageService.UploadPlaylistImage(imagePath);
+
             var playlist = mapper.Map<Playlist>(obj);
             playlist.CreatedOn = DateTime.Now;
 
@@ -214,56 +264,9 @@ namespace RidePal.Services.Services
             return mapper.Map<PlaylistDTO>(obj);
         }
 
-        public async Task<PlaylistDTO> UpdateAsync(int id, UpdatePlaylistDTO obj)
-        {
-            var playlistToUpdate = await GetPlaylistAsync(id);
+        #endregion CRUD
 
-            if (String.IsNullOrEmpty(obj.Name))
-            {
-                throw new Exception(Constants.INVALID_DATA);
-            }
-
-            if (obj.Name != playlistToUpdate.Name && obj.Name.Length >= Constants.PLAYLIST_TITLE_MIN_LENGTH)
-            {
-                if (await IsExistingAsync(obj.Name))
-                {
-                    throw new Exception(string.Format(Constants.ALREADY_TAKEN, "Title"));
-                }
-                playlistToUpdate.Name = obj.Name;
-            }
-
-            if (obj.Audience.Id != playlistToUpdate.Audience.Id && (obj.Audience.Id >= 1 && obj.Audience.Id <= 3))
-            {
-                playlistToUpdate.Audience.Id = obj.Audience.Id;
-            }
-
-            await db.SaveChangesAsync();
-
-            return mapper.Map<PlaylistDTO>(playlistToUpdate);
-        }
-
-        public async Task<PlaylistDTO> DeleteAsync(string title)
-        {
-            var playlistToDelete = await GetPlaylistAsync(title);
-
-            playlistToDelete.DeletedOn = DateTime.Now;
-            playlistToDelete.IsDeleted = true;
-
-            await db.SaveChangesAsync();
-
-            return mapper.Map<PlaylistDTO>(playlistToDelete);
-        }
-
-        public async Task<int> PlaylistCount()
-        {
-            var numOfPlaylists = await GetAsync();
-            return numOfPlaylists.Count();
-        }
-
-        public async Task<bool> IsExistingAsync(string title)
-        {
-            return await db.Playlists.AnyAsync(x => x.Name == title);
-        }
+        #region Get Playlist
 
         private async Task<Playlist> GetPlaylistAsync(int id)
         {
@@ -291,20 +294,31 @@ namespace RidePal.Services.Services
             return mapper.Map<PlaylistDTO>(playlist) ?? throw new Exception(Constants.PLAYLIST_NOT_FOUND);
         }
 
+        public async Task<IEnumerable<PlaylistDTO>> GetUserPlaylists(int userId)
+        {
+            var playlists = await db.Playlists.Where(x => x.AuthorId == userId).ToListAsync();
+
+            return mapper.Map<IEnumerable<PlaylistDTO>>(playlists);
+        }
+
+        #endregion Get Playlist
+
+        public async Task<int> PlaylistCount()
+        {
+            var numOfPlaylists = await GetAsync();
+            return numOfPlaylists.Count();
+        }
+
+        public async Task<bool> IsExistingAsync(string title)
+        {
+            return await db.Playlists.AnyAsync(x => x.Name == title);
+        }
+
         public async Task<Audience> GetAudienceAsync(int id)
         {
             var audience = await db.Audience.FirstOrDefaultAsync(x => x.Id == id);
 
             return audience ?? throw new Exception(Constants.AUDIENCE_NOT_FOUND);
-        }
-
-        public async Task<IEnumerable<PlaylistDTO>> GetUserPlaylists(int userId)
-        {
-
-            var playlists = await db.Playlists.Where(x => x.AuthorId == userId).ToListAsync();
-
-            return mapper.Map<IEnumerable<PlaylistDTO>>(playlists);
-
         }
 
         public async Task<PaginatedList<PlaylistDTO>> FilterPlaylists(PlaylistQueryParameters parameters)
@@ -313,10 +327,10 @@ namespace RidePal.Services.Services
                 .Where(x => x.Audience.Name == "public")
                 .AsQueryable();
 
-            if(parameters.Duration.HasValue && parameters.Duration != 0)
+            if (parameters.Duration.HasValue && parameters.Duration != 0)
             {
                 parameters.Duration = parameters.Duration * 3600;
-                if(parameters.Duration != 5 * 3600)
+                if (parameters.Duration != 5 * 3600)
                 {
                     result = result
                             .Where(x => x.Duration <= parameters.Duration);
@@ -330,11 +344,11 @@ namespace RidePal.Services.Services
 
             if (!string.IsNullOrEmpty(parameters.SortBy))
             {
-                if(parameters.SortBy.Equals("name", StringComparison.InvariantCultureIgnoreCase))
+                if (parameters.SortBy.Equals("name", StringComparison.InvariantCultureIgnoreCase))
                 {
                     result = result.OrderBy(x => x.Name);
                 }
-                else if(parameters.SortBy.Equals("duration", StringComparison.InvariantCultureIgnoreCase))
+                else if (parameters.SortBy.Equals("duration", StringComparison.InvariantCultureIgnoreCase))
                 {
                     result = result.OrderBy(x => x.Duration);
                 }
@@ -357,9 +371,28 @@ namespace RidePal.Services.Services
             return new PaginatedList<PlaylistDTO>(resultList.ToList(), totalPages, parameters.PageNumber);
         }
 
+        #region Private Methods
+
+        private string DownloadAndSavePhoto(string url, string playlistName)
+        {
+            string directory = "D:\\Downloads\\RidePalImages";
+            string filePath = directory + "\\" + playlistName + ".jpg";
+            using (WebClient client = new WebClient())
+            {
+                if (!System.IO.Directory.Exists(directory))
+                {
+                    System.IO.Directory.CreateDirectory(directory);
+                }
+                client.DownloadFile(new Uri(url), filePath);
+            }
+            return filePath;
+        }
+
         private IEnumerable<PlaylistDTO> Paginate(IEnumerable<Playlist> playlists, int pageNumber, int pageSize)
         {
             return this.mapper.Map<IEnumerable<PlaylistDTO>>(playlists.Skip((pageNumber - 1) * pageSize).Take(pageSize));
         }
+
+        #endregion Private Methods
     }
 }

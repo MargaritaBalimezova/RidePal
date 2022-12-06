@@ -50,20 +50,17 @@
                             var recentList = this.Model.Where(x => x.Audience.Id == 1).Take(15).ToList();
                             foreach (var item in recentList)
                             {
-                                <a href="/Playlist?title=@item.Name">
+                                <a asp-action="Index" asp-controller="Playlist" asp-route-title="@item.Name">
                                     <div class="swiper-slide">
                                         <div class="ms_rcnt_box">
                                             <div class="ms_rcnt_box_img">
                                                 <img src="@item.ImagePath" alt="" style="max-height:200px;min-height:200px;">
                                                 <div class="ms_main_overlay">
                                                     <div class="ms_box_overlay"></div>
-
-
-
                                                 </div>
                                             </div>
                                             <div class="ms_rcnt_box_text">
-                                                <h3><a href="#">@item.Name</a></h3>
+                                                <h3>@item.Name</h3>
                                                 <p>@item.Author.Username</p>
                                             </div>
                                         </div>

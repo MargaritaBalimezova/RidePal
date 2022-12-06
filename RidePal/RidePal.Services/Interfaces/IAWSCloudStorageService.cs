@@ -5,6 +5,8 @@ namespace RidePal.Services.Interfaces
 {
     public interface IAWSCloudStorageService
     {
-        Task Upload(IFormFile file);
+        Task Upload(IFormFile file, string fileName);
+
+        Task<string> UploadPlaylistImage(string imgPath);
     }
 }
