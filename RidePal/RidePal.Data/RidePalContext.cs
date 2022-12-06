@@ -24,6 +24,8 @@ namespace RidePal.Data
         public DbSet<FriendRequest> FriendRequests { get; set; }
         public DbSet<PlaylistTracks> PlaylistTracks { get; set; }
 
+        public DbSet<Reaction> Reactions { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Album>()
@@ -44,12 +46,14 @@ namespace RidePal.Data
                 .HasQueryFilter(friendRequest => friendRequest.IsDeleted == false);
             modelBuilder.Entity<PlaylistTracks>()
                 .HasQueryFilter(playlistTracks => playlistTracks.IsDeleted == false);
+            modelBuilder.Entity<Reaction>()
+                .HasQueryFilter(reactions => reactions.IsDeleted == false);
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.ApplyConfigurationsFromAssembly(this.GetType().Assembly);
 
             //TODO: Uncomment next line in case you have no seeded data
-            //modelBuilder.Seed().Wait();
+           //modelBuilder.Seed().Wait();
 
             // SetMinLengthConstraints(modelBuilder);
         }

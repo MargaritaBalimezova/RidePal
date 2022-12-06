@@ -29,5 +29,7 @@ namespace RidePal.Services.Interfaces
         Task<IEnumerable<PlaylistDTO>> GetUserPlaylists(int userId);
 
         Task<PaginatedList<PlaylistDTO>> FilterPlaylists(PlaylistQueryParameters parameters);
+
+        Task Like(UserDTO user, int playListId);
     }
 }

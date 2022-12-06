@@ -373,6 +373,45 @@ namespace RidePal.Services.Services
             return new PaginatedList<PlaylistDTO>(resultList.ToList(), totalPages, parameters.PageNumber);
         }
 
+        public async Task Like(UserDTO user, int playListId)
+        {
+            var playlist = await db.Playlists.FirstOrDefaultAsync(x => x.Id == playListId) ?? throw new Exception(Constants.PLAYLIST_NOT_FOUND);
+
+            var reaction = playlist.Reactions.FirstOrDefault(x => x.UserId == user.Id);
+
+            if (reaction == null)
+            {
+                reaction = new Reaction
+                {
+                    UserId = user.Id,
+                    Liked = true
+                };
+
+                playlist.Reactions.Add(reaction);
+                playlist.LikesCount++;
+
+                await db.Reactions.AddAsync(reaction);
+                await db.SaveChangesAsync();
+
+            }
+            else if (reaction != null && reaction.Liked == true)
+            {
+                reaction.Liked = false;
+                playlist.LikesCount--;
+                await db.SaveChangesAsync();
+            }
+            else if (reaction != null && reaction.Liked == false)
+            {
+                reaction.Liked = true;
+                playlist.LikesCount++;
+                await db.SaveChangesAsync();
+            }             
+
+              
+
+        }
+
+
         #region Private Methods
 
         private string DownloadAndSavePhoto(string url, string playlistName)
@@ -397,4 +436,5 @@ namespace RidePal.Services.Services
 
         #endregion Private Methods
     }
+
 }

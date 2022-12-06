@@ -23,6 +23,8 @@ namespace RidePal.Services.DTOModels
 
         public virtual Audience Audience { get; set; }
 
+        public int LikesCount { get; set; }
+
         public DateTime? CreatedOn { get; set; }
         public bool RepeatArtists { get; set; }
         public bool TopSongs { get; set; }

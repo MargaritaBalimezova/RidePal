@@ -19,6 +19,8 @@ namespace RidePal.WEB.Models
 
         public double AvgRank { get; set; }
 
+        public int LikesCount { get; set; }
+
         public virtual UserDTO Author { get; set; }
 
         public virtual TripDTO Trip { get; set; }

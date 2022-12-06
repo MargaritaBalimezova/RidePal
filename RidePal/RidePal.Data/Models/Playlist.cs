@@ -35,6 +35,10 @@ namespace RidePal.Data.Models
 
         public virtual ICollection<PlaylistGenre> Genres { get; set; } = new List<PlaylistGenre>();
 
+        public int LikesCount { get; set; }
+
+        public virtual ICollection<Reaction> Reactions { get; set; } = new List<Reaction>();
+
         public bool IsDeleted { get; set; }
 
         public DateTime? DeletedOn { get; set; }

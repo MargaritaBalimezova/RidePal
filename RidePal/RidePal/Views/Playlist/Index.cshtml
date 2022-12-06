@@ -57,18 +57,18 @@
                     <a class="album_date">Tracks: @this.Model.Tracks.Count() | Duration: @duration3</a>
                     <a class="album_date">Created: @this.Model.CreatedOn | Audience: @this.Model.Audience.Name</a>
                 </div>
-                <div class="album_btn">
+                <div class="album_btn" style="display:inline-flex">
                     <a class="ms_btn play_btn" onclick="event.preventDefault(); DZ.player.playTracks([@string.Join(",", this.Model.Tracks.Select(x => x.TrackId))]);"><img src="assets/images/svg/play_all.svg" alt="">Play All</a>
+                    <img id="likeHeart" style="width: 35px;height: 35px;margin-right: 5px;margin-top: 3px;"src="~/Images/whiteHeart.png">
+                    <form id="likeForm" asp-action="Like" asp-asp-controller="Playlist" method="post">
+                        <input type="hidden" name="username" value="@this.User.Identity.Name">
+                        <input type="hidden" name="playlistId" value="@this.Model.Id">
+                        <input type="hidden" name="title" value="@this.Model.Name">
+                    </form> 
+                    <p style="font-size:25px;font-family:sans-serif;margin-top:10px;color:white">@this.Model.LikesCount</p>
                 </div>
+            </div>
 
-            </div>
-            <div class="album_more_optn ms_more_icon">
-                <span><img src="assets/images/svg/more.svg" alt=""></span>
-            </div>
-            <ul class="more_option">
-                <li><a href="#"><span class="opt_icon"><span class="icon icon_fav"></span></span>Add To Favourites</a></li>
-                <li><a href="#"><span class="opt_icon"><span class="icon icon_queue"></span></span>Add To Queue</a></li>
-            </ul>
         </div>
 
         <div class="album_inner_list">
@@ -94,7 +94,7 @@
                         <ul>
                             <li><a onclick="DZ.player.playTracks([@item.TrackId]); return false;"><span class="play_no">@count</span><span class="play_hover"></span></a></li>
                             <li><a href="#">@item.Track.Title</a></li>
-                            <li><a  asp-controller="Artists" asp-action="Artist" asp-route-id="@item.Track.ArtistId">@item.Track.Artist.Name</a></li>
+                            <li><a asp-controller="Artists" asp-action="Artist" asp-route-id="@item.Track.ArtistId">@item.Track.Artist.Name</a></li>
                             <li class="text-center"><a href="#">@duration1</a></li>
                             <li class="text-center"><a href="#"><span class="ms_icon1 ms_fav_icon"></span></a></li>
                             <li class="text-center ms_more_icon">
@@ -195,5 +195,20 @@
         }
 
     </script>
+    <script>
+        const heart = document.getElementById("likeHeart");
+        heart.addEventListener("click", function () {
+            document.getElementById("likeForm").submit();
+        });
+        heart.addEventListener("mouseover", function () {
+            heart.style.width="40px";
+            heart.style.height = "40px";
+        });
+        heart.addEventListener("mouseout", function () {
+            heart.style.width = "35px";
+            heart.style.height = "35px";
+        });
+    </script>
+
     <script type='text/javascript' src='https://www.bing.com/api/maps/mapcontrol?key=Ap4BY1B20Ldbim2QZCCJK3EAW0jdSisoIOvt3kJjv8dBjM_3pzfu9442oM8AsrxJ&callback=loadMapScenario' async defer></script>
 </body>

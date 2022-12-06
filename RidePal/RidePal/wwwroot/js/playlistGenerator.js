@@ -132,13 +132,17 @@ document.getElementById("openBox").addEventListener('click', function openBoxes(
                 const calc = restPercentage - list.length - 1;
                 const error = 'The value for the input is exceeded. You can not pass more than'.concat(calc).concat('%');
 
-                if (this.value.length == 2) {
+                
 
                     if (elem.value > restPercentage - list.length - 1) {
                         alert(error);
                         elem.value = percentage;
                     }
-                    else {
+                    else if(elem.value<1){
+                        alert.error("You must in put a value at least 1%!")
+                    }                
+                    else
+                    {
                         if (list.includes(elem)) {
                             if (list.length > 1 && elem != null) {
 
@@ -158,8 +162,8 @@ document.getElementById("openBox").addEventListener('click', function openBoxes(
                             }
                         }
                     }
-                    
-                }
+                   
+                
 
 
             });

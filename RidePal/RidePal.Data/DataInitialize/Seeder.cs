@@ -11,10 +11,10 @@ namespace RidePal.Data.DataInitialize
         public static async Task Seed(this ModelBuilder db)
         {
             //TODO: remove it
-            /*            if (System.Diagnostics.Debugger.IsAttached == false)
-                        {
-                            System.Diagnostics.Debugger.Launch();
-                        }*/
+            if (System.Diagnostics.Debugger.IsAttached == false)
+            {
+                System.Diagnostics.Debugger.Launch();
+            }
             var roles = new List<Role>()
             {
                 new Role

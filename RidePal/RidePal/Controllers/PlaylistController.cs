@@ -227,5 +227,16 @@ namespace RidePal.WEB.Controllers
                 });
             }
         }
+
+        [HttpPost]
+        public async Task<IActionResult> Like(int playlistId, string username, string title)
+        {
+            var playlist = await this.playlistService.GetPlaylistDTOAsync(title);
+            var user = await this.userService.GetUserDTOByEmailAsync(username);
+
+            await this.playlistService.Like(user, playlistId);
+
+            return RedirectToAction("Index", new { title = $"{title}" });
+        }
     }
 }
