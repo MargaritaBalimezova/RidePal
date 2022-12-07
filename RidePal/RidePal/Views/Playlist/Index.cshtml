@@ -51,7 +51,7 @@
                 <img src="@this.Model.ImagePath" alt="" class="img-fluid">
             </div>
             <div class="album_single_text" style="padding-top: 0px;">
-                <h2>@this.Model.Name</h2>
+                <h2 style="color:#3bc8e7">@this.Model.Name</h2>
                 <a class="singer_name" asp-action="Index" asp-controller="User" asp-route-email="@this.Model.Author.Email" style="color:white">@this.Model.Author.Username</a>
                 <div class="album_feature">
                     <a class="album_date">Tracks: @this.Model.Tracks.Count() | Duration: @duration3</a>
@@ -59,27 +59,25 @@
                 </div>
                 <div class="album_btn" style="display:inline-flex">
                     <a class="ms_btn play_btn" onclick="event.preventDefault(); DZ.player.playTracks([@string.Join(",", this.Model.Tracks.Select(x => x.TrackId))]);"><img src="~/Images/svg/play_all.svg" alt="">Play All</a>
-                    <img id="likeHeart" style="width: 35px;height: 35px;margin-right: 5px;margin-top: 3px;"src="~/Images/whiteHeart.png">
+                    <img id="likeHeart" style="width: 25px;height: 25px;margin-right: 10px;margin-top: 5px;"src="~/Images/whiteHeart.png" alt="like">
                     <form id="likeForm" asp-action="Like" asp-asp-controller="Playlist" method="post">
                         <input type="hidden" name="username" value="@this.User.Identity.Name">
                         <input type="hidden" name="playlistId" value="@this.Model.Id">
                         <input type="hidden" name="title" value="@this.Model.Name">
                     </form> 
-                    <p style="font-size:25px;font-family:sans-serif;margin-top:10px;color:white">@this.Model.LikesCount</p>
+                    <p style="font-size:23px;font-family:sans-serif;margin-top:5px ;color:white">@this.Model.LikesCount</p>
                 </div>
             </div>
-
         </div>
 
         <div class="album_inner_list">
             <div class="album_list_wrapper">
                 <ul class="album_list_name">
-                    <li>#</li>
-                    <li>Song Title</li>
+                    <li class="track_number">#</li>
+                    <li>Song Title</li>                    
+                    <li class="empty_col">&nbsp;</li>
                     <li>Artist</li>
                     <li class="text-center">Duration</li>
-                    <li class="text-center">Add To Favourites</li>
-                    <li class="text-center">More</li>
                 </ul>
                 @{
                     int count = 1;
@@ -92,17 +90,11 @@
                         t1.Seconds);
 
                         <ul>
-                            <li><a onclick="DZ.player.playTracks([@item.TrackId]); return false;"><span class="play_no">@count</span><span class="play_hover"></span></a></li>
+                            <li class="track_number"><a onclick="DZ.player.playTracks([@item.TrackId]); return false;"><span class="play_no">@count</span><span class="play_hover"></span></a></li>
                             <li><a href="#">@item.Track.Title</a></li>
+                            <li class="empty_col">&nbsp;</li>
                             <li><a asp-controller="Artists" asp-action="Artist" asp-route-id="@item.Track.ArtistId">@item.Track.Artist.Name</a></li>
-                            <li class="text-center"><a href="#">@duration1</a></li>
-                            <li class="text-center"><a href="#"><span class="ms_icon1 ms_fav_icon"></span></a></li>
-                            <li class="text-center ms_more_icon">
-                                <a href="javascript:;"><span class="ms_icon1 ms_active_icon"></span></a>
-                                <ul class="more_option">
-                                    <li><a href="#"><span class="opt_icon"><span class="icon icon_fav"></span></span>Add To Favourites</a></li>
-                                </ul>
-                            </li>
+                            <li class="text-center"><a href="#">@duration1</a></li>                            
                         </ul>
 
                         count++;
@@ -124,17 +116,11 @@
                                 t2.Minutes,
                                 t2.Seconds);
                                 <ul>
-                                    <li><a onclick="DZ.player.playTracks([@item.TrackId]); return false;"><span class="play_no">@count</span><span class="play_hover"></span></a></li>
+                                    <li class="track_number"><a onclick="DZ.player.playTracks([@item.TrackId]); return false;"><span class="play_no">@count</span><span class="play_hover"></span></a></li>
                                     <li><a href="#">@item.Track.Title</a></li>
+                                    <li class="empty_col">&nbsp;</li>
                                     <li><a asp-controller="Artists" asp-action="Artist" asp-route-id="@item.Track.ArtistId">@item.Track.Artist.Name</a></li>
-                                    <li class="text-center"><a href="#">@duration2</a></li>
-                                    <li class="text-center"><a href="#"><span class="ms_icon1 ms_fav_icon"></span></a></li>
-                                    <li class="text-center ms_more_icon">
-                                        <a href="javascript:;"><span class="ms_icon1 ms_active_icon"></span></a>
-                                        <ul class="more_option">
-                                            <li><a href="#"><span class="opt_icon"><span class="icon icon_fav"></span></span>Add To Favourites</a></li>
-                                        </ul>
-                                    </li>
+                                    <li class="text-center"><a href="#">@duration2</a></li>                                    
                                 </ul>
                                 count++;
                             }
@@ -201,12 +187,12 @@
             document.getElementById("likeForm").submit();
         });
         heart.addEventListener("mouseover", function () {
-            heart.style.width="40px";
-            heart.style.height = "40px";
+            heart.style.width="30px";
+            heart.style.height = "30px";
         });
         heart.addEventListener("mouseout", function () {
-            heart.style.width = "35px";
-            heart.style.height = "35px";
+            heart.style.width = "25px";
+            heart.style.height = "25px";
         });
     </script>
 
