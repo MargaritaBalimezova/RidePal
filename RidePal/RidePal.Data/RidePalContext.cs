@@ -53,7 +53,7 @@ namespace RidePal.Data
             modelBuilder.ApplyConfigurationsFromAssembly(this.GetType().Assembly);
 
             //TODO: Uncomment next line in case you have no seeded data
-           //modelBuilder.Seed().Wait();
+            //modelBuilder.Seed().Wait();
 
             // SetMinLengthConstraints(modelBuilder);
         }

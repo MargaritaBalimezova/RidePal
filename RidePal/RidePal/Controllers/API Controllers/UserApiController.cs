@@ -12,6 +12,8 @@ using System.Threading.Tasks;
 
 namespace MovieForum.Web.Controllers
 {
+    [Produces("application/json")]
+
     [Route("api/users")]
     [ApiController]
     public class UserApiController : ControllerBase

@@ -9,5 +9,7 @@ namespace RidePal.Services.Interfaces
         Task<LocationPoint> GetLocation(string countryRegion, string adminDistinct, string addressLine);
 
         Task<TripDTO> GetTrip(TripQuerryParameters parameters);
+
+        Task<TripDTO> GetTrip(GenerateTripModel parameters);
     }
 }

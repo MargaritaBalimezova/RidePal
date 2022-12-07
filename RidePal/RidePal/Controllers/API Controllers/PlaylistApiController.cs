@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 
 namespace RidePal.WEB.Controllers.API_Controllers
 {
+    [Produces("application/json")]
+
     [Route("api/playlists")]
     [ApiController]
     public class PlaylistAPIController : ControllerBase

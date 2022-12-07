@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 
 namespace RidePal.WEB.Controllers.API_Controllers
 {
+    [Produces("application/json")]
+
     [Route("api/artists")]
     [ApiController]
     public class ArtistAPIController : ControllerBase

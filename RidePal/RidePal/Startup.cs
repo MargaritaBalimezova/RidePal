@@ -51,7 +51,7 @@ namespace RidePal
                  options.BaseAddress = new Uri("http://dev.virtualearth.net/REST/v1/");
                  options.DefaultRequestHeaders.Add("Accept", "application/.json");
              });
-           
+
             services.AddHttpClient<IPixabayServices, PixabayServices>();
             services.AddTransient<IClaimsTransformation, AddClaimsTransformation>();
 
@@ -73,15 +73,15 @@ namespace RidePal
                             options.ClientId = ApiSecrets.GoogleClientId;
                             options.ClientSecret = ApiSecrets.GoogleClientSecret;
                             options.ClaimActions.MapJsonKey("urn:google:picture", "picture", "url");
-                            
+
                             options.Events.OnTicketReceived = ctx =>
                             {
                                 var userEmail = ctx.Principal.FindFirstValue(ClaimTypes.Email);
                                 var picture = ctx.Principal.FindFirstValue("pictureUrl");
-                                
+
                                 //Check the user exists in database and if not create.
                                 return Task.CompletedTask;
-                            };                            
+                            };
                         });
 
             services.AddAuthorization(options =>
@@ -133,6 +133,8 @@ namespace RidePal
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "RidePal V1");
             });
 
+
+
             app.UseRouting();
             app.UseStaticFiles();
 
@@ -143,6 +145,12 @@ namespace RidePal
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapControllerRoute(name: "artists",
+                 pattern: "artist/top",
+                 defaults: new { controller = "Artists", action = "Top" });
+                endpoints.MapControllerRoute(name: "email",
+               pattern: "/ConfirmEmail",
+               defaults: new { controller = "Auth", action = "ConfirmEmail" });
                 endpoints.MapDefaultControllerRoute();
             });
 

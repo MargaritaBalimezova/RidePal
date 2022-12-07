@@ -96,5 +96,53 @@ namespace RidePal.Services.Services
                 
             };
         }
+        public async Task<TripDTO> GetTrip(GenerateTripModel parameters)
+        {
+            var departPoint = await GetLocation(parameters.DepartCountry, parameters.DepartCity, parameters.DepartAddress);
+
+            var arrivePoint = await GetLocation(parameters.ArriveCountry, parameters.ArriveCity, parameters.ArriveAddress);
+
+            string distanceUrl;
+
+            distanceUrl = string.Format(Constants.MatrixUr, departPoint.longtitude, departPoint.latitude, arrivePoint.longtitude, arrivePoint.latitude);
+
+            var response = await _client.GetAsync(distanceUrl);
+            response.EnsureSuccessStatusCode();
+
+            using var responseStream = await response.Content.ReadAsStreamAsync();
+
+            var responseObject = await JsonSerializer.DeserializeAsync<GetDistance>(responseStream);
+
+            var res = responseObject.resourceSets[0].resources[0].results[0];
+
+            if (res.travelDuration == -1 || res.travelDuration == -1)
+            {
+                throw new InvalidOperationException(Constants.INVALID_DATA);
+            }
+            if (parameters.DepartAddress == null && parameters.ArriveAddress == null)
+            {
+                return new TripDTO
+                {
+                    StartPoint = $"{parameters.DepartCity}, {parameters.DepartCountry}".Trim(),
+                    Destination = $"{parameters.ArriveCity}, {parameters.ArriveCountry}".Trim(),
+                    Duration = Math.Round(res.travelDuration, 2),
+                    Distance = Math.Round(res.travelDistance, 2),
+                     StartCoordinates = $"({departPoint.longtitude}, {departPoint.latitude})",
+                    DestinationCoordinates = $"({arrivePoint.longtitude}, {arrivePoint.latitude})"
+                };
+            }
+
+            return new TripDTO
+            {
+                StartPoint = $"{parameters.DepartCity}, {parameters.DepartCountry}, {parameters.DepartAddress}".Trim(),
+                Destination = $"{parameters.ArriveCity}, {parameters.ArriveCountry}, {parameters.ArriveAddress}".Trim(),
+                Duration = Math.Round(res.travelDuration, 2),
+                Distance = Math.Round(res.travelDistance, 2),
+                StartCoordinates = $"({ departPoint.longtitude }, {departPoint.latitude})",
+                DestinationCoordinates = $"({arrivePoint.longtitude}, {arrivePoint.latitude})"
+            };
+
+        }
+
     }
 }

@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 
 namespace RidePal.WEB.Controllers.API_Controllers
 {
+    [Produces("application/json")]
+
     [Route("api/trips")]
     [ApiController]
     public class TripAPIController : ControllerBase
@@ -63,7 +65,7 @@ namespace RidePal.WEB.Controllers.API_Controllers
         }
 
         [HttpPost("/trips")]
-        public async Task<IActionResult> PostTripAsync(TripQuerryParameters tripParameters)
+        public async Task<IActionResult> PostTripAsync(GenerateTripModel tripParameters)
         {
             try
             {
