@@ -2709,6 +2709,7 @@ button.jp-shuffle .ms_play_control:hover {
 	margin-right: 20px;
 	position: relative;
 	vertical-align: middle;
+	cursor: pointer;
 }
 span.pause_all {
 	opacity: 0;
@@ -6692,7 +6693,25 @@ body.loaded.modal-open .ms_player_wrapper {
 	margin-right: 3%;
 }
 
-.ms_play_control .shuffle-btn-trigger {
+.shuffle-btn {
+	background: url(../images/svg/play_icon.svg) !important;
+	width: 30px;
+	height: 30px;
+	background-repeat: no-repeat;
+	display: inline-block;
+	background-color: transparent;
+	cursor: pointer;
+	background-position: 140px 0px !important;
+	border: 1px solid #fff;
+	border-radius: 100%;
+}
+
+.shuffle-btn-trigger {
+	background-position: 100px 0px !important;
+	background-color: #fff !important;
+}
+
+.shuffle-btn:hover {
 	background-position: 100px 0px !important;
 	background-color: #fff !important;
 }
@@ -6708,31 +6727,16 @@ body.loaded.modal-open .ms_player_wrapper {
 }
 
 #clear-filters {
-	background-color: #b02a37;
-	color: #fff;
-	height: 30px;
-	display: inline-block;
-	text-transform: capitalize;
-	width: 100px;
-	text-align: center;
-	line-height: 32px;
-	border-radius: 20px;
-	margin-left: 15px;
-	margin: 0;
-	font-family: inherit;
-	font-size: inherit;
+	background-color: #b02a37 !important;
 }
+
+	#clear-filters:hover {
+		color: #ffffff !important;
+		box-shadow: 0px 0px 20px 0px #b02a37 !important;
+	}
 
 .disabled {
 	opacity: 0.6;
 	cursor: not-allowed;
 	pointer-events: none;
 }
-
-.clearBtn {
-	background-color: #b02a37 !important;
-
-}
-.clearBtn:hover > *{
-	box-shadow: 0px 0px 20px 0px #b02a37;
-} 
