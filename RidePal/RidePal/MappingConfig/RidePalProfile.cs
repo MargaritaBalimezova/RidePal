@@ -3,7 +3,7 @@ using RidePal.Data.Models;
 using RidePal.Services.DTOModels;
 using RidePal.WEB.Models;
 
-namespace MovieForum.Web.MappingConfig
+namespace RidePal.Web.MappingConfig
 {
     public class RidePalProfile : Profile
     {

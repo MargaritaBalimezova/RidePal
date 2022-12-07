@@ -1,16 +1,13 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MovieForum.Web.MappingConfig;
 using RidePal.Data;
-using RidePal.Services.DTOModels;
 using RidePal.Services.Models;
 using RidePal.Services.Services;
 using RidePal.Tests.Helpers;
+using RidePal.Web.MappingConfig;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace RidePal.Tests.PlaylistServicesTests
@@ -57,7 +54,7 @@ namespace RidePal.Tests.PlaylistServicesTests
             var track = new TrackServices(context, mapper);
             var pixabay = new PixabayServices(new System.Net.Http.HttpClient());
             var aws = new AWSCloudStorageServices();
-            var service = new PlaylistServices(context, mapper,genre, track,pixabay, aws);
+            var service = new PlaylistServices(context, mapper, genre, track, pixabay, aws);
 
             //Act
             var actual = await service.GetAsync();
@@ -173,7 +170,6 @@ namespace RidePal.Tests.PlaylistServicesTests
             Assert.IsFalse(actual.Any(x => x.Id != id));
         }
 
-
         [TestMethod]
         public async Task GetAudienceAsync_Should_Return_Audience()
         {
@@ -194,7 +190,7 @@ namespace RidePal.Tests.PlaylistServicesTests
 
             //Assert
             Assert.AreEqual(Helpers.Seed.Audiences.FirstOrDefault(x => x.Id == id).Name
-                ,actual.Name);
+                , actual.Name);
         }
 
         [TestMethod]
@@ -258,7 +254,6 @@ namespace RidePal.Tests.PlaylistServicesTests
                 Duration = 15,
                 SortBy = "duration",
                 SortOrder = "descending",
-
             };
 
             //Act
@@ -288,7 +283,6 @@ namespace RidePal.Tests.PlaylistServicesTests
                 Duration = 15,
                 SortBy = "name",
                 SortOrder = "descending",
-
             };
 
             //Act

@@ -9,7 +9,7 @@
         public const string MatrixUr = "Routes/DistanceMatrix?origins={0},{1}&destinations={2},{3}&travelMode=driving&key=Ap4BY1B20Ldbim2QZCCJK3EAW0jdSisoIOvt3kJjv8dBjM_3pzfu9442oM8AsrxJ";
 
         public const string RedirectUrlDeezer = "https://localhost:5000/Auth/DeezerResponse&perms=offline_access,email";
-  
+
         //Constrains
         public const int USER_FIRSTNAME_MIN_LENGTH = 4;
 

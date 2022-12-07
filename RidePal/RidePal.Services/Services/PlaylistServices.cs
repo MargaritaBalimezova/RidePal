@@ -8,13 +8,9 @@ using RidePal.Services.Interfaces;
 using RidePal.Services.Models;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Net.Http;
 using System.Net;
 using System.Threading.Tasks;
-using Windows.UI.Xaml.Media.Imaging;
-using Microsoft.AspNetCore.Http;
 
 namespace RidePal.Services.Services
 {
@@ -27,8 +23,8 @@ namespace RidePal.Services.Services
         private readonly IPixabayServices pixabayServices;
         private readonly IAWSCloudStorageService storageService;
 
-        public PlaylistServices(RidePalContext context, IMapper mapper, 
-            IGenreService genreService, ITrackServices trackServices, 
+        public PlaylistServices(RidePalContext context, IMapper mapper,
+            IGenreService genreService, ITrackServices trackServices,
             IPixabayServices pixabayServices, IAWSCloudStorageService storageService)
         {
             this.db = context;
@@ -409,9 +405,9 @@ namespace RidePal.Services.Services
                 reaction.Liked = true;
                 playlist.LikesCount++;
                 await db.SaveChangesAsync();
-            }             
+            }
 
-              
+
 
         }
 

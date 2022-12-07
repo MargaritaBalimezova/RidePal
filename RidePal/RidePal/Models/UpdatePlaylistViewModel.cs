@@ -1,5 +1,4 @@
-﻿using RidePal.Data.Models;
-using RidePal.Services.Helpers;
+﻿using RidePal.Services.Helpers;
 using System.ComponentModel.DataAnnotations;
 
 namespace RidePal.WEB.Models

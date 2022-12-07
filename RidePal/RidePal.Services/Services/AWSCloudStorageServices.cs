@@ -1,10 +1,10 @@
-﻿using Amazon.S3.Transfer;
+﻿using Amazon;
 using Amazon.S3;
+using Amazon.S3.Transfer;
 using Microsoft.AspNetCore.Http;
 using RidePal.Services.Interfaces;
 using System.IO;
 using System.Threading.Tasks;
-using Amazon;
 
 namespace RidePal.Services.Services
 {

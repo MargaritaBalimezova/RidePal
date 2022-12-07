@@ -1,15 +1,14 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MovieForum.Web.MappingConfig;
 using RidePal.Data;
 using RidePal.Services.DTOModels;
 using RidePal.Services.Models;
 using RidePal.Services.Services;
 using RidePal.Tests.Helpers;
+using RidePal.Web.MappingConfig;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace RidePal.Tests.PlaylistServicesTests

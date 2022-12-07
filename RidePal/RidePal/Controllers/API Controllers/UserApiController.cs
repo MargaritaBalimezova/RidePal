@@ -10,7 +10,7 @@ using System;
 using System.IO;
 using System.Threading.Tasks;
 
-namespace MovieForum.Web.Controllers
+namespace RidePal.Web.Controllers
 {
     [Produces("application/json")]
 

@@ -4,8 +4,6 @@ using RidePal.Models;
 using RidePal.Services.Interfaces;
 using RidePal.WEB.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace RidePal.WEB.Controllers
@@ -30,9 +28,9 @@ namespace RidePal.WEB.Controllers
                 var genre = await this.genreService.GetGenreByName(name);
                 var tracks = await this.trackServices.GetTopXTracksAsync(TOP100, new Genre { Name = genre.Name, Id = genre.Id, IsDeleted = false });
 
-                return this.View(new GenreTopTracksWrapModel {Genre = genre, Tracks = tracks });
+                return this.View(new GenreTopTracksWrapModel { Genre = genre, Tracks = tracks });
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return this.View("Error", new ErrorViewModel
                 {

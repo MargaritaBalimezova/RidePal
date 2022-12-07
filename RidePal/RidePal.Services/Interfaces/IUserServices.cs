@@ -16,7 +16,7 @@ namespace RidePal.Services.Interfaces
 
         public Task<UserDTO> DeleteAsync(string email);
 
-        public Task<int> UserCount();
+        public int UserCount();
 
         public Task<bool> IsExistingAsync(string email);
 
@@ -50,7 +50,7 @@ namespace RidePal.Services.Interfaces
 
         public Task GenerateForgotPasswordTokenAsync(User user);
 
-        public Task<bool> ResetPasswordAsyncAsync(ResetPasswordModel model);
+        public Task<bool> ResetPasswordAsync(ResetPasswordModel model);
 
         public Task GenerateEmailConfirmationTokenAsync(User user);
 

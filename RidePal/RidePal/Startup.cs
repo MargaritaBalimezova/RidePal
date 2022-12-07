@@ -1,28 +1,26 @@
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.CookiePolicy;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using MovieForum.Web.MappingConfig;
 using RidePal.Data;
-using System;
-using RidePal.Services.Interfaces;
-using RidePal.Services.Services;
 using RidePal.Data.DataInitialize;
 using RidePal.Data.DataInitialize.Interfaces;
-using Microsoft.AspNetCore.CookiePolicy;
-using Microsoft.AspNetCore.Http;
+using RidePal.Services.Interfaces;
+using RidePal.Services.Models;
+using RidePal.Services.Services;
 using RidePal.Web.Helpers;
+using RidePal.Web.MappingConfig;
+using RidePal.WEB.Controllers;
+using RidePal.WEB.Helpers;
+using System;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using RidePal.Services.Models;
-using Microsoft.AspNetCore.Authentication.OAuth;
-using RidePal.WEB.Controllers;
-using MovieForum.Web.Controllers;
-using RidePal.WEB.Helpers;
 
 namespace RidePal
 {
@@ -132,8 +130,6 @@ namespace RidePal
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "RidePal V1");
             });
-
-
 
             app.UseRouting();
             app.UseStaticFiles();

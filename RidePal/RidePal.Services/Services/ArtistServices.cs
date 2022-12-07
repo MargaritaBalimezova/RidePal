@@ -7,7 +7,6 @@ using RidePal.Services.Helpers;
 using RidePal.Services.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace RidePal.Services.Services

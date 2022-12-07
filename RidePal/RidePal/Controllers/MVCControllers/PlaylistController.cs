@@ -11,7 +11,6 @@ using RidePal.Services.Models;
 using RidePal.WEB.Models;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -214,7 +213,7 @@ namespace RidePal.WEB.Controllers
                 this.ViewData["PageSize"] = parameters.PageSize;
                 this.ViewData["SortOrder"] = parameters.SortOrder;
                 this.ViewData["Duration"] = parameters.Duration;
-                
+
                 var playlists = await this.playlistService.FilterPlaylists(parameters);
 
                 return this.View(playlists);

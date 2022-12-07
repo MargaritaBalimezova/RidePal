@@ -93,7 +93,7 @@ namespace RidePal.Services.Services
                 Distance = Math.Round(res.travelDistance, 2),
                 StartCoordinates = parameters.StartPoint,
                 DestinationCoordinates = parameters.ArrivePoint
-                
+
             };
         }
         public async Task<TripDTO> GetTrip(GenerateTripModel parameters)
@@ -127,7 +127,7 @@ namespace RidePal.Services.Services
                     Destination = $"{parameters.ArriveCity}, {parameters.ArriveCountry}".Trim(),
                     Duration = Math.Round(res.travelDuration, 2),
                     Distance = Math.Round(res.travelDistance, 2),
-                     StartCoordinates = $"({departPoint.longtitude}, {departPoint.latitude})",
+                    StartCoordinates = $"({departPoint.longtitude}, {departPoint.latitude})",
                     DestinationCoordinates = $"({arrivePoint.longtitude}, {arrivePoint.latitude})"
                 };
             }
@@ -138,7 +138,7 @@ namespace RidePal.Services.Services
                 Destination = $"{parameters.ArriveCity}, {parameters.ArriveCountry}, {parameters.ArriveAddress}".Trim(),
                 Duration = Math.Round(res.travelDuration, 2),
                 Distance = Math.Round(res.travelDistance, 2),
-                StartCoordinates = $"({ departPoint.longtitude }, {departPoint.latitude})",
+                StartCoordinates = $"({departPoint.longtitude}, {departPoint.latitude})",
                 DestinationCoordinates = $"({arrivePoint.longtitude}, {arrivePoint.latitude})"
             };
 

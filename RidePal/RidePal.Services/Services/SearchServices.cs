@@ -3,10 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using RidePal.Data;
 using RidePal.Services.DTOModels;
 using RidePal.Services.Interfaces;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace RidePal.Services.Services
