@@ -1611,12 +1611,10 @@ span.ovrly_text2 {
 }
 /*====Footer Css Start====*/
 .ms_footer_wrapper {
-	background-image: url(https://dummyimage.com/1920x589);
+	background-image: url(/Images/AboutBg2.jpg);
 	background-size: cover;
 	position: relative;
 	z-index: 1;
-	margin-bottom: 75px;
-	padding-top: 50px;
 }
 .ms_footer_wrapper:after {
 	position: absolute;

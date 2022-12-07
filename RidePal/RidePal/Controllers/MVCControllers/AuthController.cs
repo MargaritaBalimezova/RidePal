@@ -538,7 +538,7 @@ namespace MovieForum.Web.Controllers
             return View(model);
         }
 
-        [HttpGet("{confirm-email}")]
+        [HttpGet]
         public async Task<IActionResult> ConfirmEmail(string uid, string token, bool resendLink = false)
         {
             EmailConfirmModel model = new EmailConfirmModel();
@@ -562,7 +562,7 @@ namespace MovieForum.Web.Controllers
             return View(model);
         }
 
-        [HttpPost("confirm-email")]
+        [HttpPost]
         public async Task<IActionResult> ConfirmEmail(EmailConfirmModel model)
         {
             var user = await userService.GetUserDTOByEmailAsync(model.Email);
