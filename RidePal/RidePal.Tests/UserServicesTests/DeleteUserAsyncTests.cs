@@ -2,11 +2,11 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using RidePal.Web.MappingConfig;
 using RidePal.Data;
 using RidePal.Services.Interfaces;
 using RidePal.Services.Services;
 using RidePal.Tests.Helpers;
+using RidePal.Web.MappingConfig;
 using System;
 using System.Threading.Tasks;
 

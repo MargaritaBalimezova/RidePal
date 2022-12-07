@@ -1,4 +1,4 @@
-﻿using MovieForum.Data.Models.Interfaces;
+﻿using RidePal.Data.Models.Interfaces;
 
 namespace RidePal.Data.Models
 {

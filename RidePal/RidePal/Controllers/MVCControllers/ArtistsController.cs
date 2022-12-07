@@ -3,8 +3,6 @@ using RidePal.Models;
 using RidePal.Services.Interfaces;
 using RidePal.WEB.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace RidePal.WEB.Controllers
@@ -36,9 +34,9 @@ namespace RidePal.WEB.Controllers
                 var tracks = await this.artistService.GetArtistTopTracksAsync(id);
                 var style = await this.artistService.GetArtistStyleAsync(id);
 
-                return this.View(new ArtistWrapModel {TopTracks = tracks, Albums = albums, Artist = artist, Style = style });
+                return this.View(new ArtistWrapModel { TopTracks = tracks, Albums = albums, Artist = artist, Style = style });
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return this.View("Error", new ErrorViewModel
                 {

@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using RidePal.Data.DataInitialize;
 using RidePal.Data.Models;
 using System.Threading;
 using System.Threading.Tasks;

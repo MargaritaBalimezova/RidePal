@@ -3,7 +3,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RidePal.Data;
-using RidePal.Services.DTOModels;
 using RidePal.Services.Interfaces;
 using RidePal.Services.Services;
 using RidePal.Tests.Helpers;

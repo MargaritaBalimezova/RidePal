@@ -16,6 +16,6 @@ namespace RidePal.Services.Models
         [Required]
         public string ArrivingDestination { get; set; }
 
-       
+
     }
 }

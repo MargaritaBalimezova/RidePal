@@ -3,8 +3,6 @@ using RidePal.Models;
 using RidePal.Services.Interfaces;
 using RidePal.WEB.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace RidePal.WEB.Controllers
@@ -31,9 +29,9 @@ namespace RidePal.WEB.Controllers
                 var album = await this.albumService.GetAlbumByIdAsync(id);
                 var suggested = await this.albumService.GetSuggestedAlbums((int)album.GenreId, album.Id);
 
-                return this.View(new SingleAlbumWrapperModel { Album = album, SuggestedAlbums = suggested});
+                return this.View(new SingleAlbumWrapperModel { Album = album, SuggestedAlbums = suggested });
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return this.View("Error", new ErrorViewModel
                 {

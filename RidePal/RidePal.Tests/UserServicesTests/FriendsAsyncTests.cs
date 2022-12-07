@@ -8,7 +8,6 @@ using RidePal.Services.Services;
 using RidePal.Tests.Helpers;
 using RidePal.Web.MappingConfig;
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace RidePal.Tests.UserServicesTests

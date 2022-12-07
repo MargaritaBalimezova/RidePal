@@ -1,26 +1,26 @@
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.CookiePolicy;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using RidePal.Data;
-using System;
-using RidePal.Services.Interfaces;
-using RidePal.Services.Services;
 using RidePal.Data.DataInitialize;
 using RidePal.Data.DataInitialize.Interfaces;
-using Microsoft.AspNetCore.CookiePolicy;
-using Microsoft.AspNetCore.Http;
-using RidePal.Web.Helpers;
-using System.Security.Claims;
-using System.Threading.Tasks;
+using RidePal.Services.Interfaces;
 using RidePal.Services.Models;
+using RidePal.Services.Services;
+using RidePal.Web.Helpers;
+using RidePal.Web.MappingConfig;
 using RidePal.WEB.Controllers;
 using RidePal.WEB.Helpers;
-using RidePal.Web.MappingConfig;
+using System;
+using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace RidePal
 {

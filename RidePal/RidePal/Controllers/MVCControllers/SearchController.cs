@@ -3,8 +3,6 @@ using RidePal.Models;
 using RidePal.Services.Interfaces;
 using RidePal.WEB.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace RidePal.WEB.Controllers
@@ -19,7 +17,7 @@ namespace RidePal.WEB.Controllers
         }
         public async Task<IActionResult> Index(string name)
         {
-            if(name != null)
+            if (name != null)
             {
                 this.ViewData["search"] = name;
             }
@@ -31,7 +29,7 @@ namespace RidePal.WEB.Controllers
                 var artists = await this.searchService.SearchArtistsAsync(name);
                 var playlists = await this.searchService.SearchPlaylistsAsync(name);
 
-                return this.View(new SearchResultWrapper 
+                return this.View(new SearchResultWrapper
                 { Tracks = tracks, Artists = artists, Albums = albums, Users = users, Playlists = playlists });
             }
             catch (Exception ex)

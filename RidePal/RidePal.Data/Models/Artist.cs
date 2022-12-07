@@ -1,5 +1,4 @@
-﻿using MovieForum.Data.Models.Interfaces;
-using RidePal.Data.Models.Interfaces;
+﻿using RidePal.Data.Models.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;

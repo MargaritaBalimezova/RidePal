@@ -1,16 +1,15 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using RidePal.Web.MappingConfig;
 using RidePal.Data;
 using RidePal.Services.DTOModels;
 using RidePal.Services.Exceptions;
 using RidePal.Services.Services;
 using RidePal.Tests.Helpers;
+using RidePal.Web.MappingConfig;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace RidePal.Tests.ArtistServiceTests

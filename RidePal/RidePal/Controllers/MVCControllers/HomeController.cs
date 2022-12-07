@@ -1,23 +1,9 @@
-﻿using Amazon.S3.Transfer;
-using Amazon.S3;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
-using RidePal.Data.DataInitialize;
-using RidePal.Data.DataInitialize.Interfaces;
-using RidePal.Data.Models;
 using RidePal.Models;
 using RidePal.Services.Interfaces;
-using RidePal.Services.Models;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
-using Amazon;
-using Amazon.S3.Model;
 
 namespace RidePal.Controllers
 {
@@ -26,7 +12,7 @@ namespace RidePal.Controllers
         private readonly ITrackServices trackServices;
         private readonly IPlaylistServices playServices;
 
-        public HomeController(ITrackServices trackServices,IPlaylistServices playServices)
+        public HomeController(ITrackServices trackServices, IPlaylistServices playServices)
         {
             this.trackServices = trackServices;
             this.playServices = playServices;
@@ -34,8 +20,8 @@ namespace RidePal.Controllers
 
         public async Task<IActionResult> Index()
         {
-           
-           var lists = await playServices.GetAsync();
+
+            var lists = await playServices.GetAsync();
 
             return this.View(lists);
         }
@@ -58,6 +44,6 @@ namespace RidePal.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-        
+
     }
 }

@@ -1,5 +1,4 @@
-﻿using RidePal.Data.Models;
-using RidePal.Services.DTOModels;
+﻿using RidePal.Services.DTOModels;
 using RidePal.Services.Helpers;
 using RidePal.Services.Models;
 using System;

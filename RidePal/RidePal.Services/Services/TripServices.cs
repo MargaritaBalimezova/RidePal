@@ -65,7 +65,7 @@ namespace RidePal.Services.Services
                 IsDeleted = false,
                 StartCoordinates = obj.StartCoordinates,
                 DestinationCoordinates = obj.DestinationCoordinates
-                
+
             };
 
             if (trip == null)
