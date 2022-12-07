@@ -113,7 +113,7 @@ Purchase:
                             </a>
                         </li>
                         <li>
-                            <a href="genres.html" title="Genres">
+                            <a href="#" id="genres" title="Genres" >
                                 <span class="nav_icon">
                                     <span class="icon icon_genres"></span>
                                 </span>
@@ -131,7 +131,7 @@ Purchase:
                                     top tracks
                                 </span>
                             </a>
-                        </li>                      
+                        </li>
                         <li>
                             <a href="stations.html" title="Stations">
                                 <span class="nav_icon">
@@ -162,6 +162,16 @@ Purchase:
                                 </span>
                                 <span class="nav_text">
                                     Friend Requests
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a asp-action="About" asp-controller="Home" title="About">
+                                <span class="nav_icon">
+                                    <span class="icon icon_download"></span>
+                                </span>
+                                <span class="nav_text">
+                                    About
                                 </span>
                             </a>
                         </li>
@@ -310,6 +320,26 @@ Purchase:
     <script src="~/lib//jquery-validation-unobtrusive//jquery.validate.unobtrusive.min.js"></script>
     <script type="text/javascript" src="~/js/site.js"></script>
     <script type="text/javascript" src="~/js/custom.js"></script>
+    <script>
+        
+        $("#genres").click(function () {
+            var currLoc = $(location).attr('href');
+            var targetLoc = "https://localhost:5000/"
+            if (currLoc == targetLoc) {
 
+                $('html,body').animate({
+                    scrollTop: $("#topGenres").offset().top
+                },
+                    'slow');
+            }
+            else {
+               
+                $(location).attr('href', targetLoc)
+            }
+
+        });
+        
+       
+    </script>
 </body>
 </html>

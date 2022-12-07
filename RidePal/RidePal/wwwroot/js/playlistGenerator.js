@@ -9,38 +9,7 @@ var restPercentage = 100;
 var submitBtn = document.getElementById("submitTrip");
 submitBtn.disabled = true;
 var gorenInout = document.getElementsByClassName("gorenInput");//проценти в кутийските
-//document.getElementById('reset').addEventListener('click', function () {
-//    checkCount = 0;
-//    percentage = 0.0;
-//    restPercentage = 100;
-//    for (var i = 0; i < children.length; i++) {
 
-
-//        children[i].disabled = false;
-//        list = []
-
-
-//    };
-//    for (var i = 0; i < children.length; i++) {
-//        if (children[i].checked == true) {
-
-//            let index = children[i].id
-
-//            // Get the output text
-//            var genre = document.getElementById("getGenre" + index);
-
-//            // If the checkbox is checked, display the output text
-
-//            genre.style.display = "none";
-//        };
-
-//    };
-//    for (var i = 0; i < dolniInputi.length; i++) {
-//        dolniInputi[i].disabled = false;
-//    };
-
-
-//})
 
 checkboxes.forEach(function (box) {
     box.addEventListener("change", function () {
@@ -132,17 +101,23 @@ document.getElementById("openBox").addEventListener('click', function openBoxes(
                 const calc = restPercentage - list.length - 1;
                 const error = 'The value for the input is exceeded. You can not pass more than'.concat(calc).concat('%');
 
-                
+                if (elem.value < 1 || isNaN(elem.value)) {
+
+                    if (elem.value<1) {
+                        alert("You are not allowed to input les than 1%!")
+                    }
+                    if (isNaN(elem.value)) {
+                        alert("You can only input digits!")
+                    }
+                    list.forEach((x, i) => x.value = (restPercentage / list.length).toFixed(0))
+                }
+                else { 
 
                     if (elem.value > restPercentage - list.length - 1) {
                         alert(error);
                         elem.value = percentage;
                     }
-                    else if(elem.value<1){
-                        alert.error("You must in put a value at least 1%!")
-                    }                
-                    else
-                    {
+                    else {
                         if (list.includes(elem)) {
                             if (list.length > 1 && elem != null) {
 
@@ -162,6 +137,7 @@ document.getElementById("openBox").addEventListener('click', function openBoxes(
                             }
                         }
                     }
+                }
                    
                 
 

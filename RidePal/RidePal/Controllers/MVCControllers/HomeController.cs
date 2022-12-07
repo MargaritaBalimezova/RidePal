@@ -23,17 +23,11 @@ namespace RidePal.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> logger;
-        private readonly IBingMapsServices mapsService;
         private readonly ITrackServices trackServices;
         private readonly IPlaylistServices playServices;
 
-        public HomeController(ILogger<HomeController> logger,
-            IBingMapsServices mapsService, ITrackServices trackServices,IPlaylistServices playServices
-           )
+        public HomeController(ITrackServices trackServices,IPlaylistServices playServices)
         {
-            this.logger = logger;
-            this.mapsService = mapsService;
             this.trackServices = trackServices;
             this.playServices = playServices;
         }
@@ -53,7 +47,7 @@ namespace RidePal.Controllers
             return this.View(res);
         }
 
-        public IActionResult Privacy()
+        public IActionResult About()
         {
             return View();
         }
