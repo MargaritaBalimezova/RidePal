@@ -1,9 +1,7 @@
 ﻿@model RidePal.WEB.Models.ArtistWrapModel
 
 <!DOCTYPE html>
-
 <html lang="en">
-
 <body>
 
     <!----Loader---->
@@ -32,39 +30,32 @@
                     <img src=@this.Model.Artist.ImagePathBig alt="" class="img-fluid">
                 </div>
                 <div class="album_single_text">
-                    <h2>@this.Model.Artist.Name</h2>
+                    <h2 style="color:#3bc8e7">@this.Model.Artist.Name</h2>
                     <p class="singer_name">Artist, @this.Model.Style</p>
 
                     <div class="album_btn">
                         <a class="ms_btn play_btn" onclick="DZ.player.playTracks([@string.Join(",", this.Model.TopTracks.Select(x => x.Id))])"><img src="~/Images/svg/play_all.svg" alt="">Play All</a>
                     </div>
-                </div>
-                <div class="album_more_optn ms_more_icon">
-                    <span><img src="~/images/svg/more.svg" alt=""></span>
-                </div>
-                <ul class="more_option">
-                    <li><a href="#"><span class="opt_icon"><span class="icon icon_fav"></span></span>Add To Favourites</a></li>
-                    <li><a href="#"><span class="opt_icon"><span class="icon icon_share"></span></span>Share</a></li>
-                </ul>
+                </div>               
             </div>
             <!----Song List---->
             <div class="album_inner_list">
                 <div class="album_list_wrapper">
                     <ul class="album_list_name">
-                        <li>#</li>
+                        <li class="track_number">#</li>
                         <li>Song Title</li>
+                         <li class="empty_col">&nbsp;</li>
                         <li>Artist</li>
-                        <li class="text-center">Duration</li>
-                        <li class="text-center">Add To Favourites</li>
-                        <li class="text-center">More</li>
+                        <li class="text-center">Duration</li>                      
                     </ul>
                     @{
                         int idx = 1;
                         foreach (var track in this.Model.TopTracks.Take(5))
                         {
                             <ul>
-                                <li><a href="#"><span class="play_no">0 @idx </span><span class="play_hover" onclick="event.preventDefault(); DZ.player.playTracks([ @track.Id ]);"></span></a></li>
+                                <li class="track_number"><a href="#"><span class="play_no">0 @idx </span><span class="play_hover" onclick="event.preventDefault(); DZ.player.playTracks([ @track.Id ]);"></span></a></li>
                                 <li><a href="#">@track.Title</a></li>
+                                 <li class="empty_col">&nbsp;</li>
                                 <li><a asp-controller="Artists" asp-action="Artist" asp-route-id="@track.ArtistId">@this.Model.Artist.Name</a></li>
                                 @{
                                     if (track.Duration % 60 < 10)
@@ -75,15 +66,7 @@
                                     {
                                         <li class="text-center"><a href="#">@(track.Duration/60):@(track.Duration%60)</a></li>
                                     }
-                                }
-                                <li class="text-center"><a href="#"><span class="ms_icon1 ms_fav_icon"></span></a></li>
-                                <li class="text-center ms_more_icon">
-                                    <a href="javascript:;"><span class="ms_icon1 ms_active_icon"></span></a>
-                                    <ul class="more_option">
-                                        <li><a href="#"><span class="opt_icon"><span class="icon icon_fav"></span></span>Add To Favourites</a></li>
-                                        <li><a href="#"><span class="opt_icon"><span class="icon icon_share"></span></span>Share</a></li>
-                                    </ul>
-                                </li>
+                                }                                
                             </ul>
                             idx++;
                         }
@@ -100,15 +83,16 @@
                                 @{
                                     if (idx < 10)
                                     {
-                                        <li><a href="#"><span class="play_no">0 @idx </span><span class="play_hover" onclick="event.preventDefault(); DZ.player.playTracks([ @track.Id ]);"></span></a></li>
+                                        <li class="track_number"><a href="#"><span class="play_no">0 @idx </span><span class="play_hover" onclick="event.preventDefault(); DZ.player.playTracks([ @track.Id ]);"></span></a></li>
                                     }
                                     else
                                     {
-                                        <li><a href="#"><span class="play_no"> @idx </span><span class="play_hover" onclick="event.preventDefault(); DZ.player.playTracks([ @track.Id ]);"></span></a></li>
+                                        <li class="track_number"><a href="#"><span class="play_no"> @idx </span><span class="play_hover" onclick="event.preventDefault(); DZ.player.playTracks([ @track.Id ]);"></span></a></li>
 
                                     }
                                 }
                                 <li><a href="#">@track.Title</a></li>
+                                <li class="empty_col">&nbsp;</li>
                                 <li><a asp-controller="Artists" asp-action="Artist" asp-route-id="@track.ArtistId">@this.Model.Artist.Name</a></li>
                                 @{
                                     if (track.Duration % 60 < 10)
@@ -120,14 +104,6 @@
                                         <li class="text-center"><a href="#">@(track.Duration/60):@(track.Duration%60)</a></li>
                                     }
                                 }
-                                <li class="text-center"><a href="#"><span class="ms_icon1 ms_fav_icon"></span></a></li>
-                                <li class="text-center ms_more_icon">
-                                    <a href="javascript:;"><span class="ms_icon1 ms_active_icon"></span></a>
-                                    <ul class="more_option">
-                                        <li><a href="#"><span class="opt_icon"><span class="icon icon_fav"></span></span>Add To Favourites</a></li>
-                                        <li><a href="#"><span class="opt_icon"><span class="icon icon_share"></span></span>Share</a></li>
-                                    </ul>
-                                </li>
                             </ul>
                             idx++;
                         }
@@ -153,28 +129,16 @@
                                 foreach (var album in this.Model.Albums)
                                 {
                                     <div class="swiper-slide">
-                                        @{ //TODO : Remove the hardcoded link
-                                        }
-                                        <a href="https://localhost:5000/albums/@album.Id">
+                                        <a asp-action="Album" asp-controller="Albums" asp-route-id="@album.Id">
                                             <div class="ms_rcnt_box">
                                                 <div class="ms_rcnt_box_img">
                                                     <img src=@album.ImagePath alt="">
                                                     <div class="ms_main_overlay">
-                                                        <div class="ms_box_overlay"></div>
-                                                        <div class="ms_more_icon">
-                                                            <img src="~/images/svg/more.svg" alt="">
-                                                        </div>
-                                                        <ul class="more_option">
-                                                            <li><a href="#"><span class="opt_icon"><span class="icon icon_fav"></span></span>Add To Favourites</a></li>
-                                                            <li><a href="#"><span class="opt_icon"><span class="icon icon_queue"></span></span>Add To Queue</a></li>
-                                                            <li><a href="#"><span class="opt_icon"><span class="icon icon_dwn"></span></span>Download Now</a></li>
-                                                            <li><a href="#"><span class="opt_icon"><span class="icon icon_playlst"></span></span>Add To Playlist</a></li>
-                                                            <li><a href="#"><span class="opt_icon"><span class="icon icon_share"></span></span>Share</a></li>
-                                                        </ul>
+                                                        <div class="ms_box_overlay"></div>                                                                                                              
                                                     </div>
                                                 </div>
                                                 <div class="ms_rcnt_box_text">
-                                                    <h3><a href="#">@album.Name</a></h3>
+                                                    <h3 style="color:white">@album.Name</h3>
                                                 </div>
                                             </div>
                                         </a>

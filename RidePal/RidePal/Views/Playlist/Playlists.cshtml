@@ -42,13 +42,13 @@
             <input name="PageSize" value="@this.ViewData["PageSize"]" hidden />
 
             <div class="album_btn">
-                <button type="submit" class="ms_btn play_btn">Filter</button>
+                <button type="submit" class="ms_btn play_btn" style="border:none">Filter</button>
             </div>
         </form>
         <form asp-controller="Playlist" asp-action="Playlists" method="get">
             <input name="PageSize" value="@this.ViewData["PageSize"]" hidden />
 
-            <input type="submit" value="Clear" id="clear-filters" class="ms_btn play_btn clearBtn" />
+            <input type="submit" value="Clear" id="clear-filters" class="ms_btn play_btn clearBtn" style="margin-left: 10px" />
         </form>
     </div>
 
@@ -103,8 +103,8 @@
                                                 </div>
                                             </div>
                                             <div class="ms_rcnt_box_text">
-                                                <h3><a asp-controller="Playlist" asp-action="Index" asp-route-title="@item.Name">@item.Name</a></h3>
-                                                <p>@item.Author.Username</p>
+                                                <h3><a asp-controller="Playlist" asp-action="Index" asp-route-title="@item.Name" style="color:#3bc8e7">@item.Name</a></h3>
+                                                <a asp-controller="Artists" asp-action="Artist" asp-route-id="@item.Author.Id"><p>@item.Author.Username</p></a>
                                                 @{
                                                     TimeSpan t1 = TimeSpan.FromSeconds(item.Duration);
 

@@ -15,6 +15,7 @@ namespace RidePal.WEB.Controllers
         {
             this.albumService = albumService;
         }
+
         public IActionResult Index()
         {
             return View();
