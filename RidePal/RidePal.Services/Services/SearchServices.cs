@@ -51,6 +51,7 @@ namespace RidePal.Services.Services
             var tracks = await db.Tracks
                 .Where(track => track.Title.ToLower().Contains(name) || track.Artist.Name.ToLower().Contains(name))
                 .OrderByDescending(x => x.Title.ToLower().StartsWith(name) ? 1 : 0)
+                .Take(50)
                 .ToListAsync();
 
             return this.mapper.Map<IEnumerable<TrackDTO>>(tracks);

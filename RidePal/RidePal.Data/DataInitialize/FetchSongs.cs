@@ -62,7 +62,7 @@ namespace RidePal.Data.DataInitialize
                         var track = new Track
                         {
                             Id = trackListDesirialized.data[j].id,
-                            Title = trackListDesirialized.data[j].title,
+                            Title = trackListDesirialized.data[j].title.Trim(),
                             Rank = trackListDesirialized.data[j].rank,
                             Duration = trackListDesirialized.data[j].duration,
                             GenreId = genre.Id,

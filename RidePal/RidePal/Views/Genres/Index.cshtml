@@ -41,7 +41,7 @@
                 <h2>@this.Model.Genre.Name</h2>
                 <p class="singer_name">Best Of Recent @this.Model.Genre.Name Music</p>
                 <div class="album_btn">
-                    <a class="ms_btn play_btn" onclick="DZ.player.playTracks([@string.Join(",", this.Model.Tracks.Select(x => x.Id))])"><img src="assets/images/svg/play_all.svg" alt="">Play All</a>
+                    <a class="ms_btn play_btn" onclick="DZ.player.playTracks([@string.Join(",", this.Model.Tracks.Select(x => x.Id))])"><img src="~/Images/svg/play_all.svg" alt="">Play All</a>
                 </div>
             </div>
         </div>

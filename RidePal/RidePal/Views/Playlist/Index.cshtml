@@ -58,7 +58,7 @@
                     <a class="album_date">Created: @this.Model.CreatedOn | Audience: @this.Model.Audience.Name</a>
                 </div>
                 <div class="album_btn" style="display:inline-flex">
-                    <a class="ms_btn play_btn" onclick="event.preventDefault(); DZ.player.playTracks([@string.Join(",", this.Model.Tracks.Select(x => x.TrackId))]);"><img src="assets/images/svg/play_all.svg" alt="">Play All</a>
+                    <a class="ms_btn play_btn" onclick="event.preventDefault(); DZ.player.playTracks([@string.Join(",", this.Model.Tracks.Select(x => x.TrackId))]);"><img src="~/Images/svg/play_all.svg" alt="">Play All</a>
                     <img id="likeHeart" style="width: 35px;height: 35px;margin-right: 5px;margin-top: 3px;"src="~/Images/whiteHeart.png">
                     <form id="likeForm" asp-action="Like" asp-asp-controller="Playlist" method="post">
                         <input type="hidden" name="username" value="@this.User.Identity.Name">

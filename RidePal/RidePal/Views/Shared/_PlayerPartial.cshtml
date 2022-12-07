@@ -68,7 +68,7 @@
                                             <div class="knob d3"><span></span></div>
                                             <div class="handle" id="playerVolume"></div>
                                             <div class="round">
-                                                <img src="~/images/svg/volume.svg" alt="">
+                                                <img src="~/Images/svg/volume.svg" alt="">
                                             </div>
                                         </div>
                                     </div>
@@ -150,6 +150,7 @@
             document.getElementById('playerWrapper').style.removeProperty('visibility')
         }
         let tracks = DZ.player.getTrackList();
+        console.log(tracks);
         document.getElementById('mCSB_2_container').getElementsByTagName('ul')[0].innerHTML = "";
         let temp = document.createElement('ul');
         for (track of tracks) {
@@ -169,12 +170,15 @@
         if (document.getElementById('shuffleIcon').classList.contains('shuffle-btn-trigger')) {
             DZ.player.setShuffle(false);
             document.getElementById('shuffleIcon').classList.remove('shuffle-btn-trigger');
-
+            document.getElementById('shuffleIcon').style.backgroundPosition = '';
+            document.getElementById('shuffleIcon').style.backgroundColor = ''
         }
         else {
             DZ.player.setShuffle(true);
-
+            console.log("IShuffleSSS")
             document.getElementById('shuffleIcon').classList.add('shuffle-btn-trigger');
+            document.getElementById('shuffleIcon').style.backgroundPosition = '100px 0px !important;';
+            document.getElementById('shuffleIcon').style.backgroundColor = '#fff !important;'
         }
     });
 </script>

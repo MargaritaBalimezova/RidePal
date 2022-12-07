@@ -27,11 +27,11 @@
                     }
                 </div>
                 <div class="album_btn">
-                    <a class="ms_btn play_btn" onclick="DZ.player.playTracks([@string.Join(",", this.Model.Select(x => x.Id))])"><img src="assets/images/svg/play_all.svg" alt="">Play All</a>
+                    <a class="ms_btn play_btn" onclick="DZ.player.playTracks([@string.Join(",", this.Model.Select(x => x.Id))])"><img src="~/Images/svg/play_all.svg" alt="">Play All</a>
                 </div>
             </div>
             <div class="album_more_optn ms_more_icon">
-                <span><img src="~/images/svg/more.svg" alt=""></span>
+                <span><img src="~/Images/svg/more.svg" alt=""></span>
             </div>
             <ul class="more_option">
                 <li><a href="#"><span class="opt_icon"><span class="icon icon_fav"></span></span>Add To Favourites</a></li>
@@ -73,6 +73,7 @@
                                 <a href="javascript:;"><span class="ms_icon1 ms_active_icon"></span></a>
                                 <ul class="more_option">
                                     <li><a href="#"><span class="opt_icon"><span class="icon icon_fav"></span></span>Add To Favourites</a></li>
+                                    <li><a onclick="DZ.player.addToQueue([@item.Id])"><span class="opt_icon"><span class="icon icon_queue"></span></span>Add To Queue</a></li>
                                 </ul>
                             </li>
                         </ul>

@@ -354,6 +354,10 @@ namespace RidePal.Services.Services
                 {
                     result = result.OrderBy(x => x.Duration);
                 }
+                else if(parameters.SortBy.Equals("rating", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    result = result.OrderBy(x => x.LikesCount);
+                }
 
                 if (!string.IsNullOrEmpty(parameters.SortOrder)
                     && parameters.SortOrder.Equals("descending", StringComparison.InvariantCultureIgnoreCase))
