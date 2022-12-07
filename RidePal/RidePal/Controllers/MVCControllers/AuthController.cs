@@ -20,7 +20,7 @@ using System.Net.Http;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
-namespace MovieForum.Web.Controllers
+namespace RidePal.Web.Controllers
 {
     public class AuthController : Controller
     {
@@ -607,7 +607,7 @@ namespace MovieForum.Web.Controllers
             if (ModelState.IsValid)
             {
                 model.Token = model.Token.Replace(' ', '+');
-                var result = await userService.ResetPasswordAsyncAsync(model);
+                var result = await userService.ResetPasswordAsync(model);
                 if (result)
                 {
                     ModelState.Clear();

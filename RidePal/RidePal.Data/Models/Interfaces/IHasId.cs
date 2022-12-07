@@ -1,4 +1,4 @@
-﻿namespace MovieForum.Data.Models.Interfaces
+﻿namespace RidePal.Data.Models.Interfaces
 {
     public interface IHasId
     {

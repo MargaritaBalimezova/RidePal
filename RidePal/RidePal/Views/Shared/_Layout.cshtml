@@ -210,9 +210,9 @@ Purchase:
                 {
                     <div class="ms_top_btn">
                         <div class="ms_top_btn">
-                            @*TODO use this link to redirect user to login with user*@
+                            @*TODO use this link to redirect user to login with deezer*@
                             <a asp-action="LoginWithDeezer" asp-controller="Auth" class="ms_btn ms_upload_btn">Deezer</a>
-                            <a href="javascript:;" class="ms_admin_name">
+                            <a class="ms_admin_name">
                                 <span class="hello-bella-hide">Hello @this.User.Claims.FirstOrDefault(x => x.Type == "Username").Value</span><img class="ms_pro_name" src="@this.User.Claims.FirstOrDefault(x=>x.Type=="Image").Value" />
                             </a>
                         </div>

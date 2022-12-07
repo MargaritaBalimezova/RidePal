@@ -32,8 +32,8 @@ namespace RidePal.Tests.Helpers
             get
             {
                 return new List<User>()
-            {
-                 new User
+                {
+                    new User
                     {
                         Id = 1,
                         Username = "AngelMarinski",
@@ -42,59 +42,66 @@ namespace RidePal.Tests.Helpers
                         Password = "12345678",
                         Email = "fakeemail@gmail.com",
                         RoleId = 2,
-                        IsDeleted = false,
-                        ImagePath = "https://ridepalbucket.s3.amazonaws.com/default.jpg",
-                        IsEmailConfirmed = true,
-                        IsGoogleAccount = false
+                        IsDeleted = false
                     },
                  new User
-                    {
-                        Id = 2,
-                        Username = "Maggie",
-                        FirstName = "Maggie",
-                        LastName = "TheBoss",
-                        Password = "12345678",
-                        Email = "adminsemail@gmail.com",
-                        RoleId = 1,
-                        IsDeleted = false,
-                        ImagePath = "https://ridepalbucket.s3.amazonaws.com/default.jpg",
-                        IsEmailConfirmed = true,
-                        IsGoogleAccount = false
-                    },
+                 {
+                     Id = 2,
+                     Username = "Maggie",
+                     FirstName = "Maggie",
+                     LastName = "TheBoss",
+                     Password = "12345678",
+                     Email = "adminsemail@gmail.com",
+                     RoleId = 1,
+                     IsDeleted = false
+                 },
                   new User
-                    {
-                        Id = 3,
-                        Username = "Rado561",
-                        FirstName = "Radoslav",
-                        LastName = "Berov",
-                        Password = "12345678",
-                        Email = "morefakeemails@gmail.com",
-                        RoleId = 1,
-                        IsDeleted = false,
-                        ImagePath = "https://ridepalbucket.s3.amazonaws.com/default.jpg",
-                        IsEmailConfirmed = true,
-                        IsGoogleAccount = false
-                    },
+                  {
+                      Id = 3,
+                      Username = "Rado561",
+                      FirstName = "Radoslav",
+                      LastName = "Berov",
+                      Password = "12345678",
+                      Email = "morefakeemails@gmail.com",
+                      RoleId = 1,
+                      IsDeleted = false
+                  },
+
                    new User
                     {
                         Id = 4,
-                        Username = "James96",
-                        FirstName = "James",
-                        LastName = "Bond",
+                        Username = "BlockedUser",
+                        FirstName = "Block",
+                        LastName = "User",
                         Password = "12345678",
-                        Email = "agent007@gmail.com",
-                        RoleId = 1,
+                        Email = "blockeduser@gmail.com",
+                        RoleId = 2,
                         IsDeleted = false,
-                        ImagePath = "https://ridepalbucket.s3.amazonaws.com/default.jpg",
-                        IsEmailConfirmed = true,
-                        IsGoogleAccount = false
-                    }
+                        IsBlocked = true
+                    },
+                };
+            }
+        }
+
+        public static List<FriendRequest> FriendRequests
+        {
+            get
+            {
+                return new List<FriendRequest>()
+                {
+                    new FriendRequest
+                    {
+                        Id = 1,
+                        RecipientId = 2,
+                        SenderId = 1,
+                         IsDeleted= false,
+                    },
                 };
             }
         }
 
         public static List<Genre> Genres
-        { 
+        {
             get
             {
                 return new List<Genre>()
@@ -142,7 +149,7 @@ namespace RidePal.Tests.Helpers
                         IsDeleted = false
                     }
                 };
-            } 
+            }
         }
 
         public static List<Artist> Artists
@@ -295,10 +302,10 @@ namespace RidePal.Tests.Helpers
                 };
             }
         }
-        
 
-        public static List<Audience> Audiences { 
-            get 
+        public static List<Audience> Audiences
+        {
+            get
             {
                 return new List<Audience>()
                 {
@@ -321,10 +328,11 @@ namespace RidePal.Tests.Helpers
                         IsDeleted = false
                     }
                 };
-            } 
+            }
         }
 
-        public static List<Playlist> Playlists { 
+        public static List<Playlist> Playlists
+        {
             get
             {
                 return new List<Playlist>()

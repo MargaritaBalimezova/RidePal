@@ -40,8 +40,8 @@ namespace RidePal.Data
                 .HasQueryFilter(track => track.IsDeleted == false);
             modelBuilder.Entity<Trip>()
                 .HasQueryFilter(trip => trip.IsDeleted == false);
-            modelBuilder.Entity<User>()
-                .HasQueryFilter(user => user.IsDeleted == false);
+            //modelBuilder.Entity<User>()
+            //    .HasQueryFilter(user => user.IsDeleted == false);
             modelBuilder.Entity<FriendRequest>()
                 .HasQueryFilter(friendRequest => friendRequest.IsDeleted == false);
             modelBuilder.Entity<PlaylistTracks>()

@@ -6,7 +6,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using MovieForum.Web.MappingConfig;
 using RidePal.Data;
 using System;
 using RidePal.Services.Interfaces;
@@ -19,10 +18,9 @@ using RidePal.Web.Helpers;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using RidePal.Services.Models;
-using Microsoft.AspNetCore.Authentication.OAuth;
 using RidePal.WEB.Controllers;
-using MovieForum.Web.Controllers;
 using RidePal.WEB.Helpers;
+using RidePal.Web.MappingConfig;
 
 namespace RidePal
 {
@@ -132,8 +130,6 @@ namespace RidePal
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "RidePal V1");
             });
-
-
 
             app.UseRouting();
             app.UseStaticFiles();

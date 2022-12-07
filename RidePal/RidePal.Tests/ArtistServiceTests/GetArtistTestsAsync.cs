@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MovieForum.Web.MappingConfig;
+using RidePal.Web.MappingConfig;
 using RidePal.Data;
 using RidePal.Services.DTOModels;
 using RidePal.Services.Exceptions;
