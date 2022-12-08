@@ -10,6 +10,12 @@ generate playlists for specific travel duration periods based on their preferred
 # 🖥️ Website
 ![Webpage](./images/HomePageDesktop.png)
 
+
+# 🔗 Links
+
+* [Site](https://ridepalweb.azurewebsites.net/)
+
+
 # 🚪 How to install 
 ```diff
  To use this application you will need the following tools:
