@@ -24,7 +24,7 @@ generate playlists for specific travel duration periods based on their preferred
 ```
 
 # Functional Requirments 
-generate playlists for specific travel duration periods based on their preferred genres.
+Generate playlists for specific travel duration periods based on their preferred genres.
 
 A playlist consists of a list of individual tracks (songs). Each track has an artist, title,
 album, duration (playtime length) and rank (a numeric value). Tracks may or may not
