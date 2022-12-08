@@ -283,7 +283,7 @@
             debugger;
             if (result.includes("<!DOCTYPE html>")) {
                 $("myModal2").hide();
-                window.location.replace("Auth/ReturnConfirmEmailView");
+                window.location.href="Auth/ReturnConfirmEmailView";
                 return;
             }
             $("#validation-error2 span").remove();
