@@ -8027,6 +8027,30 @@ body.loaded.modal-open .ms_player_wrapper {
     font-size: inherit;
 }
 
+.shuffle-btn {
+    background: url(../images/svg/play_icon.svg) !important;
+    width: 30px;
+    height: 30px;
+    background-repeat: no-repeat;
+    display: inline-block;
+    background-color: transparent;
+    cursor: pointer;
+    background-position: 140px 0px !important;
+    border: 1px solid #fff;
+    border-radius: 100%;
+}
+
+.shuffle-btn-trigger {
+    background-position: 100px 0px !important;
+    background-color: #fff !important;
+}
+
+.shuffle-btn:hover {
+    background-position: 100px 0px !important;
+    background-color: #fff !important;
+}
+
+
 .disabled {
     opacity: 0.6;
     cursor: not-allowed;
