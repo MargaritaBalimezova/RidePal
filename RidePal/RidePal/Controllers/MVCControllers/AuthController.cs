@@ -379,7 +379,7 @@ namespace RidePal.Web.Controllers
 
                 var user = new User
                 {
-                    Username = newUser.Username,
+                    Email = newUser.Email
                 };
 
                 await userService.GenerateEmailConfirmationTokenAsync(user);
@@ -538,7 +538,19 @@ namespace RidePal.Web.Controllers
             return View(model);
         }
 
-        [HttpGet]
+        [HttpPost]
+        public async Task<IActionResult> ResendEmail(EmailConfirmModel model)
+        {
+            var user = new User
+            {
+                Email = model.Email
+            };
+
+            await userService.GenerateEmailConfirmationTokenAsync(user);
+            return View("ConfirmEmail", new EmailConfirmModel { EmailSent = true, Email = model.Email });
+        }
+
+        [HttpGet("confirm-email")]
         public async Task<IActionResult> ConfirmEmail(string uid, string token, bool resendLink = false)
         {
             EmailConfirmModel model = new EmailConfirmModel();
@@ -562,7 +574,7 @@ namespace RidePal.Web.Controllers
             return View(model);
         }
 
-        [HttpPost]
+        [HttpPost("confirm-email")]
         public async Task<IActionResult> ConfirmEmail(EmailConfirmModel model)
         {
             var user = await userService.GetUserDTOByEmailAsync(model.Email);
@@ -614,7 +626,7 @@ namespace RidePal.Web.Controllers
                     model.IsSuccess = true;
                     return View(model);
                 }
-                ModelState.AddModelError("", "Can't channge password");
+                ModelState.AddModelError("", "Can't change password");
             }
             return View(model);
         }
