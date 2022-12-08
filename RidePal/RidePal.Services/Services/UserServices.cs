@@ -413,10 +413,8 @@ namespace RidePal.Services.Services
 
         public async Task GenerateEmailConfirmationTokenAsync(User user)
         {
-            if (user.Id == 0)
-            {
-                user = await GetUserByEmailAsync(user.Email);
-            }
+            user = await GetUserByEmailAsync(user.Email);
+
             var token = Guid.NewGuid().ToString("d").Substring(1, 8);
 
             if (!string.IsNullOrEmpty(token))
