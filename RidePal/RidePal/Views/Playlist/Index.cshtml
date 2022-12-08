@@ -59,12 +59,17 @@
                 </div>
                 <div class="album_btn" style="display:inline-flex">
                     <a class="ms_btn play_btn" onclick="event.preventDefault(); DZ.player.playTracks([@string.Join(",", this.Model.Tracks.Select(x => x.TrackId))]);"><img src="~/Images/svg/play_all.svg" alt="">Play All</a>
-                    <img id="likeHeart" style="width: 25px;height: 25px;margin-right: 10px;margin-top: 5px;"src="~/Images/whiteHeart.png" alt="like">
+                    @if (this.User.HasClaim(x => x.Value == "Admin") || this.User.Identity.Name == Model.Author.Email)
+                    {
+                        <a asp-action="EditPlaylist" asp-controller="Playlist" asp-route-title="@Model.Name" class="ms_btn play_btn">Edit</a>
+                        <a asp-action="Delete" asp-controller="Playlist" asp-route-title="@Model.Name" class="ms_btn play_btn">Delete</a>
+                    }
+                    <img id="likeHeart" style="width: 25px;height: 25px;margin-right: 10px;margin-top: 5px;" src="~/Images/whiteHeart.png" alt="like">
                     <form id="likeForm" asp-action="Like" asp-asp-controller="Playlist" method="post">
                         <input type="hidden" name="username" value="@this.User.Identity.Name">
                         <input type="hidden" name="playlistId" value="@this.Model.Id">
                         <input type="hidden" name="title" value="@this.Model.Name">
-                    </form> 
+                    </form>
                     <p style="font-size:23px;font-family:sans-serif;margin-top:5px ;color:white">@this.Model.LikesCount</p>
                 </div>
             </div>
@@ -74,7 +79,7 @@
             <div class="album_list_wrapper">
                 <ul class="album_list_name">
                     <li class="track_number">#</li>
-                    <li>Song Title</li>                    
+                    <li>Song Title</li>
                     <li class="empty_col">&nbsp;</li>
                     <li>Artist</li>
                     <li class="text-center">Duration</li>
@@ -94,7 +99,7 @@
                             <li><a href="#">@item.Track.Title</a></li>
                             <li class="empty_col">&nbsp;</li>
                             <li><a asp-controller="Artists" asp-action="Artist" asp-route-id="@item.Track.ArtistId">@item.Track.Artist.Name</a></li>
-                            <li class="text-center"><a href="#">@duration1</a></li>                            
+                            <li class="text-center"><a href="#">@duration1</a></li>
                         </ul>
 
                         count++;
@@ -120,7 +125,7 @@
                                     <li><a href="#">@item.Track.Title</a></li>
                                     <li class="empty_col">&nbsp;</li>
                                     <li><a asp-controller="Artists" asp-action="Artist" asp-route-id="@item.Track.ArtistId">@item.Track.Artist.Name</a></li>
-                                    <li class="text-center"><a href="#">@duration2</a></li>                                    
+                                    <li class="text-center"><a href="#">@duration2</a></li>
                                 </ul>
                                 count++;
                             }
@@ -187,7 +192,7 @@
             document.getElementById("likeForm").submit();
         });
         heart.addEventListener("mouseover", function () {
-            heart.style.width="30px";
+            heart.style.width = "30px";
             heart.style.height = "30px";
         });
         heart.addEventListener("mouseout", function () {
