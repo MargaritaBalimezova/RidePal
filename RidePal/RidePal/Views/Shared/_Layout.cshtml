@@ -1,16 +1,5 @@
 ﻿<!DOCTYPE html>
-<!--
-Template Name: Miraculous - Online Music Store Html Template
-Version: 1.0.0
-Author: Kamleshyadav
-Website:
-Purchase:
--->
-<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
-<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
-<!--[if !IE]><!-->
 <html lang="en">
-<!--<![endif]-->
 <!-- Begin Head -->
 
 <head>
@@ -283,7 +272,7 @@ Purchase:
             debugger;
             if (result.includes("<!DOCTYPE html>")) {
                 $("myModal1").hide();
-                window.location.replace("");
+                window.location.href="/";
                 return;
             }
             $("#validation-error span").remove();
@@ -296,7 +285,7 @@ Purchase:
             debugger;
             if (result.includes("<!DOCTYPE html>")) {
                 $("myModal2").hide();
-                window.location.replace("ConfirmEmail");
+                window.location.replace("Auth/ReturnConfirmEmailView");
                 return;
             }
             $("#validation-error2 span").remove();

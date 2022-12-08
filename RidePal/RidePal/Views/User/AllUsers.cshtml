@@ -82,6 +82,7 @@
                                                             else
                                                             {
                                                                 <a asp-action="AcceptFriendRequest" asp-route-recipientEmail="@User.Identity.Name" asp-route-senderEmail="@user.Email" asp-route-currentView="allUsers" class="button-1">Confirm Request</a>
+                                                                <br />
                                                                 <a asp-action="DeclineFriendRequest" asp-route-recipientEmail="@User.Identity.Name" asp-route-senderEmail="@user.Email" asp-route-currentView="allUsers" class="button-1">Remove Request</a>
                                                             }
                                                         </td>

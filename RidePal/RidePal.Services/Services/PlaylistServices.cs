@@ -350,7 +350,7 @@ namespace RidePal.Services.Services
                 {
                     result = result.OrderBy(x => x.Duration);
                 }
-                else if(parameters.SortBy.Equals("rating", StringComparison.InvariantCultureIgnoreCase))
+                else if (parameters.SortBy.Equals("rating", StringComparison.InvariantCultureIgnoreCase))
                 {
                     result = result.OrderBy(x => x.LikesCount);
                 }
@@ -392,7 +392,6 @@ namespace RidePal.Services.Services
 
                 await db.Reactions.AddAsync(reaction);
                 await db.SaveChangesAsync();
-
             }
             else if (reaction != null && reaction.Liked == true)
             {
@@ -406,11 +405,7 @@ namespace RidePal.Services.Services
                 playlist.LikesCount++;
                 await db.SaveChangesAsync();
             }
-
-
-
         }
-
 
         #region Private Methods
 
@@ -436,5 +431,4 @@ namespace RidePal.Services.Services
 
         #endregion Private Methods
     }
-
 }

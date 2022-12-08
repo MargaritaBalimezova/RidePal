@@ -383,7 +383,8 @@ namespace RidePal.Web.Controllers
                 };
 
                 await userService.GenerateEmailConfirmationTokenAsync(user);
-                return View("ConfirmEmail", new EmailConfirmModel { EmailSent = true });
+
+                return RedirectToAction("ReturnConfirmEmailView", new EmailConfirmModel { EmailSent = true, Email = user.Email });
             }
             catch (Exception ex)
             {
@@ -536,6 +537,12 @@ namespace RidePal.Web.Controllers
                 }
             }
             return View(model);
+        }
+
+        [AllowAnonymous]
+        public IActionResult ReturnConfirmEmailView(EmailConfirmModel model)
+        {
+            return View("ConfirmEmail", model);
         }
 
         [HttpPost]

@@ -12,8 +12,8 @@
 
         </div>
         <div class="album_single_text">
-            <h2>@this.Model.Username</h2>
-            <p class="singer_name" style="color:#3bc8e7">@this.Model.FirstName @this.Model.LastName</p>
+            <h2 style="color:#3bc8e7">@this.Model.Username</h2>
+            <p class="singer_name">@this.Model.FirstName @this.Model.LastName</p>
             <div class="about_artist">
                 @this.Model.Email
             </div>
@@ -34,23 +34,25 @@
                 {
                     <a asp-action="Update" class="ms_btn play_btn" asp-route-email="@Model.Email">Edit Profile</a>
                 }
-
-                @if (!Model.Friends.Any(x => x.Email == this.User.Identity.Name) && !Model.ReceivedFriendRequests.Any(x => x.Sender.Email == this.User.Identity.Name) && !Model.SentFriendRequests.Any(x => x.Recipient.Email == this.User.Identity.Name))
+                @if (this.User.Identity.Name != @Model.Email)
                 {
-                    <a asp-action="SendFriendRequest" asp-route-senderEmail="@User.Identity.Name" asp-route-recipientEmail="@Model.Email" asp-route-currentView="index" class="ms_btn play_btn">Add Friend</a>
-                }
-                else if (Model.Friends.Any(x => x.Email == this.User.Identity.Name))
-                {
-                    <a asp-action="RemoveFriend" asp-route-email="@User.Identity.Name" asp-route-friendEmail="@Model.Email" asp-route-currentView="index" class="ms_btn play_btn">Unfriend</a>
-                }
-                else if (Model.ReceivedFriendRequests.Any(x => x.Sender.Email == this.User.Identity.Name))
-                {
-                    <a asp-action="DeclineFriendRequest" asp-route-senderEmail="@User.Identity.Name" asp-route-recipientEmail="@Model.Email" asp-route-currentView="index" class="ms_btn play_btn">Cancel Request</a>
-                }
-                else
-                {
-                    <a asp-action="AcceptFriendRequest" asp-route-recipientEmail="@User.Identity.Name" asp-route-senderEmail="@Model.Email" asp-route-currentView="index" class="ms_btn play_btn">Confirm Request</a>
-                    <a asp-action="DeclineFriendRequest" asp-route-recipientEmail="@User.Identity.Name" asp-route-senderEmail="@Model.Email" asp-route-currentView="indexRemove" class="ms_btn play_btn">Remove Request</a>
+                    @if (!Model.Friends.Any(x => x.Email == this.User.Identity.Name) && !Model.ReceivedFriendRequests.Any(x => x.Sender.Email == this.User.Identity.Name) && !Model.SentFriendRequests.Any(x => x.Recipient.Email == this.User.Identity.Name))
+                    {
+                        <a asp-action="SendFriendRequest" asp-route-senderEmail="@User.Identity.Name" asp-route-recipientEmail="@Model.Email" asp-route-currentView="index" class="ms_btn play_btn">Add Friend</a>
+                    }
+                    else if (Model.Friends.Any(x => x.Email == this.User.Identity.Name))
+                    {
+                        <a asp-action="RemoveFriend" asp-route-email="@User.Identity.Name" asp-route-friendEmail="@Model.Email" asp-route-currentView="index" class="ms_btn play_btn">Unfriend</a>
+                    }
+                    else if (Model.ReceivedFriendRequests.Any(x => x.Sender.Email == this.User.Identity.Name))
+                    {
+                        <a asp-action="DeclineFriendRequest" asp-route-senderEmail="@User.Identity.Name" asp-route-recipientEmail="@Model.Email" asp-route-currentView="index" class="ms_btn play_btn">Cancel Request</a>
+                    }
+                    else
+                    {
+                        <a asp-action="AcceptFriendRequest" asp-route-recipientEmail="@User.Identity.Name" asp-route-senderEmail="@Model.Email" asp-route-currentView="index" class="ms_btn play_btn">Confirm Request</a>
+                        <a asp-action="DeclineFriendRequest" asp-route-recipientEmail="@User.Identity.Name" asp-route-senderEmail="@Model.Email" asp-route-currentView="indexRemove" class="ms_btn play_btn">Remove Request</a>
+                    }
                 }
 
             </div>
