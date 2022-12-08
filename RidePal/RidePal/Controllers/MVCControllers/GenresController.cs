@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using RidePal.Data.Models;
 using RidePal.Models;
 using RidePal.Services.Interfaces;
@@ -8,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace RidePal.WEB.Controllers
 {
+    [Authorize]
     public class GenresController : Controller
     {
         private const int TOP100 = 15;
