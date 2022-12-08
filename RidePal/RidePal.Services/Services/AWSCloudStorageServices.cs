@@ -33,20 +33,16 @@ namespace RidePal.Services.Services
             }
         }
 
-        public async Task<string> UploadPlaylistImage(string imgPath)
+        public async Task<string> UploadPlaylistImage(byte[] bytes, string playlistName)
         {
             using (var client = new AmazonS3Client("AKIAWQP65EKA577HVWO4", "1D2HJKafJbbyH5FJQKKHzDwJ+43jRD4F2l7d4jeo", RegionEndpoint.USEast1))
             {
-                using (var newMemoryStream = new MemoryStream())
+                using (var newMemoryStream = new MemoryStream(bytes))
                 {
-                    using (FileStream file = new FileStream(imgPath, FileMode.Open, FileAccess.Read))
-                    {
-                        file.CopyTo(newMemoryStream);
-                    }
                     var uploadRequest = new TransferUtilityUploadRequest
                     {
                         InputStream = newMemoryStream,
-                        Key = Path.GetFileName(imgPath), // filename
+                        Key = playlistName, // filename
                         BucketName = "ridepalbucket" // bucket name of S3
                     };
 

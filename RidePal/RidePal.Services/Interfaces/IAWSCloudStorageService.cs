@@ -7,6 +7,6 @@ namespace RidePal.Services.Interfaces
     {
         Task Upload(IFormFile file, string fileName);
 
-        Task<string> UploadPlaylistImage(string imgPath);
+        Task<string> UploadPlaylistImage(byte[] bytes, string playlistName);
     }
 }

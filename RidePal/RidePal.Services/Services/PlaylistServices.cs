@@ -238,8 +238,7 @@ namespace RidePal.Services.Services
             obj.Duration = currentDuration;
 
             var imageUrl = await pixabayServices.GetImageURL();
-            var imagePath = DownloadAndSavePhoto(imageUrl, obj.Name);
-            obj.ImagePath = await storageService.UploadPlaylistImage(imagePath);
+            obj.ImagePath = await DownloadAndSavePhoto(imageUrl, obj.Name);
 
             var playlist = mapper.Map<Playlist>(obj);
             playlist.CreatedOn = DateTime.Now;
@@ -409,19 +408,13 @@ namespace RidePal.Services.Services
 
         #region Private Methods
 
-        private string DownloadAndSavePhoto(string url, string playlistName)
+        private async Task<string> DownloadAndSavePhoto(string url, string playlistName)
         {
-            string directory = "D:\\Downloads\\RidePalImages";
-            string filePath = directory + "\\" + playlistName + ".jpg";
             using (WebClient client = new WebClient())
             {
-                if (!System.IO.Directory.Exists(directory))
-                {
-                    System.IO.Directory.CreateDirectory(directory);
-                }
-                client.DownloadFile(new Uri(url), filePath);
+                var bytes = await client.DownloadDataTaskAsync(url);
+                return await storageService.UploadPlaylistImage(bytes, playlistName);
             }
-            return filePath;
         }
 
         private IEnumerable<PlaylistDTO> Paginate(IEnumerable<Playlist> playlists, int pageNumber, int pageSize)
