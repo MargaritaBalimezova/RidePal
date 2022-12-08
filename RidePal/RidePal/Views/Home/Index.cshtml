@@ -14,16 +14,6 @@
                                 <img src="~/Images/stephen-cook-Zu0gm67wFOc-unsplash.jpg" style="border-radius:5%;opacity:85%" alt="" class="img-fluid">
                             </div>
                             <div class="ms_banner_text" style="padding-left:5%">
-                                @*TODO use this to get access token*@
-
-                                @if (this.User.Identities.First().FindFirst(x => x.Type == "AuthToken") != null)
-                                {
-                                    <p>my auth token is : @this.User.Identities.First().FindFirst(x => x.Type == "AuthToken").Value</p>
-                                }
-                                else
-                                {
-                                    <p>No token!</p>
-                                }
                                 <h1>Everywhere with you</h1>
                                 <h1 class="ms_color">Joy Ride Music player</h1>
                                 <p style="font-size:20px;"> The journey of a thousand miles begins with one step -> Press the Play button!</p>
@@ -45,27 +35,23 @@
                 <div class="swiper-container">
                     <div class="swiper-wrapper">
                         @{
-                            //Todo OrderBYDesc most recent
-
-                            var recentList = this.Model.Where(x => x.Audience.Id == 1).Take(15).ToList();
+                            var recentList = this.Model.Where(x => x.Audience.Id == 1).OrderByDescending(x=>x.CreatedOn).Take(15).ToList();
                             foreach (var item in recentList)
                             {
-                                <a asp-action="Index" asp-controller="Playlist" asp-route-title="@item.Name">
-                                    <div class="swiper-slide">
-                                        <div class="ms_rcnt_box">
-                                            <div class="ms_rcnt_box_img">
-                                                <img src="@item.ImagePath" alt="" style="max-height:200px;min-height:200px;">
-                                                <div class="ms_main_overlay">
-                                                    <div class="ms_box_overlay"></div>
-                                                </div>
-                                            </div>
-                                            <div class="ms_rcnt_box_text">
-                                                <h3>@item.Name</h3>
-                                                <p>@item.Author.Username</p>
+                                <div class="swiper-slide">
+                                    <div class="ms_rcnt_box">
+                                        <div class="ms_rcnt_box_img">
+                                            <img src="@item.ImagePath" alt="" style="max-height:200px;min-height:200px;">
+                                            <div class="ms_main_overlay">
+                                                <div class="ms_box_overlay"></div>
                                             </div>
                                         </div>
+                                        <div class="ms_rcnt_box_text">
+                                            <h3><a asp-controller="Playlist" asp-action="Index" asp-route-title="@item.Name">@item.Name</a></h3>
+                                            <a asp-controller="User" asp-action="Index" asp-route-id="@item.Author.Email"><p>@item.Author.Username</p></a>
+                                        </div>
                                     </div>
-                                </a>
+                                </div>
                             }
                         }
 
@@ -85,8 +71,7 @@
                             </div>
                             <div class="col-lg-4 col-md-12 padding_right40">
                                 @{
-                                    //TODO: MOST LIKED PLAYLIST
-                                    var likedList = this.Model.OrderByDescending(x => x.LikesCount).Take(15).ToList();
+                                    var likedList = this.Model.Where(x=>x.Audience.Id==1).OrderByDescending(x => x.LikesCount).Take(15).ToList();
                                     int counter = 1;
                                     foreach (var item in likedList)
                                     {
@@ -106,13 +91,13 @@
 
                                             t.Minutes,
                                             t.Seconds);
-                                        }                                       
+                                        }
 
 
                                         <div class="ms_weekly_box">
                                             <div class="weekly_left">
                                                 <span class="w_top_no">
-                                                  @counter
+                                                    @counter
                                                 </span>
                                                 <div class="w_top_song">
                                                     <div class="w_tp_song_img">
@@ -124,18 +109,18 @@
                                                         </div>
                                                     </div>
                                                     <div class="w_tp_song_name">
-                                                        <h3><a href="#">@item.Name</a></h3>
-                                                        <p>@item.Author.Username</p>
+                                                        <h3><a asp-controller="Playlist" asp-action="Index" asp-route-title="@item.Name">@item.Name</a></h3>
+                                                        <a asp-controller="User" asp-action="Index" asp-route-id="@item.Author.Email"><p>@item.Author.Username</p></a>
                                                     </div>
                                                 </div>
                                             </div>
-                                                <div class="weekly_right">
-                                                    <span class="w_song_time">@duration</span>
-                                                    <span class="ms_more_icon" data-other="1">
-                                                        <img src="assets/images/svg/more.svg" alt="">
-                                                    </span>
-                                                </div>
-                                           
+                                            <div class="weekly_right">
+                                                <span class="w_song_time">@duration</span>
+                                                <span class="ms_more_icon" data-other="1">
+                                                    <img src="assets/images/svg/more.svg" alt="">
+                                                </span>
+                                            </div>
+
 
                                         </div>
                                         <div class="ms_divider"></div>
