@@ -33,12 +33,21 @@
         <a asp-controller="Auth" asp-action="ConfirmEmail" class="google" asp-route-resendLink="true">Resend Email Confirmation</a>
     </div>
 
-    <p>Don't Have An Account? <a href="#myModal" data-toggle="modal" class="ms_modal1 hideCurrentModel">Sign Up</a></p>
+    <p>Don't Have An Account? <a id="signUp" data-toggle="modal" class="ms_modal1 hideCurrentModel">Sign Up</a></p>
 </div>
 <script>
 
     function OnComplete() {
         $('#SignIn').modal('hide');
         alert("Signed in successfulluy");
+    }
+
+    document.getElementById("signUp").addEventListener("click", ShowRegister);
+    function ShowRegister() {
+        debugger;
+        let register = $("#myModal2");
+        let login = $("#myModal1");
+        register.modal('show');
+        login.modal('hide');
     }
 </script>

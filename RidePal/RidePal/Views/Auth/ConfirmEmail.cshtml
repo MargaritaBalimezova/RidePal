@@ -1,5 +1,4 @@
-﻿
-@using RidePal.Services.Models;
+﻿@using RidePal.Services.Models;
 @model EmailConfirmModel
 
 <html>
@@ -23,18 +22,15 @@
                             <p style="color:white; padding-top: 10px; font-size: 20px;">We have sent an email on your email address.</p>
                         }
 
-                        <form asp-action="ConfirmEmail">
-                            
+                        <form asp-action="ResendEmail">
                             <p style="color:white; padding-top: 10px; font-size: 20px;">Did not get any email or deleted by mistake?</p>
                             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                            <input type="text" asp-for="Email" style="margin-top:10px; width: 100%"/>
+                            <input type="text" asp-for="Email" style="margin-top:10px; width: 100%" />
 
                             <div class="form-group">
                                 @*<a type="submit" value="Resend confirmation email" class="ms_btn login-btn" asp-action="ConfirmEmail" /><></>*@
-                                <a class="ms_btn login_btn" asp-action="ConfirmEmail" style="margin-top: 10px"><span>Resend</span></a>
-                        
+                                <input type="submit" class="ms_btn login_btn" asp-controller="Auth" asp-action="ResendEmail" style="margin-top: 10px; border:none" value="Resend"/>
                             </div>
-
                         </form>
                     }
                 </div>

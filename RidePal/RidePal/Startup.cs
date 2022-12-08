@@ -145,8 +145,8 @@ namespace RidePal
                  pattern: "artist/top",
                  defaults: new { controller = "Artists", action = "Top" });
                 endpoints.MapControllerRoute(name: "confirmEmails",
-               pattern: "/ConfirmEmail",
-               defaults: new { controller = "Auth", action = "ConfirmEmail" });
+                pattern: "/ConfirmEmail",
+                defaults: new { controller = "Auth", action = "ConfirmEmail" });
                 endpoints.MapDefaultControllerRoute();
             });
 

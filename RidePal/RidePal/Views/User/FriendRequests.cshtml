@@ -42,15 +42,15 @@
                                                     </td>
                                                     <td style="width: 20%;">
                                                         <a asp-action="AcceptFriendRequest" asp-controller="User" asp-route-senderEmail="@request.Sender.Email" asp-route-recipientEmail="@Model.Email" asp-route-currentView="friendRequests" class="table-link">
-                                                            <span class="fa-stack">
+                                                            <span class="fa-stack" style="color:#3bc8e7">
                                                                 <i class="fa fa-square fa-stack-2x"></i>
-                                                                <i class="fa fa-pencil fa-stack-1x fa-inverse"></i>
+                                                                <i class="fa fa-check fa-stack-1x fa-inverse"></i>
                                                             </span>
                                                         </a>
                                                         <a asp-action="DeclineFriendRequest" asp-controller="User" asp-route-senderEmail="@request.Sender.Email" asp-route-recipientEmail="@Model.Email" asp-route-currentView="friendRequests" class="table-link danger">
-                                                            <span class="fa-stack">
+                                                            <span class="fa-stack" style="color:#3bc8e7">
                                                                 <i class="fa fa-square fa-stack-2x"></i>
-                                                                <i class="fa fa-trash-o fa-stack-1x fa-inverse"></i>
+                                                                <i class="fa fa-times fa-stack-1x fa-inverse"></i>
                                                             </span>
                                                         </a>
                                                     </td>

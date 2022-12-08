@@ -22,7 +22,7 @@
                         }
                         else
                         {
-                            <a href="#" class="album_date">@this.Model.Count() tracks for @(duration/60):@(duration%60) minutes</a>
+                            <a href="#" class="album_date">@this.Model.Count() tracks for @(duration / 60):@(duration % 60) minutes</a>
                         }
                     }
                 </div>
@@ -46,12 +46,11 @@
             </div>
             <div class="album_list_wrapper">
                 <ul class="album_list_name">
-                    <li>#</li>
+                    <li class="track_number">#</li>
                     <li>Song Title</li>
+                    <li class="empty_col">&nbsp;</li>
                     <li>Artist</li>
                     <li class="text-center">Duration</li>
-                    <li class="text-center">Add To Favourites</li>
-                    <li class="text-center">More</li>
                 </ul>
                 @{
                     int count = 1;
@@ -64,18 +63,11 @@
                         t1.Seconds);
 
                         <ul>
-                            <li><a onclick="DZ.player.playTracks([@item.Id]); return false;"><span class="play_no">@count</span><span class="play_hover"></span></a></li>
+                            <li class="track_number"><a onclick="DZ.player.playTracks([@item.Id]); return false;"><span class="play_no">@count</span><span class="play_hover"></span></a></li>
                             <li><a href="#">@item.Title</a></li>
+                            <li class="empty_col">&nbsp;</li>
                             <li><a asp-controller="Artists" asp-action="Artist" asp-route-id="@item.ArtistId">@item.Artist.Name</a></li>
                             <li class="text-center"><a href="#">@duration1</a></li>
-                            <li class="text-center"><a href="#"><span class="ms_icon1 ms_fav_icon"></span></a></li>
-                            <li class="text-center ms_more_icon">
-                                <a href="javascript:;"><span class="ms_icon1 ms_active_icon"></span></a>
-                                <ul class="more_option">
-                                    <li><a href="#"><span class="opt_icon"><span class="icon icon_fav"></span></span>Add To Favourites</a></li>
-                                    <li><a onclick="DZ.player.addToQueue([@item.Id])"><span class="opt_icon"><span class="icon icon_queue"></span></span>Add To Queue</a></li>
-                                </ul>
-                            </li>
                         </ul>
 
                         count++;
@@ -93,17 +85,11 @@
                                 t2.Minutes,
                                 t2.Seconds);
                                 <ul>
-                                    <li><a onclick="DZ.player.playTracks([@item.Id]); return false;"><span class="play_no">@count</span><span class="play_hover"></span></a></li>
+                                    <li class="track_number"><a onclick="DZ.player.playTracks([@item.Id]); return false;"><span class="play_no">@count</span><span class="play_hover"></span></a></li>
                                     <li><a href="#">@item.Title</a></li>
+                                    <li class="empty_col">&nbsp;</li>
                                     <li><a asp-controller="Artists" asp-action="Artist" asp-route-id="@item.ArtistId">@item.Artist.Name</a></li>
-                                    <li class="text-center"><a href="#">@duration2</a></li>
-                                    <li class="text-center"><a href="#"><span class="ms_icon1 ms_fav_icon"></span></a></li>
-                                    <li class="text-center ms_more_icon">
-                                        <a href="javascript:;"><span class="ms_icon1 ms_active_icon"></span></a>
-                                        <ul class="more_option">
-                                            <li><a href="#"><span class="opt_icon"><span class="icon icon_fav"></span></span>Add To Favourites</a></li>
-                                        </ul>
-                                    </li>
+                                    <li class="text-center"><a href="#">@duration2</a></li>                                   
                                 </ul>
                                 count++;
                             }

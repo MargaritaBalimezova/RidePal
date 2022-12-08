@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using RidePal.Models;
 using RidePal.Services.Interfaces;
 using RidePal.WEB.Models;
@@ -7,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace RidePal.WEB.Controllers
 {
+    [Authorize]
     public class ArtistsController : Controller
     {
         private readonly IArtistService artistService;
@@ -16,6 +18,7 @@ namespace RidePal.WEB.Controllers
             this.artistService = artistService;
         }
 
+       
         [HttpGet]
         public async Task<IActionResult> Index()
         {

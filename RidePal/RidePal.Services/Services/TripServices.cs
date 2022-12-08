@@ -56,6 +56,10 @@ namespace RidePal.Services.Services
 
         public async Task<TripDTO> PostAsync(TripDTO obj)
         {
+            if (obj == null)
+            {
+                throw new InvalidOperationException(Constants.NOT_ENOUGH_PARAMETERS_PASSED);
+            }
             var trip = new Trip
             {
                 StartPoint = obj.StartPoint,
@@ -68,10 +72,6 @@ namespace RidePal.Services.Services
 
             };
 
-            if (trip == null)
-            {
-                throw new InvalidOperationException(Constants.NOT_ENOUGH_PARAMETERS_PASSED);
-            }
             context.Trips.Add(trip);
 
             await context.SaveChangesAsync();

@@ -1,5 +1,6 @@
 ﻿using RidePal.Data.Models;
 using System.Collections.Generic;
+using Windows.UI.Xaml;
 
 namespace RidePal.Tests.Helpers
 {
@@ -368,6 +369,40 @@ namespace RidePal.Tests.Helpers
                         AudienceId = 1,
                         IsDeleted = false,
                     }
+                };
+            }
+        }
+
+        public static List<Trip> Trips
+        {
+            get
+            {
+                return new List<Trip>()
+                {
+                    new Trip
+                    {
+                        Id = 1,
+                        StartCoordinates = "43.197612,27.1911387,9",
+                        DestinationCoordinates = "42.8948797,23.3691453,8.39",
+                        Duration = 313,
+                        Distance = 441,
+                        Destination = "София,България",
+                        StartPoint = "Варна,България",
+                        IsDeleted = false
+                    },
+
+                    new Trip
+                    {
+                        Id = 2,
+                        StartCoordinates = "42.72203,25.0066316,8",
+                        DestinationCoordinates = "43.197612,27.1911387,9",
+                        Duration = 253,
+                        Distance = 369,
+                        Destination = "Варна,България",
+                        StartPoint = "Пловдив,България",
+                        IsDeleted = false
+                    },
+
                 };
             }
         }

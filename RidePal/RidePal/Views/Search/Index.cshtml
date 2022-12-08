@@ -15,12 +15,12 @@ Purchase:
 <body>
     @{
         if (this.Model.Tracks.Count() == 0 && this.Model.Users.Count() == 0
-            && this.Model.Albums.Count() == 0 && this.Model.Artists.Count() == 0
-            && this.Model.Playlists.Count() == 0)
+        && this.Model.Albums.Count() == 0 && this.Model.Artists.Count() == 0
+        && this.Model.Playlists.Count() == 0)
         {
             <center style="margin-top: 140px;">
                 <div class="ms_heading">
-                        <h1>No Results Found For: @this.ViewData["search"] &#128531;</h1>
+                    <h1>No Results Found For: @this.ViewData["search"] &#128531;</h1>
                 </div>
             </center>
         }
@@ -37,12 +37,11 @@ Purchase:
                 </div>
                 <div class="album_list_wrapper">
                     <ul class="album_list_name">
-                        <li>#</li>
+                        <li class="track_number">#</li>
                         <li>Song Title</li>
+                        <li class="empty_col">&nbsp;</li>
                         <li>Artist</li>
                         <li class="text-center">Duration</li>
-                        <li class="text-center">Add To Favourites</li>
-                        <li class="text-center">More</li>
                     </ul>
                     @{
                         int count = 1;
@@ -55,17 +54,11 @@ Purchase:
                             t1.Seconds);
 
                             <ul>
-                                <li><a onclick="DZ.player.playTracks([@item.Id]); return false;"><span class="play_no">@count</span><span class="play_hover"></span></a></li>
+                                <li class="track_number"><a onclick="DZ.player.playTracks([@item.Id]); return false;"><span class="play_no">@count</span><span class="play_hover"></span></a></li>
                                 <li><a href="#">@item.Title</a></li>
+                                <li class="empty_col">&nbsp;</li>
                                 <li><a asp-controller="Artists" asp-action="Artist" asp-route-id="@item.ArtistId">@item.Artist.Name</a></li>
                                 <li class="text-center"><a href="#">@duration1</a></li>
-                                <li class="text-center"><a href="#"><span class="ms_icon1 ms_fav_icon"></span></a></li>
-                                <li class="text-center ms_more_icon">
-                                    <a href="javascript:;"><span class="ms_icon1 ms_active_icon"></span></a>
-                                    <ul class="more_option">
-                                        <li><a href="#"><span class="opt_icon"><span class="icon icon_fav"></span></span>Add To Favourites</a></li>
-                                    </ul>
-                                </li>
                             </ul>
 
                             count++;
@@ -83,17 +76,11 @@ Purchase:
                                     t2.Minutes,
                                     t2.Seconds);
                                     <ul>
-                                        <li><a onclick="DZ.player.playTracks([@item.Id]); return false;"><span class="play_no">@count</span><span class="play_hover"></span></a></li>
+                                        <li class="track_number"><a onclick="DZ.player.playTracks([@item.Id]); return false;"><span class="play_no">@count</span><span class="play_hover"></span></a></li>
                                         <li><a href="#">@item.Title</a></li>
+                                        <li class="empty_col">&nbsp;</li>
                                         <li><a asp-controller="Artists" asp-action="Artist" asp-route-id="@item.ArtistId">@item.Artist.Name</a></li>
                                         <li class="text-center"><a href="#">@duration2</a></li>
-                                        <li class="text-center"><a href="#"><span class="ms_icon1 ms_fav_icon"></span></a></li>
-                                        <li class="text-center ms_more_icon">
-                                            <a href="javascript:;"><span class="ms_icon1 ms_active_icon"></span></a>
-                                            <ul class="more_option">
-                                                <li><a href="#"><span class="opt_icon"><span class="icon icon_fav"></span></span>Add To Favourites</a></li>
-                                            </ul>
-                                        </li>
                                     </ul>
                                     count++;
                                 }
@@ -102,14 +89,14 @@ Purchase:
                     </div>
                 </div>
             </div>
-            
-            if(this.Model.Tracks.Count() > 5)
+
+            if (this.Model.Tracks.Count() > 5)
             {
                 <div id="show" class="ms_view_more padder_bottom20">
                     <a id="viewMoreBtn" class="ms_btn">view more</a>
                 </div>
             }
-            
+
         }
     }
 
@@ -131,12 +118,14 @@ Purchase:
                                 {
                                     <div class="col-lg-2 col-md-6">
                                         <div class="ms_rcnt_box marger_bottom30">
-                                            <div class="ms_rcnt_box_img">
-                                                <img src="@item.ImagePathMedium" alt="" class="img-fluid">
-                                                <div class="ms_main_overlay">
-                                                    <div class="ms_box_overlay"></div>
+                                            <a asp-controller="Artists" asp-action="Artist" asp-route-id="@item.Id">
+                                                <div class="ms_rcnt_box_img">
+                                                    <img src="@item.ImagePathMedium" alt="" class="img-fluid">
+                                                    <div class="ms_main_overlay">
+                                                        <div class="ms_box_overlay"></div>
+                                                    </div>
                                                 </div>
-                                            </div>
+                                            </a>
                                             <div class="ms_rcnt_box_text">
                                                 <h3><a asp-controller="Artists" asp-action="Artist" asp-route-id="@item.Id">@item.Name</a></h3>
                                             </div>
@@ -169,17 +158,19 @@ Purchase:
                                 foreach (var item in this.Model.Albums)
                                 {
                                     <div class="col-lg-2 col-md-6">
-                                        <div class="ms_rcnt_box marger_bottom30">
-                                            <div class="ms_rcnt_box_img">
-                                                <img src="@item.ImagePath" alt="" class="img-fluid">
-                                                <div class="ms_main_overlay">
-                                                    <div class="ms_box_overlay"></div>
+                                        <a asp-controller="Albums" asp-action="Album" asp-route-id="@item.Id">
+                                            <div class="ms_rcnt_box marger_bottom30">
+                                                <div class="ms_rcnt_box_img">
+                                                    <img src="@item.ImagePath" alt="" class="img-fluid">
+                                                    <div class="ms_main_overlay">
+                                                        <div class="ms_box_overlay"></div>
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div class="ms_rcnt_box_text">
-                                                <h3><a asp-controller="Albums" asp-action="Album" asp-route-id="@item.Id">@item.Name</a></h3>
-                                                <p>@item.ArtistName</p>
-                                            </div>
+                                        </a>
+                                        <div class="ms_rcnt_box_text">
+                                            <h3><a asp-controller="Albums" asp-action="Album" asp-route-id="@item.Id" style="color:#3bc8e7">@item.Name</a></h3>
+                                            <a asp-controller="Artists" asp-action="Artist" asp-route-id="@item.ArtistId"><p style="margin-bottom:10px">@item.ArtistName</p></a>
                                         </div>
                                     </div>
                                 }
@@ -212,15 +203,17 @@ Purchase:
                                 {
                                     <div class="col-lg-2 col-md-6">
                                         <div class="ms_rcnt_box marger_bottom30">
-                                            <div class="ms_rcnt_box_img">
-                                                <img src="@item.ImagePath" alt="" class="img-fluid">
-                                                <div class="ms_main_overlay">
-                                                    <div class="ms_box_overlay"></div>
+                                            <a asp-controller="Playlist" asp-action="Index" asp-route-title="@item.Name">
+                                                <div class="ms_rcnt_box_img">
+                                                    <img src="@item.ImagePath" alt="" class="img-fluid">
+                                                    <div class="ms_main_overlay">
+                                                        <div class="ms_box_overlay"></div>
+                                                    </div>
                                                 </div>
-                                            </div>
+                                            </a>
                                             <div class="ms_rcnt_box_text">
-                                                <h3><a asp-controller="Playlist" asp-action="Index" asp-route-title="@item.Name">@item.Name</a></h3>
-                                                <p>@item.Author.Username</p>
+                                                <h3><a asp-controller="Playlist" asp-action="Index" asp-route-title="@item.Name" style="color:#3bc8e7">@item.Name</a></h3>
+                                                <a asp-controller="User" asp-action="Index" asp-route-email="@item.Author.Email"><p>@item.Author.Username</p></a>
                                                 @{
                                                     TimeSpan t1 = TimeSpan.FromSeconds(item.Duration);
 
@@ -260,12 +253,14 @@ Purchase:
                                 {
                                     <div class="col-lg-2 col-md-6">
                                         <div class="ms_rcnt_box marger_bottom30">
-                                            <div class="ms_rcnt_box_img">
-                                                <img src="@item.ImagePath" alt="" class="img-fluid">
-                                                <div class="ms_main_overlay">
-                                                    <div class="ms_box_overlay"></div>
+                                            <a asp-controller="User" asp-action="Index" asp-route-email="@item.Email">
+                                                <div class="ms_rcnt_box_img">
+                                                    <img src="@item.ImagePath" alt="" class="img-fluid">
+                                                    <div class="ms_main_overlay">
+                                                        <div class="ms_box_overlay"></div>
+                                                    </div>
                                                 </div>
-                                            </div>
+                                            </a>
                                             <div class="ms_rcnt_box_text">
                                                 <h3><a asp-controller="User" asp-action="Index" asp-route-email="@item.Email">@item.Username</a></h3>
                                             </div>

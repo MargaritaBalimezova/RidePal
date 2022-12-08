@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using RidePal.Models;
 using RidePal.Services.Interfaces;
 using RidePal.WEB.Models;
@@ -7,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace RidePal.WEB.Controllers
 {
+    [Authorize]
     public class AlbumsController : Controller
     {
         private readonly IAlbumService albumService;
@@ -15,6 +17,7 @@ namespace RidePal.WEB.Controllers
         {
             this.albumService = albumService;
         }
+
         public IActionResult Index()
         {
             return View();
