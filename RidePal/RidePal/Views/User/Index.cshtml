@@ -7,12 +7,13 @@
 <!----User Profile Section Start---->
 <div class="ms_album_single_wrapper ms_artist_single">
     <div class="album_single_data">
-        <div class="album_single_img">
-            <img src="@this.Model.ImagePath" alt="" class="img-fluid">
+        <div class="album_single_img ms_rcnt_box_img">
+            <img src="@this.Model.ImagePath" alt="" class="img-fluid" style="max-width:200px; max-height:200px">
+
         </div>
         <div class="album_single_text">
             <h2>@this.Model.Username</h2>
-            <p class="singer_name">@this.Model.FirstName @this.Model.LastName</p>
+            <p class="singer_name" style="color:#3bc8e7">@this.Model.FirstName @this.Model.LastName</p>
             <div class="about_artist">
                 @this.Model.Email
             </div>
@@ -55,7 +56,6 @@
             </div>
         </div>
     </div>
-
 </div>
 @if (this.Model.Email == this.User.Identity.Name)
 {
@@ -128,6 +128,8 @@
     }
 }
 <!---Main Content Start--->
+@if (this.Model.Playlists.Where(x => x.Audience.Name == "Public").Count() > 0)
+{
 <div class="ms_content_wrapper ms_artist_content">
     <div class="ms_featured_slider">
         <div class="ms_heading">
@@ -142,7 +144,7 @@
                         <div class="swiper-slide">
                             <div class="ms_rcnt_box">
                                 <div class="ms_rcnt_box_img">
-                                    <img src="@playlist.ImagePath" alt="" style="max-height:200px;min-height:200px;">
+                                    <img src="@playlist.ImagePath" alt="" style="max-height:210px;min-height:210px;">
                                     <div class="ms_main_overlay">
                                         @if (this.Model.Friends.Any(x => x.Email == this.User.Identity.Name) || this.User.HasClaim(x => x.Value == "Admin"))
                                         {
@@ -157,7 +159,7 @@
                                     </div>
                                 </div>
                                 <div class="ms_rcnt_box_text">
-                                    <h3><a asp-action="Index" asp-controller="Playlist" asp-route-title="@playlist.Name">@playlist.Name</a></h3>
+                                    <h3><a asp-action="Index" asp-controller="Playlist" asp-route-title="@playlist.Name" style="padding-left:5px">@playlist.Name</a></h3>
                                 </div>
                             </div>
                         </div>
@@ -169,8 +171,10 @@
             <div class="swiper-button-prev1 slider_nav_prev"></div>
         </div>
     </div>
-</div>
+</div>}
 <!----Friends Playlist---->
+@if (this.Model.Playlists.Where(x => x.Audience.Name == "Friends").Count() > 0)
+{
 @if (this.Model.Friends.Any(x => x.Email == this.User.Identity.Name) || this.User.HasClaim(x => x.Value == "Admin") || this.User.Identity.Name == this.Model.Email)
 {
     <div class="ms_content_wrapper ms_artist_content">
@@ -180,13 +184,13 @@
             </div>
             <div class="ms_relative_inner">
                 <div class="ms_feature_slider swiper-container">
-                    <div class="ms_feature_slider swiper-container">
+                    <div class="swiper-wrapper">
                         @foreach (var playlist in this.Model.Playlists.Where(x => x.Audience.Name == "Friends"))
                         {
                             <div class="swiper-slide">
                                 <div class="ms_rcnt_box">
                                     <div class="ms_rcnt_box_img">
-                                        <img src="@playlist.ImagePath" alt="" style="max-height:200px;min-height:200px;">
+                                        <img src="@playlist.ImagePath" alt="" style="max-height:210px;min-height:210px;">
                                         <div class="ms_main_overlay">
 
                                             @if (this.Model.Friends.Any(x => x.Email == this.User.Identity.Name) || this.User.HasClaim(x => x.Value == "Admin"))
@@ -216,24 +220,27 @@
         </div>
     </div>
 }
-@if (this.Model.Email == this.User.Identity.Name || this.User.HasClaim(x => x.Value == "Admin"))
+}
+@if (this.Model.Playlists.Where(x => x.Audience.Name == "Private").Count() > 0)
 {
-    <div class="ms_content_wrapper ms_artist_content">
-        <!----Private Playlists---->
-        <div class="ms_featured_slider">
-            <div class="ms_heading">
-                <h1>Private Playlists</h1>
-            </div>
+    @if (this.Model.Email == this.User.Identity.Name || this.User.HasClaim(x => x.Value == "Admin"))
+    {
+        <div class="ms_content_wrapper ms_artist_content">
+            <!----Private Playlists---->
+            <div class="ms_featured_slider">
+                <div class="ms_heading">
+                    <h1>Private Playlists</h1>
+                </div>
 
-            <div class="ms_relative_inner">
-                <div class="ms_feature_slider swiper-container">
-                    <div class="swiper-wrapper">
-                        @foreach (var playlist in this.Model.Playlists.Where(x => x.Audience.Name == "Private"))
-                        {                            
+                <div class="ms_relative_inner">
+                    <div class="ms_feature_slider swiper-container">
+                        <div class="swiper-wrapper">
+                            @foreach (var playlist in this.Model.Playlists.Where(x => x.Audience.Name == "Private"))
+                            {
                                 <div class="swiper-slide">
                                     <div class="ms_rcnt_box">
                                         <div class="ms_rcnt_box_img">
-                                            <img src="@playlist.ImagePath" alt="" style="max-height:200px;min-height:200px;">
+                                            <img src="@playlist.ImagePath" alt="" style="max-height:210px;min-height:210px;">
                                             <div class="ms_main_overlay">
                                                 <div class="ms_more_icon">
                                                     <img src="~/Images/svg/more.svg" alt="">
@@ -249,15 +256,16 @@
                                             <h3><a asp-action="Index" asp-controller="Playlist" asp-route-title="@playlist.Name">@playlist.Name</a></h3>
                                         </div>
                                     </div>
-                                </div>                            
-                        }
+                                </div>
+                            }
+                        </div>
                     </div>
+                    <!-- Add Arrows -->
+                    <div class="swiper-button-next1 slider_nav_next"></div>
+                    <div class="swiper-button-prev1 slider_nav_prev"></div>
                 </div>
-                <!-- Add Arrows -->
-                <div class="swiper-button-next1 slider_nav_next"></div>
-                <div class="swiper-button-prev1 slider_nav_prev"></div>
             </div>
         </div>
-    </div>
+    }
 }
 

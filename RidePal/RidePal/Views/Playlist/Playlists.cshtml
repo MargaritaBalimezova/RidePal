@@ -104,7 +104,7 @@
                                             </div>
                                             <div class="ms_rcnt_box_text">
                                                 <h3><a asp-controller="Playlist" asp-action="Index" asp-route-title="@item.Name" style="color:#3bc8e7">@item.Name</a></h3>
-                                                <a asp-controller="Artists" asp-action="Artist" asp-route-id="@item.Author.Id"><p>@item.Author.Username</p></a>
+                                                <a asp-controller="User" asp-action="Index" asp-route-id="@item.Author.Email"><p>@item.Author.Username</p></a>
                                                 @{
                                                     TimeSpan t1 = TimeSpan.FromSeconds(item.Duration);
 
