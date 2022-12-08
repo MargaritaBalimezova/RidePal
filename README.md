@@ -2,11 +2,26 @@
 
 Playlist generator for your travel.
 
-
 # Project Description
 
 RidePal enables your users to
 generate playlists for specific travel duration periods based on their preferred genres. Uppon login users can browse other public playlist, songs, artists, albums and connect with friends in Ridepal system.
+
+# 🖥️ Website
+![Webpage](./images/HomePageDesktop.png)
+
+# 🚪 How to install 
+```diff
+ To use this application you will need the following tools:
+    - Visual Studio 2019 or newer
+    - Microsoft SQL Server
+    
++ 1. Download the project
+  2. Open the .sln file
+  3. Setup database migration
+  4. Open package manager and run Update-Database command
+  5. Start the project 
+```
 
 # Functional Requirments 
 generate playlists for specific travel duration periods based on their preferred genres.
