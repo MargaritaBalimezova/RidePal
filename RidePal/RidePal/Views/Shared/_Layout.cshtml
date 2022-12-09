@@ -199,8 +199,8 @@
                 @if (!this.User.Identity.IsAuthenticated)
                 {
                     <div class="ms_top_btn">
-                        <a class="ms_btn login_btn" data-bs-toggle="modal" data-bs-target="#myModal1"><span>Sign In</span></a>
-                        <a class="ms_btn reg_btn" data-bs-toggle="modal" data-bs-target="#myModal2"><span>Sign Up</span></a>
+                        <a class="ms_btn login_btn" asp-action="Login" asp-controller="Auth"><span>Sign In</span></a>
+                        <a class="ms_btn reg_btn" asp-action="Register" asp-controller="Auth"><span>Sign Up</span></a>
                     </div>
                 }
 
@@ -223,7 +223,7 @@
                 }
             </div>
         </div>
-        <div id="myModal1" class="modal  centered-modal" role="dialog">
+        @*<div id="myModal1" class="modal  centered-modal" role="dialog">
             <form id="loginModal" asp-action="LoginModal" asp-controller="Auth" data-ajax="true" data-ajax-method="POST"
                   data-ajax-success="FormError">
                 <div class="modal-dialog login_dialog">
@@ -262,10 +262,10 @@
                 </div>
             </form>
         </div>
-        <div id="SignUp" class="modal"></div>
+        <div id="SignUp" class="modal"></div>*@
     </div>
     @RenderBody()
-    <script>
+    @*<script>
         function FormError(result) {
             debugger;
             if (result.includes("<!DOCTYPE html>")) {
@@ -292,7 +292,7 @@
             let element = div.getAttribute("hidden");
             div.removeAttribute(element);
         }
-    </script>
+    </script>*@
     <!--Main js file Style-->
     @*<script type="text/javascript" src="~/js/jquery.min.js"></script>*@
     <script type="text/javascript" src="~/js/bootstrap.min.js"></script>

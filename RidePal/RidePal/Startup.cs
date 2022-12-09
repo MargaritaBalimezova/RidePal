@@ -40,7 +40,7 @@ namespace RidePal
             services.AddAutoMapper(cfg => cfg.AddProfile<RidePalProfile>());
             services.AddDbContext<RidePalContext>(options =>
             {
-                options.UseSqlServer(Configuration.GetConnectionString("Default"));
+                options.UseSqlServer(Configuration.GetConnectionString("Local"));
                 options.EnableSensitiveDataLogging();
             });
 

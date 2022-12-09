@@ -8,7 +8,7 @@ namespace RidePal.WEB.Models
         public string Credential { get; set; }
 
         [Required]
-        [MinLength(8, ErrorMessage = "Email/username and password combination doesn't match")]
+        [MinLength(8, ErrorMessage = "Password should be at least 8 characters")]
         public string Password { get; set; }
 
         public bool RememberMe { get; set; }

@@ -1,84 +1,6 @@
 ﻿@using RidePal.WEB.Models
 
 @model LoginViewModel
-@*
-<section class="vh-100">
-    <div class="container h-100">
-        <div class="row d-flex justify-content-center align-items-center h-100">
-            <div class="col-lg-12 col-xl-11">
-                <div class="card text-black" style="border-radius: 25px;">
-                    <div class="card-body p-md-5">
-                        <div class="row justify-content-center">
-                            <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
-
-                                <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Sign up</p>
-
-                                <form class="mx-1 mx-md-4" asp-action="Login" asp-controller="Auth">
-
-                                    <div class="d-flex flex-row align-items-center mb-4">
-                                        <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
-                                        <div class="form-outline flex-fill mb-0">
-                                            <label class="form-label" for="form3Example3c">Email or Username</label>
-                                            <input asp-for="Credential" type="text" id="form3Example3c" class="form-control" />
-                                            <span asp-validation-for="Credential"></span>
-                                        </div>
-                                    </div>
-
-                                    <div class="d-flex flex-row align-items-center mb-4">
-                                        <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
-                                        <div class="form-outline flex-fill mb-0">
-                                            <label class="form-label" for="form3Example4c">Password</label>
-                                            <input asp-for="Password" type="password" id="form3Example4c" class="form-control" />
-                                        </div>
-                                    </div>
-
-                                    <input asp-for="RememberMe" type="checkbox" />
-                                    <label>Remember me</label>
-
-                                    <span asp-validation-for="IsEmailConfirmed"></span>
-                                    <span asp-validation-for="IsBlocked"></span>
-
-                                    <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
-                                        <input type="submit" class="btn btn-primary btn-lg" value="Sign In">
-                                    </div>
-
-                                </form>
-
-                                <div class="d-flex flex-row align-items-center mb-4">
-                                    <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
-                                    <div class="form-outline flex-fill mb-0">
-                                        <a asp-controller="Auth" asp-action="LoginWithGoogle" class="google"><i class="fa fa-google"></i> Sign in with Google</a>
-                                    </div>
-                                </div>
-
-                                <div class="d-flex flex-row align-items-center mb-4">
-                                    <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
-                                    <div class="form-outline flex-fill mb-0">
-                                        <a asp-controller="Auth" asp-action="ForgotPassword" class="google">Forgot yout password?</a>
-                                    </div>
-                                </div>
-
-                                <div class="d-flex flex-row align-items-center mb-4">
-                                    <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
-                                    <div class="form-outline flex-fill mb-0">
-                                        <a asp-controller="Auth" asp-action="ConfirmEmail" class="google">Resend email confirmation</a>
-                                    </div>
-                                </div>
-
-                            </div>
-                            <div class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
-
-                                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/draw1.webp"
-                                     class="img-fluid" alt="Sample image">
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>*@
 
 <html lang="en">
 <head>
@@ -110,7 +32,8 @@
                     <span asp-validation-for="Credential" class="validation"></span>
                     <input id="email" asp-for="Credential" type="text" placeholder="Enter Your Email" class="form-control">
                 </div>
-                <div class="form-group">
+                <div class="form-group">                    
+                    <span asp-validation-for="Password" class="validation"></span>
                     <input id="password" asp-for=Password type="password" placeholder="Enter Password" class="form-control">
                 </div>
                 <div class="remember_checkbox">
