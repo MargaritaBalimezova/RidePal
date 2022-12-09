@@ -136,6 +136,8 @@ namespace RidePal.Services.Services
 
             await db.Users.ForEachAsync(x => x.ReceivedFriendRequests.Where(x => x.SenderId == userToDelete.Id).ToList().ForEach(x => x.IsDeleted = true));
 
+            await db.Users.ForEachAsync(x => x.Playlists.Where(x => x.IsDeleted == false).ToList().ForEach(x => x.IsDeleted = true));
+
             await db.SaveChangesAsync();
 
             return mapper.Map<UserDTO>(userToDelete);
