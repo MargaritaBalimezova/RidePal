@@ -52,7 +52,7 @@ namespace RidePal.WEB.Controllers
             }
             catch (Exception ex)
             {
-                return RedirectToPage("Error", new ErrorViewModel { RequestId = ex.Message });
+                return View("Error", new ErrorViewModel { RequestId = ex.Message });
             }
         }
 
@@ -126,7 +126,7 @@ namespace RidePal.WEB.Controllers
             }
             catch (Exception ex)
             {
-                return RedirectToPage("Error", new ErrorViewModel { RequestId = ex.Message });
+                return View("Error", new ErrorViewModel { RequestId = ex.Message });
             }
         }
 
@@ -148,7 +148,7 @@ namespace RidePal.WEB.Controllers
             }
             catch (Exception ex)
             {
-                return RedirectToPage("Error", new ErrorViewModel { RequestId = ex.Message });
+                return View("Error", new ErrorViewModel { RequestId = ex.Message });
             }
         }
 
@@ -188,7 +188,7 @@ namespace RidePal.WEB.Controllers
             }
             catch (Exception ex)
             {
-                return RedirectToPage("Error", new ErrorViewModel { RequestId = ex.Message });
+                return View("Error", new ErrorViewModel { RequestId = ex.Message });
             }
         }
 

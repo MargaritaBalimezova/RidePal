@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RidePal.Data.Models;
+using RidePal.Models;
 using RidePal.Services.DTOModels;
 using RidePal.Services.Helpers;
 using RidePal.Services.Interfaces;
@@ -220,7 +221,7 @@ namespace RidePal.Web.Controllers
 
                 var user = new User
                 {
-                    Username = newUser.Username,
+                    Email = newUser.Email,
                 };
 
                 await userService.GenerateEmailConfirmationTokenAsync(user);
@@ -269,7 +270,7 @@ namespace RidePal.Web.Controllers
             {
                 var user = await authHelper.TryLogin(model.Credential, model.Password);
 
-                if (user == null)
+                if (user.IsEmailConfirmed == false)
                 {
                     this.ModelState.AddModelError("Credential", "You have to confirm your email.");
                     return this.View(model);
@@ -329,7 +330,7 @@ namespace RidePal.Web.Controllers
                 this.ModelState.AddModelError("Credential", "Incorrect combination of email/username and password.");
                 return this.View(model);
             }
-
+            
             return this.RedirectToAction("Index", "Home");
         }
 
@@ -548,94 +549,131 @@ namespace RidePal.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> ResendEmail(EmailConfirmModel model)
         {
-            var user = new User
+            try
             {
-                Email = model.Email
-            };
 
-            await userService.GenerateEmailConfirmationTokenAsync(user);
-            return View("ConfirmEmail", new EmailConfirmModel { EmailSent = true, Email = model.Email });
+                var user = new User
+                {
+                    Email = model.Email
+                };
+
+                await userService.GenerateEmailConfirmationTokenAsync(user);
+                return View("ConfirmEmail", new EmailConfirmModel { EmailSent = true, Email = model.Email });
+            }
+            catch (Exception)
+            {
+                return View("ConfirmEmail", new EmailConfirmModel { EmailSent = false});
+            }
         }
 
         [HttpGet("confirm-email")]
         public async Task<IActionResult> ConfirmEmail(string uid, string token, bool resendLink = false)
         {
-            EmailConfirmModel model = new EmailConfirmModel();
+            try
+            {
+                EmailConfirmModel model = new EmailConfirmModel();
 
-            if (!string.IsNullOrEmpty(uid) && !string.IsNullOrEmpty(token))
-            {
-                token = token.Replace(' ', '+');
-                if (await userService.ConfirmEmailAsync(uid, token))
+                if (!string.IsNullOrEmpty(uid) && !string.IsNullOrEmpty(token))
                 {
-                    model.EmailVerified = true;
+                    token = token.Replace(' ', '+');
+                    if (await userService.ConfirmEmailAsync(uid, token))
+                    {
+                        model.EmailVerified = true;
+                    }
                 }
+                if (resendLink)
+                {
+                    model.EmailSent = false;
+                }
+                else
+                {
+                    model.EmailSent = true;
+                }
+                return View(model);
             }
-            if (resendLink)
+            catch (Exception ex)
             {
-                model.EmailSent = false;
+                return View("Error", new ErrorViewModel { RequestId = ex.Message });
             }
-            else
-            {
-                model.EmailSent = true;
-            }
-            return View(model);
         }
 
         [HttpPost("confirm-email")]
         public async Task<IActionResult> ConfirmEmail(EmailConfirmModel model)
         {
-            var user = await userService.GetUserDTOByEmailAsync(model.Email);
-
-            if (user != null)
+            try
             {
-                user.IsEmailConfirmed = model.IsConfirmed;
+                var user = await userService.GetUserDTOByEmailAsync(model.Email);
 
-                if (user.IsEmailConfirmed)
+                if (user != null)
                 {
-                    model.EmailVerified = true;
-                    return View(model);
-                }
+                    user.IsEmailConfirmed = model.IsConfirmed;
 
-                await userService.GenerateEmailConfirmationTokenAsync(mapper.Map<User>(user));
-                model.EmailSent = true;
-                ModelState.Clear();
+                    if (user.IsEmailConfirmed)
+                    {
+                        model.EmailVerified = true;
+                        return View(model);
+                    }
+
+                    await userService.GenerateEmailConfirmationTokenAsync(mapper.Map<User>(user));
+                    model.EmailSent = true;
+                    ModelState.Clear();
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Something went wrong.");
+                }
+                return View(model);
             }
-            else
+            catch (Exception ex)
             {
-                ModelState.AddModelError("", "Something went wrong.");
+                return View("Error", new ErrorViewModel { RequestId = ex.Message });
             }
-            return View(model);
+
         }
 
         [HttpGet("reset-password")]
         [AllowAnonymous]
         public IActionResult ResetPassword(string uid, string token)
         {
-            ResetPasswordModel resetPasswordModel = new ResetPasswordModel
+            try
             {
-                Token = token,
-                UserId = uid
-            };
-            return View(resetPasswordModel);
+                ResetPasswordModel resetPasswordModel = new ResetPasswordModel
+                {
+                    Token = token,
+                    UserId = uid
+                };
+                return View(resetPasswordModel);
+            }
+            catch (Exception ex)
+            {
+                return View("Error", new ErrorViewModel { RequestId = ex.Message });
+            }
         }
 
         [HttpPost("reset-password")]
         [AllowAnonymous]
         public async Task<IActionResult> ResetPassword(ResetPasswordModel model)
         {
-            if (ModelState.IsValid)
+            try
             {
-                model.Token = model.Token.Replace(' ', '+');
-                var result = await userService.ResetPasswordAsync(model);
-                if (result)
+                if (ModelState.IsValid)
                 {
-                    ModelState.Clear();
-                    model.IsSuccess = true;
-                    return View(model);
+                    model.Token = model.Token.Replace(' ', '+');
+                    var result = await userService.ResetPasswordAsync(model);
+                    if (result)
+                    {
+                        ModelState.Clear();
+                        model.IsSuccess = true;
+                        return View(model);
+                    }
+                    ModelState.AddModelError("", "Can't change password");
                 }
-                ModelState.AddModelError("", "Can't change password");
+                return View(model);
             }
-            return View(model);
+            catch (Exception)
+            {
+                return View(model);
+            }
         }
 
         #endregion Email actions
